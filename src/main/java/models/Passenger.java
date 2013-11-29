@@ -132,5 +132,12 @@ public class Passenger {
     public void setDetails(String details) {
         this.details = details;
     }
+
+    @Override
+    public String toString() {
+        return "Passenger{" + "label=" + label + ", color=" + color + ", shape=" + shape + ", name=" + name + ", surname=" + surname + ", adres=" + adres + ", postalCode=" + postalCode + ", city=" + city + ", residentAdres=" + residentAdres + ", residentPostalCode=" + residentPostalCode + ", residentCity=" + residentCity + ", details=" + details + '}';
+    }
+    
+    
     
 }

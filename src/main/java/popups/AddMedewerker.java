@@ -167,7 +167,8 @@ public class AddMedewerker extends javax.swing.JFrame {
             //System.out.println("sssss");
             ex.printStackTrace();
         }
-        System.out.print("");
+        dispose();
+       
     }//GEN-LAST:event_saveButtonActionPerformed
 
     private void nameTextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nameTextFieldActionPerformed
