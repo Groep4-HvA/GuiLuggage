@@ -50,7 +50,7 @@ public class AddLuggage extends javax.swing.JFrame {
         detailsTextField = new javax.swing.JTextArea();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("guiluggage/Bundle"); // NOI18N
+        java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("Bundle"); // NOI18N
         setTitle(bundle.getString("AddLuggage.title")); // NOI18N
 
         java.util.ResourceBundle bundle1 = java.util.ResourceBundle.getBundle("Bundle"); // NOI18N

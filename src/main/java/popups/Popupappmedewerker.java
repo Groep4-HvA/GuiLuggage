@@ -42,7 +42,7 @@ public class Popupappmedewerker extends javax.swing.JFrame {
 
         java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("Bundle"); // NOI18N
         jLabel1.setText(bundle.getString("Popupappmedewerker.jLabel1.text")); // NOI18N
-        java.util.ResourceBundle bundle1 = java.util.ResourceBundle.getBundle("popups/Bundle"); // NOI18N
+        java.util.ResourceBundle bundle1 = java.util.ResourceBundle.getBundle("Bundle"); // NOI18N
         jLabel1.setToolTipText(bundle1.getString("Popupappmedewerker.jLabel1.toolTipText")); // NOI18N
 
         jLabel3.setText(bundle.getString("Popupappmedewerker.jLabel3.text")); // NOI18N

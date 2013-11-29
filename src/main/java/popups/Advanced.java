@@ -63,7 +63,7 @@ public class Advanced extends javax.swing.JFrame {
         jLabel5.setText(bundle.getString("Advanced.jLabel5.text")); // NOI18N
 
         searchAdvanced.setText(bundle.getString("Advanced.searchAdvanced.text")); // NOI18N
-        java.util.ResourceBundle bundle1 = java.util.ResourceBundle.getBundle("popups/Bundle"); // NOI18N
+        java.util.ResourceBundle bundle1 = java.util.ResourceBundle.getBundle("Bundle"); // NOI18N
         searchAdvanced.setActionCommand(bundle1.getString("Advanced.searchAdvanced.actionCommand")); // NOI18N
         searchAdvanced.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
