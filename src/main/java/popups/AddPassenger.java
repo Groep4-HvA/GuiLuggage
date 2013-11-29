@@ -4,7 +4,11 @@
  */
 package popups;
 
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import models.Passenger;
+import models.PassengerDAO;
 import models.printJob;
 
 /**
@@ -328,8 +332,20 @@ public class AddPassenger extends javax.swing.JFrame {
         details = detailsTextfield.getText();
         
         newPassenger = new Passenger(label,color,shape,name,surname,adres,postalCode,city,residentAdres,residentPostalCode,residentCity,details);
+        PassengerDAO test = new PassengerDAO();
+        try {
+            //        try {
+            //            test.create(newPassenger);
+            //        } catch (Exception ex) {
+            //            //System.out.println("sssss");
+            //            ex.printStackTrace();
+            //        }
+              test.create(newPassenger);
+        } catch (SQLException ex) {
+            Logger.getLogger(AddPassenger.class.getName()).log(Level.SEVERE, null, ex);
+        }
         
-        System.out.println(newPassenger.toString());
+        dispose();
     }//GEN-LAST:event_saveButtonActionPerformed
 
     private void cancelButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelButtonActionPerformed
