@@ -44,8 +44,9 @@ public class logIn extends javax.swing.JFrame {
         errorLabel = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-
         java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("Bundle"); // NOI18N
+        setTitle(bundle.getString("login.title")); // NOI18N
+
         jLabel1.setText(bundle.getString("logIn.jLabel1.text")); // NOI18N
 
         jLabel2.setText(bundle.getString("logIn.jLabel2.text")); // NOI18N

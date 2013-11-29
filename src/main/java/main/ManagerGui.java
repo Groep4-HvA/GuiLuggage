@@ -51,13 +51,14 @@ public class ManagerGui extends java.awt.Frame {
         jTextField2 = new javax.swing.JTextField();
         jButton2 = new javax.swing.JButton();
 
+        java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("Bundle"); // NOI18N
+        setTitle(bundle.getString("managerMain.title")); // NOI18N
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowClosing(java.awt.event.WindowEvent evt) {
                 exitForm(evt);
             }
         });
 
-        java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("Bundle"); // NOI18N
         moreButton.setText(bundle.getString("ManagerGui.moreButton.text")); // NOI18N
         moreButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {

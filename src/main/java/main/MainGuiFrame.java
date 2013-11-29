@@ -64,16 +64,16 @@ public class MainGuiFrame extends java.awt.Frame {
         logoutButton = new javax.swing.JButton();
         LabelDescription = new javax.swing.JLabel();
 
+        java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("Bundle"); // NOI18N
+        setTitle(bundle.getString("medewerkerMain.title")); // NOI18N
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowClosing(java.awt.event.WindowEvent evt) {
                 exitForm(evt);
             }
         });
 
-        java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("Bundle"); // NOI18N
         advanced.setText(bundle.getString("MainGuiFrame.advanced.text")); // NOI18N
-        java.util.ResourceBundle bundle1 = java.util.ResourceBundle.getBundle("Bundle"); // NOI18N
-        advanced.setToolTipText(bundle1.getString("MainGuiFrame.advanced.toolTipText")); // NOI18N
+        advanced.setToolTipText(bundle.getString("MainGuiFrame.advanced.toolTipText")); // NOI18N
         advanced.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 advancedActionPerformed(evt);
@@ -84,7 +84,7 @@ public class MainGuiFrame extends java.awt.Frame {
         searchInput.setForeground(new java.awt.Color(102, 102, 102));
         searchInput.setRows(1);
         searchInput.setText(bundle.getString("MainGuiFrame.searchInput.text")); // NOI18N
-        searchInput.setToolTipText(bundle1.getString("MainGuiFrame.searchInput.toolTipText")); // NOI18N
+        searchInput.setToolTipText(bundle.getString("MainGuiFrame.searchInput.toolTipText")); // NOI18N
         searchInput.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
                 searchInputFocusGained(evt);
@@ -105,7 +105,7 @@ public class MainGuiFrame extends java.awt.Frame {
         });
 
         addNewButton2.setText("Add new: "+ button2);
-        addNewButton2.setToolTipText(bundle1.getString("MainGuiFrame.addNewButton2.toolTipText")); // NOI18N
+        addNewButton2.setToolTipText(bundle.getString("MainGuiFrame.addNewButton2.toolTipText")); // NOI18N
         addNewButton2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 clickedButton2(evt);
@@ -165,7 +165,7 @@ public class MainGuiFrame extends java.awt.Frame {
         });
 
         LabelDescription.setText(bundle.getString("MainGuiFrame.LabelDescription.text")); // NOI18N
-        LabelDescription.setToolTipText(bundle1.getString("MainGuiFrame.LabelDescription.toolTipText")); // NOI18N
+        LabelDescription.setToolTipText(bundle.getString("MainGuiFrame.LabelDescription.toolTipText")); // NOI18N
 
         org.jdesktop.layout.GroupLayout jPanel2Layout = new org.jdesktop.layout.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
