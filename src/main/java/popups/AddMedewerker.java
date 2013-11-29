@@ -17,6 +17,7 @@ public class AddMedewerker extends javax.swing.JFrame {
     private String name;
     private String username;
     private boolean appManager;
+    private static boolean manager;
     private char[] password;
     private char[] confirmPassword;
     private java.util.ResourceBundle resBundle = java.util.ResourceBundle.getBundle("Bundle");
@@ -24,10 +25,11 @@ public class AddMedewerker extends javax.swing.JFrame {
     /**
      * Creates new form AddMedewerker
      */
-    public AddMedewerker() {
+    public AddMedewerker(boolean manager) {
+        this.manager = manager;
         initComponents();
     }
-    public static AddMedewerker form = new AddMedewerker();
+    public static AddMedewerker form = new AddMedewerker(manager);
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -174,7 +176,7 @@ public class AddMedewerker extends javax.swing.JFrame {
 
         if (Arrays.equals(confirmPassword, password)) {
             errorText.setText("");
-            nieuweMedewerker = new Medewerker(name, username, password, appManager);
+            nieuweMedewerker = new Medewerker(username, password, name, "EN", manager, appManager);
             MedewerkerDAO test = new MedewerkerDAO();
             try {
                 test.create(nieuweMedewerker);

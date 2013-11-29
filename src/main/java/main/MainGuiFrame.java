@@ -100,7 +100,7 @@ public class MainGuiFrame extends java.awt.Frame {
         addNewButton1.setText("Add new: " + button1);
         addNewButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                clickedButton1(evt);
+                addNewButton1ActionPerformed(evt);
             }
         });
 
@@ -108,7 +108,7 @@ public class MainGuiFrame extends java.awt.Frame {
         addNewButton2.setToolTipText(bundle.getString("MainGuiFrame.addNewButton2.toolTipText")); // NOI18N
         addNewButton2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                clickedButton2(evt);
+                addNewButton2ActionPerformed(evt);
             }
         });
 
@@ -315,26 +315,6 @@ public class MainGuiFrame extends java.awt.Frame {
         }
     }//GEN-LAST:event_appManagementButtonActionPerformed
 
-    private void clickedButton2(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_clickedButton2
-        AddPassenger gui3 = new AddPassenger();
-        AddMedewerker gui2 = new AddMedewerker();
-        if (inBeheer) {
-            gui2.setVisible(true);
-        } else {
-            gui3.setVisible(true);
-        }
-    }//GEN-LAST:event_clickedButton2
-
-    private void clickedButton1(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_clickedButton1
-        AddLuggage gui = new AddLuggage();
-        AddMedewerker gui2 = new AddMedewerker();
-        if (inBeheer) {
-            gui2.setVisible(true);
-        } else {
-            gui.setVisible(true);
-        }
-    }//GEN-LAST:event_clickedButton1
-
     private void myAccountButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_myAccountButtonActionPerformed
 
         passOverlay.pack();
@@ -374,6 +354,27 @@ public class MainGuiFrame extends java.awt.Frame {
         searchInput.setText("search");
         searchInput.setForeground(grey);
     }//GEN-LAST:event_searchInputFocusLost
+
+    private void addNewButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addNewButton1ActionPerformed
+        if (inBeheer) {
+            AddMedewerker gui = new AddMedewerker(true);
+            gui.setVisible(true);
+        } else {
+            AddPassenger gui = new AddPassenger();
+            gui.setVisible(true);
+        }
+    }//GEN-LAST:event_addNewButton1ActionPerformed
+
+    private void addNewButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addNewButton2ActionPerformed
+        AddPassenger gui3 = new AddPassenger();
+        AddMedewerker gui2 = new AddMedewerker(false);
+        if (inBeheer) {
+            gui2.setVisible(true);
+        } else {
+            gui3.setVisible(true);
+        }
+    }//GEN-LAST:event_addNewButton2ActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel LabelDescription;
     private javax.swing.JButton addNewButton1;
