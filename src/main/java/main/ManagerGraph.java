@@ -234,17 +234,6 @@ private PasswordConfirm passOverlay = new PasswordConfirm(new javax.swing.JFrame
         main.setVisible(true);
         dispose();
     }
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new ManagerGraph(false).setVisible(true);
-                
-            }
-        });
-    }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JFormattedTextField beginGraph;
     private javax.swing.JFormattedTextField endGraph;

@@ -256,18 +256,6 @@ public class ManagerGui extends java.awt.Frame {
         logOut.setVisible(true);
     }//GEN-LAST:event_logoutButtonActionPerformed
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            @Override
-            public void run() {
-                new ManagerGui(false).setVisible(true);
-
-            }
-        });
-    }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton foundManager;
     private javax.swing.JButton graphManager;
