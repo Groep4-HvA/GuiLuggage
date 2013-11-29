@@ -4,10 +4,7 @@
  */
 package popups;
 
-import java.sql.SQLException;
 import java.util.Arrays;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import models.Medewerker;
 import models.MedewerkerDAO;
 
@@ -17,13 +14,13 @@ import models.MedewerkerDAO;
  */
 public class AddMedewerker extends javax.swing.JFrame {
 
-    
     private String name;
     private String username;
     private boolean appManager;
     private char[] password;
     private char[] confirmPassword;
-    private  java.util.ResourceBundle resBundle = java.util.ResourceBundle.getBundle("Bundle");
+    private java.util.ResourceBundle resBundle = java.util.ResourceBundle.getBundle("Bundle");
+
     /**
      * Creates new form AddMedewerker
      */
@@ -31,6 +28,7 @@ public class AddMedewerker extends javax.swing.JFrame {
         initComponents();
     }
     public static AddMedewerker form = new AddMedewerker();
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -173,8 +171,8 @@ public class AddMedewerker extends javax.swing.JFrame {
         password = firstPasswordField.getPassword();
         confirmPassword = confirmPasswordField.getPassword();
         appManager = appManagerCheckBox.isSelected();
-        
-        if(Arrays.equals(confirmPassword, password)){
+
+        if (Arrays.equals(confirmPassword, password)) {
             errorText.setText("");
             nieuweMedewerker = new Medewerker(name, username, password, appManager);
             MedewerkerDAO test = new MedewerkerDAO();
@@ -182,7 +180,7 @@ public class AddMedewerker extends javax.swing.JFrame {
                 test.create(nieuweMedewerker);
                 String success = resBundle.getString("addSuccess").replaceAll("%&", "medewerker");
                 errorText.setText(success);
-                System.err.println(success);
+                dispose();
             } catch (Exception ex) {
                 //System.out.println("sssss");
                 ex.printStackTrace();
@@ -190,7 +188,7 @@ public class AddMedewerker extends javax.swing.JFrame {
                 System.err.println(dbFailure);
                 errorText.setText(dbFailure);
             }
-        }else{
+        } else {
             errorText.setText(resBundle.getString("errorPassNotEqual"));
         }
     }//GEN-LAST:event_saveButtonActionPerformed
@@ -238,9 +236,6 @@ public class AddMedewerker extends javax.swing.JFrame {
     public String toString() {
         return "AddMedewerker{" + "name=" + name + ", username=" + username + ", appManager=" + appManager + ", password=" + password + ", confirmPassword=" + confirmPassword + '}';
     }
-    
-    
-    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JCheckBox appManagerCheckBox;
     private javax.swing.ButtonGroup buttonGroup1;
