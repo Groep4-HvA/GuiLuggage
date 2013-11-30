@@ -4,7 +4,11 @@
  */
 package popups;
 
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import models.Luggage;
+import models.LuggageDAO;
 
 /**
  *
@@ -158,9 +162,17 @@ public class AddLuggage extends javax.swing.JFrame {
         location = locationTextField.getText();
         details = detailsTextField.getText();
         
-        newLuggage = new Luggage(label, color, shape, location, details);
         
-        System.out.println(newLuggage.toString());
+        newLuggage = new Luggage(label, color, shape, location, details);
+        LuggageDAO test = new LuggageDAO();
+        
+        try {
+            test.create(newLuggage);
+        } catch (SQLException ex) {
+            Logger.getLogger(AddLuggage.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        dispose();
     }//GEN-LAST:event_SaveActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
