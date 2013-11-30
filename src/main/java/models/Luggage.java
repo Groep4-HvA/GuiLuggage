@@ -23,6 +23,11 @@ public class Luggage {
         this.details = details;
     }
 
+    Luggage() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+
     public String getLabel() {
         return label;
     }
@@ -62,6 +67,10 @@ public class Luggage {
     public void setDetails(String details) {
         this.details = details;
     }
-    
+
+    @Override
+    public String toString() {
+        return "Luggage{" + "label=" + label + ", color=" + color + ", shape=" + shape + ", location=" + location + ", details=" + details + '}';
+    }
     
 }
