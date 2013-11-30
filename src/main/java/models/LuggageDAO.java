@@ -51,5 +51,85 @@ public class LuggageDAO {
         }
         return -1;
     }
+        /* NEEDS TO GET FROM BOTH TABLES PASSENGERS AND LUGGAGE FIRST
+        public List<Luggage> readAll() throws SQLException {
         
+        List<Luggage> list = new LinkedList<Luggage>();
+        ResultSet rs = null;
+        PreparedStatement prdstmt = null;
+        
+        String query = "SELECT LABELNUMBER, COLOR, SHAPE, STORAGELOCATION, ADDITIONALDETAILS, STATUS,HANDLERID, ADDDATE FROM LUGGAGE";
+        
+        prdstmt = conn.getConnection().prepareStatement(query);
+        rs = conn.performSelect(prdstmt);
+        
+         while (rs.next()) {
+            Luggage tempLuggage = new Luggage();//constructor was needed in Luggage class? Requesting someone qualified to check Luggage constructor.
+            tempLuggage.setLabel(rs.getString("label"));
+            tempLuggage.setColor(rs.getString("color"));
+            tempLuggage.setShape(rs.getString("shape"));
+            tempLuggage.setLocation(rs.getString("location"));
+            tempLuggage.setDetails(rs.getString("details"));
+            list.add(tempLuggage);
+            }
+
+        if (conn != null) {
+            conn.closeConnection();
+        }
+        return list;
+    }
+    */
+        public int update(Luggage luggage) throws SQLException {
+        PreparedStatement prdstmt = null;
+            String query = "UPDATE LUGGAGE"
+                    + "SET labelNumber=?, color?, shape=?, storageLocation=?, additionalDetails=?, status=?"
+                    + "FROM luggage"
+                    + "INNER JOIN passengers"
+                    + "ON luggage.labelNumber=passengers.labelNumber"
+                    + "UPDATE PASSENGERS"
+                    + "SET name=?, surname=?, homeAddress=?, homePostalCode=?, homeCity=?, residentAddress=?, residentPostalCode=?, residentCity=?,color=?,shape?,additionalDetails=?, labelNumber?"
+                    + "INNER JOIN luggage"
+                    + "ON luggage.labelNumber=passengers.labelNumber";
+        query += " WHERE labelNumber=?";
+
+        conn.startConnection();
+        
+        prdstmt = conn.getConnection().prepareStatement(query);
+        
+        
+        /*
+        prdstmt.setString(1, luggage.getLabel());
+        prdstmt.setString(2, luggage.getColor());
+        prdstmt.setString(3, luggage.getShape());
+        prdstmt.setString(4, luggage.getLocation()); 
+        prdstmt.setString(5, luggage.getDetails());
+        */
+        prdstmt.executeUpdate();
+
+        if (conn != null) {
+            conn.closeConnection();
+        }
+        return -1;
+    }
+        public int delete(Luggage luggage) throws SQLException {
+        PreparedStatement prdstmt = null;
+        String query = "UPDATE LUGGAGE SET labelNumber=?, color=?,shape=?,storageLocation=?,additionalDetails=? ";
+        query += " WHERE labelNumber=?";
+        
+        conn.startConnection();
+        
+        prdstmt.setString(1, luggage.getLabel());
+        prdstmt.setString(2, luggage.getColor());
+        prdstmt.setString(3, luggage.getShape());
+        prdstmt.setString(4, luggage.getLocation()); 
+        prdstmt.setString(5, luggage.getDetails());
+        
+        prdstmt.executeUpdate();
+        if (conn != null) {
+            conn.closeConnection();
+        }
+        return -1;
+    }
 }
+
+        
