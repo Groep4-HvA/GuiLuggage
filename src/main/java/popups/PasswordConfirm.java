@@ -4,21 +4,24 @@
  */
 package popups;
 
+import java.awt.Color;
 import java.awt.Toolkit;
 import java.awt.event.WindowEvent;
+import javax.swing.BorderFactory;
 
 /**
  *
  * @author workplz
  */
 public class PasswordConfirm extends javax.swing.JDialog {
-
+    private final Color red = new Color(163, 0, 15);
     /**
      * Creates new form PasswordConfirm
      */
     public PasswordConfirm(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         this.setUndecorated(true);
+        getRootPane().setBorder( BorderFactory.createLineBorder(red) );
         initComponents();
         this.setLocationRelativeTo(null);
     }

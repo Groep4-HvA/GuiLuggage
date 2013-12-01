@@ -20,6 +20,7 @@ import java.awt.Color;
 public class MainGuiFrame extends java.awt.Frame {
 
     private final PasswordConfirm passOverlay = new PasswordConfirm(new javax.swing.JFrame(), true);
+    private final java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("Bundle"); // NOI18N
     /**
      * Creates new form MainGuiFrame
      */
@@ -35,9 +36,10 @@ public class MainGuiFrame extends java.awt.Frame {
      */
     public MainGuiFrame(boolean value) {
         beheer = value;
-        button1 = (inBeheer)?"Medewerker" : "Luggage";
-        button2 = (inBeheer)?"Manager"    : "Passenger";
+        button1 = (inBeheer)? bundle.getString("Medewerker"): bundle.getString("Luggage");
+        button2 = (inBeheer)? bundle.getString("Manager")   : bundle.getString("Passenger");
         initComponents();
+        this.setLocationRelativeTo(null);
         appManagementButton.setVisible(beheer);
         searchInput.requestFocusInWindow();
     }
@@ -260,10 +262,10 @@ public class MainGuiFrame extends java.awt.Frame {
         if (beheer) {
             if (inBeheer) {
                 inBeheer = false;
-                addNewButton1.setText("Add new: " + button1);
-                addNewButton2.setText("Add new: " + button2);
-                appManagementButton.setText("Application Management");
-                LabelDescription.setText("Search labelnumber:");
+                addNewButton1.setText(bundle.getString("MainGuiFrame.addNew") + button1);
+                addNewButton2.setText(bundle.getString("MainGuiFrame.addNew") + button2);
+                appManagementButton.setText(bundle.getString("MainGuiFrame.beheerButtonOn"));
+                LabelDescription.setText("Search:");
                 
                 // first row
                 tableResults.getModel().setValueAt("ASL19MNL", 0, 0);
@@ -287,10 +289,10 @@ public class MainGuiFrame extends java.awt.Frame {
                 tableResults.getColumnModel().getColumn(3).setHeaderValue("Date");
             } else {
                 inBeheer = true;
-                addNewButton1.setText("Add new: Manager");
-                addNewButton2.setText("Add new: Medewerker");
-                appManagementButton.setText("Overzicht");
-                LabelDescription.setText("Search name:");
+                addNewButton1.setText(bundle.getString("MainGuiFrame.addNew")+bundle.getString("Manager"));
+                addNewButton2.setText(bundle.getString("MainGuiFrame.addNew")+bundle.getString("Medewerker"));
+                appManagementButton.setText(bundle.getString("MainGuiFrame.beheerButtonOff"));
+                LabelDescription.setText("Search:");
                 
                 // first row
                 tableResults.getModel().setValueAt("Chris", 0, 0);
@@ -314,7 +316,7 @@ public class MainGuiFrame extends java.awt.Frame {
                 tableResults.getColumnModel().getColumn(3).setHeaderValue("Date");
             }
         }else{
-            System.out.print("You are not authorized!");
+            System.out.print(bundle.getString("notAuthorized"));
         }
     }//GEN-LAST:event_appManagementButtonActionPerformed
 

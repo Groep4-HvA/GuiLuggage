@@ -1,18 +1,13 @@
 package DBUtil;
 
-import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.sql.SQLException;
-import java.sql.Statement;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.util.Enumeration;
 import java.util.Properties;
-import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -22,9 +17,9 @@ import java.util.logging.Logger;
  */
 public class ConnectionMySQL {
     public static String DRIVER = "com.mysql.jdbc.Driver";
-    public static String DBURL; //= "jdbc:mysql://seanmoy58.fiftyeight.axc.nl/seanmoy58_hva";
-    public static String DBUSER;// = "seanmoy58_hva";
-    public static String DBPASS;// = "cWCl7Itb";
+    public static String DBURL;
+    public static String DBUSER;
+    public static String DBPASS;
 
     private ResultSet result = null;
     private int affectedRows = -1;

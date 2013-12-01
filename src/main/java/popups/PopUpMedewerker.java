@@ -4,6 +4,8 @@
  */
 package popups;
 
+import java.awt.Color;
+import javax.swing.BorderFactory;
 import models.printJob;
 
 /**
@@ -11,12 +13,15 @@ import models.printJob;
  * @author Jeroen
  */
 public class PopUpMedewerker extends javax.swing.JFrame {
-
+    private final Color red = new Color(163, 0, 15);
     /**
      * Creates new form PopUpMedewerker
      */
     public PopUpMedewerker() {
+        this.setUndecorated(true);
+        getRootPane().setBorder( BorderFactory.createLineBorder(red) );
         initComponents();
+        this.setLocationRelativeTo(null);
     }
 
     /**
@@ -150,8 +155,8 @@ public class PopUpMedewerker extends javax.swing.JFrame {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(printButton)
-                                .addGap(322, 322, 322)
-                                .addComponent(saveButton, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(304, 304, 304)
+                                .addComponent(saveButton, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(cancelButton))
                             .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
