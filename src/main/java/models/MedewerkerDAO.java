@@ -3,10 +3,8 @@
  * and open the template in the editor.
  */
 package models;
-import org.apache.commons.codec.digest.DigestUtils;
 
 import DBUtil.ConnectionMySQL;
-import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -18,14 +16,7 @@ import java.util.List;
  * @author ChrisvanderHeijden
  */
 public class MedewerkerDAO {
-    //private Medewerker tempMedewerker = null;
     ConnectionMySQL conn = new ConnectionMySQL();
-   // PreparedStatement ps = null;
- //   ResultSet rs = null;
-    
-//    private String user = "seanmoy58_hva";
-//    private String pw = "cWCl7Itb";
-//    private String url = "jdbc:mysql://seanmoy58.fiftyeight.axc.nl:3306/seanmoy58_hva?zeroDateTimeBehavior=convertToNull";
 
     public MedewerkerDAO() {
         // initialization 

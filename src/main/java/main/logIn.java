@@ -6,6 +6,7 @@ package main;
 
 import java.awt.Dimension;
 import java.awt.Toolkit;
+import java.io.File;
 import java.sql.SQLException;
 import java.util.List;
 import java.util.logging.Level;
@@ -25,6 +26,7 @@ public class logIn extends javax.swing.JFrame {
      * Creates new form logIn
      */
     public logIn() {
+        System.err.println();
         Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
         this.setLocation(dim.width/2-this.getSize().width/2, dim.height/2-this.getSize().height/2);
         initComponents();
