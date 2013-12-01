@@ -23,6 +23,7 @@ public class MainGuiFrame extends java.awt.Frame {
     /**
      * Creates new form MainGuiFrame
      */
+    private int i=0;
     private String button1;
     private String button2;
     private boolean inBeheer = false;
@@ -119,6 +120,7 @@ public class MainGuiFrame extends java.awt.Frame {
             }
         });
 
+        tableResults.setAutoCreateRowSorter(true);
         tableResults.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {"ASL19MNL", "found", "grey", "29/10/2013"},
@@ -131,6 +133,7 @@ public class MainGuiFrame extends java.awt.Frame {
                 "label", "status", "color", "date"
             }
         ));
+        tableResults.setShowVerticalLines(false);
         tableResults.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 tableResultsMouseClicked(evt);
@@ -316,11 +319,9 @@ public class MainGuiFrame extends java.awt.Frame {
     }//GEN-LAST:event_appManagementButtonActionPerformed
 
     private void myAccountButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_myAccountButtonActionPerformed
-
         passOverlay.pack();
         passOverlay.setVisible(true);
         passOverlay.setLocationRelativeTo(null);
-        // TODO add your handling code here:
     }//GEN-LAST:event_myAccountButtonActionPerformed
 
     private void tableResultsKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tableResultsKeyPressed
@@ -334,6 +335,7 @@ public class MainGuiFrame extends java.awt.Frame {
     }//GEN-LAST:event_logoutButtonActionPerformed
 
     private void tableResultsMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tableResultsMouseClicked
+        int i=0;
         if (inBeheer) {
             Popupappmedewerker popup1 = new Popupappmedewerker();
             popup1.setVisible(true);
