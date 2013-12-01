@@ -22,6 +22,7 @@ private PasswordConfirm passOverlay = new PasswordConfirm(new javax.swing.JFrame
     public ManagerGraph(boolean value) {
         beheer = value;
         initComponents();
+        this.setLocationRelativeTo(null);
     }
     /**
      * This method is called from within the constructor to initialize the form.

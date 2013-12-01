@@ -36,6 +36,7 @@ public class AddPassenger extends javax.swing.JFrame {
      */
     public AddPassenger() {
         initComponents();
+        this.setLocationRelativeTo(null);
     }
 
     /**

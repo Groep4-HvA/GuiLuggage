@@ -28,6 +28,7 @@ public class AddMedewerker extends javax.swing.JFrame {
     public AddMedewerker(boolean manager) {
         this.manager = manager;
         initComponents();
+        this.setLocationRelativeTo(null);
     }
     public static AddMedewerker form = new AddMedewerker(manager);
 

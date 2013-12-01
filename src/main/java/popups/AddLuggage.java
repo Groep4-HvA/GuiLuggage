@@ -27,6 +27,7 @@ public class AddLuggage extends javax.swing.JFrame {
      */
     public AddLuggage() {
         initComponents();
+        this.setLocationRelativeTo(null);
     }
 
     /**
