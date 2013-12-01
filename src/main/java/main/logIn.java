@@ -6,7 +6,13 @@ package main;
 
 import java.awt.Dimension;
 import java.awt.Toolkit;
-import java.util.Arrays;
+import java.sql.SQLException;
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import models.Medewerker;
+import models.MedewerkerDAO;
+import org.apache.commons.codec.digest.DigestUtils;
 
 /**
  *
@@ -114,37 +120,33 @@ public class logIn extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void LogInActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_LogInActionPerformed
-        String[] users = {"medewerker", "medewerker2", "manager"};
         String username = userName.getText();
-        char[] pass = passWord.getPassword();
-        if (isPasswordCorrect(pass) && Arrays.asList(users).contains(username)) {
-            MainGuiFrame main = new MainGuiFrame((username.equals("medewerker2")));
-            ManagerGui main2 = new ManagerGui((username.equals("medewerker2")));
-//            System.out.println("1."+main.beheer);
-            if ("medewerker".equals(username)) {main.setVisible(true);}
-            else if ("medewerker2".equals(username)) {main.setVisible(true);}
-            else if ("manager".equals(username)) {main2.setVisible(true);}
-//            System.out.println("2."+main.beheer);
+        String password = DigestUtils.sha256Hex(String.valueOf(passWord.getPassword()));
+        
+        MedewerkerDAO dbMedewerker = new MedewerkerDAO();
+        List<Medewerker> list = null;
+        try {
+            list = dbMedewerker.readLogIn(username, password);
+        } catch (SQLException ex) {
+            Logger.getLogger(logIn.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        System.out.println();
+        if(list.size()==1){
+            Medewerker medew = list.get(0);
+            System.out.println(medew.toString());
+            if(medew.isManager()){
+                ManagerGui main = new ManagerGui(medew.isAppManager());
+                main.setVisible(true);
+            }else{
+                MainGuiFrame main = new MainGuiFrame(medew.isAppManager());
+                main.setVisible(true);
+            }
             dispose();
-        } else {
+        }else {
             errorLabel.setText("Invalid username/password. Please try again.");
         }
     }//GEN-LAST:event_LogInActionPerformed
-    private static boolean isPasswordCorrect(char[] input) {
-        boolean isCorrect;
-        char[] correctPassword = {'1', '2', '3', '4', '5', '6'};
 
-        if (input.length != correctPassword.length) {
-            isCorrect = false;
-        } else {
-            isCorrect = Arrays.equals(input, correctPassword);
-        }
-
-        //Zero out the password.
-        Arrays.fill(correctPassword, '0');
-
-        return isCorrect;
-    }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton LogIn;
     private javax.swing.JLabel errorLabel;

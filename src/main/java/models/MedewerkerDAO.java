@@ -36,7 +36,7 @@ public class MedewerkerDAO {
         ResultSet rs = null;
         PreparedStatement prdstmt = null;
 
-        String query = "SELECT userName,userRealName, userPass, userBeheer FROM Users";
+        String query = "SELECT `userName`, `userRealName`, `userPass`, `userBeheer`, `userLang` FROM `Users`;";
 
         conn.startConnection();
 
@@ -45,10 +45,10 @@ public class MedewerkerDAO {
 
         while (rs.next()) {
             Medewerker tempMedewerker = new Medewerker();
-            tempMedewerker.setName(rs.getString("name"));
-            tempMedewerker.setUsername(rs.getString("username"));
-//            tempMedewerker.setPassword(rs.DigestUtils.sha1Hex(String.valueOf("password")));
-            tempMedewerker.setAppManager(rs.getBoolean("appManager"));
+            tempMedewerker.setName(rs.getString("userRealName"));
+            tempMedewerker.setUsername(rs.getString("userName"));
+            tempMedewerker.setPassword(rs.getString("userPass"));
+            tempMedewerker.setAppManager(rs.getBoolean("userBeheer"));
             list.add(tempMedewerker);
         }
 
@@ -90,10 +90,46 @@ public class MedewerkerDAO {
 //
 //      //  return tempMedewerker;
 //    }
+    
+    
+    
+    public List<Medewerker> readLogIn(String user, String pass) throws SQLException {
+        List<Medewerker> list = new LinkedList<Medewerker>();
+        ResultSet rs = null;
+        PreparedStatement prdstmt = null;
 
+        String query = "SELECT * FROM `Users` WHERE userName=? AND userPass=?;";
+
+        conn.startConnection();
+
+        prdstmt = conn.getConnection().prepareStatement(query);
+        prdstmt.setString(1, user);
+        prdstmt.setString(2, pass);
+        rs = conn.performSelect(prdstmt);
+
+        while (rs.next()) {
+            Medewerker tempMedewerker = new Medewerker();
+            tempMedewerker.setUsername(rs.getString("userName"));
+            tempMedewerker.setPassword(rs.getString("userPass"));
+            tempMedewerker.setName(rs.getString("userRealName"));
+            tempMedewerker.setUserLang(rs.getString("userLang"));
+            tempMedewerker.setManager(rs.getBoolean("userManager"));
+            tempMedewerker.setAppManager(rs.getBoolean("userBeheer"));
+            list.add(tempMedewerker);
+        }
+
+        if (conn != null) {
+            conn.closeConnection();
+        }
+
+        return list;
+    }
+    
+    
+    
     public int create(Medewerker medewerker) throws SQLException {
         PreparedStatement prdstmt = null;
-        String query = "INSERT INTO `Users`  ( `userName`, `userRealName`, `userPass`, `userBeheer`, `userLang`) VALUES(?,?,?,?, NULL);";
+        String query = "INSERT INTO `Users` (`userName`, `userRealName`, `userPass`, `userManager`, `userBeheer`, `userLang`) VALUES(?, ?, ?, ?, ?, ?);";
         
         conn.startConnection();
       //  conn = (ConnectionMySQL) DriverManager.getConnection(url, user, pw);
@@ -103,8 +139,9 @@ public class MedewerkerDAO {
         prdstmt.setString(1, medewerker.getUsername());
         prdstmt.setString(2, medewerker.getName());
         prdstmt.setString(3, medewerker.getPassword());
-        prdstmt.setBoolean(4,medewerker.isAppManager());
-        //preparedStmt.setString(5, medewerker.getUserLang());
+        prdstmt.setBoolean(4,medewerker.isManager());
+        prdstmt.setBoolean(5,medewerker.isAppManager());
+        prdstmt.setString(6, medewerker.getUserLang());
         prdstmt.executeUpdate();
 
         if (conn != null) {

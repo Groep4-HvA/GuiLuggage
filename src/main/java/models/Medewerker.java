@@ -9,27 +9,31 @@ import org.apache.commons.codec.digest.DigestUtils;
  * @author ChrisvanderHeijden
  */
 public class Medewerker {
-    private String name;
     private String username;
-    private boolean appManager;
     private String password;
+    //aditional info
+    private String name;
     private String userLang;
+    private boolean isManager;
+    private boolean isAppManager;
     public Medewerker() {
     }
 
-    public Medewerker(String name, String username, char[] password, boolean appManager) {
-        this.name = name;
+    public Medewerker(String username, String password, String name, String userLang, boolean isManager, boolean isAppManager) {
         this.username = username;
-        this.appManager = appManager;
-        this.password =  DigestUtils.sha256Hex(String.valueOf(password));
-        this.userLang = "EN";
+        this.password = password;
+        this.name = name;
+        this.userLang = userLang;
+        this.isManager = isManager;
+        this.isAppManager = isAppManager;
     }
-
-    public Medewerker(String name, String username, char[] password) {
-        this.name = name;
+    public Medewerker(String username, char[] pass, String name, String userLang, boolean isManager, boolean isAppManager) {
         this.username = username;
-        this.password = DigestUtils.sha256Hex(String.valueOf(password));
-        this.userLang = "EN";
+        this.password = DigestUtils.sha256Hex(String.valueOf(pass));
+        this.name = name;
+        this.userLang = userLang;
+        this.isManager = isManager;
+        this.isAppManager = isAppManager;
     }
 
     public String getName() {
@@ -49,11 +53,19 @@ public class Medewerker {
     }
 
     public boolean isAppManager() {
-        return appManager;
+        return isAppManager;
     }
 
-    public void setAppManager(boolean appManager) {
-        this.appManager = appManager;
+    public void setAppManager(boolean isAppManager) {
+        this.isAppManager = isAppManager;
+    }
+
+    public boolean isManager() {
+        return isManager;
+    }
+
+    public void setManager(boolean isManager) {
+        this.isManager = isManager;
     }
 
     public String getPassword() {
@@ -72,10 +84,9 @@ public class Medewerker {
         this.userLang = userLang;
     }
 
-
     @Override
     public String toString() {
-        return "Medewerker{" + "name=" + name + ", username=" + username + ", appManager=" + appManager + ", password=" + password +  '}';
+        return "Medewerker{" + "username=" + username + ", password=" + password + ", name=" + name + ", userLang=" + userLang + ", isManager=" + isManager + ", isAppManager=" + isAppManager + '}';
     }
     
     
