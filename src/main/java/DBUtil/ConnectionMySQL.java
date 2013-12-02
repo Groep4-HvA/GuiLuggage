@@ -1,29 +1,43 @@
 package DBUtil;
 
+import java.io.FileInputStream;
+import java.io.IOException;
 import java.sql.SQLException;
-import java.sql.Statement;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.util.Properties;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
  * @author ahmed
  */
 public class ConnectionMySQL {
-
-    public static final String DRIVER = "com.mysql.jdbc.Driver";
-    public static final String DBURL = "jdbc:mysql://seanmoy58.fiftyeight.axc.nl/seanmoy58_hva";
-    public static final String DBUSER = "seanmoy58_hva";
-    public static final String DBPASS = "cWCl7Itb";
+    public static String DRIVER = "com.mysql.jdbc.Driver";
+    public static String DBURL;
+    public static String DBUSER;
+    public static String DBPASS;
 
     private ResultSet result = null;
     private int affectedRows = -1;
     Connection conn = null;
 
     
-    public ConnectionMySQL() {
+    public ConnectionMySQL(){
+        Properties prop = new Properties();
+        try {
+            prop.load(new FileInputStream(System.getProperty("user.dir")+"/Config.properties"));
+        } catch (IOException ex) {
+            Logger.getLogger(ConnectionMySQL.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        String ip = prop.getProperty("db_ip");
+        String dbName = prop.getProperty("db_name");
+        DBUSER = prop.getProperty("db_username");
+        DBPASS = prop.getProperty("db_password");
+        DBURL = "jdbc:mysql://" + ip + ":3306/" + dbName;
     }
 
     public void startConnection()  {
@@ -35,7 +49,6 @@ public class ConnectionMySQL {
             
         } catch (Exception e) {
             
-           
         }
     }
 

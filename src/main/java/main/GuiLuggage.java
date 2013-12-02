@@ -22,7 +22,6 @@ public class GuiLuggage {
         
         current = Locale.getDefault();
         System.out.println("Current language: "+current.toString());
-        ResourceBundle translation = ResourceBundle.getBundle("Bundle", english);
         logIn login = new logIn();
         login.setVisible(true);
         login.setLocationRelativeTo(null);

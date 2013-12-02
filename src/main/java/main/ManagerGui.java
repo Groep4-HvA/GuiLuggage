@@ -22,6 +22,7 @@ public class ManagerGui extends java.awt.Frame {
     public ManagerGui(boolean beheer) {
         beheer = this.beheer;
         initComponents();
+        this.setLocationRelativeTo(null);
     }
 
     /**

@@ -4,17 +4,23 @@
  */
 package popups;
 
+import java.awt.Color;
+import javax.swing.BorderFactory;
+
 /**
  *
  * @author ChrisvanderHeijden
  */
 public class Advanced extends javax.swing.JFrame {
-
+    private final Color red = new Color(163, 0, 15);
     /**
      * Creates new form Advanced
      */
     public Advanced() {
+        this.setUndecorated(true);
+        getRootPane().setBorder( BorderFactory.createLineBorder(red) );
         initComponents();
+        this.setLocationRelativeTo(null);
         getRootPane().setDefaultButton(searchAdvanced);
     }
 
