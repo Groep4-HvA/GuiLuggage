@@ -27,7 +27,7 @@ import models.PassengerDAO;
  * @author sean
  */
 public class MainGuiFrame extends java.awt.Frame {
-
+    
     private final PasswordConfirm passOverlay = new PasswordConfirm(new javax.swing.JFrame(), true);
     private final java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("Bundle"); // NOI18N
     /**
@@ -38,7 +38,7 @@ public class MainGuiFrame extends java.awt.Frame {
     private final String button2;
     private boolean inBeheer = false;
     private boolean beheer;
-
+    
     /**
      *
      * @param value
@@ -72,7 +72,7 @@ public class MainGuiFrame extends java.awt.Frame {
         tableResults.getColumnModel().getColumn(2).setHeaderValue("Color");
         tableResults.getColumnModel().getColumn(3).setHeaderValue("Shape");
     }
-
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -80,7 +80,7 @@ public class MainGuiFrame extends java.awt.Frame {
      */
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
-
+        
         jPanel2 = new javax.swing.JPanel();
         advanced = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
@@ -95,7 +95,7 @@ public class MainGuiFrame extends java.awt.Frame {
         myAccountButton = new javax.swing.JButton();
         logoutButton = new javax.swing.JButton();
         LabelDescription = new javax.swing.JLabel();
-
+        
         java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("Bundle"); // NOI18N
         setTitle(bundle.getString("medewerkerMain.title")); // NOI18N
         addWindowListener(new java.awt.event.WindowAdapter() {
@@ -103,7 +103,7 @@ public class MainGuiFrame extends java.awt.Frame {
                 exitForm(evt);
             }
         });
-
+        
         advanced.setText(bundle.getString("MainGuiFrame.advanced.text")); // NOI18N
         advanced.setToolTipText(bundle.getString("MainGuiFrame.advanced.toolTipText")); // NOI18N
         advanced.addActionListener(new java.awt.event.ActionListener() {
@@ -111,7 +111,7 @@ public class MainGuiFrame extends java.awt.Frame {
                 advancedActionPerformed(evt);
             }
         });
-
+        
         searchInput.setColumns(20);
         searchInput.setForeground(new java.awt.Color(102, 102, 102));
         searchInput.setRows(1);
@@ -126,16 +126,16 @@ public class MainGuiFrame extends java.awt.Frame {
             }
         });
         jScrollPane1.setViewportView(searchInput);
-
+        
         searchButton.setText(bundle.getString("MainGuiFrame.searchButton.text")); // NOI18N
-
+        
         addNewButton1.setText("Add new: " + button1);
         addNewButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 addNewButton1ActionPerformed(evt);
             }
         });
-
+        
         addNewButton2.setText("Add new: "+ button2);
         addNewButton2.setToolTipText(bundle.getString("MainGuiFrame.addNewButton2.toolTipText")); // NOI18N
         addNewButton2.addActionListener(new java.awt.event.ActionListener() {
@@ -143,72 +143,72 @@ public class MainGuiFrame extends java.awt.Frame {
                 addNewButton2ActionPerformed(evt);
             }
         });
-
+        
         moreButton.setText(bundle.getString("MainGuiFrame.moreButton.text")); // NOI18N
         moreButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 moreButtonActionPerformed(evt);
             }
         });
-
+        
         tableResults.setAutoCreateRowSorter(true);
         tableResults.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {"ASL19MNL", "found", "grey", "29/10/2013"},
-                {"ASL21FTR", "missing", "black", "4/11/2013"},
-                {"ASL9FUSA", "missing", "white", "1/11/2013"},
-                {null, null, null, null},
-                {null, "", null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
-            },
-            new String [] {
-                "label", "status", "color", "date"
-            }
-        ));
+                                                                      new Object [][] {
+                                                                          {"ASL19MNL", "found", "grey", "29/10/2013"},
+                                                                          {"ASL21FTR", "missing", "black", "4/11/2013"},
+                                                                          {"ASL9FUSA", "missing", "white", "1/11/2013"},
+                                                                          {null, null, null, null},
+                                                                          {null, "", null, null},
+                                                                          {null, null, null, null},
+                                                                          {null, null, null, null},
+                                                                          {null, null, null, null},
+                                                                          {null, null, null, null},
+                                                                          {null, null, null, null},
+                                                                          {null, null, null, null},
+                                                                          {null, null, null, null},
+                                                                          {null, null, null, null},
+                                                                          {null, null, null, null},
+                                                                          {null, null, null, null},
+                                                                          {null, null, null, null},
+                                                                          {null, null, null, null},
+                                                                          {null, null, null, null},
+                                                                          {null, null, null, null},
+                                                                          {null, null, null, null},
+                                                                          {null, null, null, null},
+                                                                          {null, null, null, null},
+                                                                          {null, null, null, null},
+                                                                          {null, null, null, null},
+                                                                          {null, null, null, null},
+                                                                          {null, null, null, null},
+                                                                          {null, null, null, null},
+                                                                          {null, null, null, null},
+                                                                          {null, null, null, null},
+                                                                          {null, null, null, null},
+                                                                          {null, null, null, null},
+                                                                          {null, null, null, null},
+                                                                          {null, null, null, null},
+                                                                          {null, null, null, null},
+                                                                          {null, null, null, null},
+                                                                          {null, null, null, null},
+                                                                          {null, null, null, null},
+                                                                          {null, null, null, null},
+                                                                          {null, null, null, null},
+                                                                          {null, null, null, null},
+                                                                          {null, null, null, null},
+                                                                          {null, null, null, null},
+                                                                          {null, null, null, null},
+                                                                          {null, null, null, null},
+                                                                          {null, null, null, null},
+                                                                          {null, null, null, null},
+                                                                          {null, null, null, null},
+                                                                          {null, null, null, null},
+                                                                          {null, null, null, null},
+                                                                          {null, null, null, null}
+                                                                      },
+                                                                      new String [] {
+                                                                          "label", "status", "color", "date"
+                                                                      }
+                                                                      ));
         tableResults.setShowVerticalLines(false);
         tableResults.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -221,117 +221,117 @@ public class MainGuiFrame extends java.awt.Frame {
             }
         });
         jScrollPane3.setViewportView(tableResults);
-
+        
         appManagementButton.setText(bundle.getString("MainGuiFrame.appManagementButton.text")); // NOI18N
         appManagementButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 appManagementButtonActionPerformed(evt);
             }
         });
-
+        
         myAccountButton.setText(bundle.getString("MainGuiFrame.myAccountButton.text")); // NOI18N
         myAccountButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 myAccountButtonActionPerformed(evt);
             }
         });
-
+        
         logoutButton.setText(bundle.getString("MainGuiFrame.logoutButton.text")); // NOI18N
         logoutButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 logoutButtonActionPerformed(evt);
             }
         });
-
+        
         LabelDescription.setText(bundle.getString("MainGuiFrame.LabelDescription.text")); // NOI18N
         LabelDescription.setToolTipText(bundle.getString("MainGuiFrame.LabelDescription.toolTipText")); // NOI18N
-
+        
         org.jdesktop.layout.GroupLayout jPanel2Layout = new org.jdesktop.layout.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
-            jPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-            .add(org.jdesktop.layout.GroupLayout.TRAILING, jPanel2Layout.createSequentialGroup()
-                .add(0, 0, Short.MAX_VALUE)
-                .add(advanced)
-                .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
-                .add(searchButton)
-                .addContainerGap(org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .add(jPanel2Layout.createSequentialGroup()
-                .addContainerGap(63, Short.MAX_VALUE)
-                .add(jPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                    .add(jPanel2Layout.createSequentialGroup()
-                        .add(jPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING)
-                            .add(jScrollPane1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 931, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                            .add(jPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING, false)
-                                .add(jPanel2Layout.createSequentialGroup()
-                                    .add(addNewButton1)
-                                    .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                                    .add(addNewButton2)
-                                    .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .add(moreButton))
-                                .add(jScrollPane3, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 928, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)))
-                        .add(0, 57, Short.MAX_VALUE))
-                    .add(jPanel2Layout.createSequentialGroup()
-                        .add(LabelDescription)
-                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .add(appManagementButton)
-                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                        .add(myAccountButton)
-                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                        .add(logoutButton)))
-                .addContainerGap())
-        );
+                                         jPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+                                         .add(org.jdesktop.layout.GroupLayout.TRAILING, jPanel2Layout.createSequentialGroup()
+                                              .add(0, 0, Short.MAX_VALUE)
+                                              .add(advanced)
+                                              .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
+                                              .add(searchButton)
+                                              .addContainerGap(org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                         .add(jPanel2Layout.createSequentialGroup()
+                                              .addContainerGap(63, Short.MAX_VALUE)
+                                              .add(jPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+                                                   .add(jPanel2Layout.createSequentialGroup()
+                                                        .add(jPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING)
+                                                             .add(jScrollPane1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 931, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                                                             .add(jPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING, false)
+                                                                  .add(jPanel2Layout.createSequentialGroup()
+                                                                       .add(addNewButton1)
+                                                                       .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                                                                       .add(addNewButton2)
+                                                                       .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                                                       .add(moreButton))
+                                                                  .add(jScrollPane3, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 928, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)))
+                                                        .add(0, 57, Short.MAX_VALUE))
+                                                   .add(jPanel2Layout.createSequentialGroup()
+                                                        .add(LabelDescription)
+                                                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                                        .add(appManagementButton)
+                                                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                                                        .add(myAccountButton)
+                                                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                                                        .add(logoutButton)))
+                                              .addContainerGap())
+                                         );
         jPanel2Layout.setVerticalGroup(
-            jPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-            .add(org.jdesktop.layout.GroupLayout.TRAILING, jPanel2Layout.createSequentialGroup()
-                .addContainerGap()
-                .add(jPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                    .add(jPanel2Layout.createSequentialGroup()
-                        .add(jPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
-                            .add(appManagementButton)
-                            .add(myAccountButton)
-                            .add(logoutButton))
-                        .add(20, 20, 20))
-                    .add(org.jdesktop.layout.GroupLayout.TRAILING, jPanel2Layout.createSequentialGroup()
-                        .add(LabelDescription)
-                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)))
-                .add(jScrollPane1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                .add(jPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
-                    .add(searchButton)
-                    .add(advanced))
-                .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .add(jScrollPane3, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                .add(jPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                    .add(addNewButton1)
-                    .add(jPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
-                        .add(moreButton)
-                        .add(addNewButton2)))
-                .addContainerGap(32, Short.MAX_VALUE))
-        );
-
+                                       jPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+                                       .add(org.jdesktop.layout.GroupLayout.TRAILING, jPanel2Layout.createSequentialGroup()
+                                            .addContainerGap()
+                                            .add(jPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+                                                 .add(jPanel2Layout.createSequentialGroup()
+                                                      .add(jPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
+                                                           .add(appManagementButton)
+                                                           .add(myAccountButton)
+                                                           .add(logoutButton))
+                                                      .add(20, 20, 20))
+                                                 .add(org.jdesktop.layout.GroupLayout.TRAILING, jPanel2Layout.createSequentialGroup()
+                                                      .add(LabelDescription)
+                                                      .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)))
+                                            .add(jScrollPane1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                                            .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                                            .add(jPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
+                                                 .add(searchButton)
+                                                 .add(advanced))
+                                            .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                            .add(jScrollPane3, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                                            .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                                            .add(jPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+                                                 .add(addNewButton1)
+                                                 .add(jPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
+                                                      .add(moreButton)
+                                                      .add(addNewButton2)))
+                                            .addContainerGap(32, Short.MAX_VALUE))
+                                       );
+        
         add(jPanel2, java.awt.BorderLayout.CENTER);
-
+        
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
+    
     /**
      * Exit the Application
      */
     private void exitForm(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_exitForm
         System.exit(0);
     }//GEN-LAST:event_exitForm
-
+    
     private void advancedActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_advancedActionPerformed
         Advanced advancedPopUp = new Advanced();
         advancedPopUp.setVisible(true);
     }//GEN-LAST:event_advancedActionPerformed
-
+    
     private void moreButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_moreButtonActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_moreButtonActionPerformed
-
+    
     private void appManagementButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_appManagementButtonActionPerformed
         if (beheer) {
             if (inBeheer) {
@@ -364,7 +364,7 @@ public class MainGuiFrame extends java.awt.Frame {
                 addNewButton2.setText(bundle.getString("MainGuiFrame.addNew") + bundle.getString("Medewerker"));
                 appManagementButton.setText(bundle.getString("MainGuiFrame.beheerButtonOff"));
                 LabelDescription.setText("Search:");
-
+                
                 MedewerkerDAO dbMedewerker = new MedewerkerDAO();
                 List<Medewerker> list = null;
                 try {
@@ -379,7 +379,7 @@ public class MainGuiFrame extends java.awt.Frame {
                     tableResults.getModel().setValueAt(list.get(i).isAppManager(), i, 2);
                     tableResults.getModel().setValueAt(list.get(i).isManager(), i, 3);
                 }
-
+                
                 tableResults.getColumnModel().getColumn(0).setHeaderValue("Name");
                 tableResults.getColumnModel().getColumn(1).setHeaderValue("Username");
                 tableResults.getColumnModel().getColumn(2).setHeaderValue("Appmanager");
@@ -389,23 +389,23 @@ public class MainGuiFrame extends java.awt.Frame {
             System.out.print(bundle.getString("notAuthorized"));
         }
     }//GEN-LAST:event_appManagementButtonActionPerformed
-
+    
     private void myAccountButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_myAccountButtonActionPerformed
         passOverlay.pack();
         passOverlay.setVisible(true);
         passOverlay.setLocationRelativeTo(null);
     }//GEN-LAST:event_myAccountButtonActionPerformed
-
+    
     private void tableResultsKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tableResultsKeyPressed
         // TODO add your handling code here:
     }//GEN-LAST:event_tableResultsKeyPressed
-
+    
     private void logoutButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_logoutButtonActionPerformed
         dispose();
         logIn logOut = new logIn();
         logOut.setVisible(true);
     }//GEN-LAST:event_logoutButtonActionPerformed
-
+    
     private void tableResultsMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tableResultsMouseClicked
         int i = 0;
         if (inBeheer) {
@@ -416,29 +416,29 @@ public class MainGuiFrame extends java.awt.Frame {
             popup.setVisible(true);
         }
     }//GEN-LAST:event_tableResultsMouseClicked
-
+    
     private void searchInputFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_searchInputFocusGained
         Color black = new Color(0, 0, 0);
         searchInput.setText("");
         searchInput.setForeground(black);
     }//GEN-LAST:event_searchInputFocusGained
-
+    
     private void searchInputFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_searchInputFocusLost
         Color grey = new Color(142, 142, 142);
         searchInput.setText("search");
         searchInput.setForeground(grey);
     }//GEN-LAST:event_searchInputFocusLost
-
+    
     private void addNewButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addNewButton1ActionPerformed
         if (inBeheer) {
             AddMedewerker gui = new AddMedewerker(true);
             gui.setVisible(true);
         } else {
-            AddLuggage gui = new AddLuggage();
+            AddPassenger gui = new AddPassenger();
             gui.setVisible(true);
         }
     }//GEN-LAST:event_addNewButton1ActionPerformed
-
+    
     private void addNewButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addNewButton2ActionPerformed
         AddPassenger gui3 = new AddPassenger();
         AddMedewerker gui2 = new AddMedewerker(false);
@@ -448,7 +448,7 @@ public class MainGuiFrame extends java.awt.Frame {
             gui3.setVisible(true);
         }
     }//GEN-LAST:event_addNewButton2ActionPerformed
-
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel LabelDescription;
     private javax.swing.JButton addNewButton1;
