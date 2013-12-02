@@ -1,6 +1,7 @@
 package main;
 
 import java.util.Locale;
+import javax.swing.UIManager;
 
 /**
  *
@@ -24,6 +25,12 @@ public class GuiLuggage {
         logIn login = new logIn();
         login.setVisible(true);
         login.setLocationRelativeTo(null);
+        
+        try{ 
+            UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+        }catch(Exception e){
+            e.printStackTrace();
+        }
         
     }
 }
