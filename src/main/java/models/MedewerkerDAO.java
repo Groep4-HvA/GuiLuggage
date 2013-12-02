@@ -27,7 +27,7 @@ public class MedewerkerDAO {
         ResultSet rs = null;
         PreparedStatement prdstmt = null;
 
-        String query = "SELECT `userName`, `userRealName`, `userPass`, `userBeheer`, `userLang` FROM `Users`;";
+        String query = "SELECT `userName`, `userRealName`, `userPass`, `userBeheer`, `userLang` FROM `Users` LIMIT 50";
 
         conn.startConnection();
 

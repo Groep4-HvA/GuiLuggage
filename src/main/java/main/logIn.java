@@ -120,6 +120,7 @@ public class logIn extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void LogInActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_LogInActionPerformed
+        try{
         String username = userName.getText();
         String password = DigestUtils.sha256Hex(String.valueOf(passWord.getPassword()));
         
@@ -138,12 +139,16 @@ public class logIn extends javax.swing.JFrame {
                 ManagerGui main = new ManagerGui(medew.isAppManager());
                 main.setVisible(true);
             }else{
+                
                 MainGuiFrame main = new MainGuiFrame(medew.isAppManager());
                 main.setVisible(true);
             }
             dispose();
         }else {
             errorLabel.setText("Invalid username/password. Please try again.");
+        }
+        }catch(Exception e){
+            e.printStackTrace();
         }
     }//GEN-LAST:event_LogInActionPerformed
 

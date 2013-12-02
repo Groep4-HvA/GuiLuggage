@@ -12,6 +12,14 @@ import popups.AddMedewerker;
 import popups.AddPassenger;
 import popups.PopUpMedewerker;
 import java.awt.Color;
+import java.sql.SQLException;
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import models.Medewerker;
+import models.MedewerkerDAO;
+import models.Passenger;
+import models.PassengerDAO;
 
 /**
  *
@@ -24,24 +32,52 @@ public class MainGuiFrame extends java.awt.Frame {
     /**
      * Creates new form MainGuiFrame
      */
-    private int i=0;
-    private String button1;
-    private String button2;
+    private int i = 0;
+    private final String button1;
+    private final String button2;
     private boolean inBeheer = false;
     private boolean beheer;
 
     /**
      *
      * @param value
+     * @throws java.sql.SQLException
      */
-    public MainGuiFrame(boolean value) {
+    public MainGuiFrame(boolean value) throws SQLException {
         beheer = value;
-        button1 = (inBeheer)? bundle.getString("Medewerker"): bundle.getString("Luggage");
-        button2 = (inBeheer)? bundle.getString("Manager")   : bundle.getString("Passenger");
+        button1 = (inBeheer) ? bundle.getString("Medewerker") : bundle.getString("Luggage");
+        button2 = (inBeheer) ? bundle.getString("Manager") : bundle.getString("Passenger");
         initComponents();
         this.setLocationRelativeTo(null);
         appManagementButton.setVisible(beheer);
         searchInput.requestFocusInWindow();
+
+        PassengerDAO dbPassenger = new PassengerDAO();
+        List<Passenger> list;
+        list = dbPassenger.readAll();
+
+        /*for (int x = 0; x < list.size(); x++) {
+            
+         System.out.println(list.get(x).toString());
+            
+         //tableResults.getModel().setValueAt(list.get(x).getLabel(), x, 0);
+
+         } */
+        int x = 0;
+        while (x < list.size()) {
+            System.out.println(list.get(x).toString());
+            tableResults.getModel().setValueAt(list.get(x).getLabel(), x, 0);
+            tableResults.getModel().setValueAt(list.get(x).getName(), x, 1);
+            tableResults.getModel().setValueAt(list.get(x).getColor(), x, 2);
+            tableResults.getModel().setValueAt(list.get(x).getShape(), x, 3);
+            x++;
+        }
+
+        tableResults.getColumnModel().getColumn(0).setHeaderValue("Label");
+        tableResults.getColumnModel().getColumn(1).setHeaderValue("Name");
+        tableResults.getColumnModel().getColumn(2).setHeaderValue("Color");
+        tableResults.getColumnModel().getColumn(3).setHeaderValue("Shape");
+
     }
 
     /**
@@ -125,14 +161,60 @@ public class MainGuiFrame extends java.awt.Frame {
         tableResults.setAutoCreateRowSorter(true);
         tableResults.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {"ASL19MNL", "found", "grey", "29/10/2013"},
-                {"ASL21FTR", "missing", "black", "4/11/2013"},
-                {"ASL9FUSA", "missing", "white", "1/11/2013"},
                 {null, null, null, null},
-                {null, "", null, null}
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
             },
             new String [] {
-                "label", "status", "color", "date"
+                "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
         tableResults.setShowVerticalLines(false);
@@ -183,7 +265,7 @@ public class MainGuiFrame extends java.awt.Frame {
                 .add(searchButton)
                 .addContainerGap(org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .add(jPanel2Layout.createSequentialGroup()
-                .addContainerGap(63, Short.MAX_VALUE)
+                .addContainerGap(31, Short.MAX_VALUE)
                 .add(jPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
                     .add(jPanel2Layout.createSequentialGroup()
                         .add(jPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING)
@@ -234,7 +316,7 @@ public class MainGuiFrame extends java.awt.Frame {
                     .add(jPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
                         .add(moreButton)
                         .add(addNewButton2)))
-                .addContainerGap(32, Short.MAX_VALUE))
+                .addContainerGap(21, Short.MAX_VALUE))
         );
 
         add(jPanel2, java.awt.BorderLayout.CENTER);
@@ -266,56 +348,58 @@ public class MainGuiFrame extends java.awt.Frame {
                 addNewButton2.setText(bundle.getString("MainGuiFrame.addNew") + button2);
                 appManagementButton.setText(bundle.getString("MainGuiFrame.beheerButtonOn"));
                 LabelDescription.setText("Search:");
-                
-                // first row
-                tableResults.getModel().setValueAt("ASL19MNL", 0, 0);
-                tableResults.getModel().setValueAt("found", 0, 1);
-                tableResults.getModel().setValueAt("grey", 0, 2);
-                tableResults.getModel().setValueAt("29/10/2013", 0, 3);
-                // second row
-                tableResults.getModel().setValueAt("ASL21FTR", 1, 0);
-                tableResults.getModel().setValueAt("missing", 1, 1);
-                tableResults.getModel().setValueAt("black", 1, 2);
-                tableResults.getModel().setValueAt("4//11/2013", 1, 3);
-                // third row
-                tableResults.getModel().setValueAt("ASL9FUSA", 2, 0);
-                tableResults.getModel().setValueAt("missing", 2, 1);
-                tableResults.getModel().setValueAt("white", 2, 2);
-                tableResults.getModel().setValueAt("1//11/2013", 2, 3);
-                
+                PassengerDAO dbPassenger = new PassengerDAO();
+                List<Passenger> list = null;
+                try {
+                    list = dbPassenger.readAll();
+                } catch (SQLException ex) {
+                    Logger.getLogger(logIn.class.getName()).log(Level.SEVERE, null, ex);
+                }
+              for (int i = 0; i < list.size(); i++) {
+                    System.out.println(list.get(i).toString());
+                    tableResults.getModel().setValueAt(list.get(i).getLabel(), i, 0);
+                    tableResults.getModel().setValueAt(list.get(i).getName(), i, 1);
+                    tableResults.getModel().setValueAt(list.get(i).getColor(), i, 2);
+                    tableResults.getModel().setValueAt(list.get(i).getShape(), i, 3);
+              }
                 tableResults.getColumnModel().getColumn(0).setHeaderValue("Label");
-                tableResults.getColumnModel().getColumn(1).setHeaderValue("Status");
+                tableResults.getColumnModel().getColumn(1).setHeaderValue("Name");
                 tableResults.getColumnModel().getColumn(2).setHeaderValue("Color");
-                tableResults.getColumnModel().getColumn(3).setHeaderValue("Date");
+                tableResults.getColumnModel().getColumn(3).setHeaderValue("Shape");
             } else {
                 inBeheer = true;
-                addNewButton1.setText(bundle.getString("MainGuiFrame.addNew")+bundle.getString("Manager"));
-                addNewButton2.setText(bundle.getString("MainGuiFrame.addNew")+bundle.getString("Medewerker"));
+                addNewButton1.setText(bundle.getString("MainGuiFrame.addNew") + bundle.getString("Manager"));
+                addNewButton2.setText(bundle.getString("MainGuiFrame.addNew") + bundle.getString("Medewerker"));
                 appManagementButton.setText(bundle.getString("MainGuiFrame.beheerButtonOff"));
                 LabelDescription.setText("Search:");
-                
-                // first row
-                tableResults.getModel().setValueAt("Chris", 0, 0);
-                tableResults.getModel().setValueAt("V.d heijden", 0, 1);
-                tableResults.getModel().setValueAt("Medewerker", 0, 2);
-                tableResults.getModel().setValueAt("10/10/2012", 0, 3);
-                // second row
-                tableResults.getModel().setValueAt("Sean", 1, 0);
-                tableResults.getModel().setValueAt("Molenaar", 1, 1);
-                tableResults.getModel().setValueAt("Manager", 1, 2);
-                tableResults.getModel().setValueAt("01/01/2009", 1, 3);
-                // third row
-                tableResults.getModel().setValueAt("Fatih", 2, 0);
-                tableResults.getModel().setValueAt("Cigirci", 2, 1);
-                tableResults.getModel().setValueAt("Sys. Admin", 2, 2);
-                tableResults.getModel().setValueAt("05/04/2005", 2, 3);
-                
+
+                MedewerkerDAO dbMedewerker = new MedewerkerDAO();
+                List<Medewerker> list = null;
+                try {
+                    list = dbMedewerker.readAll();
+                } catch (SQLException ex) {
+                    Logger.getLogger(logIn.class.getName()).log(Level.SEVERE, null, ex);
+                }
+
+                int x = 0;
+                while (x < list.size()) {
+                    System.out.println(list.get(x).toString());
+                    x++;
+                }
+                for (int i = 0; i < list.size(); i++) {
+                    System.out.println(list.get(i).toString());
+                    tableResults.getModel().setValueAt(list.get(i).getName(), i, 0);
+                    tableResults.getModel().setValueAt(list.get(i).getUsername(), i, 1);
+                    tableResults.getModel().setValueAt(list.get(i).isAppManager(), i, 2);
+                    tableResults.getModel().setValueAt(list.get(i).isManager(), i, 3);
+                }
+
                 tableResults.getColumnModel().getColumn(0).setHeaderValue("Name");
-                tableResults.getColumnModel().getColumn(1).setHeaderValue("Achternaam");
-                tableResults.getColumnModel().getColumn(2).setHeaderValue("Role");
-                tableResults.getColumnModel().getColumn(3).setHeaderValue("Date");
+                tableResults.getColumnModel().getColumn(1).setHeaderValue("Username");
+                tableResults.getColumnModel().getColumn(2).setHeaderValue("Appmanager");
+                tableResults.getColumnModel().getColumn(3).setHeaderValue("Manager");
             }
-        }else{
+        } else {
             System.out.print(bundle.getString("notAuthorized"));
         }
     }//GEN-LAST:event_appManagementButtonActionPerformed
@@ -337,11 +421,11 @@ public class MainGuiFrame extends java.awt.Frame {
     }//GEN-LAST:event_logoutButtonActionPerformed
 
     private void tableResultsMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tableResultsMouseClicked
-        int i=0;
+        int i = 0;
         if (inBeheer) {
             Popupappmedewerker popup1 = new Popupappmedewerker();
             popup1.setVisible(true);
-        }else{
+        } else {
             PopUpMedewerker popup = new PopUpMedewerker();
             popup.setVisible(true);
         }
