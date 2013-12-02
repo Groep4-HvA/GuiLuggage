@@ -8,6 +8,7 @@ import java.awt.Dimension;
 import java.awt.Toolkit;
 import java.sql.SQLException;
 import java.util.List;
+import models.PDFGenerator;
 import models.Passenger;
 import models.PassengerDAO;
 import models.printJob;
@@ -84,6 +85,7 @@ public class ManagerGui extends java.awt.Frame {
         jPanel1 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
+        PDF = new javax.swing.JButton();
 
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowClosing(java.awt.event.WindowEvent evt) {
@@ -219,12 +221,10 @@ public class ManagerGui extends java.awt.Frame {
         ));
         jScrollPane1.setViewportView(jTable1);
         java.util.ResourceBundle bundle1 = java.util.ResourceBundle.getBundle("main/Bundle"); // NOI18N
-        if (jTable1.getColumnModel().getColumnCount() > 0) {
-            jTable1.getColumnModel().getColumn(0).setHeaderValue(bundle1.getString("ManagerGui.jTable1.columnModel.title0")); // NOI18N
-            jTable1.getColumnModel().getColumn(1).setHeaderValue(bundle1.getString("ManagerGui.jTable1.columnModel.title1")); // NOI18N
-            jTable1.getColumnModel().getColumn(2).setHeaderValue(bundle1.getString("ManagerGui.jTable1.columnModel.title2")); // NOI18N
-            jTable1.getColumnModel().getColumn(3).setHeaderValue(bundle1.getString("ManagerGui.jTable1.columnModel.title3")); // NOI18N
-        }
+        jTable1.getColumnModel().getColumn(0).setHeaderValue(bundle1.getString("ManagerGui.jTable1.columnModel.title0")); // NOI18N
+        jTable1.getColumnModel().getColumn(1).setHeaderValue(bundle1.getString("ManagerGui.jTable1.columnModel.title1")); // NOI18N
+        jTable1.getColumnModel().getColumn(2).setHeaderValue(bundle1.getString("ManagerGui.jTable1.columnModel.title2")); // NOI18N
+        jTable1.getColumnModel().getColumn(3).setHeaderValue(bundle1.getString("ManagerGui.jTable1.columnModel.title3")); // NOI18N
 
         org.jdesktop.layout.GroupLayout jPanel1Layout = new org.jdesktop.layout.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -239,6 +239,13 @@ public class ManagerGui extends java.awt.Frame {
             .add(jScrollPane1, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 447, Short.MAX_VALUE)
         );
 
+        PDF.setText(bundle1.getString("ManagerGui.PDF.text")); // NOI18N
+        PDF.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                PDFActionPerformed(evt);
+            }
+        });
+
         org.jdesktop.layout.GroupLayout jPanel2Layout = new org.jdesktop.layout.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
@@ -250,7 +257,7 @@ public class ManagerGui extends java.awt.Frame {
                 .add(logoutButton)
                 .addContainerGap())
             .add(jPanel2Layout.createSequentialGroup()
-                .addContainerGap(60, Short.MAX_VALUE)
+                .addContainerGap(30, Short.MAX_VALUE)
                 .add(jPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
                     .add(jPanel2Layout.createSequentialGroup()
                         .add(jPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING)
@@ -269,10 +276,12 @@ public class ManagerGui extends java.awt.Frame {
                                 .add(jLabel3)
                                 .add(442, 442, 442)
                                 .add(graphManager)))
-                        .addContainerGap(60, Short.MAX_VALUE))
+                        .addContainerGap(31, Short.MAX_VALUE))
                     .add(jPanel2Layout.createSequentialGroup()
                         .add(printButton)
-                        .add(215, 215, 215)
+                        .add(18, 18, 18)
+                        .add(PDF)
+                        .add(100, 100, 100)
                         .add(jTextField1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
                         .add(jLabel4)
@@ -291,7 +300,7 @@ public class ManagerGui extends java.awt.Frame {
                 .add(jPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
                     .add(myAccountButton)
                     .add(logoutButton))
-                .add(18, 18, Short.MAX_VALUE)
+                .add(18, 25, Short.MAX_VALUE)
                 .add(jPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
                     .add(missingManager)
                     .add(processedManager)
@@ -309,8 +318,9 @@ public class ManagerGui extends java.awt.Frame {
                     .add(jTextField1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                     .add(jLabel4)
                     .add(jTextField2, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                    .add(jButton2))
-                .addContainerGap(org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .add(jButton2)
+                    .add(PDF))
+                .addContainerGap(13, Short.MAX_VALUE))
         );
 
         add(jPanel2, java.awt.BorderLayout.CENTER);
@@ -363,7 +373,17 @@ public class ManagerGui extends java.awt.Frame {
         logOut.setVisible(true);
     }//GEN-LAST:event_logoutButtonActionPerformed
 
+    private void PDFActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_PDFActionPerformed
+        String pdfje[] = {"Hello world"}; 
+        int cijfers[] = {1,4,5,6};
+        
+        PDFGenerator pdf = new PDFGenerator();
+        pdf.generate(pdfje, cijfers, cijfers, cijfers);
+        pdf.save("ExamTable.pdf");
+    }//GEN-LAST:event_PDFActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton PDF;
     private javax.swing.JButton foundManager;
     private javax.swing.JButton graphManager;
     private javax.swing.JButton jButton2;
