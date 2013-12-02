@@ -42,8 +42,9 @@ public class MainGuiFrame extends java.awt.Frame {
     /**
      *
      * @param value
+     * @throws java.sql.SQLException
      */
-    public MainGuiFrame(boolean value) {
+    public MainGuiFrame(boolean value) throws SQLException {
         beheer = value;
         button1 = (inBeheer) ? bundle.getString("Medewerker") : bundle.getString("Luggage");
         button2 = (inBeheer) ? bundle.getString("Manager") : bundle.getString("Passenger");
@@ -51,6 +52,7 @@ public class MainGuiFrame extends java.awt.Frame {
         this.setLocationRelativeTo(null);
         appManagementButton.setVisible(beheer);
         searchInput.requestFocusInWindow();
+<<<<<<< HEAD
         PassengerDAO dbPassenger = new PassengerDAO();
         List<Passenger> list = null;
         try {
@@ -67,10 +69,38 @@ public class MainGuiFrame extends java.awt.Frame {
             tableResults.getModel().setValueAt(list.get(i).getColor(), i, 0);
             tableResults.getModel().setValueAt(list.get(i).getShape(), i, 0);
         }
+=======
+
+        PassengerDAO dbPassenger = new PassengerDAO();
+        List<Passenger> list;
+        list = dbPassenger.readAll();
+
+        /*for (int x = 0; x < list.size(); x++) {
+            
+         System.out.println(list.get(x).toString());
+            
+         //tableResults.getModel().setValueAt(list.get(x).getLabel(), x, 0);
+
+         } */
+        int x = 0;
+        while (x < list.size()) {
+            System.out.println(list.get(x).toString());
+            tableResults.getModel().setValueAt(list.get(x).getLabel(), x, 0);
+            tableResults.getModel().setValueAt(list.get(x).getName(), x, 1);
+            tableResults.getModel().setValueAt(list.get(x).getColor(), x, 2);
+            tableResults.getModel().setValueAt(list.get(x).getShape(), x, 3);
+            x++;
+        }
+
+>>>>>>> ab5b4c7ebaa9eab9ed9fecb311cfaf4a2535ca7e
         tableResults.getColumnModel().getColumn(0).setHeaderValue("Label");
         tableResults.getColumnModel().getColumn(1).setHeaderValue("Name");
         tableResults.getColumnModel().getColumn(2).setHeaderValue("Color");
         tableResults.getColumnModel().getColumn(3).setHeaderValue("Shape");
+<<<<<<< HEAD
+=======
+
+>>>>>>> ab5b4c7ebaa9eab9ed9fecb311cfaf4a2535ca7e
     }
 
     /**
@@ -154,11 +184,16 @@ public class MainGuiFrame extends java.awt.Frame {
         tableResults.setAutoCreateRowSorter(true);
         tableResults.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {"ASL19MNL", "found", "grey", "29/10/2013"},
-                {"ASL21FTR", "missing", "black", "4/11/2013"},
-                {"ASL9FUSA", "missing", "white", "1/11/2013"},
                 {null, null, null, null},
+<<<<<<< HEAD
                 {null, "", null, null},
+=======
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+>>>>>>> ab5b4c7ebaa9eab9ed9fecb311cfaf4a2535ca7e
                 {null, null, null, null},
                 {null, null, null, null},
                 {null, null, null, null},
@@ -206,7 +241,7 @@ public class MainGuiFrame extends java.awt.Frame {
                 {null, null, null, null}
             },
             new String [] {
-                "label", "status", "color", "date"
+                "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
         tableResults.setShowVerticalLines(false);
@@ -257,7 +292,7 @@ public class MainGuiFrame extends java.awt.Frame {
                 .add(searchButton)
                 .addContainerGap(org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .add(jPanel2Layout.createSequentialGroup()
-                .addContainerGap(63, Short.MAX_VALUE)
+                .addContainerGap(31, Short.MAX_VALUE)
                 .add(jPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
                     .add(jPanel2Layout.createSequentialGroup()
                         .add(jPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING)
@@ -308,7 +343,7 @@ public class MainGuiFrame extends java.awt.Frame {
                     .add(jPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
                         .add(moreButton)
                         .add(addNewButton2)))
-                .addContainerGap(32, Short.MAX_VALUE))
+                .addContainerGap(21, Short.MAX_VALUE))
         );
 
         add(jPanel2, java.awt.BorderLayout.CENTER);
@@ -347,13 +382,17 @@ public class MainGuiFrame extends java.awt.Frame {
                 } catch (SQLException ex) {
                     Logger.getLogger(logIn.class.getName()).log(Level.SEVERE, null, ex);
                 }
+<<<<<<< HEAD
                 for (int i = 0; i < list.size(); i++) {
+=======
+              for (int i = 0; i < list.size(); i++) {
+>>>>>>> ab5b4c7ebaa9eab9ed9fecb311cfaf4a2535ca7e
                     System.out.println(list.get(i).toString());
                     tableResults.getModel().setValueAt(list.get(i).getLabel(), i, 0);
-                    tableResults.getModel().setValueAt(list.get(i).getName(), i, 0);
-                    tableResults.getModel().setValueAt(list.get(i).getColor(), i, 0);
-                    tableResults.getModel().setValueAt(list.get(i).getShape(), i, 0);
-                }
+                    tableResults.getModel().setValueAt(list.get(i).getName(), i, 1);
+                    tableResults.getModel().setValueAt(list.get(i).getColor(), i, 2);
+                    tableResults.getModel().setValueAt(list.get(i).getShape(), i, 3);
+              }
                 tableResults.getColumnModel().getColumn(0).setHeaderValue("Label");
                 tableResults.getColumnModel().getColumn(1).setHeaderValue("Name");
                 tableResults.getColumnModel().getColumn(2).setHeaderValue("Color");
@@ -372,6 +411,15 @@ public class MainGuiFrame extends java.awt.Frame {
                 } catch (SQLException ex) {
                     Logger.getLogger(logIn.class.getName()).log(Level.SEVERE, null, ex);
                 }
+<<<<<<< HEAD
+=======
+
+                int x = 0;
+                while (x < list.size()) {
+                    System.out.println(list.get(x).toString());
+                    x++;
+                }
+>>>>>>> ab5b4c7ebaa9eab9ed9fecb311cfaf4a2535ca7e
                 for (int i = 0; i < list.size(); i++) {
                     System.out.println(list.get(i).toString());
                     tableResults.getModel().setValueAt(list.get(i).getName(), i, 0);

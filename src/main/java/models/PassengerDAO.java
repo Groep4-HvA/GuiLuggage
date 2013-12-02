@@ -26,11 +26,12 @@ public class PassengerDAO {
     }
     
     public List<Passenger> readAll() throws SQLException {
+        
         List<Passenger> list = new LinkedList<Passenger>();
         ResultSet rs = null;
         PreparedStatement prdstmt = null;
 
-        String query = "SELECT `name`, `surname`, `homeAddress`, `homePostalCode`, `homeCity`,`residentAddress`,`residentPostalCode`, `residentCity`, `color`, `shape`, `additionalDetails`, `labelNumber` FROM `passengers`;";
+        String query = "SELECT `name`, `surname`, `homeAddress`, `homePostalCode`, `homeCity`,`residentAddress`,`residentPostalCode`, `residentCity`, `color`, `shape`, `additionalDetails`, `labelNumber` FROM `passengers` LIMIT 50";
 
         conn.startConnection();
 
