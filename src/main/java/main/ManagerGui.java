@@ -27,7 +27,7 @@ public class ManagerGui extends java.awt.Frame {
 
     public ManagerGui(boolean beheer) throws SQLException {
         beheer = this.beheer;
-        
+        initComponents();
         
         
         
@@ -45,7 +45,7 @@ public class ManagerGui extends java.awt.Frame {
             jTable1.getModel().setValueAt(list.get(x).getShape(), x, 3);
             x++;
         }
-        
+       
         jTable1.getColumnModel().getColumn(0).setHeaderValue("Label");
         jTable1.getColumnModel().getColumn(1).setHeaderValue("Name");
         jTable1.getColumnModel().getColumn(2).setHeaderValue("Color");
@@ -91,7 +91,7 @@ public class ManagerGui extends java.awt.Frame {
             }
         });
 
-        java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("guiluggage/Bundle"); // NOI18N
+        java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("Bundle"); // NOI18N
         myAccountButton.setText(bundle.getString("Manager.myAccountButton.text")); // NOI18N
         myAccountButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -162,6 +162,52 @@ public class ManagerGui extends java.awt.Frame {
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
                 {null, null, null, null},
                 {null, null, null, null},
                 {null, null, null, null},
