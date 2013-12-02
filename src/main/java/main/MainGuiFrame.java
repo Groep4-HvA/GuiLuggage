@@ -242,15 +242,14 @@ public class MainGuiFrame extends java.awt.Frame {
         LabelDescription.setText(bundle.getString("MainGuiFrame.LabelDescription.text")); // NOI18N
         LabelDescription.setToolTipText(bundle.getString("MainGuiFrame.LabelDescription.toolTipText")); // NOI18N
 
-        java.util.ResourceBundle bundle1 = java.util.ResourceBundle.getBundle("Bundle"); // NOI18N
-        searchInput.setText(bundle1.getString("MainGuiFrame.searchInput.text")); // NOI18N
+        searchInput.setText(bundle.getString("MainGuiFrame.searchInput.text")); // NOI18N
         searchInput.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 searchInputActionPerformed(evt);
             }
         });
 
-        tableChange.setText(bundle1.getString("MainGuiFrame.tableChange.text")); // NOI18N
+        tableChange.setText(bundle.getString("MainGuiFrame.tableChange.text")); // NOI18N
         tableChange.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 tableChangeActionPerformed(evt);
@@ -285,12 +284,14 @@ public class MainGuiFrame extends java.awt.Frame {
                                         .add(tableChange)
                                         .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                                         .add(moreButton))
-                                    .add(jScrollPane3, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 928, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)))
-                            .add(jPanel2Layout.createSequentialGroup()
-                                .add(advanced)
-                                .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
-                                .add(searchButton)))
+                                    .add(jScrollPane3, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 928, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))))
                         .addContainerGap(49, Short.MAX_VALUE))))
+            .add(jPanel2Layout.createSequentialGroup()
+                .addContainerGap(org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .add(advanced)
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
+                .add(searchButton)
+                .add(0, 0, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
@@ -304,11 +305,11 @@ public class MainGuiFrame extends java.awt.Frame {
                 .add(LabelDescription)
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                 .add(searchInput, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
+                .add(18, 18, 18)
                 .add(jPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
                     .add(searchButton)
                     .add(advanced))
-                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, 31, Short.MAX_VALUE)
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, 25, Short.MAX_VALUE)
                 .add(jScrollPane3, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                 .add(jPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
@@ -369,6 +370,10 @@ public class MainGuiFrame extends java.awt.Frame {
                     tableResults.getModel().setValueAt("", i, 2);
                     tableResults.getModel().setValueAt("", i, 3);
                 }
+                tableResults.getColumnModel().getColumn(0).setHeaderValue("Label");
+                tableResults.getColumnModel().getColumn(1).setHeaderValue("Name");
+                tableResults.getColumnModel().getColumn(2).setHeaderValue("Color");
+                tableResults.getColumnModel().getColumn(3).setHeaderValue("Shape");
                 for (int i = 0; i < list.size(); i++) {
                     //System.out.println(list.get(i).toString());
                     tableResults.getModel().setValueAt(list.get(i).getLabel(), i, 0);
@@ -376,10 +381,6 @@ public class MainGuiFrame extends java.awt.Frame {
                     tableResults.getModel().setValueAt(list.get(i).getColor(), i, 2);
                     tableResults.getModel().setValueAt(list.get(i).getShape(), i, 3);
                 }
-                tableResults.getColumnModel().getColumn(0).setHeaderValue("Label");
-                tableResults.getColumnModel().getColumn(1).setHeaderValue("Name");
-                tableResults.getColumnModel().getColumn(2).setHeaderValue("Color");
-                tableResults.getColumnModel().getColumn(3).setHeaderValue("Shape");
             } else {
                 inBeheer = true;
                 addNewButton1.setText(bundle.getString("MainGuiFrame.addNew") + bundle.getString("Manager"));
@@ -406,7 +407,10 @@ public class MainGuiFrame extends java.awt.Frame {
                     tableResults.getModel().setValueAt("", i, 2);
                     tableResults.getModel().setValueAt("", i, 3);
                 }
-
+                tableResults.getColumnModel().getColumn(0).setHeaderValue("Name");
+                tableResults.getColumnModel().getColumn(1).setHeaderValue("Username");
+                tableResults.getColumnModel().getColumn(2).setHeaderValue("Appmanager");
+                tableResults.getColumnModel().getColumn(3).setHeaderValue("Manager");
                 for (int i = 0; i < list.size(); i++) {
                     //System.out.println(list.get(i).toString());
                     tableResults.getModel().setValueAt(list.get(i).getName(), i, 0);
@@ -415,10 +419,6 @@ public class MainGuiFrame extends java.awt.Frame {
                     tableResults.getModel().setValueAt(list.get(i).isManager(), i, 3);
                 }
 
-                tableResults.getColumnModel().getColumn(0).setHeaderValue("Name");
-                tableResults.getColumnModel().getColumn(1).setHeaderValue("Username");
-                tableResults.getColumnModel().getColumn(2).setHeaderValue("Appmanager");
-                tableResults.getColumnModel().getColumn(3).setHeaderValue("Manager");
             }
         } else {
             System.out.print(bundle.getString("notAuthorized"));
@@ -495,7 +495,11 @@ public class MainGuiFrame extends java.awt.Frame {
                     tableResults.getModel().setValueAt("", i, 2);
                     tableResults.getModel().setValueAt("", i, 3);
                 }
-
+                tableResults.getColumnModel().getColumn(0).setHeaderValue("Label");
+                tableResults.getColumnModel().getColumn(1).setHeaderValue("Name");
+                tableResults.getColumnModel().getColumn(2).setHeaderValue("Color");
+                tableResults.getColumnModel().getColumn(3).setHeaderValue("Shape");
+                
                 int x = 0;
                 while (x < list.size()) {
                     System.out.println(list.get(x).toString());
@@ -505,11 +509,6 @@ public class MainGuiFrame extends java.awt.Frame {
                     tableResults.getModel().setValueAt(list.get(x).getShape(), x, 3);
                     x++;
                 }
-
-                tableResults.getColumnModel().getColumn(0).setHeaderValue("Label");
-                tableResults.getColumnModel().getColumn(1).setHeaderValue("Name");
-                tableResults.getColumnModel().getColumn(2).setHeaderValue("Color");
-                tableResults.getColumnModel().getColumn(3).setHeaderValue("Shape");
 
             } catch (Exception e) {
                 e.printStackTrace();
@@ -526,7 +525,10 @@ public class MainGuiFrame extends java.awt.Frame {
                     tableResults.getModel().setValueAt("", i, 2);
                     tableResults.getModel().setValueAt("", i, 3);
                 }
-
+                tableResults.getColumnModel().getColumn(0).setHeaderValue("Name");
+                tableResults.getColumnModel().getColumn(1).setHeaderValue("Username");
+                tableResults.getColumnModel().getColumn(2).setHeaderValue("Appmanager");
+                tableResults.getColumnModel().getColumn(3).setHeaderValue("Manager");
                 for (int i = 0; i < list.size(); i++) {
                     //System.out.println(list.get(i).toString());
                     tableResults.getModel().setValueAt(list.get(i).getName(), i, 0);
@@ -534,11 +536,6 @@ public class MainGuiFrame extends java.awt.Frame {
                     tableResults.getModel().setValueAt(list.get(i).isAppManager(), i, 2);
                     tableResults.getModel().setValueAt(list.get(i).isManager(), i, 3);
                 }
-
-                tableResults.getColumnModel().getColumn(0).setHeaderValue("Name");
-                tableResults.getColumnModel().getColumn(1).setHeaderValue("Username");
-                tableResults.getColumnModel().getColumn(2).setHeaderValue("Appmanager");
-                tableResults.getColumnModel().getColumn(3).setHeaderValue("Manager");
             } catch (Exception e) {
                 e.printStackTrace();
             }
