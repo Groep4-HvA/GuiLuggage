@@ -219,12 +219,10 @@ public class ManagerGui extends java.awt.Frame {
         ));
         jScrollPane1.setViewportView(jTable1);
         java.util.ResourceBundle bundle1 = java.util.ResourceBundle.getBundle("main/Bundle"); // NOI18N
-        if (jTable1.getColumnModel().getColumnCount() > 0) {
-            jTable1.getColumnModel().getColumn(0).setHeaderValue(bundle1.getString("ManagerGui.jTable1.columnModel.title0")); // NOI18N
-            jTable1.getColumnModel().getColumn(1).setHeaderValue(bundle1.getString("ManagerGui.jTable1.columnModel.title1")); // NOI18N
-            jTable1.getColumnModel().getColumn(2).setHeaderValue(bundle1.getString("ManagerGui.jTable1.columnModel.title2")); // NOI18N
-            jTable1.getColumnModel().getColumn(3).setHeaderValue(bundle1.getString("ManagerGui.jTable1.columnModel.title3")); // NOI18N
-        }
+        jTable1.getColumnModel().getColumn(0).setHeaderValue(bundle1.getString("ManagerGui.jTable1.columnModel.title0")); // NOI18N
+        jTable1.getColumnModel().getColumn(1).setHeaderValue(bundle1.getString("ManagerGui.jTable1.columnModel.title1")); // NOI18N
+        jTable1.getColumnModel().getColumn(2).setHeaderValue(bundle1.getString("ManagerGui.jTable1.columnModel.title2")); // NOI18N
+        jTable1.getColumnModel().getColumn(3).setHeaderValue(bundle1.getString("ManagerGui.jTable1.columnModel.title3")); // NOI18N
 
         org.jdesktop.layout.GroupLayout jPanel1Layout = new org.jdesktop.layout.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -250,26 +248,8 @@ public class ManagerGui extends java.awt.Frame {
                 .add(logoutButton)
                 .addContainerGap())
             .add(jPanel2Layout.createSequentialGroup()
-                .addContainerGap(60, Short.MAX_VALUE)
-                .add(jPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                    .add(jPanel2Layout.createSequentialGroup()
-                        .add(jPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING)
-                            .add(jPanel1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                            .add(org.jdesktop.layout.GroupLayout.LEADING, jPanel2Layout.createSequentialGroup()
-                                .add(missingManager)
-                                .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
-                                .add(foundManager)
-                                .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
-                                .add(processedManager)
-                                .add(70, 70, 70)
-                                .add(jLabel1)
-                                .add(18, 18, 18)
-                                .add(jLabel2)
-                                .add(18, 18, 18)
-                                .add(jLabel3)
-                                .add(442, 442, 442)
-                                .add(graphManager)))
-                        .addContainerGap(60, Short.MAX_VALUE))
+                .addContainerGap(63, Short.MAX_VALUE)
+                .add(jPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING)
                     .add(jPanel2Layout.createSequentialGroup()
                         .add(printButton)
                         .add(215, 215, 215)
@@ -280,9 +260,25 @@ public class ManagerGui extends java.awt.Frame {
                         .add(jTextField2, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                         .add(jButton2)
-                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .add(moreButton)
-                        .add(83, 83, 83))))
+                        .add(309, 309, 309)
+                        .add(moreButton))
+                    .add(jPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+                        .add(jPanel1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                        .add(jPanel2Layout.createSequentialGroup()
+                            .add(missingManager)
+                            .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
+                            .add(foundManager)
+                            .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
+                            .add(processedManager)
+                            .add(70, 70, 70)
+                            .add(jLabel1)
+                            .add(18, 18, 18)
+                            .add(jLabel2)
+                            .add(18, 18, 18)
+                            .add(jLabel3)
+                            .add(377, 377, 377)
+                            .add(graphManager))))
+                .addContainerGap(63, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
@@ -291,7 +287,7 @@ public class ManagerGui extends java.awt.Frame {
                 .add(jPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
                     .add(myAccountButton)
                     .add(logoutButton))
-                .add(18, 18, Short.MAX_VALUE)
+                .add(18, 25, Short.MAX_VALUE)
                 .add(jPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
                     .add(missingManager)
                     .add(processedManager)
@@ -310,7 +306,7 @@ public class ManagerGui extends java.awt.Frame {
                     .add(jLabel4)
                     .add(jTextField2, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                     .add(jButton2))
-                .addContainerGap(org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(13, Short.MAX_VALUE))
         );
 
         add(jPanel2, java.awt.BorderLayout.CENTER);
