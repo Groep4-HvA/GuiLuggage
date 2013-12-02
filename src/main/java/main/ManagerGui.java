@@ -21,6 +21,7 @@ import popups.PasswordConfirm;
 public class ManagerGui extends java.awt.Frame {
 
     private PasswordConfirm passOverlay = new PasswordConfirm(new javax.swing.JFrame(), true);
+    private java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("Bundle"); // NOI18N
     /**
      * Creates new form MainGuiFrame
      */
@@ -38,6 +39,7 @@ public class ManagerGui extends java.awt.Frame {
         
         
         int x = 0;
+        jLabel3.setText(bundle.getString("Manager.jLabel3.text")+": "+list.size());
         while (x < list.size()) {
           //  System.out.println(list.get(x).toString());
             jTable1.getModel().setValueAt(list.get(x).getLabel(), x, 0);

@@ -2,6 +2,7 @@ package main;
 
 import java.awt.BasicStroke;
 import java.awt.Color;
+import java.awt.event.WindowEvent;
 
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartPanel;
@@ -14,10 +15,8 @@ import org.jfree.data.category.CategoryDataset;
 import org.jfree.data.category.DefaultCategoryDataset;
 import org.jfree.ui.ApplicationFrame;
 
-
 public class ManagerGraph extends ApplicationFrame {
 
-    
     public ManagerGraph(final String title, boolean beheer) {
         super(title);
         final CategoryDataset dataset = createDataset();
@@ -25,12 +24,11 @@ public class ManagerGraph extends ApplicationFrame {
         final ChartPanel chartPanel = new ChartPanel(chart);
         //chartPanel.setPreferredSize(new Dimension(1366, 768));
         setContentPane(chartPanel);
-        
+
     }
 
-
     private CategoryDataset createDataset() {
-        
+
         // row keys...
         final String lost = "Lost";
         final String found = "Found";
@@ -93,21 +91,21 @@ public class ManagerGraph extends ApplicationFrame {
         dataset.addValue(3.0, resolved, december);
 
         return dataset;
-                
+
     }
 
     private JFreeChart createChart(final CategoryDataset dataset) {
-        
+
         // create the chart...
         final JFreeChart chart = ChartFactory.createLineChart(
-            "Luggage Statistics",            // chart title
-            "Months",                        // domain axis label
-            "#",                             // range axis label
-            dataset,                         // data
-            PlotOrientation.VERTICAL,        // orientation
-            true,                            // include legend
-            true,                            // tooltips
-            false                            // urls
+                "Luggage Statistics", // chart title
+                "Months", // domain axis label
+                "#", // range axis label
+                dataset, // data
+                PlotOrientation.VERTICAL, // orientation
+                true, // include legend
+                true, // tooltips
+                false // urls
         );
 
         chart.setBackgroundPaint(Color.white);
@@ -120,32 +118,39 @@ public class ManagerGraph extends ApplicationFrame {
         final NumberAxis rangeAxis = (NumberAxis) plot.getRangeAxis();
         rangeAxis.setStandardTickUnits(NumberAxis.createIntegerTickUnits());
         rangeAxis.setAutoRangeIncludesZero(true);
-        
+
         // customise the renderer...
         final LineAndShapeRenderer renderer = (LineAndShapeRenderer) plot.getRenderer();
         // renderer.setDrawShapes(true);
 
         renderer.setSeriesStroke(
-            0, new BasicStroke(
-                2.0f, BasicStroke.CAP_ROUND, BasicStroke.JOIN_ROUND,
-                1.0f, new float[] {1.0f, 0.0f}, 0.0f
-            )
+                0, new BasicStroke(
+                        2.0f, BasicStroke.CAP_ROUND, BasicStroke.JOIN_ROUND,
+                        1.0f, new float[]{1.0f, 0.0f}, 0.0f
+                )
         );
         renderer.setSeriesStroke(
-            1, new BasicStroke(
-                2.0f, BasicStroke.CAP_ROUND, BasicStroke.JOIN_ROUND,
-                1.0f, new float[] {1.0f, 0.0f}, 0.0f
-            )
+                1, new BasicStroke(
+                        2.0f, BasicStroke.CAP_ROUND, BasicStroke.JOIN_ROUND,
+                        1.0f, new float[]{1.0f, 0.0f}, 0.0f
+                )
         );
         renderer.setSeriesStroke(
-            2, new BasicStroke(
-                2.0f, BasicStroke.CAP_ROUND, BasicStroke.JOIN_ROUND,
-                1.0f, new float[] {1.0f, 0.0f}, 0.0f
-            )
+                2, new BasicStroke(
+                        2.0f, BasicStroke.CAP_ROUND, BasicStroke.JOIN_ROUND,
+                        1.0f, new float[]{1.0f, 0.0f}, 0.0f
+                )
         );
         // OPTIONAL CUSTOMISATION COMPLETED.
-        
+
         return chart;
     }
 
+    @Override
+    public void windowClosing(final WindowEvent evt) {
+        if (evt.getWindow() == this) {
+            dispose();
+
+        }
+    }
 }
