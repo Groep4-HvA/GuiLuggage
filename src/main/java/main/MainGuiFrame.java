@@ -12,6 +12,12 @@ import popups.AddMedewerker;
 import popups.AddPassenger;
 import popups.PopUpMedewerker;
 import java.awt.Color;
+import java.sql.SQLException;
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import models.Medewerker;
+import models.MedewerkerDAO;
 
 /**
  *
@@ -25,8 +31,8 @@ public class MainGuiFrame extends java.awt.Frame {
      * Creates new form MainGuiFrame
      */
     private int i=0;
-    private String button1;
-    private String button2;
+    private final String button1;
+    private final String button2;
     private boolean inBeheer = false;
     private boolean beheer;
 
@@ -267,22 +273,6 @@ public class MainGuiFrame extends java.awt.Frame {
                 appManagementButton.setText(bundle.getString("MainGuiFrame.beheerButtonOn"));
                 LabelDescription.setText("Search:");
                 
-                // first row
-                tableResults.getModel().setValueAt("ASL19MNL", 0, 0);
-                tableResults.getModel().setValueAt("found", 0, 1);
-                tableResults.getModel().setValueAt("grey", 0, 2);
-                tableResults.getModel().setValueAt("29/10/2013", 0, 3);
-                // second row
-                tableResults.getModel().setValueAt("ASL21FTR", 1, 0);
-                tableResults.getModel().setValueAt("missing", 1, 1);
-                tableResults.getModel().setValueAt("black", 1, 2);
-                tableResults.getModel().setValueAt("4//11/2013", 1, 3);
-                // third row
-                tableResults.getModel().setValueAt("ASL9FUSA", 2, 0);
-                tableResults.getModel().setValueAt("missing", 2, 1);
-                tableResults.getModel().setValueAt("white", 2, 2);
-                tableResults.getModel().setValueAt("1//11/2013", 2, 3);
-                
                 tableResults.getColumnModel().getColumn(0).setHeaderValue("Label");
                 tableResults.getColumnModel().getColumn(1).setHeaderValue("Status");
                 tableResults.getColumnModel().getColumn(2).setHeaderValue("Color");
@@ -294,26 +284,25 @@ public class MainGuiFrame extends java.awt.Frame {
                 appManagementButton.setText(bundle.getString("MainGuiFrame.beheerButtonOff"));
                 LabelDescription.setText("Search:");
                 
-                // first row
-                tableResults.getModel().setValueAt("Chris", 0, 0);
-                tableResults.getModel().setValueAt("V.d heijden", 0, 1);
-                tableResults.getModel().setValueAt("Medewerker", 0, 2);
-                tableResults.getModel().setValueAt("10/10/2012", 0, 3);
-                // second row
-                tableResults.getModel().setValueAt("Sean", 1, 0);
-                tableResults.getModel().setValueAt("Molenaar", 1, 1);
-                tableResults.getModel().setValueAt("Manager", 1, 2);
-                tableResults.getModel().setValueAt("01/01/2009", 1, 3);
-                // third row
-                tableResults.getModel().setValueAt("Fatih", 2, 0);
-                tableResults.getModel().setValueAt("Cigirci", 2, 1);
-                tableResults.getModel().setValueAt("Sys. Admin", 2, 2);
-                tableResults.getModel().setValueAt("05/04/2005", 2, 3);
+                MedewerkerDAO dbMedewerker = new MedewerkerDAO();
+                List<Medewerker> list = null;
+                try {
+                    list = dbMedewerker.readAll();
+                } catch (SQLException ex) {
+                    Logger.getLogger(logIn.class.getName()).log(Level.SEVERE, null, ex);
+                }
+                for(int i = 0; i < list.size();i++){
+                    System.out.println(list.get(i).toString());
+                    tableResults.getModel().setValueAt(list.get(i).getName(), i, 0);
+                    tableResults.getModel().setValueAt(list.get(i).getUsername(), i, 1);
+                    tableResults.getModel().setValueAt(list.get(i).isAppManager(), i, 2);
+                    tableResults.getModel().setValueAt(list.get(i).isManager(), i, 3);
+                }
                 
                 tableResults.getColumnModel().getColumn(0).setHeaderValue("Name");
-                tableResults.getColumnModel().getColumn(1).setHeaderValue("Achternaam");
-                tableResults.getColumnModel().getColumn(2).setHeaderValue("Role");
-                tableResults.getColumnModel().getColumn(3).setHeaderValue("Date");
+                tableResults.getColumnModel().getColumn(1).setHeaderValue("Username");
+                tableResults.getColumnModel().getColumn(2).setHeaderValue("Appmanager");
+                tableResults.getColumnModel().getColumn(3).setHeaderValue("Manager");
             }
         }else{
             System.out.print(bundle.getString("notAuthorized"));
