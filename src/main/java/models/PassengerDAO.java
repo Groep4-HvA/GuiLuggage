@@ -24,7 +24,6 @@ public class PassengerDAO {
     public PassengerDAO() {
         // initialization 
     }
-    
     public List<Passenger> readAll() throws SQLException {
         
         List<Passenger> list = new LinkedList<Passenger>();
