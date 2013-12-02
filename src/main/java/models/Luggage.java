@@ -23,9 +23,7 @@ public class Luggage {
         this.details = details;
     }
 
-    Luggage() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
+    Luggage() {}
 
     public String getLabel() {
         return label;

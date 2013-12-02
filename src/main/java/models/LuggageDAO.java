@@ -11,36 +11,32 @@ import java.sql.SQLException;
 import java.util.LinkedList;
 import java.util.List;
 
-
-
-
 /**
  *
  * @author ChrisvanderHeijden
  */
 public class LuggageDAO {
-      
-     ConnectionMySQL conn = new ConnectionMySQL();
-    
-     public LuggageDAO() {
+
+    ConnectionMySQL conn = new ConnectionMySQL();
+
+    public LuggageDAO() {
         // initialization 
     }
-   
-        public int create(Luggage luggage) throws SQLException {
+
+    public int create(Luggage luggage) throws SQLException {
         PreparedStatement prdstmt = null;
         String query = "INSERT INTO `luggage`  ( `labelNumber`, `color`, `shape`, `storageLocation`, `additionalDetails`,`addDate`) VALUES(?,?,?,?,?,?);";
         java.util.Date today = new java.util.Date();
         java.sql.Date sqlToday = new java.sql.Date(today.getTime());
-        
+
         conn.startConnection();
-        
+
         prdstmt = conn.getConnection().prepareStatement(query);
-        
-        
+
         prdstmt.setString(1, luggage.getLabel());
         prdstmt.setString(2, luggage.getColor());
         prdstmt.setString(3, luggage.getShape());
-        prdstmt.setString(4, luggage.getLocation()); 
+        prdstmt.setString(4, luggage.getLocation());
         prdstmt.setString(5, luggage.getDetails());
         prdstmt.setDate(6, sqlToday);
 
@@ -51,59 +47,61 @@ public class LuggageDAO {
         }
         return -1;
     }
-        /* NEEDS TO GET FROM BOTH TABLES PASSENGERS AND LUGGAGE FIRST
-        public List<Luggage> readAll() throws SQLException {
-        
+
+    public List<Luggage> readAll() throws SQLException {
+
         List<Luggage> list = new LinkedList<Luggage>();
         ResultSet rs = null;
         PreparedStatement prdstmt = null;
-        
-        String query = "SELECT LABELNUMBER, COLOR, SHAPE, STORAGELOCATION, ADDITIONALDETAILS, STATUS,HANDLERID, ADDDATE FROM LUGGAGE";
-        
+
+        String query = "SELECT `labelNumber`, `color`, `storageLocation`, `additionalDetails`, `shape` FROM `luggage` LIMIT 50";
+
+        conn.startConnection();
+
         prdstmt = conn.getConnection().prepareStatement(query);
         rs = conn.performSelect(prdstmt);
-        
-         while (rs.next()) {
-            Luggage tempLuggage = new Luggage();//constructor was needed in Luggage class? Requesting someone qualified to check Luggage constructor.
-            tempLuggage.setLabel(rs.getString("label"));
-            tempLuggage.setColor(rs.getString("color"));
-            tempLuggage.setShape(rs.getString("shape"));
-            tempLuggage.setLocation(rs.getString("location"));
-            tempLuggage.setDetails(rs.getString("details"));
-            list.add(tempLuggage);
-            }
+
+        while (rs.next()) {
+            Luggage luggage = new Luggage();
+            luggage.setLabel(rs.getString("labelNumber"));
+            luggage.setColor(rs.getString("color"));
+            luggage.setLocation(rs.getString("storageLocation"));
+            luggage.setDetails(rs.getString("additionalDetails"));
+            luggage.setShape(rs.getString("shape"));
+            list.add(luggage);
+        }
 
         if (conn != null) {
             conn.closeConnection();
         }
+
         return list;
     }
-    */
-        public int update(Luggage luggage) throws SQLException {
+
+    public int update(Luggage luggage) throws SQLException {
         PreparedStatement prdstmt = null;
-            String query = "UPDATE LUGGAGE"
-                    + "SET labelNumber=?, color?, shape=?, storageLocation=?, additionalDetails=?, status=?"
-                    + "FROM luggage"
-                    + "INNER JOIN passengers"
-                    + "ON luggage.labelNumber=passengers.labelNumber"
-                    + "UPDATE PASSENGERS"
-                    + "SET name=?, surname=?, homeAddress=?, homePostalCode=?, homeCity=?, residentAddress=?, residentPostalCode=?, residentCity=?,color=?,shape?,additionalDetails=?, labelNumber?"
-                    + "INNER JOIN luggage"
-                    + "ON luggage.labelNumber=passengers.labelNumber";
+        String query = "UPDATE LUGGAGE"
+                + "SET labelNumber=?, color?, shape=?, storageLocation=?, additionalDetails=?, status=?"
+                + "FROM luggage"
+                + "INNER JOIN passengers"
+                + "ON luggage.labelNumber=passengers.labelNumber"
+                + "UPDATE PASSENGERS"
+                + "SET name=?, surname=?, homeAddress=?, homePostalCode=?, homeCity=?, residentAddress=?, residentPostalCode=?, residentCity=?,color=?,shape?,additionalDetails=?, labelNumber?"
+                + "INNER JOIN luggage"
+                + "ON luggage.labelNumber=passengers.labelNumber";
         query += " WHERE labelNumber=?";
 
         conn.startConnection();
-        
+
         prdstmt = conn.getConnection().prepareStatement(query);
-        
-        
+
         /*
-        prdstmt.setString(1, luggage.getLabel());
-        prdstmt.setString(2, luggage.getColor());
-        prdstmt.setString(3, luggage.getShape());
-        prdstmt.setString(4, luggage.getLocation()); 
-        prdstmt.setString(5, luggage.getDetails());
-        */
+         prdstmt.setString(1, luggage.getLabel());
+         prdstmt.setString(2, luggage.getColor());
+         prdstmt.setString(3, luggage.getShape());
+         prdstmt.setString(4, luggage.getLocation()); 
+         prdstmt.setString(5, luggage.getDetails());
+         */
         prdstmt.executeUpdate();
 
         if (conn != null) {
@@ -111,19 +109,20 @@ public class LuggageDAO {
         }
         return -1;
     }
-        public int delete(Luggage luggage) throws SQLException {
+
+    public int delete(Luggage luggage) throws SQLException {
         PreparedStatement prdstmt = null;
         String query = "UPDATE LUGGAGE SET labelNumber=?, color=?,shape=?,storageLocation=?,additionalDetails=? ";
         query += " WHERE labelNumber=?";
-        
+
         conn.startConnection();
-        
+
         prdstmt.setString(1, luggage.getLabel());
         prdstmt.setString(2, luggage.getColor());
         prdstmt.setString(3, luggage.getShape());
-        prdstmt.setString(4, luggage.getLocation()); 
+        prdstmt.setString(4, luggage.getLocation());
         prdstmt.setString(5, luggage.getDetails());
-        
+
         prdstmt.executeUpdate();
         if (conn != null) {
             conn.closeConnection();
@@ -131,5 +130,3 @@ public class LuggageDAO {
         return -1;
     }
 }
-
-        
