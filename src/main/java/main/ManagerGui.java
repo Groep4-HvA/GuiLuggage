@@ -381,7 +381,7 @@ public class ManagerGui extends java.awt.Frame {
         
         PDFGenerator pdf = new PDFGenerator();
         pdf.generate(pdfje, cijfers, cijfers, cijfers);
-        pdf.save("ExamTable.pdf");
+        pdf.save("Corendon_Overview.pdf");
     }//GEN-LAST:event_PDFActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

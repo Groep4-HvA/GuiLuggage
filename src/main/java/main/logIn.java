@@ -145,7 +145,7 @@ public class logIn extends javax.swing.JFrame {
             }
             dispose();
         }else {
-            errorLabel.setText("Invalid username/password. Please try again.");
+            errorLabel.setText("Invalid username/password");
         }
         }catch(Exception e){
             e.printStackTrace();
