@@ -76,6 +76,8 @@ public class MainGuiFrame extends java.awt.Frame {
         tableResults.getColumnModel().getColumn(2).setHeaderValue("Color");
         tableResults.getColumnModel().getColumn(3).setHeaderValue("Shape");
 
+        jLabel1.setText("You're now searching in passengers");
+
     }
 
     /**
@@ -100,6 +102,7 @@ public class MainGuiFrame extends java.awt.Frame {
         LabelDescription = new javax.swing.JLabel();
         searchInput = new javax.swing.JTextField();
         tableChange = new javax.swing.JButton();
+        jLabel1 = new javax.swing.JLabel();
 
         java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("Bundle"); // NOI18N
         setTitle(bundle.getString("medewerkerMain.title")); // NOI18N
@@ -256,6 +259,9 @@ public class MainGuiFrame extends java.awt.Frame {
             }
         });
 
+        java.util.ResourceBundle bundle1 = java.util.ResourceBundle.getBundle("main/Bundle"); // NOI18N
+        jLabel1.setText(bundle1.getString("MainGuiFrame.jLabel1.text")); // NOI18N
+
         org.jdesktop.layout.GroupLayout jPanel2Layout = new org.jdesktop.layout.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
@@ -275,16 +281,18 @@ public class MainGuiFrame extends java.awt.Frame {
                             .add(LabelDescription)
                             .add(jPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING)
                                 .add(searchInput, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 931, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                                .add(jPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING, false)
-                                    .add(jPanel2Layout.createSequentialGroup()
-                                        .add(addNewButton1)
-                                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                                        .add(addNewButton2)
-                                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                        .add(tableChange)
-                                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                                        .add(moreButton))
-                                    .add(jScrollPane3, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 928, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))))
+                                .add(jPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+                                    .add(jLabel1)
+                                    .add(jPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING, false)
+                                        .add(jPanel2Layout.createSequentialGroup()
+                                            .add(addNewButton1)
+                                            .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                                            .add(addNewButton2)
+                                            .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                            .add(tableChange)
+                                            .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                                            .add(moreButton))
+                                        .add(jScrollPane3, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 928, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)))))
                         .addContainerGap(49, Short.MAX_VALUE))))
             .add(jPanel2Layout.createSequentialGroup()
                 .addContainerGap(org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -309,7 +317,9 @@ public class MainGuiFrame extends java.awt.Frame {
                 .add(jPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
                     .add(searchButton)
                     .add(advanced))
-                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, 25, Short.MAX_VALUE)
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, 37, Short.MAX_VALUE)
+                .add(jLabel1)
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
                 .add(jScrollPane3, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                 .add(jPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
@@ -380,6 +390,7 @@ public class MainGuiFrame extends java.awt.Frame {
                     tableResults.getModel().setValueAt(list.get(i).getName(), i, 1);
                     tableResults.getModel().setValueAt(list.get(i).getColor(), i, 2);
                     tableResults.getModel().setValueAt(list.get(i).getShape(), i, 3);
+                            jLabel1.setText("You're now searching in passengers");
                 }
             } else {
                 inBeheer = true;
@@ -396,11 +407,6 @@ public class MainGuiFrame extends java.awt.Frame {
                     Logger.getLogger(logIn.class.getName()).log(Level.SEVERE, null, ex);
                 }
 
-//                int x = 0;
-//                while (x < list.size()) {
-//                    System.out.println(list.get(x).toString());
-//                    x++;
-//                }
                 for (int i = 0; i < 50; i++) {
                     tableResults.getModel().setValueAt("", i, 0);
                     tableResults.getModel().setValueAt("", i, 1);
@@ -418,6 +424,7 @@ public class MainGuiFrame extends java.awt.Frame {
                     tableResults.getModel().setValueAt(list.get(i).isAppManager(), i, 2);
                     tableResults.getModel().setValueAt(list.get(i).isManager(), i, 3);
                 }
+                jLabel1.setText("You're now searching in users");
 
             }
         } else {
@@ -499,7 +506,7 @@ public class MainGuiFrame extends java.awt.Frame {
                 tableResults.getColumnModel().getColumn(1).setHeaderValue("Name");
                 tableResults.getColumnModel().getColumn(2).setHeaderValue("Color");
                 tableResults.getColumnModel().getColumn(3).setHeaderValue("Shape");
-                
+
                 int x = 0;
                 while (x < list.size()) {
                     System.out.println(list.get(x).toString());
@@ -509,6 +516,7 @@ public class MainGuiFrame extends java.awt.Frame {
                     tableResults.getModel().setValueAt(list.get(x).getShape(), x, 3);
                     x++;
                 }
+                jLabel1.setText("You're now searching in passengers");
 
             } catch (Exception e) {
                 e.printStackTrace();
@@ -535,6 +543,8 @@ public class MainGuiFrame extends java.awt.Frame {
                     tableResults.getModel().setValueAt(list.get(i).getUsername(), i, 1);
                     tableResults.getModel().setValueAt(list.get(i).isAppManager(), i, 2);
                     tableResults.getModel().setValueAt(list.get(i).isManager(), i, 3);
+
+                    jLabel1.setText("You're now searching in users");
                 }
             } catch (Exception e) {
                 e.printStackTrace();
@@ -548,7 +558,7 @@ public class MainGuiFrame extends java.awt.Frame {
     }//GEN-LAST:event_searchInputActionPerformed
 
     private void tableChangeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tableChangeActionPerformed
-    try {
+        try {
             for (int x = 0; x < 50; x++) {
                 tableResults.getModel().setValueAt("", x, 0);
                 tableResults.getModel().setValueAt("", x, 1);
@@ -576,6 +586,8 @@ public class MainGuiFrame extends java.awt.Frame {
                 tableResults.getColumnModel().getColumn(2).setHeaderValue("Surname");
                 tableResults.getColumnModel().getColumn(3).setHeaderValue("Details");
 
+                jLabel1.setText("You're now searching in passengers");
+
             } else {
                 luggage = false;
                 LuggageDAO dbLuggage = new LuggageDAO();
@@ -597,6 +609,8 @@ public class MainGuiFrame extends java.awt.Frame {
                 tableResults.getColumnModel().getColumn(2).setHeaderValue("Color");
                 tableResults.getColumnModel().getColumn(3).setHeaderValue("Shape");
 
+                jLabel1.setText("You're now searching in luggage");
+
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -609,6 +623,7 @@ public class MainGuiFrame extends java.awt.Frame {
     private javax.swing.JButton addNewButton2;
     private javax.swing.JButton advanced;
     private javax.swing.JButton appManagementButton;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JButton logoutButton;
