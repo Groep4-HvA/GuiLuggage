@@ -460,17 +460,18 @@ public class MainGuiFrame extends java.awt.Frame {
 
     private void addNewButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addNewButton1ActionPerformed
         if (inBeheer) {
-            AddPassenger gui = new AddPassenger();
+            AddMedewerker gui = new AddMedewerker(true);
             gui.setVisible(true);
         } else {
             AddLuggage gui = new AddLuggage();
+            
             gui.setVisible(true);
         }
     }//GEN-LAST:event_addNewButton1ActionPerformed
 
     private void addNewButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addNewButton2ActionPerformed
         AddPassenger gui3 = new AddPassenger();
-        AddMedewerker gui2 = new AddMedewerker(false);
+        AddMedewerker gui2 = new AddMedewerker(true);
         if (inBeheer) {
             gui2.setVisible(true);
         } else {
