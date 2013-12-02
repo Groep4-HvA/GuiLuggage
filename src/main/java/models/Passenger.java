@@ -22,6 +22,9 @@ public class Passenger {
     private String residentCity;
     private String details;
 
+    public Passenger() {
+    }
+
     public Passenger(String label, String color, String shape, String name, String surname, String adres, String postalCode, String city, String residentAdres, String residentPostalCode, String residentCity, String details) {
         this.label = label;
         this.color = color;

@@ -18,6 +18,8 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import models.Medewerker;
 import models.MedewerkerDAO;
+import models.Passenger;
+import models.PassengerDAO;
 
 /**
  *
@@ -48,6 +50,24 @@ public class MainGuiFrame extends java.awt.Frame {
         this.setLocationRelativeTo(null);
         appManagementButton.setVisible(beheer);
         searchInput.requestFocusInWindow();
+                PassengerDAO dbPassenger = new PassengerDAO();
+                List<Passenger> list = null;
+                try {
+                    list = dbPassenger.readAll();
+                } catch (SQLException ex) {
+                    Logger.getLogger(logIn.class.getName()).log(Level.SEVERE, null, ex);
+                }
+                for(int i = 0; i < list.size();i++){
+                    System.out.println(list.get(i).toString());
+                    tableResults.getModel().setValueAt(list.get(i).getLabel(), i, 0);
+                    tableResults.getModel().setValueAt(list.get(i).getName(), i, 0);
+                    tableResults.getModel().setValueAt(list.get(i).getColor(), i, 0);
+                    tableResults.getModel().setValueAt(list.get(i).getShape(), i, 0);
+                }
+                tableResults.getColumnModel().getColumn(0).setHeaderValue("Label");
+                tableResults.getColumnModel().getColumn(1).setHeaderValue("Name");
+                tableResults.getColumnModel().getColumn(2).setHeaderValue("Color");
+                tableResults.getColumnModel().getColumn(3).setHeaderValue("Shape");
     }
 
     /**
@@ -272,11 +292,24 @@ public class MainGuiFrame extends java.awt.Frame {
                 addNewButton2.setText(bundle.getString("MainGuiFrame.addNew") + button2);
                 appManagementButton.setText(bundle.getString("MainGuiFrame.beheerButtonOn"));
                 LabelDescription.setText("Search:");
-                
+                PassengerDAO dbPassenger = new PassengerDAO();
+                List<Passenger> list = null;
+                try {
+                    list = dbPassenger.readAll();
+                } catch (SQLException ex) {
+                    Logger.getLogger(logIn.class.getName()).log(Level.SEVERE, null, ex);
+                }
+                for(int i = 0; i < list.size();i++){
+                    System.out.println(list.get(i).toString());
+                    tableResults.getModel().setValueAt(list.get(i).getLabel(), i, 0);
+                    tableResults.getModel().setValueAt(list.get(i).getName(), i, 0);
+                    tableResults.getModel().setValueAt(list.get(i).getColor(), i, 0);
+                    tableResults.getModel().setValueAt(list.get(i).getShape(), i, 0);
+                }
                 tableResults.getColumnModel().getColumn(0).setHeaderValue("Label");
-                tableResults.getColumnModel().getColumn(1).setHeaderValue("Status");
+                tableResults.getColumnModel().getColumn(1).setHeaderValue("Name");
                 tableResults.getColumnModel().getColumn(2).setHeaderValue("Color");
-                tableResults.getColumnModel().getColumn(3).setHeaderValue("Date");
+                tableResults.getColumnModel().getColumn(3).setHeaderValue("Shape");
             } else {
                 inBeheer = true;
                 addNewButton1.setText(bundle.getString("MainGuiFrame.addNew")+bundle.getString("Manager"));

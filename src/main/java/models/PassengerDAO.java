@@ -25,6 +25,42 @@ public class PassengerDAO {
         // initialization 
     }
     
+    public List<Passenger> readAll() throws SQLException {
+        List<Passenger> list = new LinkedList<Passenger>();
+        ResultSet rs = null;
+        PreparedStatement prdstmt = null;
+
+        String query = "SELECT `name`, `surname`, `homeAddress`, `homePostalCode`, `homeCity`,`residentAddress`,`residentPostalCode`, `residentCity`, `color`, `shape`, `additionalDetails`, `labelNumber` FROM `passengers`;";
+
+        conn.startConnection();
+
+        prdstmt = conn.getConnection().prepareStatement(query);
+        rs = conn.performSelect(prdstmt);
+
+        while (rs.next()) {
+            Passenger tempPassenger = new Passenger();
+            tempPassenger.setName(rs.getString("name"));
+            tempPassenger.setSurname(rs.getString("surname"));
+            tempPassenger.setAdres(rs.getString("homeAddress"));
+            tempPassenger.setPostalCode(rs.getString("homePostalCode"));
+            tempPassenger.setCity(rs.getString("homeCity"));
+            tempPassenger.setResidentAdres(rs.getString("residentAddress"));
+            tempPassenger.setResidentPostalCode(rs.getString("residentPostalCode"));
+            tempPassenger.setResidentCity(rs.getString("residentCity"));
+            tempPassenger.setColor(rs.getString("color"));
+            tempPassenger.setShape(rs.getString("shape"));
+            tempPassenger.setDetails(rs.getString("additionalDetails"));
+            tempPassenger.setLabel(rs.getString("labelNumber"));
+            list.add(tempPassenger);
+        }
+
+        if (conn != null) {
+            conn.closeConnection();
+        }
+
+        return list;
+    }
+    
     public int create(Passenger passenger) throws SQLException {
         PreparedStatement prdstmt = null;
         String query = "INSERT INTO `passengers`  ( `name`, `surname`, `homeAddress`, `homePostalCode`, `homeCity`,`residentAddress`,`residentPostalCode`, `residentCity`, `color`, `shape`, `additionalDetails`, `labelNumber`) VALUES(?,?,?,?,?,?,?,?,?,?,?,?);";
