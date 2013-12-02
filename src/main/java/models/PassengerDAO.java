@@ -26,6 +26,7 @@ public class PassengerDAO {
     }
     
     public List<Passenger> readAll() throws SQLException {
+        
         List<Passenger> list = new LinkedList<Passenger>();
         ResultSet rs = null;
         PreparedStatement prdstmt = null;
