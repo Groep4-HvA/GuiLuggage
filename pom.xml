@@ -67,7 +67,8 @@
         <dependency>
             <groupId>org.apache.pdfbox</groupId>
             <artifactId>pdfbox</artifactId>
-            <version>...</version>
+            <version>1.7.0</version>
         </dependency>
+            
     </dependencies>
 </project>
