@@ -148,15 +148,4 @@ public class ManagerGraph extends ApplicationFrame {
         return chart;
     }
 
-//    public static void main(final String[] args) {
-//
-//        final ManagerGraph demo = new ManagerGraph("ManagerGraph", true);
-//        demo.pack();
-//        //RefineryUtilities.centerFrameOnScreen(demo);
-//        demo.setLocationRelativeTo(null);
-//        demo.setVisible(true);
-//        
-//
-//    }
-
 }
