@@ -16,6 +16,7 @@ import java.sql.SQLException;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.table.DefaultTableModel;
 import models.Medewerker;
 import models.MedewerkerDAO;
 import models.Passenger;
@@ -32,7 +33,7 @@ public class MainGuiFrame extends java.awt.Frame {
     /**
      * Creates new form MainGuiFrame
      */
-    private int i=0;
+    private int i = 0;
     private final String button1;
     private final String button2;
     private boolean inBeheer = false;
@@ -44,30 +45,32 @@ public class MainGuiFrame extends java.awt.Frame {
      */
     public MainGuiFrame(boolean value) {
         beheer = value;
-        button1 = (inBeheer)? bundle.getString("Medewerker"): bundle.getString("Luggage");
-        button2 = (inBeheer)? bundle.getString("Manager")   : bundle.getString("Passenger");
+        button1 = (inBeheer) ? bundle.getString("Medewerker") : bundle.getString("Luggage");
+        button2 = (inBeheer) ? bundle.getString("Manager") : bundle.getString("Passenger");
         initComponents();
         this.setLocationRelativeTo(null);
         appManagementButton.setVisible(beheer);
         searchInput.requestFocusInWindow();
-                PassengerDAO dbPassenger = new PassengerDAO();
-                List<Passenger> list = null;
-                try {
-                    list = dbPassenger.readAll();
-                } catch (SQLException ex) {
-                    Logger.getLogger(logIn.class.getName()).log(Level.SEVERE, null, ex);
-                }
-                for(int i = 0; i < list.size();i++){
-                    System.out.println(list.get(i).toString());
-                    tableResults.getModel().setValueAt(list.get(i).getLabel(), i, 0);
-                    tableResults.getModel().setValueAt(list.get(i).getName(), i, 0);
-                    tableResults.getModel().setValueAt(list.get(i).getColor(), i, 0);
-                    tableResults.getModel().setValueAt(list.get(i).getShape(), i, 0);
-                }
-                tableResults.getColumnModel().getColumn(0).setHeaderValue("Label");
-                tableResults.getColumnModel().getColumn(1).setHeaderValue("Name");
-                tableResults.getColumnModel().getColumn(2).setHeaderValue("Color");
-                tableResults.getColumnModel().getColumn(3).setHeaderValue("Shape");
+        PassengerDAO dbPassenger = new PassengerDAO();
+        List<Passenger> list = null;
+        try {
+            list = dbPassenger.readAll();
+        } catch (SQLException ex) {
+            Logger.getLogger(logIn.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        //DefaultTableModel model = tableResults.getModel();
+        //model.setColumnCount(WIDTH);
+        for (int i = 0; i < list.size(); i++) {
+            //System.out.println(list.get(i).toString());
+            tableResults.getModel().setValueAt(list.get(i).getLabel(), i, 0);
+            tableResults.getModel().setValueAt(list.get(i).getName(), i, 0);
+            tableResults.getModel().setValueAt(list.get(i).getColor(), i, 0);
+            tableResults.getModel().setValueAt(list.get(i).getShape(), i, 0);
+        }
+        tableResults.getColumnModel().getColumn(0).setHeaderValue("Label");
+        tableResults.getColumnModel().getColumn(1).setHeaderValue("Name");
+        tableResults.getColumnModel().getColumn(2).setHeaderValue("Color");
+        tableResults.getColumnModel().getColumn(3).setHeaderValue("Shape");
     }
 
     /**
@@ -155,7 +158,52 @@ public class MainGuiFrame extends java.awt.Frame {
                 {"ASL21FTR", "missing", "black", "4/11/2013"},
                 {"ASL9FUSA", "missing", "white", "1/11/2013"},
                 {null, null, null, null},
-                {null, "", null, null}
+                {null, "", null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
             },
             new String [] {
                 "label", "status", "color", "date"
@@ -299,7 +347,7 @@ public class MainGuiFrame extends java.awt.Frame {
                 } catch (SQLException ex) {
                     Logger.getLogger(logIn.class.getName()).log(Level.SEVERE, null, ex);
                 }
-                for(int i = 0; i < list.size();i++){
+                for (int i = 0; i < list.size(); i++) {
                     System.out.println(list.get(i).toString());
                     tableResults.getModel().setValueAt(list.get(i).getLabel(), i, 0);
                     tableResults.getModel().setValueAt(list.get(i).getName(), i, 0);
@@ -312,11 +360,11 @@ public class MainGuiFrame extends java.awt.Frame {
                 tableResults.getColumnModel().getColumn(3).setHeaderValue("Shape");
             } else {
                 inBeheer = true;
-                addNewButton1.setText(bundle.getString("MainGuiFrame.addNew")+bundle.getString("Manager"));
-                addNewButton2.setText(bundle.getString("MainGuiFrame.addNew")+bundle.getString("Medewerker"));
+                addNewButton1.setText(bundle.getString("MainGuiFrame.addNew") + bundle.getString("Manager"));
+                addNewButton2.setText(bundle.getString("MainGuiFrame.addNew") + bundle.getString("Medewerker"));
                 appManagementButton.setText(bundle.getString("MainGuiFrame.beheerButtonOff"));
                 LabelDescription.setText("Search:");
-                
+
                 MedewerkerDAO dbMedewerker = new MedewerkerDAO();
                 List<Medewerker> list = null;
                 try {
@@ -324,20 +372,20 @@ public class MainGuiFrame extends java.awt.Frame {
                 } catch (SQLException ex) {
                     Logger.getLogger(logIn.class.getName()).log(Level.SEVERE, null, ex);
                 }
-                for(int i = 0; i < list.size();i++){
+                for (int i = 0; i < list.size(); i++) {
                     System.out.println(list.get(i).toString());
                     tableResults.getModel().setValueAt(list.get(i).getName(), i, 0);
                     tableResults.getModel().setValueAt(list.get(i).getUsername(), i, 1);
                     tableResults.getModel().setValueAt(list.get(i).isAppManager(), i, 2);
                     tableResults.getModel().setValueAt(list.get(i).isManager(), i, 3);
                 }
-                
+
                 tableResults.getColumnModel().getColumn(0).setHeaderValue("Name");
                 tableResults.getColumnModel().getColumn(1).setHeaderValue("Username");
                 tableResults.getColumnModel().getColumn(2).setHeaderValue("Appmanager");
                 tableResults.getColumnModel().getColumn(3).setHeaderValue("Manager");
             }
-        }else{
+        } else {
             System.out.print(bundle.getString("notAuthorized"));
         }
     }//GEN-LAST:event_appManagementButtonActionPerformed
@@ -359,11 +407,11 @@ public class MainGuiFrame extends java.awt.Frame {
     }//GEN-LAST:event_logoutButtonActionPerformed
 
     private void tableResultsMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tableResultsMouseClicked
-        int i=0;
+        int i = 0;
         if (inBeheer) {
             Popupappmedewerker popup1 = new Popupappmedewerker();
             popup1.setVisible(true);
-        }else{
+        } else {
             PopUpMedewerker popup = new PopUpMedewerker();
             popup.setVisible(true);
         }
