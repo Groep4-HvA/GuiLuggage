@@ -16,6 +16,8 @@ import java.sql.SQLException;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import models.Luggage;
+import models.LuggageDAO;
 import models.Medewerker;
 import models.MedewerkerDAO;
 import models.Passenger;
@@ -35,8 +37,10 @@ public class MainGuiFrame extends java.awt.Frame {
     private int i = 0;
     private final String button1;
     private final String button2;
+    private String button3 = null;
     private boolean inBeheer = false;
     private boolean beheer;
+    private boolean luggage = false;
 
     /**
      *
@@ -47,6 +51,7 @@ public class MainGuiFrame extends java.awt.Frame {
         beheer = value;
         button1 = (inBeheer) ? bundle.getString("Medewerker") : bundle.getString("Luggage");
         button2 = (inBeheer) ? bundle.getString("Manager") : bundle.getString("Passenger");
+        button3 = (luggage) ? bundle.getString("Luggage") : bundle.getString("Passenger");
         initComponents();
         this.setLocationRelativeTo(null);
         appManagementButton.setVisible(beheer);
@@ -94,6 +99,7 @@ public class MainGuiFrame extends java.awt.Frame {
         logoutButton = new javax.swing.JButton();
         LabelDescription = new javax.swing.JLabel();
         searchInput = new javax.swing.JTextField();
+        tableChange = new javax.swing.JButton();
 
         java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("Bundle"); // NOI18N
         setTitle(bundle.getString("medewerkerMain.title")); // NOI18N
@@ -236,11 +242,18 @@ public class MainGuiFrame extends java.awt.Frame {
         LabelDescription.setText(bundle.getString("MainGuiFrame.LabelDescription.text")); // NOI18N
         LabelDescription.setToolTipText(bundle.getString("MainGuiFrame.LabelDescription.toolTipText")); // NOI18N
 
-        java.util.ResourceBundle bundle1 = java.util.ResourceBundle.getBundle("main/Bundle"); // NOI18N
+        java.util.ResourceBundle bundle1 = java.util.ResourceBundle.getBundle("Bundle"); // NOI18N
         searchInput.setText(bundle1.getString("MainGuiFrame.searchInput.text")); // NOI18N
         searchInput.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 searchInputActionPerformed(evt);
+            }
+        });
+
+        tableChange.setText(bundle1.getString("MainGuiFrame.tableChange.text")); // NOI18N
+        tableChange.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                tableChangeActionPerformed(evt);
             }
         });
 
@@ -249,36 +262,35 @@ public class MainGuiFrame extends java.awt.Frame {
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
             .add(jPanel2Layout.createSequentialGroup()
-                .addContainerGap(org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .add(appManagementButton)
-                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                .add(myAccountButton)
-                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                .add(logoutButton)
-                .addContainerGap())
-            .add(jPanel2Layout.createSequentialGroup()
                 .addContainerGap(46, Short.MAX_VALUE)
                 .add(jPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
                     .add(org.jdesktop.layout.GroupLayout.TRAILING, jPanel2Layout.createSequentialGroup()
-                        .add(398, 398, 398)
-                        .add(advanced)
-                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
-                        .add(searchButton)
-                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, 371, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                        .add(appManagementButton)
+                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                        .add(myAccountButton)
+                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                        .add(logoutButton)
+                        .addContainerGap())
                     .add(jPanel2Layout.createSequentialGroup()
-                        .add(LabelDescription)
-                        .add(775, 775, 775))
-                    .add(jPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING)
-                        .add(searchInput, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 931, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                        .add(jPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING, false)
+                        .add(jPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+                            .add(LabelDescription)
+                            .add(jPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING)
+                                .add(searchInput, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 931, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                                .add(jPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING, false)
+                                    .add(jPanel2Layout.createSequentialGroup()
+                                        .add(addNewButton1)
+                                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                                        .add(addNewButton2)
+                                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .add(tableChange)
+                                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                                        .add(moreButton))
+                                    .add(jScrollPane3, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 928, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)))
                             .add(jPanel2Layout.createSequentialGroup()
-                                .add(addNewButton1)
-                                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                                .add(addNewButton2)
-                                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .add(moreButton))
-                            .add(jScrollPane3, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 928, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap(49, Short.MAX_VALUE))
+                                .add(advanced)
+                                .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
+                                .add(searchButton)))
+                        .addContainerGap(49, Short.MAX_VALUE))))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
@@ -292,18 +304,19 @@ public class MainGuiFrame extends java.awt.Frame {
                 .add(LabelDescription)
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                 .add(searchInput, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                .add(10, 10, 10)
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
                 .add(jPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
                     .add(searchButton)
                     .add(advanced))
-                .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED, 33, Short.MAX_VALUE)
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, 31, Short.MAX_VALUE)
                 .add(jScrollPane3, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                 .add(jPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
                     .add(addNewButton1)
                     .add(jPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
                         .add(moreButton)
-                        .add(addNewButton2)))
+                        .add(addNewButton2)
+                        .add(tableChange)))
                 .add(8, 8, 8))
         );
 
@@ -330,6 +343,12 @@ public class MainGuiFrame extends java.awt.Frame {
 
     private void appManagementButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_appManagementButtonActionPerformed
         if (beheer) {
+            for (int x = 0; x < 50; x++) {
+                tableResults.getModel().setValueAt("", x, 0);
+                tableResults.getModel().setValueAt("", x, 1);
+                tableResults.getModel().setValueAt("", x, 2);
+                tableResults.getModel().setValueAt("", x, 3);
+            }
             if (inBeheer) {
                 inBeheer = false;
                 addNewButton1.setText(bundle.getString("MainGuiFrame.addNew") + button1);
@@ -531,6 +550,62 @@ public class MainGuiFrame extends java.awt.Frame {
         // TODO add your handling code here:
     }//GEN-LAST:event_searchInputActionPerformed
 
+    private void tableChangeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tableChangeActionPerformed
+    try {
+            for (int x = 0; x < 50; x++) {
+                tableResults.getModel().setValueAt("", x, 0);
+                tableResults.getModel().setValueAt("", x, 1);
+                tableResults.getModel().setValueAt("", x, 2);
+                tableResults.getModel().setValueAt("", x, 3);
+            }
+            if (!luggage) {
+                luggage = true;
+                PassengerDAO dbPassenger = new PassengerDAO();
+                List<Passenger> list;
+                list = dbPassenger.readAll();
+
+                int x = 0;
+                while (x < list.size()) {
+                    //System.out.println(list.get(x).toString());
+                    tableResults.getModel().setValueAt(list.get(x).getLabel(), x, 0);
+                    tableResults.getModel().setValueAt(list.get(x).getName(), x, 1);
+                    tableResults.getModel().setValueAt(list.get(x).getSurname(), x, 2);
+                    tableResults.getModel().setValueAt(list.get(x).getDetails(), x, 3);
+                    x++;
+                }
+
+                tableResults.getColumnModel().getColumn(0).setHeaderValue("Label");
+                tableResults.getColumnModel().getColumn(1).setHeaderValue("Name");
+                tableResults.getColumnModel().getColumn(2).setHeaderValue("Surname");
+                tableResults.getColumnModel().getColumn(3).setHeaderValue("Details");
+
+            } else {
+                luggage = false;
+                LuggageDAO dbLuggage = new LuggageDAO();
+                List<Luggage> list = null;
+                try {
+                    list = dbLuggage.readAll();
+                } catch (SQLException ex) {
+                    Logger.getLogger(logIn.class.getName()).log(Level.SEVERE, null, ex);
+                }
+                for (int i = 0; i < list.size(); i++) {
+                    //System.out.println(list.get(i).toString());
+                    tableResults.getModel().setValueAt(list.get(i).getLabel(), i, 0);
+                    tableResults.getModel().setValueAt(list.get(i).getLocation(), i, 1);
+                    tableResults.getModel().setValueAt(list.get(i).getColor(), i, 2);
+                    tableResults.getModel().setValueAt(list.get(i).getShape(), i, 3);
+                }
+                tableResults.getColumnModel().getColumn(0).setHeaderValue("Label");
+                tableResults.getColumnModel().getColumn(1).setHeaderValue("Location");
+                tableResults.getColumnModel().getColumn(2).setHeaderValue("Color");
+                tableResults.getColumnModel().getColumn(3).setHeaderValue("Shape");
+
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }//GEN-LAST:event_tableChangeActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel LabelDescription;
     private javax.swing.JButton addNewButton1;
@@ -543,6 +618,7 @@ public class MainGuiFrame extends java.awt.Frame {
     private javax.swing.JButton myAccountButton;
     private javax.swing.JButton searchButton;
     private javax.swing.JTextField searchInput;
+    private javax.swing.JButton tableChange;
     private javax.swing.JTable tableResults;
     // End of variables declaration//GEN-END:variables
 }
