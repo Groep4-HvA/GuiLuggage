@@ -51,7 +51,6 @@ public class MainGuiFrame extends java.awt.Frame {
         this.setLocationRelativeTo(null);
         appManagementButton.setVisible(beheer);
         searchInput.requestFocusInWindow();
-        
 
         PassengerDAO dbPassenger = new PassengerDAO();
         List<Passenger> list;
@@ -59,15 +58,18 @@ public class MainGuiFrame extends java.awt.Frame {
 
         /*for (int x = 0; x < list.size(); x++) {
             
-            System.out.println(list.get(x).toString());
+         System.out.println(list.get(x).toString());
             
-            //tableResults.getModel().setValueAt(list.get(x).getLabel(), x, 0);
+         //tableResults.getModel().setValueAt(list.get(x).getLabel(), x, 0);
 
-        } */
-        
+         } */
         int x = 0;
-        while(x < list.size()){
+        while (x < list.size()) {
             System.out.println(list.get(x).toString());
+            tableResults.getModel().setValueAt(list.get(x).getLabel(), x, 0);
+            tableResults.getModel().setValueAt(list.get(x).getName(), x, 1);
+            tableResults.getModel().setValueAt(list.get(x).getColor(), x, 2);
+            tableResults.getModel().setValueAt(list.get(x).getShape(), x, 3);
             x++;
         }
 
@@ -159,14 +161,60 @@ public class MainGuiFrame extends java.awt.Frame {
         tableResults.setAutoCreateRowSorter(true);
         tableResults.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {"ASL19MNL", "found", "grey", "29/10/2013"},
-                {"ASL21FTR", "missing", "black", "4/11/2013"},
-                {"ASL9FUSA", "missing", "white", "1/11/2013"},
                 {null, null, null, null},
-                {null, "", null, null}
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
             },
             new String [] {
-                "label", "status", "color", "date"
+                "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
         tableResults.setShowVerticalLines(false);
@@ -217,7 +265,7 @@ public class MainGuiFrame extends java.awt.Frame {
                 .add(searchButton)
                 .addContainerGap(org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .add(jPanel2Layout.createSequentialGroup()
-                .addContainerGap(63, Short.MAX_VALUE)
+                .addContainerGap(31, Short.MAX_VALUE)
                 .add(jPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
                     .add(jPanel2Layout.createSequentialGroup()
                         .add(jPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING)
@@ -268,7 +316,7 @@ public class MainGuiFrame extends java.awt.Frame {
                     .add(jPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
                         .add(moreButton)
                         .add(addNewButton2)))
-                .addContainerGap(32, Short.MAX_VALUE))
+                .addContainerGap(21, Short.MAX_VALUE))
         );
 
         add(jPanel2, java.awt.BorderLayout.CENTER);
@@ -307,13 +355,13 @@ public class MainGuiFrame extends java.awt.Frame {
                 } catch (SQLException ex) {
                     Logger.getLogger(logIn.class.getName()).log(Level.SEVERE, null, ex);
                 }
-                for (int i = 0; i < list.size(); i++) {
+              for (int i = 0; i < list.size(); i++) {
                     System.out.println(list.get(i).toString());
                     tableResults.getModel().setValueAt(list.get(i).getLabel(), i, 0);
                     tableResults.getModel().setValueAt(list.get(i).getName(), i, 1);
                     tableResults.getModel().setValueAt(list.get(i).getColor(), i, 2);
                     tableResults.getModel().setValueAt(list.get(i).getShape(), i, 3);
-                }
+              }
                 tableResults.getColumnModel().getColumn(0).setHeaderValue("Label");
                 tableResults.getColumnModel().getColumn(1).setHeaderValue("Name");
                 tableResults.getColumnModel().getColumn(2).setHeaderValue("Color");
@@ -331,6 +379,12 @@ public class MainGuiFrame extends java.awt.Frame {
                     list = dbMedewerker.readAll();
                 } catch (SQLException ex) {
                     Logger.getLogger(logIn.class.getName()).log(Level.SEVERE, null, ex);
+                }
+
+                int x = 0;
+                while (x < list.size()) {
+                    System.out.println(list.get(x).toString());
+                    x++;
                 }
                 for (int i = 0; i < list.size(); i++) {
                     System.out.println(list.get(i).toString());
