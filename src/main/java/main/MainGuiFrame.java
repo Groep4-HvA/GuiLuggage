@@ -115,6 +115,11 @@ public class MainGuiFrame extends java.awt.Frame {
                 exitForm(evt);
             }
         });
+        addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                formFocusGained(evt);
+            }
+        });
 
         advanced.setText(bundle.getString("MainGuiFrame.advanced.text")); // NOI18N
         advanced.setToolTipText(bundle.getString("MainGuiFrame.advanced.toolTipText")); // NOI18N
@@ -541,6 +546,11 @@ public class MainGuiFrame extends java.awt.Frame {
             e.printStackTrace();
         }
     }//GEN-LAST:event_tableChangeActionPerformed
+
+    private void formFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_formFocusGained
+        // TODO add your handling code here:
+    }//GEN-LAST:event_formFocusGained
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel LabelDescription;
     private javax.swing.JButton addNewButton1;
