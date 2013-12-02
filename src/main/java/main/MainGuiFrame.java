@@ -69,7 +69,7 @@ public class MainGuiFrame extends java.awt.Frame {
          } */
         int x = 0;
         while (x < list.size()) {
-            System.out.println(list.get(x).toString());
+            //System.out.println(list.get(x).toString());
             tableResults.getModel().setValueAt(list.get(x).getLabel(), x, 0);
             tableResults.getModel().setValueAt(list.get(x).getName(), x, 1);
             tableResults.getModel().setValueAt(list.get(x).getColor(), x, 2);
@@ -357,6 +357,12 @@ public class MainGuiFrame extends java.awt.Frame {
 
     private void appManagementButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_appManagementButtonActionPerformed
         if (beheer) {
+            for (int x = 0; x < 50; x++) {
+                tableResults.getModel().setValueAt("", x, 0);
+                tableResults.getModel().setValueAt("", x, 1);
+                tableResults.getModel().setValueAt("", x, 2);
+                tableResults.getModel().setValueAt("", x, 3);
+            }
             if (inBeheer) {
                 inBeheer = false;
                 addNewButton1.setText(bundle.getString("MainGuiFrame.addNew") + button1);
@@ -371,7 +377,7 @@ public class MainGuiFrame extends java.awt.Frame {
                     Logger.getLogger(logIn.class.getName()).log(Level.SEVERE, null, ex);
                 }
                 for (int i = 0; i < list.size(); i++) {
-                    System.out.println(list.get(i).toString());
+                    //System.out.println(list.get(i).toString());
                     tableResults.getModel().setValueAt(list.get(i).getLabel(), i, 0);
                     tableResults.getModel().setValueAt(list.get(i).getName(), i, 1);
                     tableResults.getModel().setValueAt(list.get(i).getColor(), i, 2);
@@ -402,7 +408,7 @@ public class MainGuiFrame extends java.awt.Frame {
                     x++;
                 }
                 for (int i = 0; i < list.size(); i++) {
-                    System.out.println(list.get(i).toString());
+                    //System.out.println(list.get(i).toString());
                     tableResults.getModel().setValueAt(list.get(i).getName(), i, 0);
                     tableResults.getModel().setValueAt(list.get(i).getUsername(), i, 1);
                     tableResults.getModel().setValueAt(list.get(i).isAppManager(), i, 2);
@@ -426,7 +432,7 @@ public class MainGuiFrame extends java.awt.Frame {
     }//GEN-LAST:event_myAccountButtonActionPerformed
 
     private void tableResultsKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tableResultsKeyPressed
-        // TODO add your handling code here:
+
     }//GEN-LAST:event_tableResultsKeyPressed
 
     private void logoutButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_logoutButtonActionPerformed
@@ -464,7 +470,7 @@ public class MainGuiFrame extends java.awt.Frame {
             gui.setVisible(true);
         } else {
             AddLuggage gui = new AddLuggage();
-            
+
             gui.setVisible(true);
         }
     }//GEN-LAST:event_addNewButton1ActionPerformed
@@ -481,22 +487,21 @@ public class MainGuiFrame extends java.awt.Frame {
 
     private void tableChangeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tableChangeActionPerformed
         try {
-            if (luggage) {
-                luggage = false;
+            for (int x = 0; x < 50; x++) {
+                tableResults.getModel().setValueAt("", x, 0);
+                tableResults.getModel().setValueAt("", x, 1);
+                tableResults.getModel().setValueAt("", x, 2);
+                tableResults.getModel().setValueAt("", x, 3);
+            }
+            if (!luggage) {
+                luggage = true;
                 PassengerDAO dbPassenger = new PassengerDAO();
                 List<Passenger> list;
                 list = dbPassenger.readAll();
 
-                /*for (int x = 0; x < list.size(); x++) {
-         
-                 System.out.println(list.get(x).toString());
-         
-                 //tableResults.getModel().setValueAt(list.get(x).getLabel(), x, 0);
-         
-                 } */
                 int x = 0;
                 while (x < list.size()) {
-                    System.out.println(list.get(x).toString());
+                    //System.out.println(list.get(x).toString());
                     tableResults.getModel().setValueAt(list.get(x).getLabel(), x, 0);
                     tableResults.getModel().setValueAt(list.get(x).getName(), x, 1);
                     tableResults.getModel().setValueAt(list.get(x).getSurname(), x, 2);
@@ -510,7 +515,7 @@ public class MainGuiFrame extends java.awt.Frame {
                 tableResults.getColumnModel().getColumn(3).setHeaderValue("Details");
 
             } else {
-                luggage = true;
+                luggage = false;
 
                 LuggageDAO dbLuggage = new LuggageDAO();
                 List<Luggage> list = null;
@@ -518,11 +523,9 @@ public class MainGuiFrame extends java.awt.Frame {
                     list = dbLuggage.readAll();
                 } catch (SQLException ex) {
                     Logger.getLogger(logIn.class.getName()).log(Level.SEVERE, null, ex);
-
-
                 }
                 for (int i = 0; i < list.size(); i++) {
-                    System.out.println(list.get(i).toString());
+                    //System.out.println(list.get(i).toString());
                     tableResults.getModel().setValueAt(list.get(i).getLabel(), i, 0);
                     tableResults.getModel().setValueAt(list.get(i).getLocation(), i, 1);
                     tableResults.getModel().setValueAt(list.get(i).getColor(), i, 2);
