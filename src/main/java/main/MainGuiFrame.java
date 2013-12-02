@@ -364,7 +364,7 @@ public class MainGuiFrame extends java.awt.Frame {
             AddMedewerker gui = new AddMedewerker(true);
             gui.setVisible(true);
         } else {
-            AddPassenger gui = new AddPassenger();
+            AddLuggage gui = new AddLuggage();
             gui.setVisible(true);
         }
     }//GEN-LAST:event_addNewButton1ActionPerformed
