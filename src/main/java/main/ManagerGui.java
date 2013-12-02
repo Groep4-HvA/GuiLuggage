@@ -6,6 +6,10 @@ package main;
 
 import java.awt.Dimension;
 import java.awt.Toolkit;
+import java.sql.SQLException;
+import java.util.List;
+import models.Passenger;
+import models.PassengerDAO;
 import models.printJob;
 import popups.PasswordConfirm;
 
@@ -21,11 +25,38 @@ public class ManagerGui extends java.awt.Frame {
      */
     private boolean beheer;
 
-    public ManagerGui(boolean beheer) {
+    public ManagerGui(boolean beheer) throws SQLException {
         beheer = this.beheer;
-        initComponents();
+        
+        
+        
+        
+        PassengerDAO dbPassenger = new PassengerDAO();
+        List<Passenger> list;
+        list = dbPassenger.readAll();
+        
+        
+        int x = 0;
+        while (x < list.size()) {
+          //  System.out.println(list.get(x).toString());
+            jTable1.getModel().setValueAt(list.get(x).getLabel(), x, 0);
+            jTable1.getModel().setValueAt(list.get(x).getName(), x, 1);
+            jTable1.getModel().setValueAt(list.get(x).getColor(), x, 2);
+            jTable1.getModel().setValueAt(list.get(x).getShape(), x, 3);
+            x++;
+        }
+        
+        jTable1.getColumnModel().getColumn(0).setHeaderValue("Label");
+        jTable1.getColumnModel().getColumn(1).setHeaderValue("Name");
+        jTable1.getColumnModel().getColumn(2).setHeaderValue("Color");
+        jTable1.getColumnModel().getColumn(3).setHeaderValue("Shape");
+        
     }
+    
 
+    
+    
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -60,7 +91,7 @@ public class ManagerGui extends java.awt.Frame {
             }
         });
 
-        java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("Bundle"); // NOI18N
+        java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("guiluggage/Bundle"); // NOI18N
         myAccountButton.setText(bundle.getString("Manager.myAccountButton.text")); // NOI18N
         myAccountButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -141,6 +172,11 @@ public class ManagerGui extends java.awt.Frame {
             }
         ));
         jScrollPane1.setViewportView(jTable1);
+        java.util.ResourceBundle bundle1 = java.util.ResourceBundle.getBundle("main/Bundle"); // NOI18N
+        jTable1.getColumnModel().getColumn(0).setHeaderValue(bundle1.getString("ManagerGui.jTable1.columnModel.title0")); // NOI18N
+        jTable1.getColumnModel().getColumn(1).setHeaderValue(bundle1.getString("ManagerGui.jTable1.columnModel.title1")); // NOI18N
+        jTable1.getColumnModel().getColumn(2).setHeaderValue(bundle1.getString("ManagerGui.jTable1.columnModel.title2")); // NOI18N
+        jTable1.getColumnModel().getColumn(3).setHeaderValue(bundle1.getString("ManagerGui.jTable1.columnModel.title3")); // NOI18N
 
         org.jdesktop.layout.GroupLayout jPanel1Layout = new org.jdesktop.layout.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -164,37 +200,36 @@ public class ManagerGui extends java.awt.Frame {
                 .add(logoutButton)
                 .addContainerGap())
             .add(jPanel2Layout.createSequentialGroup()
-                .addContainerGap(35, Short.MAX_VALUE)
+                .addContainerGap(org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .add(jPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING, false)
                     .add(jPanel1, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .add(jPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING, false)
-                        .add(jPanel2Layout.createSequentialGroup()
-                            .add(missingManager)
-                            .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
-                            .add(foundManager)
-                            .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
-                            .add(processedManager)
-                            .add(70, 70, 70)
-                            .add(jLabel1)
-                            .add(18, 18, 18)
-                            .add(jLabel2)
-                            .add(18, 18, 18)
-                            .add(jLabel3)
-                            .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .add(graphManager))
-                        .add(jPanel2Layout.createSequentialGroup()
-                            .add(printButton)
-                            .add(215, 215, 215)
-                            .add(jTextField1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                            .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
-                            .add(jLabel4)
-                            .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
-                            .add(jTextField2, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                            .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                            .add(jButton2)
-                            .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, 368, Short.MAX_VALUE)
-                            .add(moreButton))))
-                .addContainerGap(33, Short.MAX_VALUE))
+                    .add(jPanel2Layout.createSequentialGroup()
+                        .add(missingManager)
+                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
+                        .add(foundManager)
+                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
+                        .add(processedManager)
+                        .add(70, 70, 70)
+                        .add(jLabel1)
+                        .add(18, 18, 18)
+                        .add(jLabel2)
+                        .add(18, 18, 18)
+                        .add(jLabel3)
+                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .add(graphManager))
+                    .add(jPanel2Layout.createSequentialGroup()
+                        .add(printButton)
+                        .add(215, 215, 215)
+                        .add(jTextField1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
+                        .add(jLabel4)
+                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
+                        .add(jTextField2, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                        .add(jButton2)
+                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, 368, Short.MAX_VALUE)
+                        .add(moreButton)))
+                .addContainerGap(org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
@@ -222,7 +257,7 @@ public class ManagerGui extends java.awt.Frame {
                     .add(jLabel4)
                     .add(jTextField2, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                     .add(jButton2))
-                .addContainerGap(22, Short.MAX_VALUE))
+                .addContainerGap(7, Short.MAX_VALUE))
         );
 
         add(jPanel2, java.awt.BorderLayout.CENTER);
