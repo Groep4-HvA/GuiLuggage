@@ -51,14 +51,14 @@ public class LuggageDAO {
         }
         return -1;
     }
-        /* NEEDS TO GET FROM BOTH TABLES PASSENGERS AND LUGGAGE FIRST
+        
         public List<Luggage> readAll() throws SQLException {
         
         List<Luggage> list = new LinkedList<Luggage>();
         ResultSet rs = null;
         PreparedStatement prdstmt = null;
         
-        String query = "SELECT LABELNUMBER, COLOR, SHAPE, STORAGELOCATION, ADDITIONALDETAILS, STATUS,HANDLERID, ADDDATE FROM LUGGAGE";
+        String query = "SELECT `LabelNumber`, `color`, `shape`, `storageLocation`, `additionalDetails`, `status`,`handlerId`, `addDate`,`resolveDate` FROM luggage LIMIT 50";
         
         prdstmt = conn.getConnection().prepareStatement(query);
         rs = conn.performSelect(prdstmt);
@@ -78,7 +78,7 @@ public class LuggageDAO {
         }
         return list;
     }
-    */
+    
         public int update(Luggage luggage) throws SQLException {
         PreparedStatement prdstmt = null;
             String query = "UPDATE LUGGAGE"
