@@ -106,7 +106,7 @@ public class MainGuiFrame extends java.awt.Frame {
         myAccountButton = new javax.swing.JButton();
         logoutButton = new javax.swing.JButton();
         LabelDescription = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
+        tableChange = new javax.swing.JButton();
 
         java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("Bundle"); // NOI18N
         setTitle(bundle.getString("medewerkerMain.title")); // NOI18N
@@ -260,10 +260,10 @@ public class MainGuiFrame extends java.awt.Frame {
         LabelDescription.setToolTipText(bundle.getString("MainGuiFrame.LabelDescription.toolTipText")); // NOI18N
 
         java.util.ResourceBundle bundle1 = java.util.ResourceBundle.getBundle("main/Bundle"); // NOI18N
-        jButton1.setText(bundle1.getString("MainGuiFrame.jButton1.text")); // NOI18N
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        tableChange.setText(bundle1.getString("MainGuiFrame.tableChange.text")); // NOI18N
+        tableChange.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                tableChangeActionPerformed(evt);
             }
         });
 
@@ -288,7 +288,7 @@ public class MainGuiFrame extends java.awt.Frame {
                                     .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                                     .add(addNewButton2)
                                     .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .add(jButton1)
+                                    .add(tableChange)
                                     .add(18, 18, 18)
                                     .add(moreButton))
                                 .add(jScrollPane3, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 928, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)))
@@ -330,7 +330,7 @@ public class MainGuiFrame extends java.awt.Frame {
                     .add(jPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
                         .add(moreButton)
                         .add(addNewButton2)
-                        .add(jButton1)))
+                        .add(tableChange)))
                 .addContainerGap(org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -460,10 +460,10 @@ public class MainGuiFrame extends java.awt.Frame {
 
     private void addNewButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addNewButton1ActionPerformed
         if (inBeheer) {
-            AddMedewerker gui = new AddMedewerker(true);
+            AddPassenger gui = new AddPassenger();
             gui.setVisible(true);
         } else {
-            AddPassenger gui = new AddPassenger();
+            AddLuggage gui = new AddLuggage();
             gui.setVisible(true);
         }
     }//GEN-LAST:event_addNewButton1ActionPerformed
@@ -478,7 +478,7 @@ public class MainGuiFrame extends java.awt.Frame {
         }
     }//GEN-LAST:event_addNewButton2ActionPerformed
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void tableChangeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tableChangeActionPerformed
         try {
             if (luggage) {
                 luggage = false;
@@ -498,15 +498,15 @@ public class MainGuiFrame extends java.awt.Frame {
                     System.out.println(list.get(x).toString());
                     tableResults.getModel().setValueAt(list.get(x).getLabel(), x, 0);
                     tableResults.getModel().setValueAt(list.get(x).getName(), x, 1);
-                    tableResults.getModel().setValueAt(list.get(x).getColor(), x, 2);
-                    tableResults.getModel().setValueAt(list.get(x).getShape(), x, 3);
+                    tableResults.getModel().setValueAt(list.get(x).getSurname(), x, 2);
+                    tableResults.getModel().setValueAt(list.get(x).getDetails(), x, 3);
                     x++;
                 }
 
                 tableResults.getColumnModel().getColumn(0).setHeaderValue("Label");
                 tableResults.getColumnModel().getColumn(1).setHeaderValue("Name");
-                tableResults.getColumnModel().getColumn(2).setHeaderValue("Color");
-                tableResults.getColumnModel().getColumn(3).setHeaderValue("Shape");
+                tableResults.getColumnModel().getColumn(2).setHeaderValue("Surname");
+                tableResults.getColumnModel().getColumn(3).setHeaderValue("Details");
 
             } else {
                 luggage = true;
@@ -517,12 +517,8 @@ public class MainGuiFrame extends java.awt.Frame {
                     list = dbLuggage.readAll();
                 } catch (SQLException ex) {
                     Logger.getLogger(logIn.class.getName()).log(Level.SEVERE, null, ex);
-                }
-                for (int i = 0; i < 50; i++) {
-                    tableResults.getModel().setValueAt("", i, 0);
-                    tableResults.getModel().setValueAt("", i, 1);
-                    tableResults.getModel().setValueAt("", i, 2);
-                    tableResults.getModel().setValueAt("", i, 3);
+
+
                 }
                 for (int i = 0; i < list.size(); i++) {
                     System.out.println(list.get(i).toString());
@@ -540,14 +536,13 @@ public class MainGuiFrame extends java.awt.Frame {
         } catch (Exception e) {
             e.printStackTrace();
         }
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_tableChangeActionPerformed
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel LabelDescription;
     private javax.swing.JButton addNewButton1;
     private javax.swing.JButton addNewButton2;
     private javax.swing.JButton advanced;
     private javax.swing.JButton appManagementButton;
-    private javax.swing.JButton jButton1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane3;
@@ -555,6 +550,7 @@ public class MainGuiFrame extends java.awt.Frame {
     private javax.swing.JButton myAccountButton;
     private javax.swing.JButton searchButton;
     private javax.swing.JTextArea searchInput;
+    private javax.swing.JButton tableChange;
     private javax.swing.JTable tableResults;
     // End of variables declaration//GEN-END:variables
 }
