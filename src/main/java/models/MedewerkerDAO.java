@@ -16,10 +16,45 @@ import java.util.List;
  * @author ChrisvanderHeijden
  */
 public class MedewerkerDAO {
+
     ConnectionMySQL conn = new ConnectionMySQL();
 
     public MedewerkerDAO() {
         // initialization 
+    }
+
+    public List<Medewerker> search(String searchInput) throws SQLException {
+
+        List<Medewerker> list = new LinkedList<Medewerker>();
+        ResultSet rs = null;
+        PreparedStatement prdstmt = null;
+
+        String query = "SELECT `userName`, `userRealName`, `userPass`, `userBeheer`, `userLang` FROM `Users` WHERE `username` LIKE ? OR `userRealName` LIKE ? OR `userBeheer` LIKE ? LIMIT 50";
+
+        conn.startConnection();
+
+        prdstmt = conn.getConnection().prepareStatement(query);
+        
+        prdstmt.setString(1, "%" + searchInput + "%");
+        prdstmt.setString(2, "%" + searchInput + "%");
+        prdstmt.setString(3, "%" + searchInput + "%");
+        
+        rs = conn.performSelect(prdstmt);
+
+        while (rs.next()) {
+            Medewerker tempMedewerker = new Medewerker();
+            tempMedewerker.setName(rs.getString("userRealName"));
+            tempMedewerker.setUsername(rs.getString("userName"));
+            tempMedewerker.setPassword(rs.getString("userPass"));
+            tempMedewerker.setAppManager(rs.getBoolean("userBeheer"));
+            list.add(tempMedewerker);
+        }
+
+        if (conn != null) {
+            conn.closeConnection();
+        }
+
+        return list;
     }
 
     public List<Medewerker> readAll() throws SQLException {
@@ -81,9 +116,6 @@ public class MedewerkerDAO {
 //
 //      //  return tempMedewerker;
 //    }
-    
-    
-    
     public List<Medewerker> readLogIn(String user, String pass) throws SQLException {
         List<Medewerker> list = new LinkedList<Medewerker>();
         ResultSet rs = null;
@@ -115,23 +147,21 @@ public class MedewerkerDAO {
 
         return list;
     }
-    
-    
-    
+
     public int create(Medewerker medewerker) throws SQLException {
         PreparedStatement prdstmt = null;
         String query = "INSERT INTO `Users` (`userName`, `userRealName`, `userPass`, `userManager`, `userBeheer`, `userLang`) VALUES(?, ?, ?, ?, ?, ?);";
-        
+
         conn.startConnection();
-      //  conn = (ConnectionMySQL) DriverManager.getConnection(url, user, pw);
-       prdstmt = conn.getConnection().prepareStatement(query);
+        //  conn = (ConnectionMySQL) DriverManager.getConnection(url, user, pw);
+        prdstmt = conn.getConnection().prepareStatement(query);
         // some code needs to be writing
         //ps = conn.prepareStatement(query);
         prdstmt.setString(1, medewerker.getUsername());
         prdstmt.setString(2, medewerker.getName());
         prdstmt.setString(3, medewerker.getPassword());
-        prdstmt.setBoolean(4,medewerker.isManager());
-        prdstmt.setBoolean(5,medewerker.isAppManager());
+        prdstmt.setBoolean(4, medewerker.isManager());
+        prdstmt.setBoolean(5, medewerker.isAppManager());
         prdstmt.setString(6, medewerker.getUserLang());
         prdstmt.executeUpdate();
 
@@ -163,9 +193,8 @@ public class MedewerkerDAO {
 
         conn.startConnection();
         // some code needs to be writing
-        
-        prdstmt.executeUpdate();
 
+        prdstmt.executeUpdate();
 
         if (conn != null) {
             conn.closeConnection();

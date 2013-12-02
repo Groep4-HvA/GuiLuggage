@@ -57,10 +57,7 @@
                           <Component id="searchButton" min="-2" max="-2" attributes="0"/>
                           <EmptySpace pref="371" max="-2" attributes="0"/>
                       </Group>
-                      <Group type="102" alignment="0" attributes="0">
-                          <Component id="LabelDescription" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace min="775" pref="775" max="-2" attributes="0"/>
-                      </Group>
+                      <Component id="LabelDescription" alignment="0" min="-2" max="-2" attributes="0"/>
                       <Group type="103" alignment="0" groupAlignment="1" attributes="0">
                           <Component id="searchInput" alignment="1" min="-2" pref="931" max="-2" attributes="0"/>
                           <Group type="103" alignment="1" groupAlignment="0" max="-2" attributes="0">

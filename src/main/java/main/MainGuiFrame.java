@@ -458,40 +458,72 @@ public class MainGuiFrame extends java.awt.Frame {
         System.out.println(searchInput.getText());
         System.out.println();
 
-        try {
+        if (!inBeheer) {
 
-            PassengerDAO dbPassenger = new PassengerDAO();
-            List<Passenger> list;
-            list = dbPassenger.search(searchInput.getText());
+            try {
 
-            System.out.println();
-            System.out.println(searchInput.getText());
-            System.out.println();
+                PassengerDAO dbPassenger = new PassengerDAO();
+                List<Passenger> list;
+                list = dbPassenger.search(searchInput.getText());
 
-            for (int i = 0; i < 50; i++) {
-                tableResults.getModel().setValueAt("", i, 0);
-                tableResults.getModel().setValueAt("", i, 1);
-                tableResults.getModel().setValueAt("", i, 2);
-                tableResults.getModel().setValueAt("", i, 3);
+                System.out.println();
+                System.out.println(searchInput.getText());
+                System.out.println();
+
+                for (int i = 0; i < 50; i++) {
+                    tableResults.getModel().setValueAt("", i, 0);
+                    tableResults.getModel().setValueAt("", i, 1);
+                    tableResults.getModel().setValueAt("", i, 2);
+                    tableResults.getModel().setValueAt("", i, 3);
+                }
+
+                int x = 0;
+                while (x < list.size()) {
+                    System.out.println(list.get(x).toString());
+                    tableResults.getModel().setValueAt(list.get(x).getLabel(), x, 0);
+                    tableResults.getModel().setValueAt(list.get(x).getName(), x, 1);
+                    tableResults.getModel().setValueAt(list.get(x).getColor(), x, 2);
+                    tableResults.getModel().setValueAt(list.get(x).getShape(), x, 3);
+                    x++;
+                }
+
+                tableResults.getColumnModel().getColumn(0).setHeaderValue("Label");
+                tableResults.getColumnModel().getColumn(1).setHeaderValue("Name");
+                tableResults.getColumnModel().getColumn(2).setHeaderValue("Color");
+                tableResults.getColumnModel().getColumn(3).setHeaderValue("Shape");
+
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        } else {
+            try {
+                MedewerkerDAO dbMedewerker = new MedewerkerDAO();
+                List<Medewerker> list = null;
+                list = dbMedewerker.search(searchInput.getText());
+
+                for (int i = 0; i < 50; i++) {
+                    tableResults.getModel().setValueAt("", i, 0);
+                    tableResults.getModel().setValueAt("", i, 1);
+                    tableResults.getModel().setValueAt("", i, 2);
+                    tableResults.getModel().setValueAt("", i, 3);
+                }
+
+                for (int i = 0; i < list.size(); i++) {
+                    //System.out.println(list.get(i).toString());
+                    tableResults.getModel().setValueAt(list.get(i).getName(), i, 0);
+                    tableResults.getModel().setValueAt(list.get(i).getUsername(), i, 1);
+                    tableResults.getModel().setValueAt(list.get(i).isAppManager(), i, 2);
+                    tableResults.getModel().setValueAt(list.get(i).isManager(), i, 3);
+                }
+
+                tableResults.getColumnModel().getColumn(0).setHeaderValue("Name");
+                tableResults.getColumnModel().getColumn(1).setHeaderValue("Username");
+                tableResults.getColumnModel().getColumn(2).setHeaderValue("Appmanager");
+                tableResults.getColumnModel().getColumn(3).setHeaderValue("Manager");
+            } catch (Exception e) {
+                e.printStackTrace();
             }
 
-            int x = 0;
-            while (x < list.size()) {
-                System.out.println(list.get(x).toString());
-                tableResults.getModel().setValueAt(list.get(x).getLabel(), x, 0);
-                tableResults.getModel().setValueAt(list.get(x).getName(), x, 1);
-                tableResults.getModel().setValueAt(list.get(x).getColor(), x, 2);
-                tableResults.getModel().setValueAt(list.get(x).getShape(), x, 3);
-                x++;
-            }
-
-            tableResults.getColumnModel().getColumn(0).setHeaderValue("Label");
-            tableResults.getColumnModel().getColumn(1).setHeaderValue("Name");
-            tableResults.getColumnModel().getColumn(2).setHeaderValue("Color");
-            tableResults.getColumnModel().getColumn(3).setHeaderValue("Shape");
-
-        } catch (Exception e) {
-            e.printStackTrace();
         }
     }//GEN-LAST:event_searchButtonActionPerformed
 
