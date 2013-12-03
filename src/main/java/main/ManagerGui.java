@@ -30,36 +30,29 @@ public class ManagerGui extends java.awt.Frame {
     public ManagerGui(boolean beheer) throws SQLException {
         beheer = this.beheer;
         initComponents();
-        
-        
-        
+
         PassengerDAO dbPassenger = new PassengerDAO();
         List<Passenger> list;
         list = dbPassenger.readAll();
-        
-        
+
         int x = 0;
-        jLabel3.setText(bundle.getString("Manager.jLabel3.text")+": "+list.size());
+        jLabel3.setText(bundle.getString("Manager.jLabel3.text") + ": " + list.size());
         while (x < list.size()) {
-          //  System.out.println(list.get(x).toString());
+            //  System.out.println(list.get(x).toString());
             jTable1.getModel().setValueAt(list.get(x).getLabel(), x, 0);
             jTable1.getModel().setValueAt(list.get(x).getName(), x, 1);
             jTable1.getModel().setValueAt(list.get(x).getColor(), x, 2);
             jTable1.getModel().setValueAt(list.get(x).getShape(), x, 3);
             x++;
         }
-       
+
         jTable1.getColumnModel().getColumn(0).setHeaderValue("Label");
         jTable1.getColumnModel().getColumn(1).setHeaderValue("Name");
         jTable1.getColumnModel().getColumn(2).setHeaderValue("Color");
         jTable1.getColumnModel().getColumn(3).setHeaderValue("Shape");
-        
-    }
-    
 
-    
-    
-    
+    }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -357,12 +350,16 @@ public class ManagerGui extends java.awt.Frame {
 
     private void graphManagerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_graphManagerActionPerformed
         //jPanel1.setVisible(false);
-        ManagerGraph graph = new ManagerGraph("Manager graph", true);
-        Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
-        graph.setLocation(dim.width/2-this.getSize().width/2, dim.height/2-this.getSize().height/2);
-        graph.setLocationRelativeTo(null);
-        graph.setSize(600, 400);
-        graph.setVisible(true);
+        try {
+            ManagerGraph graph = new ManagerGraph("Manager graph", true);
+            Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
+            graph.setLocation(dim.width / 2 - this.getSize().width / 2, dim.height / 2 - this.getSize().height / 2);
+            graph.setLocationRelativeTo(null);
+            graph.setSize(600, 400);
+            graph.setVisible(true);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }//GEN-LAST:event_graphManagerActionPerformed
 
     private void printButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_printButtonActionPerformed
@@ -376,9 +373,9 @@ public class ManagerGui extends java.awt.Frame {
     }//GEN-LAST:event_logoutButtonActionPerformed
 
     private void PDFActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_PDFActionPerformed
-        String pdfje[] = {"Hello world"}; 
-        int cijfers[] = {1,4,5,6};
-        
+        String pdfje[] = {"Hello world"};
+        int cijfers[] = {1, 4, 5, 6};
+
         PDFGenerator pdf = new PDFGenerator();
         pdf.generate(pdfje, cijfers, cijfers, cijfers);
         pdf.save("Corendon_Overview.pdf");

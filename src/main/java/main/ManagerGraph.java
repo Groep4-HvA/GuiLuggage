@@ -14,10 +14,16 @@ import org.jfree.chart.renderer.category.LineAndShapeRenderer;
 import org.jfree.data.category.CategoryDataset;
 import org.jfree.data.category.DefaultCategoryDataset;
 import org.jfree.ui.ApplicationFrame;
+import DBUtil.ConnectionMySQL;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 
 public class ManagerGraph extends ApplicationFrame {
 
-    public ManagerGraph(final String title, boolean beheer) {
+    ConnectionMySQL conn = new ConnectionMySQL();
+
+    public ManagerGraph(final String title, boolean beheer) throws SQLException {
         super(title);
         final CategoryDataset dataset = createDataset();
         final JFreeChart chart = createChart(dataset);
@@ -25,14 +31,63 @@ public class ManagerGraph extends ApplicationFrame {
         //chartPanel.setPreferredSize(new Dimension(1366, 768));
         setContentPane(chartPanel);
 
+        shit();
+        shitSean();
+
     }
 
-    private CategoryDataset createDataset() {
+    public double shitSean() throws SQLException {
+        conn.startConnection();
+
+        //String sql = "SELECT * FROM `cases` WHERE `resolveDate` IS NOT NULL";
+        String sql = "SELECT * FROM `cases` WHERE `resolveDate` IS NULL";
+
+        ResultSet rs = null;
+        PreparedStatement prdstmt = null;
+
+        prdstmt = conn.getConnection().prepareStatement(sql);
+        rs = conn.performSelect(prdstmt);
+
+        int xGaySeanx = 0;
+
+        while (rs.next()) {
+            xGaySeanx++;
+        }
+        System.out.println(xGaySeanx);
+
+        return xGaySeanx;
+    }
+
+    public double shit() throws SQLException {
+
+        conn.startConnection();
+
+        String sql = "SELECT * FROM `cases` WHERE `resolveDate` IS NOT NULL";
+        //String sql2 = "SELECT * FROM `cases` WHERE `resolveDate` IS NULL";
+
+        ResultSet rs = null;
+        PreparedStatement prdstmt = null;
+
+        prdstmt = conn.getConnection().prepareStatement(sql);
+        rs = conn.performSelect(prdstmt);
+
+        int xGaySeanx = 0;
+
+        while (rs.next()) {
+            xGaySeanx++;
+        }
+        System.out.println(xGaySeanx);
+
+        return xGaySeanx;
+
+    }
+
+    private CategoryDataset createDataset() throws SQLException {
 
         // row keys...
         final String lost = "Lost";
         final String found = "Found";
-        final String resolved = "Resolved";
+        final String total = "Total";
 
         // column keys...
         final String januari = "Januari";
@@ -51,44 +106,44 @@ public class ManagerGraph extends ApplicationFrame {
         // create the dataset...
         final DefaultCategoryDataset dataset = new DefaultCategoryDataset();
 
-        dataset.addValue(1.0, lost, januari);
-        dataset.addValue(2.0, lost, februari);
-        dataset.addValue(3.0, lost, march);
-        dataset.addValue(4.0, lost, april);
-        dataset.addValue(4.0, lost, may);
-        dataset.addValue(5.0, lost, june);
-        dataset.addValue(5.0, lost, july);
-        dataset.addValue(7.0, lost, august);
-        dataset.addValue(7.0, lost, september);
-        dataset.addValue(10.0, lost, october);
-        dataset.addValue(8.0, lost, november);
-        dataset.addValue(8.0, lost, december);
+        dataset.addValue(0, lost, januari);
+        dataset.addValue(0, lost, februari);
+        dataset.addValue(0, lost, march);
+        dataset.addValue(0, lost, april);
+        dataset.addValue(0, lost, may);
+        dataset.addValue(0, lost, june);
+        dataset.addValue(0, lost, july);
+        dataset.addValue(0, lost, august);
+        dataset.addValue(0, lost, september);
+        dataset.addValue(0, lost, october);
+        dataset.addValue(0, lost, november);
+        dataset.addValue(shit(), lost, december);
 
-        dataset.addValue(5.0, found, januari);
-        dataset.addValue(7.0, found, februari);
-        dataset.addValue(6.0, found, march);
-        dataset.addValue(8.0, found, april);
-        dataset.addValue(4.0, found, may);
-        dataset.addValue(4.0, found, june);
-        dataset.addValue(2.0, found, july);
-        dataset.addValue(1.0, found, august);
-        dataset.addValue(1.0, found, september);
-        dataset.addValue(1.0, found, october);
-        dataset.addValue(1.0, found, november);
-        dataset.addValue(1.0, found, december);
+        dataset.addValue(0, found, januari);
+        dataset.addValue(0, found, februari);
+        dataset.addValue(0, found, march);
+        dataset.addValue(0, found, april);
+        dataset.addValue(0, found, may);
+        dataset.addValue(0, found, june);
+        dataset.addValue(0, found, july);
+        dataset.addValue(0, found, august);
+        dataset.addValue(0, found, september);
+        dataset.addValue(0, found, october);
+        dataset.addValue(0, found, november);
+        dataset.addValue(shitSean(), found, december);
 
-        dataset.addValue(4.0, resolved, januari);
-        dataset.addValue(3.0, resolved, februari);
-        dataset.addValue(2.0, resolved, march);
-        dataset.addValue(3.0, resolved, april);
-        dataset.addValue(6.0, resolved, may);
-        dataset.addValue(3.0, resolved, june);
-        dataset.addValue(4.0, resolved, july);
-        dataset.addValue(3.0, resolved, august);
-        dataset.addValue(3.0, resolved, september);
-        dataset.addValue(3.0, resolved, october);
-        dataset.addValue(3.0, resolved, november);
-        dataset.addValue(3.0, resolved, december);
+        dataset.addValue(0, total, januari);
+        dataset.addValue(0, total, februari);
+        dataset.addValue(0, total, march);
+        dataset.addValue(0, total, april);
+        dataset.addValue(0, total, may);
+        dataset.addValue(0, total, june);
+        dataset.addValue(0, total, july);
+        dataset.addValue(0, total, august);
+        dataset.addValue(0, total, september);
+        dataset.addValue(0, total, october);
+        dataset.addValue(0, total, november);
+        dataset.addValue(shit() + shitSean(), total, december);
 
         return dataset;
 
