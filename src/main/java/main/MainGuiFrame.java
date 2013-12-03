@@ -48,6 +48,22 @@ public class MainGuiFrame extends java.awt.Frame {
      * @param value
      * @throws java.sql.SQLException
      */
+    public void forStatementMedewerker(List<Medewerker> list){
+    for (int i = 0; i < list.size(); i++) {
+                    tableResults.getModel().setValueAt(list.get(i).getName(), i, 0);
+                    tableResults.getModel().setValueAt(list.get(i).getUsername(), i, 1);
+                    tableResults.getModel().setValueAt(list.get(i).isAppManager(), i, 2);
+                    tableResults.getModel().setValueAt(list.get(i).isManager(), i, 3);
+    }
+}
+    public void forStatementCase(List<Case> list){
+    for (int i = 0; i < list.size(); i++) {
+                    tableResults.getModel().setValueAt(list.get(i).getLabel(), i, 0);
+                    tableResults.getModel().setValueAt(list.get(i).getName(), i, 1);
+                    tableResults.getModel().setValueAt(list.get(i).getSurName(), i, 2);
+                    tableResults.getModel().setValueAt(list.get(i).getAditionalDetails(), i, 3);
+    }
+}
     public MainGuiFrame(boolean value) throws SQLException {
         beheer = value;
         button1 = (inBeheer) ? bundle.getString("Medewerker") : bundle.getString("Luggage");
@@ -420,13 +436,8 @@ public class MainGuiFrame extends java.awt.Frame {
                 tableResults.getColumnModel().getColumn(1).setHeaderValue("Username");
                 tableResults.getColumnModel().getColumn(2).setHeaderValue("Appmanager");
                 tableResults.getColumnModel().getColumn(3).setHeaderValue("Manager");
-                for (int i = 0; i < list.size(); i++) {
-                    //System.out.println(list.get(i).toString());
-                    tableResults.getModel().setValueAt(list.get(i).getName(), i, 0);
-                    tableResults.getModel().setValueAt(list.get(i).getUsername(), i, 1);
-                    tableResults.getModel().setValueAt(list.get(i).isAppManager(), i, 2);
-                    tableResults.getModel().setValueAt(list.get(i).isManager(), i, 3);
-                }
+                
+                forStatementMedewerker(list);
                 jLabel1.setText(bundle.getString("MainGuiFrame.Location") + bundle.getString("Users"));
                 inBeheer = true;
             }
@@ -540,15 +551,10 @@ public class MainGuiFrame extends java.awt.Frame {
                 tableResults.getColumnModel().getColumn(1).setHeaderValue("Username");
                 tableResults.getColumnModel().getColumn(2).setHeaderValue("Appmanager");
                 tableResults.getColumnModel().getColumn(3).setHeaderValue("Manager");
-                for (int i = 0; i < list.size(); i++) {
-                    //System.out.println(list.get(i).toString());
-                    tableResults.getModel().setValueAt(list.get(i).getName(), i, 0);
-                    tableResults.getModel().setValueAt(list.get(i).getUsername(), i, 1);
-                    tableResults.getModel().setValueAt(list.get(i).isAppManager(), i, 2);
-                    tableResults.getModel().setValueAt(list.get(i).isManager(), i, 3);
-
-                    jLabel1.setText(bundle.getString("MainGuiFrame.Location") + bundle.getString("Users"));
-                }
+                
+                forStatementMedewerker(list);
+                jLabel1.setText(bundle.getString("MainGuiFrame.Location") + bundle.getString("Users"));
+                
             } catch (Exception e) {
                 e.printStackTrace();
             }
