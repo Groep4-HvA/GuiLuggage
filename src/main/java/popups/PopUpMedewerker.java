@@ -5,7 +5,13 @@
 package popups;
 
 import java.awt.Color;
+import java.sql.SQLException;
+import java.util.Date;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.BorderFactory;
+import models.Case;
+import models.CaseDao;
 import models.printJob;
 
 /**
@@ -14,16 +20,37 @@ import models.printJob;
  */
 public class PopUpMedewerker extends javax.swing.JFrame {
     private final Color red = new Color(163, 0, 15);
+    private Case currentCase = null;
+    private boolean resolved = false;
+    private Date now = new Date();
     /**
      * Creates new form PopUpMedewerker
+     * @param currentcase
      */
-    public PopUpMedewerker() {
+    public PopUpMedewerker(Case currentcase) {
+        this.currentCase = currentcase;
         this.setUndecorated(true);
         getRootPane().setBorder( BorderFactory.createLineBorder(red) );
         initComponents();
         this.setLocationRelativeTo(null);
+        setValues();
     }
-
+    public final void setValues(){
+        if(currentCase.getResolveDate()!=null){resolved=true;statusDropDown.setSelectedIndex(1);}
+        labelTextField.setText(currentCase.getLabel());
+        lastNameTextField.setText(currentCase.getSurName());
+        nameTextField.setText(currentCase.getName());
+        colorTextField.setText(currentCase.getColor());
+        shapeTextField.setText(currentCase.getShape());
+        rAdressTextField.setText(currentCase.getResidentAddress());
+        rPostalCodeField.setText(currentCase.getResidentPostalCode());
+        rCityField.setText(currentCase.getResidentCity());
+        hAddressTextField.setText(currentCase.getHomeAddress());
+        hPostalCodeField.setText(currentCase.getHomePostalCode());
+        hCityField.setText(currentCase.getHomeCity());
+        jTextArea1.setText(currentCase.getAditionalDetails());
+        jTextArea2.setText(currentCase.getStorageLocation());
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -99,6 +126,8 @@ public class PopUpMedewerker extends javax.swing.JFrame {
 
         jLabel10.setText(bundle.getString("PopUpMedewerker.jLabel10.text")); // NOI18N
 
+        labelTextField.setEditable(false);
+
         jTextArea1.setColumns(20);
         jTextArea1.setRows(5);
         jScrollPane1.setViewportView(jTextArea1);
@@ -107,7 +136,7 @@ public class PopUpMedewerker extends javax.swing.JFrame {
         jTextArea2.setRows(5);
         jScrollPane2.setViewportView(jTextArea2);
 
-        statusDropDown.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Resolved", "Pending" }));
+        statusDropDown.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Pending", "Resolved" }));
 
         printButton.setText(bundle.getString("PopUpMedewerker.printButton.text")); // NOI18N
         printButton.addActionListener(new java.awt.event.ActionListener() {
@@ -289,6 +318,27 @@ public class PopUpMedewerker extends javax.swing.JFrame {
     }//GEN-LAST:event_cancelButtonActionPerformed
 
     private void saveButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saveButtonActionPerformed
+        if(statusDropDown.getSelectedIndex()==1&&!resolved){currentCase.setResolveDate(now);}
+        currentCase.setLabel(labelTextField.getText());
+        currentCase.setSurName(lastNameTextField.getText());
+        currentCase.setName(nameTextField.getText());
+        currentCase.setColor(colorTextField.getText());
+        currentCase.setShape(shapeTextField.getText());
+        currentCase.setResidentAddress(rAdressTextField.getText());
+        currentCase.setResidentPostalCode(rPostalCodeField.getText());
+        currentCase.setResidentCity(rCityField.getText());
+        currentCase.setHomeAddress(hAddressTextField.getText());
+        currentCase.setHomePostalCode(hPostalCodeField.getText());
+        currentCase.setHomeCity(hCityField.getText());
+        currentCase.setAditionalDetails(jTextArea1.getText());
+        currentCase.setStorageLocation(jTextArea2.getText());
+        System.err.println(currentCase.toString());
+        CaseDao dbCase = new CaseDao();
+        try {
+            dbCase.update(currentCase);
+        } catch (SQLException ex) {
+            Logger.getLogger(PopUpMedewerker.class.getName()).log(Level.SEVERE, null, ex);
+        }
         dispose();
     }//GEN-LAST:event_saveButtonActionPerformed
 

@@ -19,9 +19,7 @@ public class LuggageDAO {
 
     ConnectionMySQL conn = new ConnectionMySQL();
 
-    public LuggageDAO() {
-        // initialization 
-    }
+    public LuggageDAO() {}
 
     public int create(Luggage luggage) throws SQLException {
         PreparedStatement prdstmt = null;

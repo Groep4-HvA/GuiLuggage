@@ -30,9 +30,10 @@ import models.PassengerDAO;
  */
 public class MainGuiFrame extends java.awt.Frame {
 
-    private final PasswordConfirm passOverlay = new PasswordConfirm(new javax.swing.JFrame(), true);
-    private final java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("Bundle"); // NOI18N
-    private List<Medewerker> medList = null;
+    private final PasswordConfirm           passOverlay = new PasswordConfirm(new javax.swing.JFrame(), true);
+    private final java.util.ResourceBundle  bundle      = java.util.ResourceBundle.getBundle("Bundle"); // NOI18N
+    private List<Medewerker>                medList     = null;
+    private List<Case>                      caseList    = null;
     /**
      * Creates new form MainGuiFrame
      */
@@ -59,17 +60,16 @@ public class MainGuiFrame extends java.awt.Frame {
         appManagementButton.setVisible(beheer);
         searchInput.requestFocusInWindow();
         CaseDao dbCase = new CaseDao();
-        List<Case> list = null;
         try {
-            list = dbCase.readAll();
+            caseList = dbCase.readAll();
         } catch (SQLException ex) {
             Logger.getLogger(logIn.class.getName()).log(Level.SEVERE, null, ex);
         }
-        for (int i = 0; i < list.size(); i++) {
+        for (int i = 0; i < caseList.size(); i++) {
             //System.out.println(list.get(i).toString());
             tableResults.getModel().setValueAt(""+i, i, 0);
-            tableResults.getModel().setValueAt(list.get(i).getLabel(), i, 1);
-            tableResults.getModel().setValueAt(list.get(i).getAddDate(), i, 2);
+            tableResults.getModel().setValueAt(caseList.get(i).getLabel(), i, 1);
+            tableResults.getModel().setValueAt(caseList.get(i).getAddDate(), i, 2);
             //tableResults.getModel().set(list.get(i).getStatus(), i, 3);
             jLabel1.setText(bundle.getString("MainGuiFrame.Location") + bundle.getString("Passengers"));
         }
@@ -440,7 +440,7 @@ public class MainGuiFrame extends java.awt.Frame {
     }//GEN-LAST:event_myAccountButtonActionPerformed
 
     private void tableResultsKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tableResultsKeyPressed
-        // TODO add your handling code here:
+        //TODO: Reevaluate necesity
     }//GEN-LAST:event_tableResultsKeyPressed
 
     private void logoutButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_logoutButtonActionPerformed
@@ -456,7 +456,7 @@ public class MainGuiFrame extends java.awt.Frame {
             Popupappmedewerker popup1 = new Popupappmedewerker(medList.get(tableResults.getSelectedRow()));
             popup1.setVisible(true);
         } else {
-            PopUpMedewerker popup = new PopUpMedewerker();
+            PopUpMedewerker popup = new PopUpMedewerker(caseList.get(tableResults.getSelectedRow()));
             popup.setVisible(true);
         }
     }//GEN-LAST:event_tableResultsMouseClicked

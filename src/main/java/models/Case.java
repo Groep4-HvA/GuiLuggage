@@ -12,7 +12,7 @@ import java.util.logging.Logger;
  * @author sean
  */
 public class Case {
-    private String status;
+    private Color status;
     
     private String label;
     private String name;
@@ -179,4 +179,10 @@ public class Case {
         }
         return list;
     }
+
+    @Override
+    public String toString() {
+        return "Case{ label=" + label + ", name=" + name + ", surName=" + surName + ", homeAddress=" + homeAddress + ", homePostalCode=" + homePostalCode + ", homeCity=" + homeCity + ", residentAddress=" + residentAddress + ", residentPostalCode=" + residentPostalCode + ", residentCity=" + residentCity + ", color=" + color + ", shape=" + shape + ", aditionalDetails=" + aditionalDetails + ", storageLocation=" + storageLocation + ", handlerID=" + handlerID + ", addDate=" + addDate + ", resolveDate=" + resolveDate + '}';
+    }
+    
 }
