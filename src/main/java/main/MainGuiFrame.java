@@ -66,15 +66,15 @@ public class MainGuiFrame extends java.awt.Frame {
             System.out.println(list.get(x).toString());
             tableResults.getModel().setValueAt(list.get(x).getLabel(), x, 0);
             tableResults.getModel().setValueAt(list.get(x).getName(), x, 1);
-            tableResults.getModel().setValueAt(list.get(x).getColor(), x, 2);
-            tableResults.getModel().setValueAt(list.get(x).getShape(), x, 3);
+            tableResults.getModel().setValueAt(list.get(x).getSurname(), x, 2);
+            tableResults.getModel().setValueAt(list.get(x).getDetails(), x, 3);
             x++;
         }
 
         tableResults.getColumnModel().getColumn(0).setHeaderValue("Label");
         tableResults.getColumnModel().getColumn(1).setHeaderValue("Name");
-        tableResults.getColumnModel().getColumn(2).setHeaderValue("Color");
-        tableResults.getColumnModel().getColumn(3).setHeaderValue("Shape");
+        tableResults.getColumnModel().getColumn(2).setHeaderValue("Surname");
+        tableResults.getColumnModel().getColumn(3).setHeaderValue("Details");
 
         jLabel1.setText(bundle.getString("MainGuiFrame.Location")+bundle.getString("Luggage"));
 
@@ -382,15 +382,15 @@ public class MainGuiFrame extends java.awt.Frame {
                 }
                 tableResults.getColumnModel().getColumn(0).setHeaderValue("Label");
                 tableResults.getColumnModel().getColumn(1).setHeaderValue("Name");
-                tableResults.getColumnModel().getColumn(2).setHeaderValue("Color");
-                tableResults.getColumnModel().getColumn(3).setHeaderValue("Shape");
+                tableResults.getColumnModel().getColumn(2).setHeaderValue("Surname");
+                tableResults.getColumnModel().getColumn(3).setHeaderValue("Details");
                 for (int i = 0; i < list.size(); i++) {
                     //System.out.println(list.get(i).toString());
                     tableResults.getModel().setValueAt(list.get(i).getLabel(), i, 0);
                     tableResults.getModel().setValueAt(list.get(i).getName(), i, 1);
-                    tableResults.getModel().setValueAt(list.get(i).getColor(), i, 2);
-                    tableResults.getModel().setValueAt(list.get(i).getShape(), i, 3);
-                            jLabel1.setText(bundle.getString("MainGuiFrame.Location")+bundle.getString("Passengers"));
+                    tableResults.getModel().setValueAt(list.get(i).getSurname(), i, 2);
+                    tableResults.getModel().setValueAt(list.get(i).getDetails(), i, 3);
+                    jLabel1.setText(bundle.getString("MainGuiFrame.Location")+bundle.getString("Passengers"));
                 }
                 inBeheer = false;
             } else {
@@ -505,16 +505,16 @@ public class MainGuiFrame extends java.awt.Frame {
                 }
                 tableResults.getColumnModel().getColumn(0).setHeaderValue("Label");
                 tableResults.getColumnModel().getColumn(1).setHeaderValue("Name");
-                tableResults.getColumnModel().getColumn(2).setHeaderValue("Color");
-                tableResults.getColumnModel().getColumn(3).setHeaderValue("Shape");
+                tableResults.getColumnModel().getColumn(2).setHeaderValue("Surname");
+                tableResults.getColumnModel().getColumn(3).setHeaderValue("Details");
 
                 int x = 0;
                 while (x < list.size()) {
                     System.out.println(list.get(x).toString());
                     tableResults.getModel().setValueAt(list.get(x).getLabel(), x, 0);
                     tableResults.getModel().setValueAt(list.get(x).getName(), x, 1);
-                    tableResults.getModel().setValueAt(list.get(x).getColor(), x, 2);
-                    tableResults.getModel().setValueAt(list.get(x).getShape(), x, 3);
+                    tableResults.getModel().setValueAt(list.get(x).getSurname(), x, 2);
+                    tableResults.getModel().setValueAt(list.get(x).getDetails(), x, 3);
                     x++;
                 }
                 jLabel1.setText(bundle.getString("MainGuiFrame.Location")+bundle.getString("Passengers"));
