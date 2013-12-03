@@ -56,7 +56,15 @@ public class MainGuiFrame extends java.awt.Frame {
                     tableResults.getModel().setValueAt(list.get(i).isManager(), i, 3);
     }
 }
-    public void forStatementCase(List<Case> list){
+    public void forStatementCasePassenger(List<Case> list){
+    for (int i = 0; i < list.size(); i++) {
+                    tableResults.getModel().setValueAt(list.get(i).getLabel(), i, 0);
+                    tableResults.getModel().setValueAt(list.get(i).getName(), i, 1);
+                    tableResults.getModel().setValueAt(list.get(i).getSurName(), i, 2);
+                    tableResults.getModel().setValueAt(list.get(i).getAditionalDetails(), i, 3);
+    }
+    }
+    public void forStatementCaseLuggage(List<Case> list){
     for (int i = 0; i < list.size(); i++) {
                     tableResults.getModel().setValueAt(list.get(i).getLabel(), i, 0);
                     tableResults.getModel().setValueAt(list.get(i).getName(), i, 1);
@@ -384,10 +392,10 @@ public class MainGuiFrame extends java.awt.Frame {
                 addNewButton2.setText(bundle.getString("MainGuiFrame.addNew") + button2);
                 appManagementButton.setText(bundle.getString("MainGuiFrame.beheerButtonOn"));
                 LabelDescription.setText("Search:");
-                PassengerDAO dbPassenger = new PassengerDAO();
-                List<Passenger> list = null;
+                CaseDao dbCase = new CaseDao();
+                List<Case> list = null;
                 try {
-                    list = dbPassenger.readAll();
+                    list = dbCase.readAll();
                 } catch (SQLException ex) {
                     Logger.getLogger(logIn.class.getName()).log(Level.SEVERE, null, ex);
                 }
@@ -402,14 +410,9 @@ public class MainGuiFrame extends java.awt.Frame {
                 tableResults.getColumnModel().getColumn(1).setHeaderValue("Name");
                 tableResults.getColumnModel().getColumn(2).setHeaderValue("Surname");
                 tableResults.getColumnModel().getColumn(3).setHeaderValue("Details");
-                for (int i = 0; i < list.size(); i++) {
-                    //System.out.println(list.get(i).toString());
-                    tableResults.getModel().setValueAt(list.get(i).getLabel(), i, 0);
-                    tableResults.getModel().setValueAt(list.get(i).getName(), i, 1);
-                    tableResults.getModel().setValueAt(list.get(i).getSurname(), i, 2);
-                    tableResults.getModel().setValueAt(list.get(i).getDetails(), i, 3);
-                    jLabel1.setText(bundle.getString("MainGuiFrame.Location") + bundle.getString("Passengers"));
-                }
+                forStatementCasePassenger(list);
+                 jLabel1.setText(bundle.getString("MainGuiFrame.Location") + bundle.getString("Passengers"));
+                
                 inBeheer = false;
             } else {
                 tableChange.setVisible(false);
@@ -599,20 +602,14 @@ public class MainGuiFrame extends java.awt.Frame {
 
             } else {
                 luggage = false;
-                LuggageDAO dbLuggage = new LuggageDAO();
-                List<Luggage> list = null;
+                CaseDao dbCase = new CaseDao();
+                List<Case> list = null;
                 try {
-                    list = dbLuggage.readAll();
+                    list = dbCase.readAll();
                 } catch (SQLException ex) {
                     Logger.getLogger(logIn.class.getName()).log(Level.SEVERE, null, ex);
                 }
-                for (int i = 0; i < list.size(); i++) {
-                    //System.out.println(list.get(i).toString());
-                    tableResults.getModel().setValueAt(list.get(i).getLabel(), i, 0);
-                    tableResults.getModel().setValueAt(list.get(i).getLocation(), i, 1);
-                    tableResults.getModel().setValueAt(list.get(i).getColor(), i, 2);
-                    tableResults.getModel().setValueAt(list.get(i).getShape(), i, 3);
-                }
+                forStatementCaseLuggage(list);
                 tableResults.getColumnModel().getColumn(0).setHeaderValue("Label");
                 tableResults.getColumnModel().getColumn(1).setHeaderValue("Location");
                 tableResults.getColumnModel().getColumn(2).setHeaderValue("Color");
