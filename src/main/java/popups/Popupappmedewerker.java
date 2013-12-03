@@ -163,7 +163,6 @@ public class Popupappmedewerker extends javax.swing.JFrame {
         try {
             dbMedewerker.update(medewerker);
         } catch (SQLException ex) {
-            System.err.println("lol");
             Logger.getLogger(Popupappmedewerker.class.getName()).log(Level.SEVERE, null, ex);
         }
         dispose();

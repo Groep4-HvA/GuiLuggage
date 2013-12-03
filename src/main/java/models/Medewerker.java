@@ -95,8 +95,9 @@ public class Medewerker {
 
     @Override
     public String toString() {
-        return "Medewerker{" + "username=" + username + ", password=" + password + ", name=" + name + ", userLang=" + userLang + ", isManager=" + isManager + ", isAppManager=" + isAppManager + '}';
+        return "Medewerker{" + "id=" + id + ", username=" + username + ", password=" + password + ", name=" + name + ", userLang=" + userLang + ", isManager=" + isManager + ", isAppManager=" + isAppManager + '}';
     }
+
     
     
     

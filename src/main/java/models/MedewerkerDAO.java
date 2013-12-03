@@ -62,7 +62,7 @@ public class MedewerkerDAO {
         ResultSet rs = null;
         PreparedStatement prdstmt = null;
 
-        String query = "SELECT `userName`, `userRealName`, `userPass`, `userBeheer`, `userManager`, `userLang` FROM `Users` LIMIT 50";
+        String query = "SELECT  * FROM `Users` LIMIT 50";
 
         conn.startConnection();
 
@@ -71,6 +71,7 @@ public class MedewerkerDAO {
 
         while (rs.next()) {
             Medewerker tempMedewerker = new Medewerker();
+            tempMedewerker.setId(rs.getInt("userId"));
             tempMedewerker.setName(rs.getString("userRealName"));
             tempMedewerker.setUsername(rs.getString("userName"));
             tempMedewerker.setPassword(rs.getString("userPass"));
@@ -174,25 +175,30 @@ public class MedewerkerDAO {
     }
 
     public int update(Medewerker medewerker) throws SQLException {
-        conn.startConnection();
-        
         PreparedStatement prdstmt = null;
-        String query = "UPDATE `Users` SET  userPass=?, userManager=?, userBeheer=?  WHERE `userId`=?";
+        String query = "UPDATE `Users` SET `userName`=?, `userRealName`=?, `userPass`=?, `userManager`=?, `userBeheer`=?, `userLang`=? WHERE `userId`=?;";
         
+        String queryUserName, queryName, queryPass, queryUserLang;
+        boolean queryManager, queryAppManager;
+        queryUserName   = medewerker.getUsername();
+        queryName       = medewerker.getName();
+        queryPass       = medewerker.getPassword();
+        queryUserLang   = medewerker.getUserLang();
+        queryManager    = medewerker.isManager();
+        queryAppManager = medewerker.isAppManager();
         System.err.println(medewerker.toString());
-        prdstmt.setString(1, "test");
-        System.err.println(medewerker.toString());
-        prdstmt.setBoolean(2, medewerker.isManager());
-        System.err.println(medewerker.toString());
-        prdstmt.setBoolean(3, medewerker.isAppManager());
-        System.err.println(medewerker.toString());
-        prdstmt.setInt(4, medewerker.getId());
-        System.err.println(medewerker.toString());
-        System.err.println(prdstmt.toString());
-        //prdstmt.setString(1, medewerker.getPassword());
-
+        conn.startConnection();
+        //  conn = (ConnectionMySQL) DriverManager.getConnection(url, user, pw);
+        prdstmt = conn.getConnection().prepareStatement(query);
         // some code needs to be writing
-
+        //ps = conn.prepareStatement(query);
+        prdstmt.setString(1, queryUserName);
+        prdstmt.setString(2, queryName);
+        prdstmt.setString(3, queryPass);
+        prdstmt.setBoolean(4, queryManager);
+        prdstmt.setBoolean(5, queryAppManager);
+        prdstmt.setString(6, queryUserLang);
+        prdstmt.setInt(7, medewerker.getId());
         prdstmt.executeUpdate();
 
         if (conn != null) {
