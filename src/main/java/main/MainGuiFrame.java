@@ -32,6 +32,7 @@ public class MainGuiFrame extends java.awt.Frame {
 
     private final PasswordConfirm passOverlay = new PasswordConfirm(new javax.swing.JFrame(), true);
     private final java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("Bundle"); // NOI18N
+    private List<Medewerker> medList = null;
     /**
      * Creates new form MainGuiFrame
      */
@@ -203,7 +204,6 @@ public class MainGuiFrame extends java.awt.Frame {
                 {null, null, null, null},
                 {null, null, null, null},
                 {null, null, null, null},
-                {null, null, null, null},
                 {null, null, null, null}
             },
             new String [] {
@@ -261,8 +261,7 @@ public class MainGuiFrame extends java.awt.Frame {
             }
         });
 
-        java.util.ResourceBundle bundle1 = java.util.ResourceBundle.getBundle("Bundle"); // NOI18N
-        jLabel1.setText(bundle1.getString("MainGuiFrame.jLabel1.text")); // NOI18N
+        jLabel1.setText(bundle.getString("MainGuiFrame.jLabel1.text")); // NOI18N
 
         org.jdesktop.layout.GroupLayout jPanel2Layout = new org.jdesktop.layout.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -319,7 +318,7 @@ public class MainGuiFrame extends java.awt.Frame {
                 .add(jPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
                     .add(searchButton)
                     .add(advanced))
-                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, 37, Short.MAX_VALUE)
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, 18, Short.MAX_VALUE)
                 .add(jLabel1)
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
                 .add(jScrollPane3, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
@@ -403,9 +402,8 @@ public class MainGuiFrame extends java.awt.Frame {
                 LabelDescription.setText("Search:");
 
                 MedewerkerDAO dbMedewerker = new MedewerkerDAO();
-                List<Medewerker> list = null;
                 try {
-                    list = dbMedewerker.readAll();
+                    medList = dbMedewerker.readAll();
                 } catch (SQLException ex) {
                     Logger.getLogger(logIn.class.getName()).log(Level.SEVERE, null, ex);
                 }
@@ -420,12 +418,12 @@ public class MainGuiFrame extends java.awt.Frame {
                 tableResults.getColumnModel().getColumn(1).setHeaderValue("Username");
                 tableResults.getColumnModel().getColumn(2).setHeaderValue("Appmanager");
                 tableResults.getColumnModel().getColumn(3).setHeaderValue("Manager");
-                for (int i = 0; i < list.size(); i++) {
+                for (int i = 0; i < medList.size(); i++) {
                     //System.out.println(list.get(i).toString());
-                    tableResults.getModel().setValueAt(list.get(i).getName(), i, 0);
-                    tableResults.getModel().setValueAt(list.get(i).getUsername(), i, 1);
-                    tableResults.getModel().setValueAt(list.get(i).isAppManager(), i, 2);
-                    tableResults.getModel().setValueAt(list.get(i).isManager(), i, 3);
+                    tableResults.getModel().setValueAt(medList.get(i).getName(), i, 0);
+                    tableResults.getModel().setValueAt(medList.get(i).getUsername(), i, 1);
+                    tableResults.getModel().setValueAt(medList.get(i).isAppManager(), i, 2);
+                    tableResults.getModel().setValueAt(medList.get(i).isManager(), i, 3);
                 }
                 jLabel1.setText(bundle.getString("MainGuiFrame.Location") + bundle.getString("Users"));
                 inBeheer = true;
@@ -454,7 +452,8 @@ public class MainGuiFrame extends java.awt.Frame {
     private void tableResultsMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tableResultsMouseClicked
         int i = 0;
         if (inBeheer) {
-            Popupappmedewerker popup1 = new Popupappmedewerker();
+            System.err.println();
+            Popupappmedewerker popup1 = new Popupappmedewerker(medList.get(tableResults.getSelectedRow()));
             popup1.setVisible(true);
         } else {
             PopUpMedewerker popup = new PopUpMedewerker();

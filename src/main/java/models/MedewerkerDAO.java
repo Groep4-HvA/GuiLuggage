@@ -62,7 +62,7 @@ public class MedewerkerDAO {
         ResultSet rs = null;
         PreparedStatement prdstmt = null;
 
-        String query = "SELECT `userName`, `userRealName`, `userPass`, `userBeheer`, `userLang` FROM `Users` LIMIT 50";
+        String query = "SELECT `userName`, `userRealName`, `userPass`, `userBeheer`, `userManager`, `userLang` FROM `Users` LIMIT 50";
 
         conn.startConnection();
 
@@ -75,6 +75,7 @@ public class MedewerkerDAO {
             tempMedewerker.setUsername(rs.getString("userName"));
             tempMedewerker.setPassword(rs.getString("userPass"));
             tempMedewerker.setAppManager(rs.getBoolean("userBeheer"));
+            tempMedewerker.setManager(rs.getBoolean("userManager"));
             list.add(tempMedewerker);
         }
 
@@ -132,6 +133,7 @@ public class MedewerkerDAO {
 
         while (rs.next()) {
             Medewerker tempMedewerker = new Medewerker();
+            tempMedewerker.setId(rs.getInt("userId"));
             tempMedewerker.setUsername(rs.getString("userName"));
             tempMedewerker.setPassword(rs.getString("userPass"));
             tempMedewerker.setName(rs.getString("userRealName"));
@@ -171,12 +173,24 @@ public class MedewerkerDAO {
         return -1;
     }
 
-    public int update(Medewerker cust) throws SQLException {
-        PreparedStatement prdstmt = null;
-        String query = "UPDATE CUSTOMER SET  Name=?, StreetAddress=?,City=? ";
-        query += " WHERE ID=?";
-
+    public int update(Medewerker medewerker) throws SQLException {
         conn.startConnection();
+        
+        PreparedStatement prdstmt = null;
+        String query = "UPDATE `Users` SET  userPass=?, userManager=?, userBeheer=?  WHERE `userId`=?";
+        
+        System.err.println(medewerker.toString());
+        prdstmt.setString(1, "test");
+        System.err.println(medewerker.toString());
+        prdstmt.setBoolean(2, medewerker.isManager());
+        System.err.println(medewerker.toString());
+        prdstmt.setBoolean(3, medewerker.isAppManager());
+        System.err.println(medewerker.toString());
+        prdstmt.setInt(4, medewerker.getId());
+        System.err.println(medewerker.toString());
+        System.err.println(prdstmt.toString());
+        //prdstmt.setString(1, medewerker.getPassword());
+
         // some code needs to be writing
 
         prdstmt.executeUpdate();

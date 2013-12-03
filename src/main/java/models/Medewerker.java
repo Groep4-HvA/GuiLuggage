@@ -9,6 +9,7 @@ import org.apache.commons.codec.digest.DigestUtils;
  * @author ChrisvanderHeijden
  */
 public class Medewerker {
+    private int id;
     private String username;
     private String password;
     //aditional info
@@ -34,6 +35,14 @@ public class Medewerker {
         this.userLang = userLang;
         this.isManager = isManager;
         this.isAppManager = isAppManager;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getName() {
