@@ -18,10 +18,18 @@ import DBUtil.ConnectionMySQL;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 
 public class ManagerGraph extends ApplicationFrame {
 
     ConnectionMySQL conn = new ConnectionMySQL();
+    
+    private DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+    private Date date = new Date();
+    private String dateString = dateFormat.format(date);
 
     public ManagerGraph(final String title, boolean beheer) throws SQLException {
         super(title);
@@ -31,16 +39,28 @@ public class ManagerGraph extends ApplicationFrame {
         //chartPanel.setPreferredSize(new Dimension(1366, 768));
         setContentPane(chartPanel);
 
-        shit();
-        shitSean();
+        DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        Date date = new Date();
 
+        /*january();
+         february();
+         march();
+         april();
+         may();
+         june();
+         july();
+         august();
+         september();
+         october();
+         november();
+         december();*/
     }
 
-    public double shitSean() throws SQLException {
+    public double januari() throws SQLException {
         conn.startConnection();
 
-        //String sql = "SELECT * FROM `cases` WHERE `resolveDate` IS NOT NULL";
-        String sql = "SELECT * FROM `cases` WHERE `resolveDate` IS NULL";
+        String sql = "SELECT * FROM `cases` WHERE `resolveDate` IS NOT NULL AND `addDate` BETWEEN ? AND ? ";
+        
 
         ResultSet rs = null;
         PreparedStatement prdstmt = null;
@@ -130,7 +150,7 @@ public class ManagerGraph extends ApplicationFrame {
         dataset.addValue(0, found, september);
         dataset.addValue(0, found, october);
         dataset.addValue(0, found, november);
-        dataset.addValue(shitSean(), found, december);
+        dataset.addValue(0, found, december);
 
         dataset.addValue(0, total, januari);
         dataset.addValue(0, total, februari);
@@ -143,7 +163,7 @@ public class ManagerGraph extends ApplicationFrame {
         dataset.addValue(0, total, september);
         dataset.addValue(0, total, october);
         dataset.addValue(0, total, november);
-        dataset.addValue(shit() + shitSean(), total, december);
+        dataset.addValue(0, total, december);
 
         return dataset;
 

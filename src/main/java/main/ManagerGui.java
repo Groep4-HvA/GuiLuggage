@@ -13,6 +13,10 @@ import models.Passenger;
 import models.PassengerDAO;
 import models.printJob;
 import popups.PasswordConfirm;
+import models.Luggage;
+import models.LuggageDAO;
+import models.Medewerker;
+import models.MedewerkerDAO;
 
 /**
  *
@@ -156,6 +160,11 @@ public class ManagerGui extends java.awt.Frame {
         jTextField2.setText(bundle.getString("Manager.jTextField2.text")); // NOI18N
 
         jButton2.setText(bundle.getString("Manager.jButton2.text")); // NOI18N
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -215,11 +224,12 @@ public class ManagerGui extends java.awt.Frame {
             }
         ));
         jScrollPane1.setViewportView(jTable1);
-        java.util.ResourceBundle bundle1 = java.util.ResourceBundle.getBundle("Bundle"); // NOI18N
-        jTable1.getColumnModel().getColumn(0).setHeaderValue(bundle1.getString("ManagerGui.jTable1.columnModel.title0")); // NOI18N
-        jTable1.getColumnModel().getColumn(1).setHeaderValue(bundle1.getString("ManagerGui.jTable1.columnModel.title1")); // NOI18N
-        jTable1.getColumnModel().getColumn(2).setHeaderValue(bundle1.getString("ManagerGui.jTable1.columnModel.title2")); // NOI18N
-        jTable1.getColumnModel().getColumn(3).setHeaderValue(bundle1.getString("ManagerGui.jTable1.columnModel.title3")); // NOI18N
+        if (jTable1.getColumnModel().getColumnCount() > 0) {
+            jTable1.getColumnModel().getColumn(0).setHeaderValue(bundle.getString("ManagerGui.jTable1.columnModel.title0")); // NOI18N
+            jTable1.getColumnModel().getColumn(1).setHeaderValue(bundle.getString("ManagerGui.jTable1.columnModel.title1")); // NOI18N
+            jTable1.getColumnModel().getColumn(2).setHeaderValue(bundle.getString("ManagerGui.jTable1.columnModel.title2")); // NOI18N
+            jTable1.getColumnModel().getColumn(3).setHeaderValue(bundle.getString("ManagerGui.jTable1.columnModel.title3")); // NOI18N
+        }
 
         org.jdesktop.layout.GroupLayout jPanel1Layout = new org.jdesktop.layout.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -234,7 +244,7 @@ public class ManagerGui extends java.awt.Frame {
             .add(jScrollPane1, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 447, Short.MAX_VALUE)
         );
 
-        PDF.setText(bundle1.getString("ManagerGui.PDF.text")); // NOI18N
+        PDF.setText(bundle.getString("ManagerGui.PDF.text")); // NOI18N
         PDF.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 PDFActionPerformed(evt);
@@ -295,7 +305,7 @@ public class ManagerGui extends java.awt.Frame {
                 .add(jPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
                     .add(myAccountButton)
                     .add(logoutButton))
-                .add(18, 25, Short.MAX_VALUE)
+                .add(18, 18, Short.MAX_VALUE)
                 .add(jPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
                     .add(missingManager)
                     .add(processedManager)
@@ -315,7 +325,7 @@ public class ManagerGui extends java.awt.Frame {
                     .add(jTextField2, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                     .add(jButton2)
                     .add(PDF))
-                .addContainerGap(13, Short.MAX_VALUE))
+                .addContainerGap(org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         add(jPanel2, java.awt.BorderLayout.CENTER);
@@ -380,6 +390,34 @@ public class ManagerGui extends java.awt.Frame {
         pdf.generate(pdfje, cijfers, cijfers, cijfers);
         pdf.save("Corendon_Overview.pdf");
     }//GEN-LAST:event_PDFActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+
+        String from = jTextField1.getText();
+        String to = jTextField2.getText();
+        for (int x = 0; x < 50; x++) {
+            jTable1.getModel().setValueAt("", x, 0);
+            jTable1.getModel().setValueAt("", x, 1);
+            jTable1.getModel().setValueAt("", x, 2);
+            jTable1.getModel().setValueAt("", x, 3);
+        }
+        if (from =< to) {
+                DAO dbPassenger = new PassengerDAO();
+                List<Passenger> list;
+                list = dbPassenger.readAll();
+
+                int x = 0;
+                while (x < list.size()) {
+                    //System.out.println(list.get(x).toString());
+                    tableResults.getModel().setValueAt(list.get(x).getLabel(), x, 0);
+                    tableResults.getModel().setValueAt(list.get(x).getName(), x, 1);
+                    tableResults.getModel().setValueAt(list.get(x).getSurname(), x, 2);
+                    tableResults.getModel().setValueAt(list.get(x).getDetails(), x, 3);
+                    x++;
+                }
+
+
+    }//GEN-LAST:event_jButton2ActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton PDF;
