@@ -47,7 +47,7 @@ public class Advanced extends javax.swing.JFrame {
 
         jComboBox1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         advancedName.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -69,8 +69,7 @@ public class Advanced extends javax.swing.JFrame {
         jLabel5.setText(bundle.getString("Advanced.jLabel5.text")); // NOI18N
 
         searchAdvanced.setText(bundle.getString("Advanced.searchAdvanced.text")); // NOI18N
-        java.util.ResourceBundle bundle1 = java.util.ResourceBundle.getBundle("Bundle"); // NOI18N
-        searchAdvanced.setActionCommand(bundle1.getString("Advanced.searchAdvanced.actionCommand")); // NOI18N
+        searchAdvanced.setActionCommand(bundle.getString("Advanced.searchAdvanced.actionCommand")); // NOI18N
         searchAdvanced.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 searchAdvancedActionPerformed(evt);

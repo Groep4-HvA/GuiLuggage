@@ -44,12 +44,11 @@ public class Popupappmedewerker extends javax.swing.JFrame {
         confirmPasswordField = new javax.swing.JPasswordField();
         jCheckBox1 = new javax.swing.JCheckBox();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("Bundle"); // NOI18N
         jLabel1.setText(bundle.getString("Popupappmedewerker.jLabel1.text")); // NOI18N
-        java.util.ResourceBundle bundle1 = java.util.ResourceBundle.getBundle("Bundle"); // NOI18N
-        jLabel1.setToolTipText(bundle1.getString("Popupappmedewerker.jLabel1.toolTipText")); // NOI18N
+        jLabel1.setToolTipText(bundle.getString("Popupappmedewerker.jLabel1.toolTipText")); // NOI18N
 
         jLabel3.setText(bundle.getString("Popupappmedewerker.jLabel3.text")); // NOI18N
 
@@ -72,7 +71,7 @@ public class Popupappmedewerker extends javax.swing.JFrame {
         });
 
         jCheckBox1.setText(bundle.getString("Popupappmedewerker.jCheckBox1.text")); // NOI18N
-        jCheckBox1.setToolTipText(bundle1.getString("Popupappmedewerker.jCheckBox1.toolTipText")); // NOI18N
+        jCheckBox1.setToolTipText(bundle.getString("Popupappmedewerker.jCheckBox1.toolTipText")); // NOI18N
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
