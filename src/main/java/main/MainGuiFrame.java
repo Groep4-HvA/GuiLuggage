@@ -67,9 +67,9 @@ public class MainGuiFrame extends java.awt.Frame {
     public void forStatementCaseLuggage(List<Case> list){
     for (int i = 0; i < list.size(); i++) {
                     tableResults.getModel().setValueAt(list.get(i).getLabel(), i, 0);
-                    tableResults.getModel().setValueAt(list.get(i).getName(), i, 1);
-                    tableResults.getModel().setValueAt(list.get(i).getSurName(), i, 2);
-                    tableResults.getModel().setValueAt(list.get(i).getAditionalDetails(), i, 3);
+                    tableResults.getModel().setValueAt(list.get(i).getStorageLocation(), i, 1);
+                    tableResults.getModel().setValueAt(list.get(i).getColor(), i, 2);
+                    tableResults.getModel().setValueAt(list.get(i).getShape(), i, 3);
     }
 }
     public MainGuiFrame(boolean value) throws SQLException {
@@ -88,19 +88,14 @@ public class MainGuiFrame extends java.awt.Frame {
         } catch (SQLException ex) {
             Logger.getLogger(logIn.class.getName()).log(Level.SEVERE, null, ex);
         }
-        for (int i = 0; i < list.size(); i++) {
-            //System.out.println(list.get(i).toString());
-            tableResults.getModel().setValueAt(""+i, i, 0);
-            tableResults.getModel().setValueAt(list.get(i).getLabel(), i, 1);
-            tableResults.getModel().setValueAt(list.get(i).getAddDate(), i, 2);
-            //tableResults.getModel().set(list.get(i).getStatus(), i, 3);
-            jLabel1.setText(bundle.getString("MainGuiFrame.Location") + bundle.getString("Passengers"));
-        }
+        forStatementCaseLuggage(list);
+        jLabel1.setText(bundle.getString("MainGuiFrame.Location") + bundle.getString("Passengers"));
+        
 
         tableResults.getColumnModel().getColumn(0).setHeaderValue("Label");
-        tableResults.getColumnModel().getColumn(1).setHeaderValue("Name");
-        tableResults.getColumnModel().getColumn(2).setHeaderValue("Surname");
-        tableResults.getColumnModel().getColumn(3).setHeaderValue("Details");
+        tableResults.getColumnModel().getColumn(1).setHeaderValue("Location");
+        tableResults.getColumnModel().getColumn(2).setHeaderValue("Color");
+        tableResults.getColumnModel().getColumn(3).setHeaderValue("Shape");
 
         jLabel1.setText(bundle.getString("MainGuiFrame.Location") + bundle.getString("Luggage"));
 
@@ -579,17 +574,17 @@ public class MainGuiFrame extends java.awt.Frame {
             }
             if (!luggage) {
                 luggage = true;
-                PassengerDAO dbPassenger = new PassengerDAO();
-                List<Passenger> list;
-                list = dbPassenger.readAll();
+                CaseDao dbCase = new CaseDao();
+                List<Case> list;
+                list = dbCase.readAll();
 
                 int x = 0;
                 while (x < list.size()) {
                     //System.out.println(list.get(x).toString());
                     tableResults.getModel().setValueAt(list.get(x).getLabel(), x, 0);
                     tableResults.getModel().setValueAt(list.get(x).getName(), x, 1);
-                    tableResults.getModel().setValueAt(list.get(x).getSurname(), x, 2);
-                    tableResults.getModel().setValueAt(list.get(x).getDetails(), x, 3);
+                    tableResults.getModel().setValueAt(list.get(x).getSurName(), x, 2);
+                    tableResults.getModel().setValueAt(list.get(x).getAditionalDetails(), x, 3);
                     x++;
                 }
 
