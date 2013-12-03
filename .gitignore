@@ -6,4 +6,7 @@ target/*
 *.war
 *.ear
 *.class
+
+# Executing files #
+*.pdf
 Config.properties

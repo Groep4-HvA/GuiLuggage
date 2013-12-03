@@ -16,6 +16,8 @@ import java.sql.SQLException;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import models.Case;
+import models.CaseDao;
 import models.Luggage;
 import models.LuggageDAO;
 import models.Medewerker;
@@ -56,19 +58,20 @@ public class MainGuiFrame extends java.awt.Frame {
         this.setLocationRelativeTo(null);
         appManagementButton.setVisible(beheer);
         searchInput.requestFocusInWindow();
-
-        PassengerDAO dbPassenger = new PassengerDAO();
-        List<Passenger> list;
-        list = dbPassenger.readAll();
-
-        int x = 0;
-        while (x < list.size()) {
-            //System.out.println(list.get(x).toString());
-            tableResults.getModel().setValueAt(list.get(x).getLabel(), x, 0);
-            tableResults.getModel().setValueAt(list.get(x).getName(), x, 1);
-            tableResults.getModel().setValueAt(list.get(x).getSurname(), x, 2);
-            tableResults.getModel().setValueAt(list.get(x).getDetails(), x, 3);
-            x++;
+        CaseDao dbCase = new CaseDao();
+        List<Case> list = null;
+        try {
+            list = dbCase.readAll();
+        } catch (SQLException ex) {
+            Logger.getLogger(logIn.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        for (int i = 0; i < list.size(); i++) {
+            //System.out.println(list.get(i).toString());
+            tableResults.getModel().setValueAt(""+i, i, 0);
+            tableResults.getModel().setValueAt(list.get(i).getLabel(), i, 1);
+            tableResults.getModel().setValueAt(list.get(i).getAddDate(), i, 2);
+            //tableResults.getModel().set(list.get(i).getStatus(), i, 3);
+            jLabel1.setText(bundle.getString("MainGuiFrame.Location") + bundle.getString("Passengers"));
         }
 
         tableResults.getColumnModel().getColumn(0).setHeaderValue("Label");
@@ -76,7 +79,7 @@ public class MainGuiFrame extends java.awt.Frame {
         tableResults.getColumnModel().getColumn(2).setHeaderValue("Surname");
         tableResults.getColumnModel().getColumn(3).setHeaderValue("Details");
 
-        jLabel1.setText(bundle.getString("MainGuiFrame.Location")+bundle.getString("Luggage"));
+        jLabel1.setText(bundle.getString("MainGuiFrame.Location") + bundle.getString("Luggage"));
 
     }
 
@@ -390,7 +393,7 @@ public class MainGuiFrame extends java.awt.Frame {
                     tableResults.getModel().setValueAt(list.get(i).getName(), i, 1);
                     tableResults.getModel().setValueAt(list.get(i).getSurname(), i, 2);
                     tableResults.getModel().setValueAt(list.get(i).getDetails(), i, 3);
-                    jLabel1.setText(bundle.getString("MainGuiFrame.Location")+bundle.getString("Passengers"));
+                    jLabel1.setText(bundle.getString("MainGuiFrame.Location") + bundle.getString("Passengers"));
                 }
                 inBeheer = false;
             } else {
@@ -425,7 +428,7 @@ public class MainGuiFrame extends java.awt.Frame {
                     tableResults.getModel().setValueAt(list.get(i).isAppManager(), i, 2);
                     tableResults.getModel().setValueAt(list.get(i).isManager(), i, 3);
                 }
-                jLabel1.setText(bundle.getString("MainGuiFrame.Location")+bundle.getString("Users"));
+                jLabel1.setText(bundle.getString("MainGuiFrame.Location") + bundle.getString("Users"));
                 inBeheer = true;
             }
         } else {
@@ -517,7 +520,7 @@ public class MainGuiFrame extends java.awt.Frame {
                     tableResults.getModel().setValueAt(list.get(x).getDetails(), x, 3);
                     x++;
                 }
-                jLabel1.setText(bundle.getString("MainGuiFrame.Location")+bundle.getString("Passengers"));
+                jLabel1.setText(bundle.getString("MainGuiFrame.Location") + bundle.getString("Passengers"));
 
             } catch (Exception e) {
                 e.printStackTrace();
@@ -545,7 +548,7 @@ public class MainGuiFrame extends java.awt.Frame {
                     tableResults.getModel().setValueAt(list.get(i).isAppManager(), i, 2);
                     tableResults.getModel().setValueAt(list.get(i).isManager(), i, 3);
 
-                    jLabel1.setText(bundle.getString("MainGuiFrame.Location")+bundle.getString("Users"));
+                    jLabel1.setText(bundle.getString("MainGuiFrame.Location") + bundle.getString("Users"));
                 }
             } catch (Exception e) {
                 e.printStackTrace();
@@ -587,7 +590,7 @@ public class MainGuiFrame extends java.awt.Frame {
                 tableResults.getColumnModel().getColumn(2).setHeaderValue("Surname");
                 tableResults.getColumnModel().getColumn(3).setHeaderValue("Details");
 
-                jLabel1.setText(bundle.getString("MainGuiFrame.Location")+bundle.getString("Passengers"));
+                jLabel1.setText(bundle.getString("MainGuiFrame.Location") + bundle.getString("Passengers"));
 
             } else {
                 luggage = false;
@@ -610,14 +613,13 @@ public class MainGuiFrame extends java.awt.Frame {
                 tableResults.getColumnModel().getColumn(2).setHeaderValue("Color");
                 tableResults.getColumnModel().getColumn(3).setHeaderValue("Shape");
 
-                jLabel1.setText(bundle.getString("MainGuiFrame.Location")+bundle.getString("Luggage"));
+                jLabel1.setText(bundle.getString("MainGuiFrame.Location") + bundle.getString("Luggage"));
 
             }
         } catch (Exception e) {
             e.printStackTrace();
         }
     }//GEN-LAST:event_tableChangeActionPerformed
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel LabelDescription;
     private javax.swing.JButton addNewButton1;
