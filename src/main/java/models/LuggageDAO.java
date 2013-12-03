@@ -25,7 +25,7 @@ public class LuggageDAO {
 
     public int create(Luggage luggage) throws SQLException {
         PreparedStatement prdstmt = null;
-        String query = "INSERT INTO `luggage`  ( `labelNumber`, `color`, `shape`, `storageLocation`, `additionalDetails`,`addDate`) VALUES(?,?,?,?,?,?);";
+        String query = "INSERT INTO `cases`  ( `labelNumber`, `color`, `shape`, `storageLocation`, `additionalDetails`,`addDate`) VALUES(?,?,?,?,?,?);";
         java.util.Date today = new java.util.Date();
         java.sql.Date sqlToday = new java.sql.Date(today.getTime());
 
