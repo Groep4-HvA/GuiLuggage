@@ -24,6 +24,7 @@ public class ManagerGraph extends ApplicationFrame {
         final ChartPanel chartPanel = new ChartPanel(chart);
         //chartPanel.setPreferredSize(new Dimension(1366, 768));
         setContentPane(chartPanel);
+        this.setLocationRelativeTo(null);
 
     }
 

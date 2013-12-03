@@ -63,7 +63,7 @@ public class MainGuiFrame extends java.awt.Frame {
 
         int x = 0;
         while (x < list.size()) {
-            System.out.println(list.get(x).toString());
+            //System.out.println(list.get(x).toString());
             tableResults.getModel().setValueAt(list.get(x).getLabel(), x, 0);
             tableResults.getModel().setValueAt(list.get(x).getName(), x, 1);
             tableResults.getModel().setValueAt(list.get(x).getSurname(), x, 2);
