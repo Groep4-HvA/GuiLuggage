@@ -76,7 +76,7 @@ public class MainGuiFrame extends java.awt.Frame {
         tableResults.getColumnModel().getColumn(2).setHeaderValue("Color");
         tableResults.getColumnModel().getColumn(3).setHeaderValue("Shape");
 
-        jLabel1.setText("You're now searching in passengers");
+        jLabel1.setText(bundle.getString("MainGuiFrame.Location")+bundle.getString("Luggage"));
 
     }
 
@@ -259,7 +259,7 @@ public class MainGuiFrame extends java.awt.Frame {
             }
         });
 
-        java.util.ResourceBundle bundle1 = java.util.ResourceBundle.getBundle("main/Bundle"); // NOI18N
+        java.util.ResourceBundle bundle1 = java.util.ResourceBundle.getBundle("Bundle"); // NOI18N
         jLabel1.setText(bundle1.getString("MainGuiFrame.jLabel1.text")); // NOI18N
 
         org.jdesktop.layout.GroupLayout jPanel2Layout = new org.jdesktop.layout.GroupLayout(jPanel2);
@@ -361,7 +361,7 @@ public class MainGuiFrame extends java.awt.Frame {
                 tableResults.getModel().setValueAt("", x, 3);
             }
             if (inBeheer) {
-                inBeheer = false;
+                tableChange.setVisible(true);
                 addNewButton1.setText(bundle.getString("MainGuiFrame.addNew") + button1);
                 addNewButton2.setText(bundle.getString("MainGuiFrame.addNew") + button2);
                 appManagementButton.setText(bundle.getString("MainGuiFrame.beheerButtonOn"));
@@ -390,10 +390,11 @@ public class MainGuiFrame extends java.awt.Frame {
                     tableResults.getModel().setValueAt(list.get(i).getName(), i, 1);
                     tableResults.getModel().setValueAt(list.get(i).getColor(), i, 2);
                     tableResults.getModel().setValueAt(list.get(i).getShape(), i, 3);
-                            jLabel1.setText("You're now searching in passengers");
+                            jLabel1.setText(bundle.getString("MainGuiFrame.Location")+bundle.getString("Passengers"));
                 }
+                inBeheer = false;
             } else {
-                inBeheer = true;
+                tableChange.setVisible(false);
                 addNewButton1.setText(bundle.getString("MainGuiFrame.addNew") + bundle.getString("Manager"));
                 addNewButton2.setText(bundle.getString("MainGuiFrame.addNew") + bundle.getString("Medewerker"));
                 appManagementButton.setText(bundle.getString("MainGuiFrame.beheerButtonOff"));
@@ -424,8 +425,8 @@ public class MainGuiFrame extends java.awt.Frame {
                     tableResults.getModel().setValueAt(list.get(i).isAppManager(), i, 2);
                     tableResults.getModel().setValueAt(list.get(i).isManager(), i, 3);
                 }
-                jLabel1.setText("You're now searching in users");
-
+                jLabel1.setText(bundle.getString("MainGuiFrame.Location")+bundle.getString("Users"));
+                inBeheer = true;
             }
         } else {
             System.out.print(bundle.getString("notAuthorized"));
@@ -516,7 +517,7 @@ public class MainGuiFrame extends java.awt.Frame {
                     tableResults.getModel().setValueAt(list.get(x).getShape(), x, 3);
                     x++;
                 }
-                jLabel1.setText("You're now searching in passengers");
+                jLabel1.setText(bundle.getString("MainGuiFrame.Location")+bundle.getString("Passengers"));
 
             } catch (Exception e) {
                 e.printStackTrace();
@@ -544,7 +545,7 @@ public class MainGuiFrame extends java.awt.Frame {
                     tableResults.getModel().setValueAt(list.get(i).isAppManager(), i, 2);
                     tableResults.getModel().setValueAt(list.get(i).isManager(), i, 3);
 
-                    jLabel1.setText("You're now searching in users");
+                    jLabel1.setText(bundle.getString("MainGuiFrame.Location")+bundle.getString("Users"));
                 }
             } catch (Exception e) {
                 e.printStackTrace();
@@ -586,7 +587,7 @@ public class MainGuiFrame extends java.awt.Frame {
                 tableResults.getColumnModel().getColumn(2).setHeaderValue("Surname");
                 tableResults.getColumnModel().getColumn(3).setHeaderValue("Details");
 
-                jLabel1.setText("You're now searching in passengers");
+                jLabel1.setText(bundle.getString("MainGuiFrame.Location")+bundle.getString("Passengers"));
 
             } else {
                 luggage = false;
@@ -609,7 +610,7 @@ public class MainGuiFrame extends java.awt.Frame {
                 tableResults.getColumnModel().getColumn(2).setHeaderValue("Color");
                 tableResults.getColumnModel().getColumn(3).setHeaderValue("Shape");
 
-                jLabel1.setText("You're now searching in luggage");
+                jLabel1.setText(bundle.getString("MainGuiFrame.Location")+bundle.getString("Luggage"));
 
             }
         } catch (Exception e) {
