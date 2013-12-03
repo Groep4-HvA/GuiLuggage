@@ -113,7 +113,7 @@ public class PassengerDAO {
 
     public int create(Passenger passenger) throws SQLException {
         PreparedStatement prdstmt = null;
-        String query = "INSERT INTO `passengers`  ( `name`, `surname`, `homeAddress`, `homePostalCode`, `homeCity`,`residentAddress`,`residentPostalCode`, `residentCity`, `color`, `shape`, `additionalDetails`, `labelNumber`) VALUES(?,?,?,?,?,?,?,?,?,?,?,?);";
+        String query = "INSERT INTO `cases`  ( `name`, `surname`, `homeAddress`, `homePostalCode`, `homeCity`,`residentAddress`,`residentPostalCode`, `residentCity`, `color`, `shape`, `additionalDetails`, `labelNumber`) VALUES(?,?,?,?,?,?,?,?,?,?,?,?);";
 
         conn.startConnection();
 
