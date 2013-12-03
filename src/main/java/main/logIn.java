@@ -133,7 +133,7 @@ public class logIn extends javax.swing.JFrame {
         System.out.println();
         if(list.size()==1){
             Medewerker medew = list.get(0);
-            System.out.println(medew.toString());
+            //System.out.println(medew.toString());
             if(medew.isManager()){
                 ManagerGui main = new ManagerGui(medew.isAppManager());
                 main.setVisible(true);
