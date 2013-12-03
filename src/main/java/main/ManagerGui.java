@@ -7,7 +7,11 @@ package main;
 import java.awt.Dimension;
 import java.awt.Toolkit;
 import java.sql.SQLException;
+import java.util.Date;
 import java.util.List;
+import javax.swing.JOptionPane;
+import models.Case;
+import models.CaseDao;
 import models.PDFGenerator;
 import models.Passenger;
 import models.PassengerDAO;
@@ -17,6 +21,7 @@ import models.Luggage;
 import models.LuggageDAO;
 import models.Medewerker;
 import models.MedewerkerDAO;
+
 
 /**
  *
@@ -77,14 +82,14 @@ public class ManagerGui extends java.awt.Frame {
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         printButton = new javax.swing.JButton();
-        jTextField1 = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
-        jTextField2 = new javax.swing.JTextField();
         jButton2 = new javax.swing.JButton();
         jPanel1 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
         PDF = new javax.swing.JButton();
+        jDateChooser1 = new com.toedter.calendar.JDateChooser();
+        jDateChooser2 = new com.toedter.calendar.JDateChooser();
 
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowClosing(java.awt.event.WindowEvent evt) {
@@ -153,11 +158,7 @@ public class ManagerGui extends java.awt.Frame {
             }
         });
 
-        jTextField1.setText(bundle.getString("Manager.jTextField1.text")); // NOI18N
-
         jLabel4.setText(bundle.getString("Manager.jLabel4.text")); // NOI18N
-
-        jTextField2.setText(bundle.getString("Manager.jTextField2.text")); // NOI18N
 
         jButton2.setText(bundle.getString("Manager.jButton2.text")); // NOI18N
         jButton2.addActionListener(new java.awt.event.ActionListener() {
@@ -262,7 +263,7 @@ public class ManagerGui extends java.awt.Frame {
                 .add(logoutButton)
                 .addContainerGap())
             .add(jPanel2Layout.createSequentialGroup()
-                .addContainerGap(30, Short.MAX_VALUE)
+                .addContainerGap(61, Short.MAX_VALUE)
                 .add(jPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
                     .add(jPanel2Layout.createSequentialGroup()
                         .add(jPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING)
@@ -281,18 +282,18 @@ public class ManagerGui extends java.awt.Frame {
                                 .add(jLabel3)
                                 .add(442, 442, 442)
                                 .add(graphManager)))
-                        .addContainerGap(31, Short.MAX_VALUE))
+                        .addContainerGap(61, Short.MAX_VALUE))
                     .add(jPanel2Layout.createSequentialGroup()
                         .add(printButton)
                         .add(18, 18, 18)
                         .add(PDF)
-                        .add(100, 100, 100)
-                        .add(jTextField1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
+                        .add(69, 69, 69)
+                        .add(jDateChooser1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                        .add(18, 18, 18)
                         .add(jLabel4)
-                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
-                        .add(jTextField2, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                        .add(jDateChooser2, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                        .add(18, 18, 18)
                         .add(jButton2)
                         .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .add(moreButton)
@@ -305,7 +306,7 @@ public class ManagerGui extends java.awt.Frame {
                 .add(jPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
                     .add(myAccountButton)
                     .add(logoutButton))
-                .add(18, 18, Short.MAX_VALUE)
+                .add(18, 30, Short.MAX_VALUE)
                 .add(jPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
                     .add(missingManager)
                     .add(processedManager)
@@ -317,15 +318,16 @@ public class ManagerGui extends java.awt.Frame {
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
                 .add(jPanel1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                 .add(18, 18, 18)
-                .add(jPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
-                    .add(moreButton)
-                    .add(printButton)
-                    .add(jTextField1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                    .add(jLabel4)
-                    .add(jTextField2, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                    .add(jButton2)
-                    .add(PDF))
-                .addContainerGap(org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .add(jPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+                    .add(jPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
+                        .add(moreButton)
+                        .add(printButton)
+                        .add(jLabel4)
+                        .add(jButton2)
+                        .add(PDF))
+                    .add(jDateChooser1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                    .add(jDateChooser2, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(23, Short.MAX_VALUE))
         );
 
         add(jPanel2, java.awt.BorderLayout.CENTER);
@@ -392,29 +394,43 @@ public class ManagerGui extends java.awt.Frame {
     }//GEN-LAST:event_PDFActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+     
+        
+        try {
 
-        String from = jTextField1.getText();
-        String to = jTextField2.getText();
-        for (int x = 0; x < 50; x++) {
-            jTable1.getModel().setValueAt("", x, 0);
-            jTable1.getModel().setValueAt("", x, 1);
-            jTable1.getModel().setValueAt("", x, 2);
-            jTable1.getModel().setValueAt("", x, 3);
-        }
-        if (from =< to) {
-                DAO dbPassenger = new PassengerDAO();
-                List<Passenger> list;
-                list = dbPassenger.readAll();
+            Date datum1 = jDateChooser1.getDate();
+            Date datum2 = jDateChooser2.getDate();
 
-                int x = 0;
-                while (x < list.size()) {
-                    //System.out.println(list.get(x).toString());
-                    tableResults.getModel().setValueAt(list.get(x).getLabel(), x, 0);
-                    tableResults.getModel().setValueAt(list.get(x).getName(), x, 1);
-                    tableResults.getModel().setValueAt(list.get(x).getSurname(), x, 2);
-                    tableResults.getModel().setValueAt(list.get(x).getDetails(), x, 3);
-                    x++;
+
+
+                if (datum2.compareTo(datum1)>0 ) {
+                    CaseDao Case = new CaseDao();
+                    List<Case> list;
+                    list = Case.readAll();
+
+                    for (int x = 0; x < 50; x++) {
+                        jTable1.getModel().setValueAt("", x, 0);
+                        jTable1.getModel().setValueAt("", x, 1);
+                        jTable1.getModel().setValueAt("", x, 2);
+                        jTable1.getModel().setValueAt("", x, 3);
+                    }
+
+                    int x = 0;
+                    while (x < list.size()) {
+                        //System.out.println(list.get(x).toString());
+                        jTable1.getModel().setValueAt(list.get(x).getLabel(), x, 0);
+                        jTable1.getModel().setValueAt(list.get(x).getName(), x, 1);
+                        jTable1.getModel().setValueAt(list.get(x).getColor(), x, 2);
+                        jTable1.getModel().setValueAt(list.get(x).getShape(), x, 3);
+                        x++;
+                    }
+                } else {
+                    JOptionPane.showMessageDialog(null, "" + datum1 + " cannot be further in the past then " + datum2);
                 }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
 
     }//GEN-LAST:event_jButton2ActionPerformed
@@ -424,6 +440,8 @@ public class ManagerGui extends java.awt.Frame {
     private javax.swing.JButton foundManager;
     private javax.swing.JButton graphManager;
     private javax.swing.JButton jButton2;
+    private com.toedter.calendar.JDateChooser jDateChooser1;
+    private com.toedter.calendar.JDateChooser jDateChooser2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -432,8 +450,6 @@ public class ManagerGui extends java.awt.Frame {
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTable1;
-    private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField2;
     private javax.swing.JButton logoutButton;
     private javax.swing.JButton missingManager;
     private javax.swing.JButton myAccountButton;
