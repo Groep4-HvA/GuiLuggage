@@ -19,7 +19,7 @@ import org.apache.commons.codec.digest.DigestUtils;
  * @author ChrisvanderHeijden
  */
 public class logIn extends javax.swing.JFrame {
-//    public boolean value;
+    private java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("Bundle");
 
     /**
      * Creates new form logIn
@@ -144,7 +144,7 @@ public class logIn extends javax.swing.JFrame {
             }
             dispose();
         }else {
-            errorLabel.setText("Invalid username/password");
+            errorLabel.setText(bundle.getString("noLogin"));
         }
         }catch(Exception e){
             e.printStackTrace();

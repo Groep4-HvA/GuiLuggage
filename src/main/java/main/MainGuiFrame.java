@@ -11,7 +11,6 @@ import popups.Advanced;
 import popups.AddMedewerker;
 import popups.AddPassenger;
 import popups.PopUpMedewerker;
-import java.awt.Color;
 import java.sql.SQLException;
 import java.util.List;
 import java.util.logging.Level;
