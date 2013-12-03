@@ -9,6 +9,8 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -29,7 +31,8 @@ public class PassengerDAO {
         List<Passenger> list = new LinkedList<Passenger>();
         ResultSet rs = null;
         PreparedStatement prdstmt = null;
-
+        java.util.Date today = new java.util.Date();
+        DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
         String query = "SELECT `name`, `surname`, `homeAddress`, `homePostalCode`, `homeCity`,`residentAddress`,`residentPostalCode`, `residentCity`, `color`, `shape`, `additionalDetails`, `labelNumber` FROM `passengers` LIMIT 50";
 
         conn.startConnection();

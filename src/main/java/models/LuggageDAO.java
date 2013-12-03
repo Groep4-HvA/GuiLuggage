@@ -8,6 +8,8 @@ import DBUtil.ConnectionMySQL;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -25,7 +27,7 @@ public class LuggageDAO {
         PreparedStatement prdstmt = null;
         String query = "INSERT INTO `cases`  ( `labelNumber`, `color`, `shape`, `storageLocation`, `additionalDetails`,`addDate`) VALUES(?,?,?,?,?,?);";
         java.util.Date today = new java.util.Date();
-        java.sql.Date sqlToday = new java.sql.Date(today.getTime());
+        DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
 
         conn.startConnection();
 
@@ -36,7 +38,7 @@ public class LuggageDAO {
         prdstmt.setString(3, luggage.getShape());
         prdstmt.setString(4, luggage.getLocation());
         prdstmt.setString(5, luggage.getDetails());
-        prdstmt.setDate(6, sqlToday);
+        prdstmt.setString(6, dateFormat.format(today));
 
         prdstmt.executeUpdate();
 
