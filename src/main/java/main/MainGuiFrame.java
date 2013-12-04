@@ -24,6 +24,8 @@ import models.MedewerkerDAO;
 public class MainGuiFrame extends java.awt.Frame {
     //Java resources
 
+    private List<Medewerker> medList = null;
+    private List<Case> caseList = null;
     private final PasswordConfirm passOverlay = new PasswordConfirm(new javax.swing.JFrame(), true);
     private final java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("Bundle"); // NOI18N
     //Strings for add buttons
@@ -59,9 +61,8 @@ public class MainGuiFrame extends java.awt.Frame {
         //TODO: move DAO reference to Case object. list=case.readAll() rather the caseDao
         //getting all cases into a list object.
         CaseDao dbCase = new CaseDao();
-        List<Case> list = null;
         try {
-            list = dbCase.readAll();
+            caseList = dbCase.readAll();
         } catch (SQLException ex) {
             Logger.getLogger(logIn.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -71,7 +72,7 @@ public class MainGuiFrame extends java.awt.Frame {
         jLabel1.setText(bundle.getString("MainGuiFrame.Location") + bundle.getString("Luggage"));
 
         //Populate table and headers
-        populateTableLuggage(list);
+        populateTableLuggage(caseList);
     }
 
     /**
@@ -385,13 +386,13 @@ public class MainGuiFrame extends java.awt.Frame {
                 MedewerkerDAO dbMedewerker = new MedewerkerDAO();
                 List<Medewerker> list = null;
                 try {
-                    list = dbMedewerker.readAll();
+                    medList = dbMedewerker.readAll();
                 } catch (SQLException ex) {
                     Logger.getLogger(logIn.class.getName()).log(Level.SEVERE, null, ex);
                 }
                 populateTableMedewerker(list);
                 inBeheer = true;
-                
+
                 //TODO: Depricated jLabel1
                 jLabel1.setText(bundle.getString("MainGuiFrame.Location") + bundle.getString("Users"));
             }
@@ -417,12 +418,12 @@ public class MainGuiFrame extends java.awt.Frame {
     }//GEN-LAST:event_logoutButtonActionPerformed
 
     private void tableResultsMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tableResultsMouseClicked
-        int i = 0;
         if (inBeheer) {
-            Popupappmedewerker popup1 = new Popupappmedewerker();
+            System.err.println();
+            Popupappmedewerker popup1 = new Popupappmedewerker(medList.get(tableResults.getSelectedRow()));
             popup1.setVisible(true);
         } else {
-            PopUpMedewerker popup = new PopUpMedewerker();
+            PopUpMedewerker popup = new PopUpMedewerker(caseList.get(tableResults.getSelectedRow()));
             popup.setVisible(true);
         }
     }//GEN-LAST:event_tableResultsMouseClicked
@@ -456,7 +457,7 @@ public class MainGuiFrame extends java.awt.Frame {
                 list = cdCase.search(searchInput.getText());
                 System.out.println(searchInput.getText());
                 populateTablePassenger(list);
-                
+
                 //TODO: Depricated jLabel1
                 jLabel1.setText(bundle.getString("MainGuiFrame.Location") + bundle.getString("Passengers"));
             } catch (Exception e) {
@@ -468,7 +469,7 @@ public class MainGuiFrame extends java.awt.Frame {
                 List<Medewerker> list = null;
                 list = dbMedewerker.search(searchInput.getText());
                 populateTableMedewerker(list);
-                
+
                 //TODO: Depricated jLabel1
                 jLabel1.setText(bundle.getString("MainGuiFrame.Location") + bundle.getString("Users"));
             } catch (Exception e) {
