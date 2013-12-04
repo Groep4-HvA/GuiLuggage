@@ -5,7 +5,13 @@
 package popups;
 
 import java.awt.Color;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.BorderFactory;
+import models.Medewerker;
+import models.MedewerkerDAO;
+import org.apache.commons.codec.digest.DigestUtils;
 
 /**
  *
@@ -13,14 +19,17 @@ import javax.swing.BorderFactory;
  */
 public class Popupappmedewerker extends javax.swing.JFrame {
     private final Color red = new Color(163, 0, 15);
+    private Medewerker medewerker = new Medewerker();
     /**
      * Creates new form Popupappmedewerker
      */
-    public Popupappmedewerker() {
+    public Popupappmedewerker(Medewerker medewerker) {
+        this.medewerker = medewerker;
         this.setUndecorated(true);
         getRootPane().setBorder( BorderFactory.createLineBorder(red) );
         initComponents();
         this.setLocationRelativeTo(null);
+        fillData();
     }
 
     /**
@@ -42,7 +51,8 @@ public class Popupappmedewerker extends javax.swing.JFrame {
         cancelButton = new javax.swing.JButton();
         firstPasswordField = new javax.swing.JPasswordField();
         confirmPasswordField = new javax.swing.JPasswordField();
-        jCheckBox1 = new javax.swing.JCheckBox();
+        isAppManager = new javax.swing.JCheckBox();
+        isManager = new javax.swing.JCheckBox();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -70,8 +80,12 @@ public class Popupappmedewerker extends javax.swing.JFrame {
             }
         });
 
-        jCheckBox1.setText(bundle.getString("Popupappmedewerker.jCheckBox1.text")); // NOI18N
-        jCheckBox1.setToolTipText(bundle.getString("Popupappmedewerker.jCheckBox1.toolTipText")); // NOI18N
+        isAppManager.setText(bundle.getString("Popupappmedewerker.isAppManager.text")); // NOI18N
+        isAppManager.setToolTipText(bundle.getString("Popupappmedewerker.isAppManager.toolTipText")); // NOI18N
+
+        isManager.setText(bundle.getString("Popupappmedewerker.isManager.text")); // NOI18N
+        java.util.ResourceBundle bundle1 = java.util.ResourceBundle.getBundle("Bundle"); // NOI18N
+        isManager.setToolTipText(bundle1.getString("Popupappmedewerker.isManager.toolTipText")); // NOI18N
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -88,13 +102,16 @@ public class Popupappmedewerker extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(saveButton)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 298, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(cancelButton))
                     .addComponent(nameField)
                     .addComponent(userNameField)
                     .addComponent(firstPasswordField)
                     .addComponent(confirmPasswordField)
-                    .addComponent(jCheckBox1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(isAppManager, javax.swing.GroupLayout.PREFERRED_SIZE, 249, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(isManager, javax.swing.GroupLayout.PREFERRED_SIZE, 249, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -117,7 +134,9 @@ public class Popupappmedewerker extends javax.swing.JFrame {
                     .addComponent(jLabel5)
                     .addComponent(confirmPasswordField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jCheckBox1)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(isAppManager)
+                    .addComponent(isManager))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(cancelButton)
@@ -127,8 +146,25 @@ public class Popupappmedewerker extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
+    private void fillData(){
+        nameField.setText(medewerker.getName());
+        userNameField.setText(medewerker.getUsername());
+        isAppManager.setSelected(medewerker.isAppManager());
+        isManager.setSelected(medewerker.isManager());
+    }
     private void saveButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saveButtonActionPerformed
+        medewerker.setName(nameField.getText());
+        medewerker.setAppManager(isAppManager.isSelected());
+        medewerker.setManager(isManager.isSelected());
+        if((firstPasswordField!=null)&&(firstPasswordField==confirmPasswordField)){
+            medewerker.setPassword(DigestUtils.sha256Hex(String.valueOf(firstPasswordField)));
+        }
+        MedewerkerDAO dbMedewerker = new MedewerkerDAO();
+        try {
+            dbMedewerker.update(medewerker);
+        } catch (SQLException ex) {
+            Logger.getLogger(Popupappmedewerker.class.getName()).log(Level.SEVERE, null, ex);
+        }
         dispose();
     }//GEN-LAST:event_saveButtonActionPerformed
 
@@ -140,7 +176,8 @@ public class Popupappmedewerker extends javax.swing.JFrame {
     private javax.swing.JButton cancelButton;
     private javax.swing.JPasswordField confirmPasswordField;
     private javax.swing.JPasswordField firstPasswordField;
-    private javax.swing.JCheckBox jCheckBox1;
+    private javax.swing.JCheckBox isAppManager;
+    private javax.swing.JCheckBox isManager;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
