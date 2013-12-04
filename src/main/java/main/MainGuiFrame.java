@@ -13,12 +13,8 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import models.Case;
 import models.CaseDao;
-import models.Luggage;
-import models.LuggageDAO;
 import models.Medewerker;
 import models.MedewerkerDAO;
-import models.Passenger;
-import models.PassengerDAO;
 
 /**
  *
@@ -212,11 +208,6 @@ public class MainGuiFrame extends java.awt.Frame {
                 tableResultsMouseClicked(evt);
             }
         });
-        tableResults.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyPressed(java.awt.event.KeyEvent evt) {
-                tableResultsKeyPressed(evt);
-            }
-        });
         jScrollPane3.setViewportView(tableResults);
 
         appManagementButton.setText(bundle.getString("MainGuiFrame.appManagementButton.text")); // NOI18N
@@ -257,8 +248,7 @@ public class MainGuiFrame extends java.awt.Frame {
             }
         });
 
-        java.util.ResourceBundle bundle1 = java.util.ResourceBundle.getBundle("Bundle"); // NOI18N
-        jLabel1.setText(bundle1.getString("MainGuiFrame.jLabel1.text")); // NOI18N
+        jLabel1.setText(bundle.getString("MainGuiFrame.jLabel1.text")); // NOI18N
 
         org.jdesktop.layout.GroupLayout jPanel2Layout = new org.jdesktop.layout.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -315,7 +305,7 @@ public class MainGuiFrame extends java.awt.Frame {
                 .add(jPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
                     .add(searchButton)
                     .add(advanced))
-                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, 37, Short.MAX_VALUE)
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, 18, Short.MAX_VALUE)
                 .add(jLabel1)
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
                 .add(jScrollPane3, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
@@ -399,25 +389,26 @@ public class MainGuiFrame extends java.awt.Frame {
                 } catch (SQLException ex) {
                     Logger.getLogger(logIn.class.getName()).log(Level.SEVERE, null, ex);
                 }
-
                 populateTableMedewerker(list);
-                jLabel1.setText(bundle.getString("MainGuiFrame.Location") + bundle.getString("Users"));
                 inBeheer = true;
+                
+                //TODO: Depricated jLabel1
+                jLabel1.setText(bundle.getString("MainGuiFrame.Location") + bundle.getString("Users"));
             }
         } else {
             System.out.print(bundle.getString("notAuthorized"));
         }
     }//GEN-LAST:event_appManagementButtonActionPerformed
 
+    /*
+     * Open "My Account" allowing you to edit your password and language
+     * TODO: Preset the language of the user
+     */
     private void myAccountButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_myAccountButtonActionPerformed
         passOverlay.pack();
         passOverlay.setVisible(true);
         passOverlay.setLocationRelativeTo(null);
     }//GEN-LAST:event_myAccountButtonActionPerformed
-
-    private void tableResultsKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tableResultsKeyPressed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_tableResultsKeyPressed
 
     private void logoutButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_logoutButtonActionPerformed
         dispose();
@@ -457,44 +448,17 @@ public class MainGuiFrame extends java.awt.Frame {
     }//GEN-LAST:event_addNewButton2ActionPerformed
 
     private void searchButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_searchButtonActionPerformed
-        System.out.println();
         System.out.println(searchInput.getText());
-        System.out.println();
-
         if (!inBeheer) {
-
             try {
-
-                PassengerDAO dbPassenger = new PassengerDAO();
-                List<Passenger> list;
-                list = dbPassenger.search(searchInput.getText());
-
-                System.out.println();
+                CaseDao cdCase = new CaseDao();
+                List<Case> list;
+                list = cdCase.search(searchInput.getText());
                 System.out.println(searchInput.getText());
-                System.out.println();
-
-                for (int i = 0; i < 50; i++) {
-                    tableResults.getModel().setValueAt("", i, 0);
-                    tableResults.getModel().setValueAt("", i, 1);
-                    tableResults.getModel().setValueAt("", i, 2);
-                    tableResults.getModel().setValueAt("", i, 3);
-                }
-                tableResults.getColumnModel().getColumn(0).setHeaderValue("Label");
-                tableResults.getColumnModel().getColumn(1).setHeaderValue("Name");
-                tableResults.getColumnModel().getColumn(2).setHeaderValue("Surname");
-                tableResults.getColumnModel().getColumn(3).setHeaderValue("Details");
-
-                int x = 0;
-                while (x < list.size()) {
-                    System.out.println(list.get(x).toString());
-                    tableResults.getModel().setValueAt(list.get(x).getLabel(), x, 0);
-                    tableResults.getModel().setValueAt(list.get(x).getName(), x, 1);
-                    tableResults.getModel().setValueAt(list.get(x).getSurname(), x, 2);
-                    tableResults.getModel().setValueAt(list.get(x).getDetails(), x, 3);
-                    x++;
-                }
+                populateTablePassenger(list);
+                
+                //TODO: Depricated jLabel1
                 jLabel1.setText(bundle.getString("MainGuiFrame.Location") + bundle.getString("Passengers"));
-
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -503,21 +467,10 @@ public class MainGuiFrame extends java.awt.Frame {
                 MedewerkerDAO dbMedewerker = new MedewerkerDAO();
                 List<Medewerker> list = null;
                 list = dbMedewerker.search(searchInput.getText());
-
-                for (int i = 0; i < 50; i++) {
-                    tableResults.getModel().setValueAt("", i, 0);
-                    tableResults.getModel().setValueAt("", i, 1);
-                    tableResults.getModel().setValueAt("", i, 2);
-                    tableResults.getModel().setValueAt("", i, 3);
-                }
-                tableResults.getColumnModel().getColumn(0).setHeaderValue("Name");
-                tableResults.getColumnModel().getColumn(1).setHeaderValue("Username");
-                tableResults.getColumnModel().getColumn(2).setHeaderValue("Appmanager");
-                tableResults.getColumnModel().getColumn(3).setHeaderValue("Manager");
-
                 populateTableMedewerker(list);
+                
+                //TODO: Depricated jLabel1
                 jLabel1.setText(bundle.getString("MainGuiFrame.Location") + bundle.getString("Users"));
-
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -526,7 +479,7 @@ public class MainGuiFrame extends java.awt.Frame {
     }//GEN-LAST:event_searchButtonActionPerformed
 
     private void searchInputActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_searchInputActionPerformed
-        // TODO add your handling code here:
+        searchButtonActionPerformed(evt);
     }//GEN-LAST:event_searchInputActionPerformed
     public void populateTableMedewerker(List<Medewerker> list) {
         for (int i = 0; i < 50; i++) {
@@ -584,6 +537,10 @@ public class MainGuiFrame extends java.awt.Frame {
         tableResults.getColumnModel().getColumn(2).setHeaderValue("Color");
         tableResults.getColumnModel().getColumn(3).setHeaderValue("Shape");
     }
+    /*
+     * @depricated
+     * TODO: reomove this code
+     */
     private void tableChangeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tableChangeActionPerformed
         try {
             for (int x = 0; x < 50; x++) {
@@ -599,19 +556,7 @@ public class MainGuiFrame extends java.awt.Frame {
                 list = dbCase.readAll();
 
                 int x = 0;
-                while (x < list.size()) {
-                    //System.out.println(list.get(x).toString());
-                    tableResults.getModel().setValueAt(list.get(x).getLabel(), x, 0);
-                    tableResults.getModel().setValueAt(list.get(x).getName(), x, 1);
-                    tableResults.getModel().setValueAt(list.get(x).getSurName(), x, 2);
-                    tableResults.getModel().setValueAt(list.get(x).getAditionalDetails(), x, 3);
-                    x++;
-                }
-
-                tableResults.getColumnModel().getColumn(0).setHeaderValue("Label");
-                tableResults.getColumnModel().getColumn(1).setHeaderValue("Name");
-                tableResults.getColumnModel().getColumn(2).setHeaderValue("Surname");
-                tableResults.getColumnModel().getColumn(3).setHeaderValue("Details");
+                populateTableLuggage(list);
 
                 jLabel1.setText(bundle.getString("MainGuiFrame.Location") + bundle.getString("Passengers"));
 
@@ -625,10 +570,6 @@ public class MainGuiFrame extends java.awt.Frame {
                     Logger.getLogger(logIn.class.getName()).log(Level.SEVERE, null, ex);
                 }
                 populateTableLuggage(list);
-                tableResults.getColumnModel().getColumn(0).setHeaderValue("Label");
-                tableResults.getColumnModel().getColumn(1).setHeaderValue("Location");
-                tableResults.getColumnModel().getColumn(2).setHeaderValue("Color");
-                tableResults.getColumnModel().getColumn(3).setHeaderValue("Shape");
 
                 jLabel1.setText(bundle.getString("MainGuiFrame.Location") + bundle.getString("Luggage"));
 

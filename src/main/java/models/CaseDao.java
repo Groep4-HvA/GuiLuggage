@@ -37,24 +37,82 @@ public class CaseDao {
             tempcase.setLabel(rs.getString("LuggageNumber"));
             tempcase.setName(rs.getString("Name"));
             tempcase.setSurName(rs.getString("Surname"));
-            
+
             tempcase.setHomeAddress(rs.getString("homeAddress"));
             tempcase.setHomePostalCode(rs.getString("homePostalCode"));
             tempcase.setHomeCity(rs.getString("homeCity"));
-            
+
             tempcase.setResidentAddress(rs.getString("residentAddress"));
             tempcase.setResidentPostalCode(rs.getString("residentPostalCode"));
             tempcase.setResidentCity(rs.getString("residentCity"));
-            
+
             tempcase.setColor(rs.getString("Color"));
             tempcase.setShape(rs.getString("Shape"));
             tempcase.setAditionalDetails(rs.getString("AditionalDetails"));
             tempcase.setStorageLocation(rs.getString("StorageLocation"));
             tempcase.setHandlerID(rs.getInt("HandlerID"));
-            
+
             tempcase.setAddDate(rs.getDate("AddDate"));
             tempcase.setResolveDate(rs.getDate("ResolveDate"));
             list.add(tempcase);
+        }
+
+        if (conn != null) {
+            conn.closeConnection();
+        }
+
+        return list;
+    }
+
+    public List<Case> search(String searchInput) throws SQLException {
+
+        List<Case> list = new LinkedList<Case>();
+        ResultSet rs = null;
+        PreparedStatement prdstmt = null;
+
+        String query = "SELECT * FROM `cases` WHERE `Name` LIKE ? OR `Surname` LIKE ? OR `homeAddress` LIKE ? OR `homePostalCode` LIKE ? OR `homeCity` LIKE ? OR `residentAddress` LIKE ? OR `residentPostalCode` LIKE ? OR `residentCity` LIKE ? OR `Color` LIKE ? OR `Shape` LIKE ? OR `AditionalDetails` LIKE ? OR `LuggageNumber` LIKE ?  LIMIT 50";
+        conn.startConnection();
+
+        prdstmt = conn.getConnection().prepareStatement(query);
+
+        prdstmt.setString(1, "%" + searchInput + "%");
+        prdstmt.setString(2, "%" + searchInput + "%");
+        prdstmt.setString(3, "%" + searchInput + "%");
+        prdstmt.setString(4, "%" + searchInput + "%");
+        prdstmt.setString(5, "%" + searchInput + "%");
+        prdstmt.setString(6, "%" + searchInput + "%");
+        prdstmt.setString(7, "%" + searchInput + "%");
+        prdstmt.setString(8, "%" + searchInput + "%");
+        prdstmt.setString(9, "%" + searchInput + "%");
+        prdstmt.setString(10, "%" + searchInput + "%");
+        prdstmt.setString(11, "%" + searchInput + "%");
+        prdstmt.setString(12, "%" + searchInput + "%");
+
+        rs = conn.performSelect(prdstmt);
+
+        while (rs.next()) {
+            Case tempCase = new Case();
+            tempCase.setLabel(rs.getString("LuggageNumber"));
+            tempCase.setName(rs.getString("Name"));
+            tempCase.setSurName(rs.getString("Surname"));
+
+            tempCase.setHomeAddress(rs.getString("homeAddress"));
+            tempCase.setHomePostalCode(rs.getString("homePostalCode"));
+            tempCase.setHomeCity(rs.getString("homeCity"));
+
+            tempCase.setResidentAddress(rs.getString("residentAddress"));
+            tempCase.setResidentPostalCode(rs.getString("residentPostalCode"));
+            tempCase.setResidentCity(rs.getString("residentCity"));
+
+            tempCase.setColor(rs.getString("Color"));
+            tempCase.setShape(rs.getString("Shape"));
+            tempCase.setAditionalDetails(rs.getString("AditionalDetails"));
+            tempCase.setStorageLocation(rs.getString("StorageLocation"));
+            tempCase.setHandlerID(rs.getInt("HandlerID"));
+
+            tempCase.setAddDate(rs.getDate("AddDate"));
+            tempCase.setResolveDate(rs.getDate("ResolveDate"));
+            list.add(tempCase);
         }
 
         if (conn != null) {
