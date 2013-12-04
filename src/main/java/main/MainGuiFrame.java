@@ -66,13 +66,8 @@ public class MainGuiFrame extends java.awt.Frame {
         } catch (SQLException ex) {
             Logger.getLogger(logIn.class.getName()).log(Level.SEVERE, null, ex);
         }
-
-        //TODO: Depricated, remove this
-        jLabel1.setText(bundle.getString("MainGuiFrame.Location") + bundle.getString("Passengers"));
-        jLabel1.setText(bundle.getString("MainGuiFrame.Location") + bundle.getString("Luggage"));
-
         //Populate table and headers
-        populateTableLuggage(caseList);
+        populateTableCase(caseList);
     }
 
     /**
@@ -96,8 +91,6 @@ public class MainGuiFrame extends java.awt.Frame {
         logoutButton = new javax.swing.JButton();
         LabelDescription = new javax.swing.JLabel();
         searchInput = new javax.swing.JTextField();
-        tableChange = new javax.swing.JButton();
-        jLabel1 = new javax.swing.JLabel();
 
         java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("Bundle"); // NOI18N
         setTitle(bundle.getString("medewerkerMain.title")); // NOI18N
@@ -242,15 +235,6 @@ public class MainGuiFrame extends java.awt.Frame {
             }
         });
 
-        tableChange.setText(bundle.getString("MainGuiFrame.tableChange.text")); // NOI18N
-        tableChange.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                tableChangeActionPerformed(evt);
-            }
-        });
-
-        jLabel1.setText(bundle.getString("MainGuiFrame.jLabel1.text")); // NOI18N
-
         org.jdesktop.layout.GroupLayout jPanel2Layout = new org.jdesktop.layout.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
@@ -270,18 +254,14 @@ public class MainGuiFrame extends java.awt.Frame {
                             .add(LabelDescription)
                             .add(jPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING)
                                 .add(searchInput, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 931, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                                .add(jPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                                    .add(jLabel1)
-                                    .add(jPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING, false)
-                                        .add(jPanel2Layout.createSequentialGroup()
-                                            .add(addNewButton1)
-                                            .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                                            .add(addNewButton2)
-                                            .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                            .add(tableChange)
-                                            .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                                            .add(moreButton))
-                                        .add(jScrollPane3, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 928, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)))))
+                                .add(jPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING, false)
+                                    .add(jPanel2Layout.createSequentialGroup()
+                                        .add(addNewButton1)
+                                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                                        .add(addNewButton2)
+                                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .add(moreButton))
+                                    .add(jScrollPane3, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 928, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))))
                         .addContainerGap(49, Short.MAX_VALUE))))
             .add(jPanel2Layout.createSequentialGroup()
                 .addContainerGap(org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -293,7 +273,7 @@ public class MainGuiFrame extends java.awt.Frame {
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
             .add(org.jdesktop.layout.GroupLayout.TRAILING, jPanel2Layout.createSequentialGroup()
-                .addContainerGap()
+                .addContainerGap(org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .add(jPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
                     .add(appManagementButton)
                     .add(myAccountButton)
@@ -302,22 +282,19 @@ public class MainGuiFrame extends java.awt.Frame {
                 .add(LabelDescription)
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                 .add(searchInput, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                .add(18, 18, 18)
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                 .add(jPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
                     .add(searchButton)
                     .add(advanced))
-                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, 18, Short.MAX_VALUE)
-                .add(jLabel1)
-                .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
+                .add(18, 18, 18)
                 .add(jScrollPane3, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                 .add(jPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
                     .add(addNewButton1)
                     .add(jPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
                         .add(moreButton)
-                        .add(addNewButton2)
-                        .add(tableChange)))
-                .add(8, 8, 8))
+                        .add(addNewButton2)))
+                .addContainerGap(8, Short.MAX_VALUE))
         );
 
         add(jPanel2, java.awt.BorderLayout.CENTER);
@@ -353,9 +330,6 @@ public class MainGuiFrame extends java.awt.Frame {
     private void appManagementButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_appManagementButtonActionPerformed
         if (beheer) {
             if (inBeheer) {
-                //TODO: tableChange is depricated since the casesTable
-                tableChange.setVisible(true);
-
                 addNewButton1.setText(bundle.getString("MainGuiFrame.addNew") + button1);
                 addNewButton2.setText(bundle.getString("MainGuiFrame.addNew") + button2);
                 appManagementButton.setText(bundle.getString("MainGuiFrame.beheerButtonOn"));
@@ -368,15 +342,9 @@ public class MainGuiFrame extends java.awt.Frame {
                 } catch (SQLException ex) {
                     Logger.getLogger(logIn.class.getName()).log(Level.SEVERE, null, ex);
                 }
-                populateTablePassenger(list);
+                populateTableCase(list);
                 inBeheer = false;
-
-                //TODO: jLabel1 is depricated
-                jLabel1.setText(bundle.getString("MainGuiFrame.Location") + bundle.getString("Passengers"));
             } else {
-                //TODO: tableChange is depricated since the casesTable
-                tableChange.setVisible(false);
-
                 addNewButton1.setText(bundle.getString("MainGuiFrame.addNew") + bundle.getString("Manager"));
                 addNewButton2.setText(bundle.getString("MainGuiFrame.addNew") + bundle.getString("Medewerker"));
                 appManagementButton.setText(bundle.getString("MainGuiFrame.beheerButtonOff"));
@@ -392,9 +360,6 @@ public class MainGuiFrame extends java.awt.Frame {
                 }
                 populateTableMedewerker(list);
                 inBeheer = true;
-
-                //TODO: Depricated jLabel1
-                jLabel1.setText(bundle.getString("MainGuiFrame.Location") + bundle.getString("Users"));
             }
         } else {
             System.out.print(bundle.getString("notAuthorized"));
@@ -456,10 +421,7 @@ public class MainGuiFrame extends java.awt.Frame {
                 List<Case> list;
                 list = cdCase.search(searchInput.getText());
                 System.out.println(searchInput.getText());
-                populateTablePassenger(list);
-
-                //TODO: Depricated jLabel1
-                jLabel1.setText(bundle.getString("MainGuiFrame.Location") + bundle.getString("Passengers"));
+                populateTableCase(list);
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -469,9 +431,6 @@ public class MainGuiFrame extends java.awt.Frame {
                 List<Medewerker> list = null;
                 list = dbMedewerker.search(searchInput.getText());
                 populateTableMedewerker(list);
-
-                //TODO: Depricated jLabel1
-                jLabel1.setText(bundle.getString("MainGuiFrame.Location") + bundle.getString("Users"));
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -501,7 +460,7 @@ public class MainGuiFrame extends java.awt.Frame {
         tableResults.getColumnModel().getColumn(3).setHeaderValue("Manager");
     }
 
-    public void populateTablePassenger(List<Case> list) {
+    public void populateTableCase(List<Case> list) {
         for (int i = 0; i < 50; i++) {
             tableResults.getModel().setValueAt("", i, 0);
             tableResults.getModel().setValueAt("", i, 1);
@@ -509,90 +468,28 @@ public class MainGuiFrame extends java.awt.Frame {
             tableResults.getModel().setValueAt("", i, 3);
         }
         for (int i = 0; i < list.size(); i++) {
-            tableResults.getModel().setValueAt(list.get(i).getLabel(), i, 0);
-            tableResults.getModel().setValueAt(list.get(i).getName(), i, 1);
-            tableResults.getModel().setValueAt(list.get(i).getSurName(), i, 2);
-            tableResults.getModel().setValueAt(list.get(i).getAditionalDetails(), i, 3);
+            tableResults.getModel().setValueAt(i, i, 0);
+            tableResults.getModel().setValueAt(list.get(i).getLabel(), i, 1);
+            tableResults.getModel().setValueAt(list.get(i).getAddDate(), i, 2);
+            tableResults.getModel().setValueAt(list.get(i).getHandler(), i, 3);
         }
-        tableResults.getColumnModel().getColumn(0).setHeaderValue("Label");
-        tableResults.getColumnModel().getColumn(1).setHeaderValue("Name");
-        tableResults.getColumnModel().getColumn(2).setHeaderValue("Surname");
-        tableResults.getColumnModel().getColumn(3).setHeaderValue("Details");
+        tableResults.getColumnModel().getColumn(0).setHeaderValue("#");
+        tableResults.getColumnModel().getColumn(1).setHeaderValue("Luggage Number");
+        tableResults.getColumnModel().getColumn(2).setHeaderValue("Add date");
+        tableResults.getColumnModel().getColumn(3).setHeaderValue("Handler name");
     }
-
-    private void populateTableLuggage(List<Case> list) {
-        for (int i = 0; i < 50; i++) {
-            tableResults.getModel().setValueAt("", i, 0);
-            tableResults.getModel().setValueAt("", i, 1);
-            tableResults.getModel().setValueAt("", i, 2);
-            tableResults.getModel().setValueAt("", i, 3);
-        }
-        for (int i = 0; i < list.size(); i++) {
-            tableResults.getModel().setValueAt(list.get(i).getLabel(), i, 0);
-            tableResults.getModel().setValueAt(list.get(i).getStorageLocation(), i, 1);
-            tableResults.getModel().setValueAt(list.get(i).getColor(), i, 2);
-            tableResults.getModel().setValueAt(list.get(i).getShape(), i, 3);
-        }
-        tableResults.getColumnModel().getColumn(0).setHeaderValue("Label");
-        tableResults.getColumnModel().getColumn(1).setHeaderValue("Location");
-        tableResults.getColumnModel().getColumn(2).setHeaderValue("Color");
-        tableResults.getColumnModel().getColumn(3).setHeaderValue("Shape");
-    }
-    /*
-     * @depricated
-     * TODO: reomove this code
-     */
-    private void tableChangeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tableChangeActionPerformed
-        try {
-            for (int x = 0; x < 50; x++) {
-                tableResults.getModel().setValueAt("", x, 0);
-                tableResults.getModel().setValueAt("", x, 1);
-                tableResults.getModel().setValueAt("", x, 2);
-                tableResults.getModel().setValueAt("", x, 3);
-            }
-            if (!luggage) {
-                luggage = true;
-                CaseDao dbCase = new CaseDao();
-                List<Case> list;
-                list = dbCase.readAll();
-
-                int x = 0;
-                populateTableLuggage(list);
-
-                jLabel1.setText(bundle.getString("MainGuiFrame.Location") + bundle.getString("Passengers"));
-
-            } else {
-                luggage = false;
-                CaseDao dbCase = new CaseDao();
-                List<Case> list = null;
-                try {
-                    list = dbCase.readAll();
-                } catch (SQLException ex) {
-                    Logger.getLogger(logIn.class.getName()).log(Level.SEVERE, null, ex);
-                }
-                populateTableLuggage(list);
-
-                jLabel1.setText(bundle.getString("MainGuiFrame.Location") + bundle.getString("Luggage"));
-
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }//GEN-LAST:event_tableChangeActionPerformed
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel LabelDescription;
     private javax.swing.JButton addNewButton1;
     private javax.swing.JButton addNewButton2;
     private javax.swing.JButton advanced;
     private javax.swing.JButton appManagementButton;
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JButton logoutButton;
     private javax.swing.JButton myAccountButton;
     private javax.swing.JButton searchButton;
     private javax.swing.JTextField searchInput;
-    private javax.swing.JButton tableChange;
     private javax.swing.JTable tableResults;
     // End of variables declaration//GEN-END:variables
 }

@@ -34,11 +34,11 @@ public class MedewerkerDAO {
         conn.startConnection();
 
         prdstmt = conn.getConnection().prepareStatement(query);
-        
+
         prdstmt.setString(1, "%" + searchInput + "%");
         prdstmt.setString(2, "%" + searchInput + "%");
         prdstmt.setString(3, "%" + searchInput + "%");
-        
+
         rs = conn.performSelect(prdstmt);
 
         while (rs.next()) {
@@ -177,14 +177,14 @@ public class MedewerkerDAO {
     public int update(Medewerker medewerker) throws SQLException {
         PreparedStatement prdstmt = null;
         String query = "UPDATE `Users` SET `userName`=?, `userRealName`=?, `userPass`=?, `userManager`=?, `userBeheer`=?, `userLang`=? WHERE `userId`=?;";
-        
+
         String queryUserName, queryName, queryPass, queryUserLang;
         boolean queryManager, queryAppManager;
-        queryUserName   = medewerker.getUsername();
-        queryName       = medewerker.getName();
-        queryPass       = medewerker.getPassword();
-        queryUserLang   = medewerker.getUserLang();
-        queryManager    = medewerker.isManager();
+        queryUserName = medewerker.getUsername();
+        queryName = medewerker.getName();
+        queryPass = medewerker.getPassword();
+        queryUserLang = medewerker.getUserLang();
+        queryManager = medewerker.isManager();
         queryAppManager = medewerker.isAppManager();
         System.err.println(medewerker.toString());
         conn.startConnection();
@@ -222,4 +222,33 @@ public class MedewerkerDAO {
         return -1;
     }
 
+    public Medewerker getMedewerkerById(int handlerID) throws SQLException {
+        Medewerker result = new Medewerker();
+        ResultSet rs = null;
+        PreparedStatement prdstmt = null;
+
+        String query = "SELECT * FROM `Users` WHERE userId=?;";
+
+        conn.startConnection();
+
+        prdstmt = conn.getConnection().prepareStatement(query);
+        prdstmt.setInt(1, handlerID);
+        rs = conn.performSelect(prdstmt);
+        while (rs.next()) {
+            result.setId(rs.getInt("userId"));
+            result.setUsername(rs.getString("userName"));
+            result.setPassword(rs.getString("userPass"));
+            result.setName(rs.getString("userRealName"));
+            result.setUserLang(rs.getString("userLang"));
+            result.setManager(rs.getBoolean("userManager"));
+            result.setAppManager(rs.getBoolean("userBeheer"));
+            break;
+        }
+
+        if (conn != null) {
+            conn.closeConnection();
+        }
+
+        return result;
+    }
 }

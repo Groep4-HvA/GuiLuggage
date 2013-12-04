@@ -52,7 +52,7 @@ public class CaseDao {
             tempcase.setShape(rs.getString("Shape"));
             tempcase.setAditionalDetails(rs.getString("AditionalDetails"));
             tempcase.setStorageLocation(rs.getString("StorageLocation"));
-            tempcase.setHandlerID(rs.getInt("HandlerID"));
+            tempcase.setHandler(rs.getInt("HandlerID"));
 
             tempcase.setAddDate(rs.getDate("AddDate"));
             tempcase.setResolveDate(rs.getDate("ResolveDate"));
@@ -110,7 +110,7 @@ public class CaseDao {
             tempCase.setShape(rs.getString("Shape"));
             tempCase.setAditionalDetails(rs.getString("AditionalDetails"));
             tempCase.setStorageLocation(rs.getString("StorageLocation"));
-            tempCase.setHandlerID(rs.getInt("HandlerID"));
+            tempCase.setHandler(rs.getInt("HandlerID"));
 
             tempCase.setAddDate(rs.getDate("AddDate"));
             tempCase.setResolveDate(rs.getDate("ResolveDate"));

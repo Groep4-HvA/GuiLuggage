@@ -31,7 +31,7 @@ public class Case {
     private String aditionalDetails;
     private String storageLocation;
     
-    private int handlerID;
+    private String handler;
     private Date addDate;
     private Date resolveDate;
 
@@ -146,12 +146,19 @@ public class Case {
         this.storageLocation = storageLocation;
     }
 
-    public int getHandlerID() {
-        return handlerID;
+    public String getHandler() {
+        return handler;
     }
 
-    public void setHandlerID(int handlerID) {
-        this.handlerID = handlerID;
+    public void setHandler(int handlerID) {
+        MedewerkerDAO dbMedewerker = new MedewerkerDAO();
+        Medewerker dBhandler = null;
+        try {
+            dBhandler = dbMedewerker.getMedewerkerById(handlerID);
+        } catch (SQLException ex) {
+            Logger.getLogger(Case.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        this.handler = dBhandler.getName();
     }
 
     public Date getAddDate() {
@@ -179,4 +186,10 @@ public class Case {
         }
         return list;
     }
+
+    @Override
+    public String toString() {
+        return "Case{" + "status=" + status + ", label=" + label + ", name=" + name + ", surName=" + surName + ", homeAddress=" + homeAddress + ", homePostalCode=" + homePostalCode + ", homeCity=" + homeCity + ", residentAddress=" + residentAddress + ", residentPostalCode=" + residentPostalCode + ", residentCity=" + residentCity + ", color=" + color + ", shape=" + shape + ", aditionalDetails=" + aditionalDetails + ", storageLocation=" + storageLocation + ", handler=" + handler + ", addDate=" + addDate + ", resolveDate=" + resolveDate + '}';
+    }
+    
 }
