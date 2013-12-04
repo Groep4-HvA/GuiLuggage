@@ -1,7 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package main;
 
 import popups.PasswordConfirm;
@@ -26,61 +22,46 @@ import models.PassengerDAO;
 
 /**
  *
- * @author sean
+ * @author Groep 4 HvA IS104
+ * @since 15-10-13
  */
 public class MainGuiFrame extends java.awt.Frame {
+    //Java resources
 
     private final PasswordConfirm passOverlay = new PasswordConfirm(new javax.swing.JFrame(), true);
     private final java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("Bundle"); // NOI18N
-    /**
-     * Creates new form MainGuiFrame
-     */
-    private int i = 0;
+    //Strings for add buttons
     private final String button1;
     private final String button2;
     private String button3 = null;
-    private boolean inBeheer = false;
+    //Access Management
     private boolean beheer;
+    private boolean inBeheer = false;
     private boolean luggage = false;
 
     /**
+     * Constructor for the common user and App Manager screen
      *
      * @param value
      * @throws java.sql.SQLException
      */
-    public void forStatementMedewerker(List<Medewerker> list){
-    for (int i = 0; i < list.size(); i++) {
-                    tableResults.getModel().setValueAt(list.get(i).getName(), i, 0);
-                    tableResults.getModel().setValueAt(list.get(i).getUsername(), i, 1);
-                    tableResults.getModel().setValueAt(list.get(i).isAppManager(), i, 2);
-                    tableResults.getModel().setValueAt(list.get(i).isManager(), i, 3);
-    }
-}
-    public void forStatementCasePassenger(List<Case> list){
-    for (int i = 0; i < list.size(); i++) {
-                    tableResults.getModel().setValueAt(list.get(i).getLabel(), i, 0);
-                    tableResults.getModel().setValueAt(list.get(i).getName(), i, 1);
-                    tableResults.getModel().setValueAt(list.get(i).getSurName(), i, 2);
-                    tableResults.getModel().setValueAt(list.get(i).getAditionalDetails(), i, 3);
-    }
-    }
-    public void forStatementCaseLuggage(List<Case> list){
-    for (int i = 0; i < list.size(); i++) {
-                    tableResults.getModel().setValueAt(list.get(i).getLabel(), i, 0);
-                    tableResults.getModel().setValueAt(list.get(i).getStorageLocation(), i, 1);
-                    tableResults.getModel().setValueAt(list.get(i).getColor(), i, 2);
-                    tableResults.getModel().setValueAt(list.get(i).getShape(), i, 3);
-    }
-}
     public MainGuiFrame(boolean value) throws SQLException {
+        //pre init configuration of Strings
         beheer = value;
         button1 = (inBeheer) ? bundle.getString("Medewerker") : bundle.getString("Luggage");
         button2 = (inBeheer) ? bundle.getString("Manager") : bundle.getString("Passenger");
         button3 = (luggage) ? bundle.getString("Luggage") : bundle.getString("Passenger");
+
+        //initializing the screen and centering it
         initComponents();
         this.setLocationRelativeTo(null);
-        appManagementButton.setVisible(beheer);
         searchInput.requestFocusInWindow();
+
+        //Access management: users can not see the appmanagement screen
+        appManagementButton.setVisible(beheer);
+
+        //TODO: move DAO reference to Case object. list=case.readAll() rather the caseDao
+        //getting all cases into a list object.
         CaseDao dbCase = new CaseDao();
         List<Case> list = null;
         try {
@@ -88,17 +69,13 @@ public class MainGuiFrame extends java.awt.Frame {
         } catch (SQLException ex) {
             Logger.getLogger(logIn.class.getName()).log(Level.SEVERE, null, ex);
         }
-        forStatementCaseLuggage(list);
+
+        //TODO: Depricated, remove this
         jLabel1.setText(bundle.getString("MainGuiFrame.Location") + bundle.getString("Passengers"));
-        
-
-        tableResults.getColumnModel().getColumn(0).setHeaderValue("Label");
-        tableResults.getColumnModel().getColumn(1).setHeaderValue("Location");
-        tableResults.getColumnModel().getColumn(2).setHeaderValue("Color");
-        tableResults.getColumnModel().getColumn(3).setHeaderValue("Shape");
-
         jLabel1.setText(bundle.getString("MainGuiFrame.Location") + bundle.getString("Luggage"));
 
+        //Populate table and headers
+        populateTableLuggage(list);
     }
 
     /**
@@ -363,30 +340,36 @@ public class MainGuiFrame extends java.awt.Frame {
     private void exitForm(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_exitForm
         System.exit(0);
     }//GEN-LAST:event_exitForm
-
+    /*
+     * Display advanced Search options
+     */
     private void advancedActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_advancedActionPerformed
         Advanced advancedPopUp = new Advanced();
         advancedPopUp.setVisible(true);
     }//GEN-LAST:event_advancedActionPerformed
 
+    /*
+     * Display more results
+     * TODO: No function assigned yet
+     */
     private void moreButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_moreButtonActionPerformed
-        // TODO add your handling code here:
     }//GEN-LAST:event_moreButtonActionPerformed
 
+    /*
+     * Switch to the Application Management screen.
+     * TODO: Clean this up
+     */
     private void appManagementButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_appManagementButtonActionPerformed
         if (beheer) {
-            for (int x = 0; x < 50; x++) {
-                tableResults.getModel().setValueAt("", x, 0);
-                tableResults.getModel().setValueAt("", x, 1);
-                tableResults.getModel().setValueAt("", x, 2);
-                tableResults.getModel().setValueAt("", x, 3);
-            }
             if (inBeheer) {
+                //TODO: tableChange is depricated since the casesTable
                 tableChange.setVisible(true);
+
                 addNewButton1.setText(bundle.getString("MainGuiFrame.addNew") + button1);
                 addNewButton2.setText(bundle.getString("MainGuiFrame.addNew") + button2);
                 appManagementButton.setText(bundle.getString("MainGuiFrame.beheerButtonOn"));
                 LabelDescription.setText("Search:");
+                //TODO: readAll should be from the Cases, not Dao
                 CaseDao dbCase = new CaseDao();
                 List<Case> list = null;
                 try {
@@ -394,28 +377,21 @@ public class MainGuiFrame extends java.awt.Frame {
                 } catch (SQLException ex) {
                     Logger.getLogger(logIn.class.getName()).log(Level.SEVERE, null, ex);
                 }
-
-                for (int i = 0; i < 50; i++) {
-                    tableResults.getModel().setValueAt("", i, 0);
-                    tableResults.getModel().setValueAt("", i, 1);
-                    tableResults.getModel().setValueAt("", i, 2);
-                    tableResults.getModel().setValueAt("", i, 3);
-                }
-                tableResults.getColumnModel().getColumn(0).setHeaderValue("Label");
-                tableResults.getColumnModel().getColumn(1).setHeaderValue("Name");
-                tableResults.getColumnModel().getColumn(2).setHeaderValue("Surname");
-                tableResults.getColumnModel().getColumn(3).setHeaderValue("Details");
-                forStatementCasePassenger(list);
-                 jLabel1.setText(bundle.getString("MainGuiFrame.Location") + bundle.getString("Passengers"));
-                
+                populateTablePassenger(list);
                 inBeheer = false;
+
+                //TODO: jLabel1 is depricated
+                jLabel1.setText(bundle.getString("MainGuiFrame.Location") + bundle.getString("Passengers"));
             } else {
+                //TODO: tableChange is depricated since the casesTable
                 tableChange.setVisible(false);
+
                 addNewButton1.setText(bundle.getString("MainGuiFrame.addNew") + bundle.getString("Manager"));
                 addNewButton2.setText(bundle.getString("MainGuiFrame.addNew") + bundle.getString("Medewerker"));
                 appManagementButton.setText(bundle.getString("MainGuiFrame.beheerButtonOff"));
                 LabelDescription.setText("Search:");
 
+                //TODO: Move this to the Dao
                 MedewerkerDAO dbMedewerker = new MedewerkerDAO();
                 List<Medewerker> list = null;
                 try {
@@ -424,18 +400,7 @@ public class MainGuiFrame extends java.awt.Frame {
                     Logger.getLogger(logIn.class.getName()).log(Level.SEVERE, null, ex);
                 }
 
-                for (int i = 0; i < 50; i++) {
-                    tableResults.getModel().setValueAt("", i, 0);
-                    tableResults.getModel().setValueAt("", i, 1);
-                    tableResults.getModel().setValueAt("", i, 2);
-                    tableResults.getModel().setValueAt("", i, 3);
-                }
-                tableResults.getColumnModel().getColumn(0).setHeaderValue("Name");
-                tableResults.getColumnModel().getColumn(1).setHeaderValue("Username");
-                tableResults.getColumnModel().getColumn(2).setHeaderValue("Appmanager");
-                tableResults.getColumnModel().getColumn(3).setHeaderValue("Manager");
-                
-                forStatementMedewerker(list);
+                populateTableMedewerker(list);
                 jLabel1.setText(bundle.getString("MainGuiFrame.Location") + bundle.getString("Users"));
                 inBeheer = true;
             }
@@ -549,10 +514,10 @@ public class MainGuiFrame extends java.awt.Frame {
                 tableResults.getColumnModel().getColumn(1).setHeaderValue("Username");
                 tableResults.getColumnModel().getColumn(2).setHeaderValue("Appmanager");
                 tableResults.getColumnModel().getColumn(3).setHeaderValue("Manager");
-                
-                forStatementMedewerker(list);
+
+                populateTableMedewerker(list);
                 jLabel1.setText(bundle.getString("MainGuiFrame.Location") + bundle.getString("Users"));
-                
+
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -563,7 +528,62 @@ public class MainGuiFrame extends java.awt.Frame {
     private void searchInputActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_searchInputActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_searchInputActionPerformed
+    public void populateTableMedewerker(List<Medewerker> list) {
+        for (int i = 0; i < 50; i++) {
+            tableResults.getModel().setValueAt("", i, 0);
+            tableResults.getModel().setValueAt("", i, 1);
+            tableResults.getModel().setValueAt("", i, 2);
+            tableResults.getModel().setValueAt("", i, 3);
+        }
+        for (int i = 0; i < list.size(); i++) {
+            tableResults.getModel().setValueAt(list.get(i).getName(), i, 0);
+            tableResults.getModel().setValueAt(list.get(i).getUsername(), i, 1);
+            tableResults.getModel().setValueAt(list.get(i).isAppManager(), i, 2);
+            tableResults.getModel().setValueAt(list.get(i).isManager(), i, 3);
+        }
+        tableResults.getColumnModel().getColumn(0).setHeaderValue("Name");
+        tableResults.getColumnModel().getColumn(1).setHeaderValue("Username");
+        tableResults.getColumnModel().getColumn(2).setHeaderValue("Appmanager");
+        tableResults.getColumnModel().getColumn(3).setHeaderValue("Manager");
+    }
 
+    public void populateTablePassenger(List<Case> list) {
+        for (int i = 0; i < 50; i++) {
+            tableResults.getModel().setValueAt("", i, 0);
+            tableResults.getModel().setValueAt("", i, 1);
+            tableResults.getModel().setValueAt("", i, 2);
+            tableResults.getModel().setValueAt("", i, 3);
+        }
+        for (int i = 0; i < list.size(); i++) {
+            tableResults.getModel().setValueAt(list.get(i).getLabel(), i, 0);
+            tableResults.getModel().setValueAt(list.get(i).getName(), i, 1);
+            tableResults.getModel().setValueAt(list.get(i).getSurName(), i, 2);
+            tableResults.getModel().setValueAt(list.get(i).getAditionalDetails(), i, 3);
+        }
+        tableResults.getColumnModel().getColumn(0).setHeaderValue("Label");
+        tableResults.getColumnModel().getColumn(1).setHeaderValue("Name");
+        tableResults.getColumnModel().getColumn(2).setHeaderValue("Surname");
+        tableResults.getColumnModel().getColumn(3).setHeaderValue("Details");
+    }
+
+    private void populateTableLuggage(List<Case> list) {
+        for (int i = 0; i < 50; i++) {
+            tableResults.getModel().setValueAt("", i, 0);
+            tableResults.getModel().setValueAt("", i, 1);
+            tableResults.getModel().setValueAt("", i, 2);
+            tableResults.getModel().setValueAt("", i, 3);
+        }
+        for (int i = 0; i < list.size(); i++) {
+            tableResults.getModel().setValueAt(list.get(i).getLabel(), i, 0);
+            tableResults.getModel().setValueAt(list.get(i).getStorageLocation(), i, 1);
+            tableResults.getModel().setValueAt(list.get(i).getColor(), i, 2);
+            tableResults.getModel().setValueAt(list.get(i).getShape(), i, 3);
+        }
+        tableResults.getColumnModel().getColumn(0).setHeaderValue("Label");
+        tableResults.getColumnModel().getColumn(1).setHeaderValue("Location");
+        tableResults.getColumnModel().getColumn(2).setHeaderValue("Color");
+        tableResults.getColumnModel().getColumn(3).setHeaderValue("Shape");
+    }
     private void tableChangeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tableChangeActionPerformed
         try {
             for (int x = 0; x < 50; x++) {
@@ -604,7 +624,7 @@ public class MainGuiFrame extends java.awt.Frame {
                 } catch (SQLException ex) {
                     Logger.getLogger(logIn.class.getName()).log(Level.SEVERE, null, ex);
                 }
-                forStatementCaseLuggage(list);
+                populateTableLuggage(list);
                 tableResults.getColumnModel().getColumn(0).setHeaderValue("Label");
                 tableResults.getColumnModel().getColumn(1).setHeaderValue("Location");
                 tableResults.getColumnModel().getColumn(2).setHeaderValue("Color");
