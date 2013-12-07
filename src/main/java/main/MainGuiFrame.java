@@ -468,7 +468,7 @@ public class MainGuiFrame extends java.awt.Frame {
             tableResults.getModel().setValueAt("", i, 3);
         }
         for (int i = 0; i < list.size(); i++) {
-            tableResults.getModel().setValueAt(i, i, 0);
+            tableResults.getModel().setValueAt(i+1, i, 0);
             tableResults.getModel().setValueAt(list.get(i).getLabel(), i, 1);
             tableResults.getModel().setValueAt(list.get(i).getAddDate(), i, 2);
             tableResults.getModel().setValueAt(list.get(i).getHandler(), i, 3);

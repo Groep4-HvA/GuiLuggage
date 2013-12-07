@@ -54,7 +54,7 @@ public class LuggageDAO {
         ResultSet rs = null;
         PreparedStatement prdstmt = null;
 
-        String query = "SELECT `labelNumber`, `color`, `storageLocation`, `additionalDetails`, `shape` FROM `luggage` LIMIT 50";
+        String query = "SELECT `LuggageNumber`, `color`, `storageLocation`, `additionalDetails`, `shape` FROM `luggage` LIMIT 50";
 
         conn.startConnection();
 
