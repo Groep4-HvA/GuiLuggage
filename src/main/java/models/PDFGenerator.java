@@ -1,6 +1,9 @@
 package models;
 
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.OutputStream;
 import java.util.Arrays;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -65,17 +68,20 @@ public class PDFGenerator {
 
     }
 
-    public void save(String filename) {
+    public void save(String filename) throws FileNotFoundException, IOException {
+        String location = javax.swing.filechooser.FileSystemView.getFileSystemView().getDefaultDirectory()+"/"+filename;
+        location = location.replace("\\", "/");
+        OutputStream output = new FileOutputStream(location);
         try {
             // Make sure that the content stream is closed:
             this.contentStream.close();
-
             // Save the results and ensure that the document is properly closed:
-            this.document.save(filename);
+            this.document.save(output);
             this.document.close();
         } catch (Exception ex) {
             ex.printStackTrace();
         }
+        output.close();
     }
 
     public static int stringWidth(String s, PDFont font, double fontSize) {

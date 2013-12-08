@@ -6,8 +6,12 @@ package main;
 
 import java.awt.Dimension;
 import java.awt.Toolkit;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.sql.SQLException;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import models.PDFGenerator;
 import models.Passenger;
 import models.PassengerDAO;
@@ -377,7 +381,13 @@ public class ManagerGui extends java.awt.Frame {
         
         PDFGenerator pdf = new PDFGenerator();
         pdf.generate(pdfje, cijfers, cijfers, cijfers);
-        pdf.save("Corendon_Overview.pdf");
+        try {
+            pdf.save("Corendon_Overview.pdf");
+        } catch (FileNotFoundException ex) {
+            Logger.getLogger(ManagerGui.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IOException ex) {
+            Logger.getLogger(ManagerGui.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_PDFActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
