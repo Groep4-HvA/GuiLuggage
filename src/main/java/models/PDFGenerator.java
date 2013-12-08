@@ -1,5 +1,6 @@
 package models;
 
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -69,7 +70,7 @@ public class PDFGenerator {
     }
 
     public void save(String filename) throws FileNotFoundException, IOException {
-        String location = javax.swing.filechooser.FileSystemView.getFileSystemView().getDefaultDirectory()+"/"+filename;
+        String location = System.getProperty("user.home")+File.separator+"Documents"+"/"+filename;
         location = location.replace("\\", "/");
         OutputStream output = new FileOutputStream(location);
         try {
