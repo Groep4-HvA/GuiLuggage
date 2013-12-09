@@ -40,7 +40,7 @@ public class LuggageDAO {
         prdstmt.setString(5, luggage.getDetails());
         prdstmt.setDate(6, sqlToday);
         prdstmt.setInt(7, 7357);//TODO change this to real handlerid when possible
-        prdstmt.setString(8, "dummyphonenr");//ditto
+        prdstmt.setString(8, luggage.getPhoneNr());
 
         prdstmt.executeUpdate();
 
