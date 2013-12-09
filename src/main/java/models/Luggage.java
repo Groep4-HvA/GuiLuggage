@@ -16,7 +16,7 @@ public class Luggage {
     private String details;
     private String phoneNr;
 
-    public Luggage(String label, String color, String shape, String location, String details, String PhoneNr) {
+    public Luggage(String label, String color, String shape, String location, String details, String phoneNr) {
         this.label = label;
         this.color = color;
         this.shape = shape;
