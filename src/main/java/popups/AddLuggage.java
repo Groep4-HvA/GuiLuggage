@@ -21,6 +21,7 @@ public class AddLuggage extends javax.swing.JFrame {
     private String shape;
     private String location;
     private String details;
+    private String phoneNr;
     
     /**
      * Creates new form guiPopupDesign
@@ -53,6 +54,8 @@ public class AddLuggage extends javax.swing.JFrame {
         locationTextField = new javax.swing.JTextArea();
         jScrollPane2 = new javax.swing.JScrollPane();
         detailsTextField = new javax.swing.JTextArea();
+        phoneNrTextfield = new javax.swing.JTextField();
+        jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("Bundle"); // NOI18N
@@ -90,6 +93,16 @@ public class AddLuggage extends javax.swing.JFrame {
         detailsTextField.setRows(5);
         jScrollPane2.setViewportView(detailsTextField);
 
+        java.util.ResourceBundle bundle1 = java.util.ResourceBundle.getBundle("popups/Bundle"); // NOI18N
+        phoneNrTextfield.setText(bundle1.getString("AddLuggage.phoneNrTextfield.text")); // NOI18N
+        phoneNrTextfield.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                phoneNrTextfieldActionPerformed(evt);
+            }
+        });
+
+        jLabel1.setText(bundle1.getString("AddLuggage.jLabel1.text")); // NOI18N
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -103,9 +116,11 @@ public class AddLuggage extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(adDetailsLabel)
-                            .addComponent(storageLocationLabel))
+                            .addComponent(storageLocationLabel)
+                            .addComponent(jLabel1))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(phoneNrTextfield)
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(Save)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 409, Short.MAX_VALUE)
@@ -132,6 +147,10 @@ public class AddLuggage extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(shapeLabel)
                     .addComponent(shapeTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(phoneNrTextfield, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel1))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -161,9 +180,9 @@ public class AddLuggage extends javax.swing.JFrame {
         shape = shapeTextField.getText();
         location = locationTextField.getText();
         details = detailsTextField.getText();
+        phoneNr = phoneNrTextfield.getText();
         
-        
-        newLuggage = new Luggage(label, color, shape, location, details);
+        newLuggage = new Luggage(label, color, shape, location, details, phoneNr);
         LuggageDAO test = new LuggageDAO();
         
         try {
@@ -175,6 +194,10 @@ public class AddLuggage extends javax.swing.JFrame {
         dispose();
     }//GEN-LAST:event_SaveActionPerformed
 
+    private void phoneNrTextfieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_phoneNrTextfieldActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_phoneNrTextfieldActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     public javax.swing.JButton Save;
     public javax.swing.JLabel adDetailsLabel;
@@ -182,11 +205,13 @@ public class AddLuggage extends javax.swing.JFrame {
     public javax.swing.JLabel colorLabel;
     public javax.swing.JTextField colorTextField;
     public javax.swing.JTextArea detailsTextField;
+    public javax.swing.JLabel jLabel1;
     public javax.swing.JScrollPane jScrollPane1;
     public javax.swing.JScrollPane jScrollPane2;
     public javax.swing.JLabel labelLabel;
     public javax.swing.JTextField labelTextField;
     public javax.swing.JTextArea locationTextField;
+    public javax.swing.JTextField phoneNrTextfield;
     public javax.swing.JLabel shapeLabel;
     public javax.swing.JTextField shapeTextField;
     public javax.swing.JLabel storageLocationLabel;

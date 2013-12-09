@@ -29,6 +29,7 @@ public class AddPassenger extends javax.swing.JFrame {
     private String residentPostalCode;
     private String residentCity;
     private String details;
+    private String phoneNr;
     
     
     /**
@@ -83,6 +84,8 @@ public class AddPassenger extends javax.swing.JFrame {
         jSeparator2 = new javax.swing.JSeparator();
         jLabel16 = new javax.swing.JLabel();
         jLabel17 = new javax.swing.JLabel();
+        phoneNrTextfield = new javax.swing.JTextField();
+        jLabel18 = new javax.swing.JLabel();
 
         jTextField4.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -160,6 +163,16 @@ public class AddPassenger extends javax.swing.JFrame {
 
         jLabel17.setText(bundle.getString("AddPassenger.jLabel17.text")); // NOI18N
 
+        java.util.ResourceBundle bundle1 = java.util.ResourceBundle.getBundle("popups/Bundle"); // NOI18N
+        phoneNrTextfield.setText(bundle1.getString("AddPassenger.phoneNrTextfield.text")); // NOI18N
+        phoneNrTextfield.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                phoneNrTextfieldActionPerformed(evt);
+            }
+        });
+
+        jLabel18.setText(bundle1.getString("AddPassenger.jLabel18.text")); // NOI18N
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -215,9 +228,13 @@ public class AddPassenger extends javax.swing.JFrame {
                                         .addComponent(jLabel17)
                                         .addGap(0, 0, Short.MAX_VALUE))
                                     .addGroup(layout.createSequentialGroup()
-                                        .addComponent(jLabel5)
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(jLabel5)
+                                            .addComponent(jLabel18))
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(surnameTextfield))))
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(phoneNrTextfield)
+                                            .addComponent(surnameTextfield)))))
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(postalCodeTextfield, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(18, 18, 18)
@@ -238,7 +255,7 @@ public class AddPassenger extends javax.swing.JFrame {
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap(18, Short.MAX_VALUE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(labelTextfield, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel1))
@@ -256,6 +273,10 @@ public class AddPassenger extends javax.swing.JFrame {
                     .addComponent(nameTextfield, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(surnameTextfield, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel5))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(phoneNrTextfield, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel18))
                 .addGap(7, 7, 7)
                 .addComponent(jLabel17)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -300,7 +321,7 @@ public class AddPassenger extends javax.swing.JFrame {
                     .addComponent(cancelButton)
                     .addComponent(jLabel12)
                     .addComponent(printButton))
-                .addContainerGap(18, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
@@ -330,8 +351,9 @@ public class AddPassenger extends javax.swing.JFrame {
         residentPostalCode = rPostalCodeTextfield.getText();
         residentCity = rCityTextfield.getText();
         details = detailsTextfield.getText();
+        phoneNr = phoneNrTextfield.getText();
         
-        newPassenger = new Passenger(label,color,shape,name,surname,adres,postalCode,city,residentAdres,residentPostalCode,residentCity,details);
+        newPassenger = new Passenger(label,color,shape,name,surname,adres,postalCode,city,residentAdres,residentPostalCode,residentCity,details,phoneNr);
         PassengerDAO test = new PassengerDAO();
         try {
             //        try {
@@ -360,6 +382,10 @@ public class AddPassenger extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_postalCodeTextfieldActionPerformed
 
+    private void phoneNrTextfieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_phoneNrTextfieldActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_phoneNrTextfieldActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextField adresTextfield;
     private javax.swing.JToggleButton cancelButton;
@@ -375,6 +401,7 @@ public class AddPassenger extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel17;
+    private javax.swing.JLabel jLabel18;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -388,6 +415,7 @@ public class AddPassenger extends javax.swing.JFrame {
     private javax.swing.JTextField jTextField4;
     private javax.swing.JTextField labelTextfield;
     private javax.swing.JTextField nameTextfield;
+    private javax.swing.JTextField phoneNrTextfield;
     private javax.swing.JTextField postalCodeTextfield;
     private javax.swing.JToggleButton printButton;
     private javax.swing.JTextField rCityTextfield;
