@@ -116,8 +116,9 @@ public class PassengerDAO {
 
     public int create(Passenger passenger) throws SQLException {
         PreparedStatement prdstmt = null;
-        String query = "INSERT INTO `cases`  ( `name`, `surname`, `homeAddress`, `homePostalCode`, `homeCity`,`residentAddress`,`residentPostalCode`, `residentCity`, `color`, `shape`, `additionalDetails`, `labelNumber`) VALUES(?,?,?,?,?,?,?,?,?,?,?,?);";
-
+        String query = "INSERT INTO `cases`  ( `name`, `surname`, `homeAddress`, `homePostalCode`, `homeCity`,`residentAddress`,`residentPostalCode`, `residentCity`, `color`, `shape`, `aditionalDetails`, `LuggageNumber`,`HandlerID`,`PhoneNr`,`addDate`) VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?);";
+        java.util.Date today = new java.util.Date();
+        java.sql.Date sqlToday = new java.sql.Date(today.getTime());
         conn.startConnection();
 
         prdstmt = conn.getConnection().prepareStatement(query);
@@ -134,6 +135,9 @@ public class PassengerDAO {
         prdstmt.setString(10, passenger.getShape());
         prdstmt.setString(11, passenger.getDetails());
         prdstmt.setString(12, passenger.getLabel());
+        prdstmt.setInt(13, 7357);//TODO change this to real handlerid when possible
+        prdstmt.setString(14, "dummyphonenr");//ditto
+        prdstmt.setDate(15, sqlToday);
         prdstmt.executeUpdate();
 
         if (conn != null) {
