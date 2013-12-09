@@ -10,11 +10,14 @@ import popups.AddMedewerker;
 import popups.AddPassenger;
 import popups.PopUpMedewerker;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableCellRenderer;
+import javax.swing.table.TableCellRenderer;
 import models.Case;
 import models.CaseDao;
 import models.Medewerker;
@@ -471,11 +474,13 @@ public class MainGuiFrame extends java.awt.Frame {
             tableResults.getModel().setValueAt(list.get(j).isAppManager(), j, 2);
             tableResults.getModel().setValueAt(list.get(j).isManager(), j, 3);
         }
-        tableResults.setDefaultRenderer(Object.class, new DefaultTableCellRenderer() {
+        tableResults.setDefaultRenderer(Object.class, new TableCellRenderer() {
+            private DefaultTableCellRenderer DEFAULT_RENDERER = new DefaultTableCellRenderer();
+
             @Override
             public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
-                final Component c = super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
-                c.setBackground(row % 2 == 0 ? Color.LIGHT_GRAY : Color.WHITE);
+                Component c = DEFAULT_RENDERER.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
+                c.setBackground(Color.WHITE);
                 return c;
             }
         });
@@ -486,6 +491,9 @@ public class MainGuiFrame extends java.awt.Frame {
     }
 
     public void populateTableCase(List<Case> list) {
+        final ArrayList<Integer> resolveList = new ArrayList<Integer>();
+        final ArrayList<Integer> passengerList = new ArrayList<Integer>();
+        final ArrayList<Integer> luggageList = new ArrayList<Integer>();
         for (int i = 0; i < 50; i++) {
             tableResults.getModel().setValueAt("", i, 0);
             tableResults.getModel().setValueAt("", i, 1);
@@ -497,7 +505,35 @@ public class MainGuiFrame extends java.awt.Frame {
             tableResults.getModel().setValueAt(list.get(i).getLabel(), i, 1);
             tableResults.getModel().setValueAt(list.get(i).getAddDate(), i, 2);
             tableResults.getModel().setValueAt(list.get(i).getHandler(), i, 3);
+            if (list.get(i).getResolveDate() != null) {
+                resolveList.add(i);
+            }
+            if (list.get(i).getHomeAddress() != null) {
+                passengerList.add(i);
+            } else {
+                luggageList.add(i);
+            }
         }
+        tableResults.setDefaultRenderer(Object.class, new TableCellRenderer() {
+            private DefaultTableCellRenderer DEFAULT_RENDERER = new DefaultTableCellRenderer();
+
+            @Override
+            public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
+                Component c = DEFAULT_RENDERER.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
+                if (resolveList.contains(row)) {
+                    c.setBackground(new Color(32, 165, 69));
+                } else {
+                    if (passengerList.contains(row)){
+                        c.setBackground(new Color(240, 149, 23));
+                    } else if(luggageList.contains(row)){
+                        c.setBackground(new Color(37, 132, 193));
+                    } else{
+                        c.setBackground(new Color(240, 240, 240));
+                    }
+                }
+                return c;
+            }
+        });
         tableResults.getColumnModel().getColumn(0).setHeaderValue("#");
         tableResults.getColumnModel().getColumn(1).setHeaderValue("Luggage Number");
         tableResults.getColumnModel().getColumn(2).setHeaderValue("Add date");
