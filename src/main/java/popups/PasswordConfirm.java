@@ -9,6 +9,7 @@ import java.awt.Toolkit;
 import java.awt.event.WindowEvent;
 import java.sql.SQLException;
 import java.util.Arrays;
+import java.util.Locale;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.BorderFactory;
@@ -68,6 +69,11 @@ public class PasswordConfirm extends javax.swing.JDialog {
         });
 
         dropDown.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "English", "Nederlands" }));
+        dropDown.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                dropDownActionPerformed(evt);
+            }
+        });
 
         saveBut.setText("Save");
         saveBut.addActionListener(new java.awt.event.ActionListener() {
@@ -145,11 +151,40 @@ public class PasswordConfirm extends javax.swing.JDialog {
     }//GEN-LAST:event_passwordActionPerformed
 
     private void saveButActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saveButActionPerformed
-        if(password != null){
-            if(Arrays.equals(password.getPassword(), passwordConfirm.getPassword())){
-                Medewerker tempMedewerker = null;
+                 Medewerker tempMedewerker = null;
                 MedewerkerDAO medewerkerTijdelijk;
                 medewerkerTijdelijk = new MedewerkerDAO();
+                Locale english, dutch, current;
+                
+                english = new Locale("en", "US");
+                 dutch = new Locale("nl", "NL");
+        
+        Locale.setDefault(english);
+        
+        if(dropDown.getSelectedItem() == "English"){
+            Locale.setDefault(english);
+                     try {
+                         tempMedewerker = medewerkerTijdelijk.readByID(medewerkerID);
+                     } catch (SQLException ex) {
+                         Logger.getLogger(PasswordConfirm.class.getName()).log(Level.SEVERE, null, ex);
+                     }
+                     tempMedewerker.setUserLang("EN");
+        }
+        if(dropDown.getSelectedItem() == "Nederlands"){
+            Locale.setDefault(dutch);
+                     try {
+                         tempMedewerker = medewerkerTijdelijk.readByID(medewerkerID);
+                     } catch (SQLException ex) {
+                         Logger.getLogger(PasswordConfirm.class.getName()).log(Level.SEVERE, null, ex);
+                     }
+                     tempMedewerker.setUserLang("NL");
+        }
+        
+        if(password != null){
+            if(Arrays.equals(password.getPassword(), passwordConfirm.getPassword())){
+//                Medewerker tempMedewerker = null;
+//                MedewerkerDAO medewerkerTijdelijk;
+//                medewerkerTijdelijk = new MedewerkerDAO();
                 try {
                     tempMedewerker = medewerkerTijdelijk.readByID(medewerkerID);
                 } catch (SQLException ex) {
@@ -171,6 +206,10 @@ public class PasswordConfirm extends javax.swing.JDialog {
             }
         }
     }//GEN-LAST:event_saveButActionPerformed
+
+    private void dropDownActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_dropDownActionPerformed
+        
+    }//GEN-LAST:event_dropDownActionPerformed
     
     public void close(){
         WindowEvent winClosingEvent = new WindowEvent(this, WindowEvent.WINDOW_CLOSING);

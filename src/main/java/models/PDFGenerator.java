@@ -6,6 +6,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.util.Arrays;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.apache.pdfbox.pdmodel.PDDocument;
@@ -38,7 +39,7 @@ public class PDFGenerator {
         }
     }
 
-    public void generate(String[] months, int[] totalExamsPassed, int[] totalExamsFailed, int[] totalExamsTodo) {
+    public void generate(String pending, String resolved, String total) {
         try {
             // See http://pdfbox.apache.org/cookbook/documentcreation.html
             // See http://pdfbox.apache.org/docs/1.8.2/javadocs/index.html?overview-summary.html
@@ -49,15 +50,14 @@ public class PDFGenerator {
             contentStream.setFont(font, 12);
             contentStream.moveTextPositionByAmount(100, 700);
             
-            for(int i = 0; i < months.length; i++){
-            contentStream.drawString(months[i] + "\t\t\t\t" + "\n");
-            contentStream.moveTextPositionByAmount(0, -30);
-            }
-            String res = Arrays.toString(totalExamsPassed);
-            for(int i = 0; i < totalExamsPassed.length; i++){
-            contentStream.drawString(res);
-            }
+            contentStream.drawString("Amount pending: ");
+            contentStream.drawString(pending);
             
+            contentStream.drawString("\tAmount resolved: ");
+            contentStream.drawString(resolved);
+            
+            contentStream.drawString("\tTotal processed: ");
+            contentStream.drawString(total);
             
             contentStream.endText();
             contentStream.close();
