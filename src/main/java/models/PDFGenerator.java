@@ -70,9 +70,10 @@ public class PDFGenerator {
     }
 
     public void save(String filename) throws FileNotFoundException, IOException {
-        String location = System.getProperty("user.home")+File.separator+"Documents"+"/"+filename;
+        String location = System.getProperty("user.home")+File.separator+"Documents"+File.separator+filename;
         location = location.replace("\\", "/");
         OutputStream output = new FileOutputStream(location);
+        System.out.println(location);
         try {
             // Make sure that the content stream is closed:
             this.contentStream.close();
