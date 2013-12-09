@@ -20,7 +20,80 @@ public class CaseDao {
     public CaseDao() {
         // initialization 
     }
+public List<Case> readAllPending() throws SQLException {
+        List<Case> list = new LinkedList<Case>();
+        ResultSet rs = null;
+        PreparedStatement prdstmt = null;
 
+        String query = "SELECT * FROM cases WHERE `ResolveDate` is null";
+        conn.startConnection();
+
+        prdstmt = conn.getConnection().prepareStatement(query);
+        rs = conn.performSelect(prdstmt);
+
+        while (rs.next()) {
+            Case tempcase = new Case();
+            tempcase.setLabel(rs.getString("LuggageNumber"));
+            tempcase.setAddDate(rs.getDate("AddDate"));
+            list.add(tempcase);
+        }
+
+        if (conn != null) {
+            conn.closeConnection();
+        }
+
+        return list;
+
+    }
+
+    public List<Case> readAllResolved() throws SQLException {
+        List<Case> list = new LinkedList<Case>();
+        ResultSet rs = null;
+        PreparedStatement prdstmt = null;
+
+        String query = "SELECT * FROM cases WHERE `ResolveDate` is not null";
+        conn.startConnection();
+
+        prdstmt = conn.getConnection().prepareStatement(query);
+        rs = conn.performSelect(prdstmt);
+
+        while (rs.next()) {
+            Case tempcase = new Case();
+            tempcase.setLabel(rs.getString("LuggageNumber"));
+            tempcase.setAddDate(rs.getDate("AddDate"));
+            list.add(tempcase);
+        }
+
+        if (conn != null) {
+            conn.closeConnection();
+        }
+
+        return list;
+
+    }
+
+    public List<Case> readAllByDate(String date1, String date2) throws SQLException {
+        List<Case> list = new LinkedList<Case>();
+        ResultSet rs = null;
+        PreparedStatement prdstmt = null;
+
+        String query = "SELECT LuggageNumber, AddDate, LEFT(AddDate, 10) FROM cases WHERE `AddDate` BETWEEN ? AND ? LIMIT 50;";
+        conn.startConnection(); //2013-12-09
+
+        prdstmt = conn.getConnection().prepareStatement(query);
+        prdstmt.setString(1, date1);
+        prdstmt.setString(2, date2);
+
+        rs = conn.performSelect(prdstmt);
+
+        while (rs.next()) {
+            Case tempcase = new Case();
+            tempcase.setLabel(rs.getString("LuggageNumber"));
+            tempcase.setAddDate(rs.getDate("AddDate"));
+            list.add(tempcase);
+        }
+        return list;
+    }
     public List<Case> readAll() throws SQLException {
 
         List<Case> list = new LinkedList<Case>();
