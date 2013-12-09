@@ -317,7 +317,7 @@ public class MainGuiFrame extends java.awt.Frame {
                     .add(jPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
                         .add(moreButton)
                         .add(addNewButton2)))
-                .addContainerGap(7, Short.MAX_VALUE))
+                .addContainerGap(org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         add(jPanel2, java.awt.BorderLayout.CENTER);
@@ -461,6 +461,8 @@ public class MainGuiFrame extends java.awt.Frame {
         searchButtonActionPerformed(evt);
     }//GEN-LAST:event_searchInputActionPerformed
     public void populateTableMedewerker(List<Medewerker> list) {
+	tableResults.getColumnModel().getColumn(0).setMaxWidth(350);
+	tableResults.getColumnModel().getColumn(0).setPreferredWidth(250);
         for (int i = 0; i < 50; i++) {
             tableResults.getModel().setValueAt("", i, 0);
             tableResults.getModel().setValueAt("", i, 1);
@@ -490,6 +492,7 @@ public class MainGuiFrame extends java.awt.Frame {
     }
 
     public void populateTableCase(List<Case> list) {
+	tableResults.getColumnModel().getColumn(0).setMaxWidth(35);
         final ArrayList<Integer> resolveList = new ArrayList<Integer>();
         final ArrayList<Integer> passengerList = new ArrayList<Integer>();
         final ArrayList<Integer> luggageList = new ArrayList<Integer>();
