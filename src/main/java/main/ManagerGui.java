@@ -7,6 +7,8 @@ package main;
 import java.awt.Dimension;
 import java.awt.Toolkit;
 import java.sql.SQLException;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 import javax.swing.JOptionPane;
@@ -21,7 +23,6 @@ import models.Luggage;
 import models.LuggageDAO;
 import models.Medewerker;
 import models.MedewerkerDAO;
-
 
 /**
  *
@@ -40,25 +41,35 @@ public class ManagerGui extends java.awt.Frame {
         beheer = this.beheer;
         initComponents();
 
-        PassengerDAO dbPassenger = new PassengerDAO();
-        List<Passenger> list;
-        list = dbPassenger.readAll();
+        CaseDao dbCase = new CaseDao();
+        List<Case> list;
+        list = dbCase.readAll();
+
+        List<Case> listPending;
+        listPending = dbCase.readAllPending();
+        jLabel1.setText(bundle.getString("Manager.jLabel1.text") + "" + listPending.size());
+
+        List<Case> listResolved;
+        listResolved = dbCase.readAllResolved();
+        jLabel2.setText(bundle.getString("Manager.jLabel2.text") + "" + listResolved.size());
 
         int x = 0;
-        jLabel3.setText(bundle.getString("Manager.jLabel3.text") + ": " + list.size());
+        jLabel3.setText(bundle.getString("Manager.jLabel3.text") + "" + list.size());
+        int count = 0;
         while (x < list.size()) {
+            count++;
             //  System.out.println(list.get(x).toString());
-            jTable1.getModel().setValueAt(list.get(x).getLabel(), x, 0);
-            jTable1.getModel().setValueAt(list.get(x).getName(), x, 1);
-            jTable1.getModel().setValueAt(list.get(x).getColor(), x, 2);
-            jTable1.getModel().setValueAt(list.get(x).getShape(), x, 3);
+            jTable1.getModel().setValueAt(count, x, 0);
+            jTable1.getModel().setValueAt(list.get(x).getLabel(), x, 1);
+            jTable1.getModel().setValueAt(list.get(x).getAddDate(), x, 2);
+
             x++;
         }
 
-        jTable1.getColumnModel().getColumn(0).setHeaderValue("Label");
-        jTable1.getColumnModel().getColumn(1).setHeaderValue("Name");
-        jTable1.getColumnModel().getColumn(2).setHeaderValue("Color");
-        jTable1.getColumnModel().getColumn(3).setHeaderValue("Shape");
+        jTable1.getColumnModel().getColumn(0).setHeaderValue("Nr");
+        jTable1.getColumnModel().getColumn(1).setHeaderValue("LabelNumber");
+        jTable1.getColumnModel().getColumn(2).setHeaderValue("AddDate");
+
 
     }
 
@@ -83,7 +94,7 @@ public class ManagerGui extends java.awt.Frame {
         jLabel3 = new javax.swing.JLabel();
         printButton = new javax.swing.JButton();
         jLabel4 = new javax.swing.JLabel();
-        jButton2 = new javax.swing.JButton();
+        selectButton = new javax.swing.JButton();
         jPanel1 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
@@ -127,6 +138,11 @@ public class ManagerGui extends java.awt.Frame {
         });
 
         foundManager.setText(bundle.getString("Manager.foundManager.text")); // NOI18N
+        foundManager.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                foundManagerActionPerformed(evt);
+            }
+        });
 
         processedManager.setText(bundle.getString("Manager.processedManager.text")); // NOI18N
         processedManager.addActionListener(new java.awt.event.ActionListener() {
@@ -143,13 +159,10 @@ public class ManagerGui extends java.awt.Frame {
         });
 
         jLabel1.setText(bundle.getString("Manager.jLabel1.text")); // NOI18N
-        jLabel1.setText("Found: 1");
 
         jLabel2.setText(bundle.getString("Manager.jLabel2.text")); // NOI18N
-        jLabel2.setText("Missing: 2");
 
         jLabel3.setText(bundle.getString("Manager.jLabel3.text")); // NOI18N
-        jLabel3.setText("Total: 3");
 
         printButton.setText(bundle.getString("Manager.printButton.text")); // NOI18N
         printButton.addActionListener(new java.awt.event.ActionListener() {
@@ -160,77 +173,74 @@ public class ManagerGui extends java.awt.Frame {
 
         jLabel4.setText(bundle.getString("Manager.jLabel4.text")); // NOI18N
 
-        jButton2.setText(bundle.getString("Manager.jButton2.text")); // NOI18N
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
+        selectButton.setText(bundle.getString("Manager.jButton2.text")); // NOI18N
+        selectButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
+                selectButtonActionPerformed(evt);
             }
         });
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null}
             },
             new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
+                "Nr", "LabelNumber", "AddDate"
             }
         ));
         jScrollPane1.setViewportView(jTable1);
-        if (jTable1.getColumnModel().getColumnCount() > 0) {
-            jTable1.getColumnModel().getColumn(0).setHeaderValue(bundle.getString("ManagerGui.jTable1.columnModel.title0")); // NOI18N
-            jTable1.getColumnModel().getColumn(1).setHeaderValue(bundle.getString("ManagerGui.jTable1.columnModel.title1")); // NOI18N
-            jTable1.getColumnModel().getColumn(2).setHeaderValue(bundle.getString("ManagerGui.jTable1.columnModel.title2")); // NOI18N
-            jTable1.getColumnModel().getColumn(3).setHeaderValue(bundle.getString("ManagerGui.jTable1.columnModel.title3")); // NOI18N
-        }
+        jTable1.getColumnModel().getColumn(0).setHeaderValue(bundle.getString("ManagerGui.jTable1.columnModel.title0")); // NOI18N
+        jTable1.getColumnModel().getColumn(1).setHeaderValue(bundle.getString("ManagerGui.jTable1.columnModel.title1")); // NOI18N
+        jTable1.getColumnModel().getColumn(2).setHeaderValue(bundle.getString("ManagerGui.jTable1.columnModel.title2")); // NOI18N
 
         org.jdesktop.layout.GroupLayout jPanel1Layout = new org.jdesktop.layout.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -263,7 +273,7 @@ public class ManagerGui extends java.awt.Frame {
                 .add(logoutButton)
                 .addContainerGap())
             .add(jPanel2Layout.createSequentialGroup()
-                .addContainerGap(61, Short.MAX_VALUE)
+                .addContainerGap(59, Short.MAX_VALUE)
                 .add(jPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
                     .add(jPanel2Layout.createSequentialGroup()
                         .add(jPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING)
@@ -279,10 +289,10 @@ public class ManagerGui extends java.awt.Frame {
                                 .add(18, 18, 18)
                                 .add(jLabel2)
                                 .add(18, 18, 18)
-                                .add(jLabel3)
-                                .add(442, 442, 442)
+                                .add(jLabel3, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 100, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                                .add(389, 389, 389)
                                 .add(graphManager)))
-                        .addContainerGap(61, Short.MAX_VALUE))
+                        .addContainerGap(58, Short.MAX_VALUE))
                     .add(jPanel2Layout.createSequentialGroup()
                         .add(printButton)
                         .add(18, 18, 18)
@@ -294,7 +304,7 @@ public class ManagerGui extends java.awt.Frame {
                         .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                         .add(jDateChooser2, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                         .add(18, 18, 18)
-                        .add(jButton2)
+                        .add(selectButton)
                         .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .add(moreButton)
                         .add(83, 83, 83))))
@@ -306,7 +316,7 @@ public class ManagerGui extends java.awt.Frame {
                 .add(jPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
                     .add(myAccountButton)
                     .add(logoutButton))
-                .add(18, 30, Short.MAX_VALUE)
+                .add(18, 18, Short.MAX_VALUE)
                 .add(jPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
                     .add(missingManager)
                     .add(processedManager)
@@ -323,11 +333,11 @@ public class ManagerGui extends java.awt.Frame {
                         .add(moreButton)
                         .add(printButton)
                         .add(jLabel4)
-                        .add(jButton2)
+                        .add(selectButton)
                         .add(PDF))
                     .add(jDateChooser1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                     .add(jDateChooser2, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(23, Short.MAX_VALUE))
+                .addContainerGap(org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         add(jPanel2, java.awt.BorderLayout.CENTER);
@@ -353,11 +363,56 @@ public class ManagerGui extends java.awt.Frame {
     }//GEN-LAST:event_myAccountButtonActionPerformed
 
     private void missingManagerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_missingManagerActionPerformed
-        // TODO add your handling code here:
+        try {
+
+            CaseDao Case = new CaseDao();
+            List<Case> list;
+            list = Case.readAllPending();
+
+            for (int x = 0; x < 50; x++) {
+                jTable1.getModel().setValueAt("", x, 0);
+                jTable1.getModel().setValueAt("", x, 1);
+                jTable1.getModel().setValueAt("", x, 2);
+            }
+
+            int x = 0;
+            int count = 0;
+
+            while (x < list.size()) {
+                //System.out.println(list.get(x).toString());
+                System.out.println(list.size());
+                count++;
+
+                jTable1.getModel().setValueAt(count, x, 0);
+                jTable1.getModel().setValueAt(list.get(x).getLabel(), x, 1);
+                jTable1.getModel().setValueAt(list.get(x).getAddDate(), x, 2);
+
+                x++;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }//GEN-LAST:event_missingManagerActionPerformed
 
     private void processedManagerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_processedManagerActionPerformed
-        // TODO add your handling code here:
+        try {
+            CaseDao dbCase = new CaseDao();
+            List<Case> list;
+            list = dbCase.readAll();
+            int x = 0;
+            int count = 0;
+            while (x < list.size()) {
+                count++;
+                //  System.out.println(list.get(x).toString());
+                jTable1.getModel().setValueAt(count, x, 0);
+                jTable1.getModel().setValueAt(list.get(x).getLabel(), x, 1);
+                jTable1.getModel().setValueAt(list.get(x).getAddDate(), x, 2);
+
+                x++;
+            }        // TODO add your handling code here:
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }//GEN-LAST:event_processedManagerActionPerformed
 
     private void graphManagerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_graphManagerActionPerformed
@@ -393,53 +448,116 @@ public class ManagerGui extends java.awt.Frame {
         pdf.save("Corendon_Overview.pdf");
     }//GEN-LAST:event_PDFActionPerformed
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-     
-        
+    private void selectButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_selectButtonActionPerformed
         try {
 
             Date datum1 = jDateChooser1.getDate();
+            String dateString = String.format("%1$tY-%1$tm-%1$td", datum1);
             Date datum2 = jDateChooser2.getDate();
+            String dateString2 = String.format("%1$tY-%1$tm-%1$td", datum2);
+
+            System.out.println(dateString);
 
 
+            if (!dateString.equals(dateString2)) {
 
-                if (datum2.compareTo(datum1)>0 ) {
+                if (dateString.compareTo(dateString2) < 0) {
+
                     CaseDao Case = new CaseDao();
                     List<Case> list;
-                    list = Case.readAll();
+                    list = Case.readAllByDate(dateString, dateString2);
 
                     for (int x = 0; x < 50; x++) {
                         jTable1.getModel().setValueAt("", x, 0);
                         jTable1.getModel().setValueAt("", x, 1);
                         jTable1.getModel().setValueAt("", x, 2);
-                        jTable1.getModel().setValueAt("", x, 3);
                     }
 
                     int x = 0;
+                    int count = 0;
                     while (x < list.size()) {
                         //System.out.println(list.get(x).toString());
-                        jTable1.getModel().setValueAt(list.get(x).getLabel(), x, 0);
-                        jTable1.getModel().setValueAt(list.get(x).getName(), x, 1);
-                        jTable1.getModel().setValueAt(list.get(x).getColor(), x, 2);
-                        jTable1.getModel().setValueAt(list.get(x).getShape(), x, 3);
+                        System.out.println(list.size());
+                        count++;
+                        jTable1.getModel().setValueAt(count, x, 0);
+                        jTable1.getModel().setValueAt(list.get(x).getLabel(), x, 1);
+                        jTable1.getModel().setValueAt(list.get(x).getAddDate(), x, 2);
+
                         x++;
                     }
                 } else {
                     JOptionPane.showMessageDialog(null, "" + datum1 + " cannot be further in the past then " + datum2);
                 }
+            } else if (dateString.equals(dateString2)) {
+                CaseDao Case = new CaseDao();
+                List<Case> list;
+                list = Case.readAllByDate(dateString, dateString2);
+
+                for (int x = 0; x < 50; x++) {
+                    jTable1.getModel().setValueAt("", x, 0);
+                    jTable1.getModel().setValueAt("", x, 1);
+                    jTable1.getModel().setValueAt("", x, 2);
+                }
+
+                int x = 0;
+                int count = 0;
+                while (x < list.size()) {
+                    //System.out.println(list.get(x).toString());
+                    System.out.println("s");
+                    count++;
+                    jTable1.getModel().setValueAt(count, x, 0);
+                    jTable1.getModel().setValueAt(list.get(x).getLabel(), x, 1);
+                    jTable1.getModel().setValueAt(list.get(x).getAddDate(), x, 2);
+
+                    x++;
+                }
+
+            } else {
+                JOptionPane.showMessageDialog(null, "" + datum1 + " cannot be further in the past then " + datum2);
+            }
 
         } catch (Exception e) {
             e.printStackTrace();
         }
 
 
-    }//GEN-LAST:event_jButton2ActionPerformed
+    }//GEN-LAST:event_selectButtonActionPerformed
 
+    private void foundManagerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_foundManagerActionPerformed
+        try {
+
+            CaseDao Case = new CaseDao();
+            List<Case> list;
+            list = Case.readAllResolved();
+
+            for (int x = 0; x < 50; x++) {
+                jTable1.getModel().setValueAt("", x, 0);
+                jTable1.getModel().setValueAt("", x, 1);
+                jTable1.getModel().setValueAt("", x, 2);
+            }
+
+            int x = 0;
+            int count = 0;
+
+            while (x < list.size()) {
+                //System.out.println(list.get(x).toString());
+                System.out.println(list.size());
+                count++;
+
+                jTable1.getModel().setValueAt(count, x, 0);
+                jTable1.getModel().setValueAt(list.get(x).getLabel(), x, 1);
+                jTable1.getModel().setValueAt(list.get(x).getAddDate(), x, 2);
+
+                x++;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }        // TODO add your handling code here:
+    }//GEN-LAST:event_foundManagerActionPerformed
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton PDF;
     private javax.swing.JButton foundManager;
     private javax.swing.JButton graphManager;
-    private javax.swing.JButton jButton2;
     private com.toedter.calendar.JDateChooser jDateChooser1;
     private com.toedter.calendar.JDateChooser jDateChooser2;
     private javax.swing.JLabel jLabel1;
@@ -455,5 +573,6 @@ public class ManagerGui extends java.awt.Frame {
     private javax.swing.JButton myAccountButton;
     private javax.swing.JButton printButton;
     private javax.swing.JButton processedManager;
+    private javax.swing.JButton selectButton;
     // End of variables declaration//GEN-END:variables
 }
