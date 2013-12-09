@@ -7,7 +7,12 @@ package popups;
 import java.awt.Color;
 import java.awt.Toolkit;
 import java.awt.event.WindowEvent;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.BorderFactory;
+import models.Medewerker;
+import models.MedewerkerDAO;
 
 /**
  *
@@ -15,15 +20,17 @@ import javax.swing.BorderFactory;
  */
 public class PasswordConfirm extends javax.swing.JDialog {
     private final Color red = new Color(163, 0, 15);
+    private int medewerkerID;
     /**
      * Creates new form PasswordConfirm
      */
-    public PasswordConfirm(java.awt.Frame parent, boolean modal) {
+    public PasswordConfirm(java.awt.Frame parent, boolean modal, int medewerkerID) {
         super(parent, modal);
         this.setUndecorated(true);
         getRootPane().setBorder( BorderFactory.createLineBorder(red) );
         initComponents();
         this.setLocationRelativeTo(null);
+        this.medewerkerID = medewerkerID;
     }
 
     /**
@@ -52,9 +59,20 @@ public class PasswordConfirm extends javax.swing.JDialog {
 
         jLabel3.setText("Confirm password: ");
 
+        password.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                passwordActionPerformed(evt);
+            }
+        });
+
         dropDown.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "English", "Nederlands" }));
 
         saveBut.setText("Save");
+        saveBut.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                saveButActionPerformed(evt);
+            }
+        });
 
         cancelBut.setText("Cancel");
         cancelBut.addActionListener(new java.awt.event.ActionListener() {
@@ -119,6 +137,24 @@ public class PasswordConfirm extends javax.swing.JDialog {
     private void cancelButActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelButActionPerformed
         close();
     }//GEN-LAST:event_cancelButActionPerformed
+
+    private void passwordActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_passwordActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_passwordActionPerformed
+
+    private void saveButActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saveButActionPerformed
+        if(password != null){
+            if(password == passwordConfirm){
+                MedewerkerDAO medewerkerTijdelijk;
+                medewerkerTijdelijk = new MedewerkerDAO();
+                try {
+                    medewerkerTijdelijk.readByID(medewerkerID);
+                } catch (SQLException ex) {
+                    Logger.getLogger(PasswordConfirm.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+        }
+    }//GEN-LAST:event_saveButActionPerformed
     
     public void close(){
         WindowEvent winClosingEvent = new WindowEvent(this, WindowEvent.WINDOW_CLOSING);
