@@ -151,7 +151,7 @@ public class AddLuggage extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-    public AddLuggage form = new AddLuggage(handlerId);
+
     private void cancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelActionPerformed
         dispose();
     }//GEN-LAST:event_cancelActionPerformed
