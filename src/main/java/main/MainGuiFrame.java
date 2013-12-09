@@ -76,6 +76,25 @@ public class MainGuiFrame extends java.awt.Frame {
         //Populate table and headers
         populateTableCase(caseList);
     }
+    public void fillTableCases(){
+        CaseDao dbCase = new CaseDao();
+                try {
+                    caseList = dbCase.readAll();
+                } catch (SQLException ex) {
+                    Logger.getLogger(logIn.class.getName()).log(Level.SEVERE, null, ex);
+                }
+                populateTableCase(caseList);
+    }
+    
+    public void fillTableMedewerkers(){
+                MedewerkerDAO dbMedewerker = new MedewerkerDAO();
+                try {
+                    medList = dbMedewerker.readAll();
+                } catch (SQLException ex) {
+                    Logger.getLogger(logIn.class.getName()).log(Level.SEVERE, null, ex);
+                }
+                populateTableMedewerker(medList);
+    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -358,28 +377,15 @@ public class MainGuiFrame extends java.awt.Frame {
                 appManagementButton.setText(bundle.getString("MainGuiFrame.beheerButtonOn"));
                 LabelDescription.setText("Search:");
                 //TODO: readAll should be from the Cases, not Dao
-                CaseDao dbCase = new CaseDao();
-                try {
-                    caseList = dbCase.readAll();
-                } catch (SQLException ex) {
-                    Logger.getLogger(logIn.class.getName()).log(Level.SEVERE, null, ex);
-                }
-                populateTableCase(caseList);
+                fillTableCases();
                 inBeheer = false;
             } else {
                 addNewButton1.setText(bundle.getString("MainGuiFrame.addNew") + bundle.getString("Manager"));
                 addNewButton2.setText(bundle.getString("MainGuiFrame.addNew") + bundle.getString("Medewerker"));
                 appManagementButton.setText(bundle.getString("MainGuiFrame.beheerButtonOff"));
                 LabelDescription.setText("Search:");
-
                 //TODO: Move this to the Dao
-                MedewerkerDAO dbMedewerker = new MedewerkerDAO();
-                try {
-                    medList = dbMedewerker.readAll();
-                } catch (SQLException ex) {
-                    Logger.getLogger(logIn.class.getName()).log(Level.SEVERE, null, ex);
-                }
-                populateTableMedewerker(medList);
+                fillTableMedewerkers();
                 inBeheer = true;
             }
         } else {
