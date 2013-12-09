@@ -1,5 +1,7 @@
 package main;
 
+import java.awt.Color;
+import java.awt.Component;
 import popups.PasswordConfirm;
 import popups.Popupappmedewerker;
 import popups.AddLuggage;
@@ -11,6 +13,8 @@ import java.sql.SQLException;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JTable;
+import javax.swing.table.DefaultTableCellRenderer;
 import models.Case;
 import models.CaseDao;
 import models.Medewerker;
@@ -194,9 +198,25 @@ public class MainGuiFrame extends java.awt.Frame {
                 {null, null, null, null}
             },
             new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
+                "#", "Labelnumber", "Add date", "Handler"
             }
-        ));
+        ) {
+            Class[] types = new Class [] {
+                java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
+            };
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        tableResults.setRowHeight(20);
         tableResults.setShowVerticalLines(false);
         tableResults.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -370,7 +390,7 @@ public class MainGuiFrame extends java.awt.Frame {
      * TODO: Preset the language of the user
      */
     private void myAccountButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_myAccountButtonActionPerformed
-       PasswordConfirm passOverlay = new PasswordConfirm(new javax.swing.JFrame(), true, handlerId);
+        PasswordConfirm passOverlay = new PasswordConfirm(new javax.swing.JFrame(), true, handlerId);
         passOverlay.pack();
         passOverlay.setVisible(true);
         passOverlay.setLocationRelativeTo(null);
@@ -451,6 +471,14 @@ public class MainGuiFrame extends java.awt.Frame {
             tableResults.getModel().setValueAt(list.get(j).isAppManager(), j, 2);
             tableResults.getModel().setValueAt(list.get(j).isManager(), j, 3);
         }
+        tableResults.setDefaultRenderer(Object.class, new DefaultTableCellRenderer() {
+            @Override
+            public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
+                final Component c = super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
+                c.setBackground(row % 2 == 0 ? Color.LIGHT_GRAY : Color.WHITE);
+                return c;
+            }
+        });
         tableResults.getColumnModel().getColumn(0).setHeaderValue("Name");
         tableResults.getColumnModel().getColumn(1).setHeaderValue("Username");
         tableResults.getColumnModel().getColumn(2).setHeaderValue("Appmanager");
@@ -465,7 +493,7 @@ public class MainGuiFrame extends java.awt.Frame {
             tableResults.getModel().setValueAt("", i, 3);
         }
         for (int i = 0; i < list.size(); i++) {
-            tableResults.getModel().setValueAt(i+1, i, 0);
+            tableResults.getModel().setValueAt(i + 1, i, 0);
             tableResults.getModel().setValueAt(list.get(i).getLabel(), i, 1);
             tableResults.getModel().setValueAt(list.get(i).getAddDate(), i, 2);
             tableResults.getModel().setValueAt(list.get(i).getHandler(), i, 3);
