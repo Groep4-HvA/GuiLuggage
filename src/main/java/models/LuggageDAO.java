@@ -23,7 +23,7 @@ public class LuggageDAO {
         // initialization 
     }
 
-    public int create(Luggage luggage) throws SQLException {
+    public int create(Luggage luggage, int handlerId) throws SQLException {
         PreparedStatement prdstmt = null;
         String query = "INSERT INTO `cases`  ( `LuggageNumber`, `color`, `shape`, `storageLocation`, `aditionalDetails`,`addDate`,`HandlerID`,`PhoneNr`) VALUES(?,?,?,?,?,?,?,?);";
         java.util.Date today = new java.util.Date();
@@ -33,14 +33,14 @@ public class LuggageDAO {
 
         prdstmt = conn.getConnection().prepareStatement(query);
 
-        prdstmt.setString(1, luggage.getLabel());
-        prdstmt.setString(2, luggage.getColor());
-        prdstmt.setString(3, luggage.getShape());
-        prdstmt.setString(4, luggage.getLocation());
-        prdstmt.setString(5, luggage.getDetails());
-        prdstmt.setDate(6, sqlToday);
-        prdstmt.setInt(7, 7357);//TODO change this to real handlerid when possible
-        prdstmt.setString(8, "dummyphonenr");//ditto
+        prdstmt.setString(1,    luggage.getLabel());
+        prdstmt.setString(2,    luggage.getColor());
+        prdstmt.setString(3,    luggage.getShape());
+        prdstmt.setString(4,    luggage.getLocation());
+        prdstmt.setString(5,    luggage.getDetails());
+        prdstmt.setDate(6,      sqlToday);
+        prdstmt.setInt(7,       handlerId);
+        prdstmt.setString(8,    luggage.getPhoneNr());
 
         prdstmt.executeUpdate();
 

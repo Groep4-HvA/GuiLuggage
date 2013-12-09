@@ -22,6 +22,7 @@ public class AddLuggage extends javax.swing.JFrame {
     private String location;
     private String details;
     private int handlerId;
+    private String phoneNr;
     
     /**
      * Creates new form guiPopupDesign
@@ -55,6 +56,8 @@ public class AddLuggage extends javax.swing.JFrame {
         locationTextField = new javax.swing.JTextArea();
         jScrollPane2 = new javax.swing.JScrollPane();
         detailsTextField = new javax.swing.JTextArea();
+        phoneNrLabel = new javax.swing.JLabel();
+        phoneNrText = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("Bundle"); // NOI18N
@@ -92,6 +95,10 @@ public class AddLuggage extends javax.swing.JFrame {
         detailsTextField.setRows(5);
         jScrollPane2.setViewportView(detailsTextField);
 
+        phoneNrLabel.setText(bundle.getString("AddLuggage.phoneNrLabel.text")); // NOI18N
+
+        phoneNrText.setText(bundle.getString("AddLuggage.phoneNrText.text")); // NOI18N
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -99,14 +106,16 @@ public class AddLuggage extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(adDetailsLabel)
                     .addComponent(labelLabel)
                     .addComponent(colorLabel)
                     .addComponent(shapeLabel)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                        .addComponent(phoneNrLabel, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(storageLocationLabel, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(adDetailsLabel)
-                            .addComponent(storageLocationLabel))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(Save)
@@ -117,7 +126,10 @@ public class AddLuggage extends javax.swing.JFrame {
                             .addComponent(shapeTextField, javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(jScrollPane2))
-                        .addGap(3, 3, 3))))
+                        .addGap(3, 3, 3))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(phoneNrText)
+                        .addContainerGap())))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -134,7 +146,11 @@ public class AddLuggage extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(shapeLabel)
                     .addComponent(shapeTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
+                .addGap(6, 6, 6)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(phoneNrLabel)
+                    .addComponent(phoneNrText, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(storageLocationLabel))
@@ -163,13 +179,14 @@ public class AddLuggage extends javax.swing.JFrame {
         shape = shapeTextField.getText();
         location = locationTextField.getText();
         details = detailsTextField.getText();
+        phoneNr = phoneNrText.getText();
         
         
-        newLuggage = new Luggage(label, color, shape, location, details);
+        newLuggage = new Luggage(label, color, shape, location, details, phoneNr);
         LuggageDAO test = new LuggageDAO();
         
         try {
-            test.create(newLuggage);
+            test.create(newLuggage, handlerId);
         } catch (SQLException ex) {
             Logger.getLogger(AddLuggage.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -189,6 +206,8 @@ public class AddLuggage extends javax.swing.JFrame {
     public javax.swing.JLabel labelLabel;
     public javax.swing.JTextField labelTextField;
     public javax.swing.JTextArea locationTextField;
+    public javax.swing.JLabel phoneNrLabel;
+    public javax.swing.JTextField phoneNrText;
     public javax.swing.JLabel shapeLabel;
     public javax.swing.JTextField shapeTextField;
     public javax.swing.JLabel storageLocationLabel;

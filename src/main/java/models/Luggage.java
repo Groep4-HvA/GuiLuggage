@@ -14,17 +14,27 @@ public class Luggage {
     private String shape;
     private String location;
     private String details;
+    private String phoneNr;
 
-    public Luggage(String label, String color, String shape, String location, String details) {
+    public Luggage(String label, String color, String shape, String location, String details, String phoneNr) {
         this.label = label;
         this.color = color;
         this.shape = shape;
         this.location = location;
         this.details = details;
+        this.phoneNr = phoneNr;
     }
 
-    Luggage() {}
+    public Luggage() {}
 
+    public String getPhoneNr() {
+        return phoneNr;
+    }
+
+    public void setPhoneNr(String phoneNr) {
+        this.phoneNr = phoneNr;
+    }
+    
     public String getLabel() {
         return label;
     }
@@ -67,7 +77,7 @@ public class Luggage {
 
     @Override
     public String toString() {
-        return "Luggage{" + "label=" + label + ", color=" + color + ", shape=" + shape + ", location=" + location + ", details=" + details + '}';
+        return "Luggage{" + "label=" + label + ", color=" + color + ", shape=" + shape + ", location=" + location + ", details=" + details + ", phoneNr=" + phoneNr + '}';
     }
     
 }

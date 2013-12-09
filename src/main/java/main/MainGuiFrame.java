@@ -353,13 +353,12 @@ public class MainGuiFrame extends java.awt.Frame {
 
                 //TODO: Move this to the Dao
                 MedewerkerDAO dbMedewerker = new MedewerkerDAO();
-                List<Medewerker> list = null;
                 try {
                     medList = dbMedewerker.readAll();
                 } catch (SQLException ex) {
                     Logger.getLogger(logIn.class.getName()).log(Level.SEVERE, null, ex);
                 }
-                populateTableMedewerker(list);
+                populateTableMedewerker(medList);
                 inBeheer = true;
             }
         } else {
@@ -450,11 +449,11 @@ public class MainGuiFrame extends java.awt.Frame {
             tableResults.getModel().setValueAt("", i, 2);
             tableResults.getModel().setValueAt("", i, 3);
         }
-        for (int i = 0; i < list.size(); i++) {
-            tableResults.getModel().setValueAt(list.get(i).getName(), i, 0);
-            tableResults.getModel().setValueAt(list.get(i).getUsername(), i, 1);
-            tableResults.getModel().setValueAt(list.get(i).isAppManager(), i, 2);
-            tableResults.getModel().setValueAt(list.get(i).isManager(), i, 3);
+        for (int j = 0; j < list.size(); j++) {
+            tableResults.getModel().setValueAt(list.get(j).getName(), j, 0);
+            tableResults.getModel().setValueAt(list.get(j).getUsername(), j, 1);
+            tableResults.getModel().setValueAt(list.get(j).isAppManager(), j, 2);
+            tableResults.getModel().setValueAt(list.get(j).isManager(), j, 3);
         }
         tableResults.getColumnModel().getColumn(0).setHeaderValue("Name");
         tableResults.getColumnModel().getColumn(1).setHeaderValue("Username");

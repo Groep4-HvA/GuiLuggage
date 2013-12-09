@@ -30,13 +30,65 @@
   <Layout>
     <DimensionLayout dim="0">
       <Group type="103" groupAlignment="0" attributes="0">
-          <Group type="102" alignment="1" attributes="0">
-              <Group type="103" groupAlignment="1" attributes="0">
-                  <Group type="102" attributes="0">
-                      <EmptySpace min="66" pref="66" max="-2" attributes="0"/>
+          <Group type="102" attributes="0">
+              <Group type="103" groupAlignment="0" attributes="0">
+                  <Group type="102" alignment="0" attributes="0">
+                      <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="1" attributes="0">
-                          <Component id="jSeparator2" alignment="1" max="32767" attributes="0"/>
-                          <Component id="jSeparator1" alignment="1" max="32767" attributes="0"/>
+                          <Group type="102" alignment="1" attributes="0">
+                              <EmptySpace min="-2" pref="60" max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="1" attributes="0">
+                                  <Component id="jSeparator2" alignment="1" max="32767" attributes="0"/>
+                                  <Component id="jSeparator1" alignment="1" max="32767" attributes="0"/>
+                              </Group>
+                          </Group>
+                          <Group type="102" alignment="1" attributes="0">
+                              <Group type="103" groupAlignment="0" attributes="0">
+                                  <Component id="jLabel7" alignment="0" min="-2" pref="114" max="-2" attributes="0"/>
+                                  <Component id="jLabel13" alignment="0" min="-2" pref="108" max="-2" attributes="0"/>
+                                  <Component id="jLabel10" alignment="0" min="-2" pref="114" max="-2" attributes="0"/>
+                                  <Component id="jLabel11" alignment="0" min="-2" pref="63" max="-2" attributes="0"/>
+                                  <Component id="jLabel14" alignment="0" min="-2" max="-2" attributes="0"/>
+                                  <Component id="jLabel9" alignment="0" min="-2" pref="77" max="-2" attributes="0"/>
+                              </Group>
+                              <EmptySpace max="32767" attributes="0"/>
+                              <Group type="103" groupAlignment="0" attributes="0">
+                                  <Group type="102" alignment="0" attributes="0">
+                                      <Component id="printButton" min="-2" pref="91" max="-2" attributes="0"/>
+                                      <EmptySpace min="36" pref="36" max="-2" attributes="0"/>
+                                      <Component id="saveButton" min="-2" pref="73" max="-2" attributes="0"/>
+                                      <EmptySpace pref="295" max="32767" attributes="0"/>
+                                      <Component id="cancelButton" min="-2" pref="80" max="-2" attributes="0"/>
+                                  </Group>
+                                  <Component id="detailsTextfield" max="32767" attributes="0"/>
+                                  <Component id="adresTextfield" alignment="1" max="32767" attributes="0"/>
+                                  <Component id="residentAdresTextfield" alignment="1" max="32767" attributes="0"/>
+                                  <Group type="102" alignment="0" attributes="0">
+                                      <EmptySpace min="134" pref="134" max="-2" attributes="0"/>
+                                      <Component id="jLabel17" min="-2" max="-2" attributes="0"/>
+                                      <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                                  </Group>
+                                  <Group type="102" alignment="0" attributes="0">
+                                      <Component id="postalCodeTextfield" min="-2" pref="115" max="-2" attributes="0"/>
+                                      <EmptySpace type="separate" max="-2" attributes="0"/>
+                                      <Group type="103" groupAlignment="0" attributes="0">
+                                          <Component id="jLabel16" alignment="0" min="-2" max="-2" attributes="0"/>
+                                          <Group type="102" alignment="0" attributes="0">
+                                              <Component id="jLabel15" min="-2" max="-2" attributes="0"/>
+                                              <EmptySpace type="separate" max="-2" attributes="0"/>
+                                              <Component id="cityTextfield" max="32767" attributes="0"/>
+                                          </Group>
+                                      </Group>
+                                  </Group>
+                                  <Group type="102" alignment="0" attributes="0">
+                                      <Component id="rPostalCodeTextfield" min="-2" pref="116" max="-2" attributes="0"/>
+                                      <EmptySpace type="separate" max="-2" attributes="0"/>
+                                      <Component id="jLabel8" min="-2" max="-2" attributes="0"/>
+                                      <EmptySpace type="separate" max="-2" attributes="0"/>
+                                      <Component id="rCityTextfield" max="32767" attributes="0"/>
+                                  </Group>
+                              </Group>
+                          </Group>
                       </Group>
                   </Group>
                   <Group type="102" attributes="0">
@@ -48,73 +100,33 @@
                           </Group>
                           <Group type="102" attributes="0">
                               <EmptySpace max="32767" attributes="0"/>
-                              <Group type="103" groupAlignment="1" attributes="0">
-                                  <Component id="jLabel2" alignment="1" min="-2" pref="114" max="-2" attributes="0"/>
-                                  <Group type="103" groupAlignment="0" attributes="0">
-                                      <Component id="jLabel1" alignment="0" min="-2" pref="114" max="-2" attributes="0"/>
-                                      <Component id="jLabel3" alignment="0" min="-2" pref="114" max="-2" attributes="0"/>
-                                      <Component id="jLabel4" alignment="0" min="-2" pref="114" max="-2" attributes="0"/>
-                                      <Component id="jLabel7" alignment="0" min="-2" pref="114" max="-2" attributes="0"/>
-                                      <Component id="jLabel13" alignment="0" min="-2" pref="108" max="-2" attributes="0"/>
-                                      <Component id="jLabel10" alignment="0" min="-2" pref="114" max="-2" attributes="0"/>
-                                      <Component id="jLabel11" alignment="0" min="-2" pref="63" max="-2" attributes="0"/>
-                                      <Component id="jLabel14" alignment="0" min="-2" max="-2" attributes="0"/>
-                                      <Component id="jLabel9" alignment="0" min="-2" pref="77" max="-2" attributes="0"/>
-                                  </Group>
+                              <Group type="103" groupAlignment="1" max="-2" attributes="0">
+                                  <Component id="jLabel2" alignment="0" pref="114" max="32767" attributes="0"/>
+                                  <Component id="jLabel1" alignment="0" pref="114" max="32767" attributes="0"/>
+                                  <Component id="jLabel3" alignment="0" pref="114" max="32767" attributes="0"/>
+                                  <Component id="jLabel4" alignment="0" pref="114" max="32767" attributes="0"/>
+                                  <Component id="phoneNrLabel" alignment="0" max="32767" attributes="0"/>
                               </Group>
-                              <EmptySpace pref="5" max="32767" attributes="0"/>
+                              <EmptySpace max="32767" attributes="0"/>
                           </Group>
                       </Group>
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Group type="102" attributes="0">
-                              <Component id="printButton" min="-2" pref="91" max="-2" attributes="0"/>
-                              <EmptySpace type="separate" max="-2" attributes="0"/>
+                              <EmptySpace min="-2" pref="109" max="-2" attributes="0"/>
                               <Component id="jLabel12" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace type="separate" max="-2" attributes="0"/>
-                              <Component id="saveButton" min="-2" pref="73" max="-2" attributes="0"/>
-                              <EmptySpace pref="295" max="32767" attributes="0"/>
-                              <Component id="cancelButton" min="-2" pref="80" max="-2" attributes="0"/>
+                              <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                           </Group>
-                          <Component id="detailsTextfield" max="32767" attributes="0"/>
                           <Component id="colorTextfield" alignment="1" max="32767" attributes="0"/>
                           <Component id="shapeTextfield" alignment="1" max="32767" attributes="0"/>
-                          <Component id="adresTextfield" alignment="1" max="32767" attributes="0"/>
-                          <Component id="residentAdresTextfield" alignment="1" max="32767" attributes="0"/>
                           <Component id="labelTextfield" alignment="0" max="32767" attributes="0"/>
                           <Group type="102" alignment="0" attributes="0">
                               <Component id="nameTextfield" min="-2" pref="116" max="-2" attributes="0"/>
                               <EmptySpace type="separate" max="-2" attributes="0"/>
-                              <Group type="103" groupAlignment="0" attributes="0">
-                                  <Group type="102" alignment="0" attributes="0">
-                                      <Component id="jLabel17" min="-2" max="-2" attributes="0"/>
-                                      <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
-                                  </Group>
-                                  <Group type="102" alignment="0" attributes="0">
-                                      <Component id="jLabel5" min="-2" max="-2" attributes="0"/>
-                                      <EmptySpace max="-2" attributes="0"/>
-                                      <Component id="surnameTextfield" max="32767" attributes="0"/>
-                                  </Group>
-                              </Group>
+                              <Component id="jLabel5" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace max="-2" attributes="0"/>
+                              <Component id="surnameTextfield" pref="381" max="32767" attributes="0"/>
                           </Group>
-                          <Group type="102" attributes="0">
-                              <Component id="postalCodeTextfield" min="-2" pref="115" max="-2" attributes="0"/>
-                              <EmptySpace type="separate" max="-2" attributes="0"/>
-                              <Group type="103" groupAlignment="0" attributes="0">
-                                  <Component id="jLabel16" alignment="0" min="-2" max="-2" attributes="0"/>
-                                  <Group type="102" alignment="0" attributes="0">
-                                      <Component id="jLabel15" min="-2" max="-2" attributes="0"/>
-                                      <EmptySpace type="separate" max="-2" attributes="0"/>
-                                      <Component id="cityTextfield" max="32767" attributes="0"/>
-                                  </Group>
-                              </Group>
-                          </Group>
-                          <Group type="102" alignment="0" attributes="0">
-                              <Component id="rPostalCodeTextfield" min="-2" pref="116" max="-2" attributes="0"/>
-                              <EmptySpace type="separate" max="-2" attributes="0"/>
-                              <Component id="jLabel8" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace type="separate" max="-2" attributes="0"/>
-                              <Component id="rCityTextfield" max="32767" attributes="0"/>
-                          </Group>
+                          <Component id="phoneNrText" alignment="0" max="32767" attributes="0"/>
                       </Group>
                   </Group>
               </Group>
@@ -125,7 +137,7 @@
     <DimensionLayout dim="1">
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" alignment="0" attributes="0">
-              <EmptySpace pref="18" max="32767" attributes="0"/>
+              <EmptySpace max="32767" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="labelTextfield" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="jLabel1" alignment="3" min="-2" max="-2" attributes="0"/>
@@ -147,17 +159,23 @@
                   <Component id="surnameTextfield" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="jLabel5" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
+              <EmptySpace type="unrelated" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="3" attributes="0">
+                  <Component id="phoneNrLabel" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="phoneNrText" alignment="3" min="-2" max="-2" attributes="0"/>
+              </Group>
               <EmptySpace min="-2" pref="7" max="-2" attributes="0"/>
+              <Component id="jLabel6" min="-2" max="-2" attributes="0"/>
+              <EmptySpace type="unrelated" max="-2" attributes="0"/>
+              <Component id="jLabel12" min="-2" max="-2" attributes="0"/>
+              <EmptySpace max="-2" attributes="0"/>
               <Component id="jLabel17" min="-2" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
               <Component id="jSeparator1" min="-2" max="-2" attributes="0"/>
               <EmptySpace min="-2" max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="0" attributes="0">
-                  <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="adresTextfield" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="jLabel7" alignment="3" max="32767" attributes="0"/>
-                  </Group>
-                  <Component id="jLabel6" alignment="0" min="-2" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="3" attributes="0">
+                  <Component id="adresTextfield" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="jLabel7" alignment="3" max="32767" attributes="0"/>
               </Group>
               <EmptySpace type="unrelated" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
@@ -185,7 +203,7 @@
               <EmptySpace type="separate" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
                   <Component id="detailsTextfield" min="-2" pref="80" max="-2" attributes="0"/>
-                  <Group type="102" attributes="0">
+                  <Group type="102" alignment="0" attributes="0">
                       <EmptySpace min="-2" pref="8" max="-2" attributes="0"/>
                       <Component id="jLabel10" min="-2" pref="14" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
@@ -196,10 +214,8 @@
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="saveButton" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="cancelButton" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="jLabel12" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="printButton" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace pref="18" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -388,6 +404,23 @@
       <Properties>
         <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
           <ResourceString bundle="Bundle.properties" key="AddPassenger.jLabel17.text" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
+        </Property>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JLabel" name="phoneNrLabel">
+      <Properties>
+        <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
+          <ResourceString bundle="Bundle.properties" key="AddPassenger.phoneNrLabel.text" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
+        </Property>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JTextField" name="phoneNrText">
+      <Properties>
+        <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
+          <ResourceString bundle="Bundle.properties" key="AddPassenger.phoneNrText.text" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
+        </Property>
+        <Property name="toolTipText" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
+          <ResourceString bundle="Bundle.properties" key="AddPassenger.phoneNrText.toolTipText" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
         </Property>
       </Properties>
     </Component>

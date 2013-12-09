@@ -21,11 +21,12 @@ public class Passenger {
     private String residentPostalCode;
     private String residentCity;
     private String details;
+    private String phoneNr;
 
     public Passenger() {
     }
 
-    public Passenger(String label, String color, String shape, String name, String surname, String adres, String postalCode, String city, String residentAdres, String residentPostalCode, String residentCity, String details) {
+    public Passenger(String label, String color, String shape, String name, String surname, String adres, String postalCode, String city, String residentAdres, String residentPostalCode, String residentCity, String details, String phoneNr) {
         this.label = label;
         this.color = color;
         this.shape = shape;
@@ -38,8 +39,18 @@ public class Passenger {
         this.residentPostalCode = residentPostalCode;
         this.residentCity = residentCity;
         this.details = details;
+        this.phoneNr = phoneNr;
     }
 
+    public String getPhoneNr() {
+        return phoneNr;
+    }
+
+    public void setPhoneNr(String phoneNr) {
+        this.phoneNr = phoneNr;
+    }
+
+    
     public String getLabel() {
         return label;
     }
@@ -138,9 +149,7 @@ public class Passenger {
 
     @Override
     public String toString() {
-        return "Passenger{" + "label=" + label + ", color=" + color + ", shape=" + shape + ", name=" + name + ", surname=" + surname + ", adres=" + adres + ", postalCode=" + postalCode + ", city=" + city + ", residentAdres=" + residentAdres + ", residentPostalCode=" + residentPostalCode + ", residentCity=" + residentCity + ", details=" + details + '}';
-    }
-    
-    
+        return "Passenger{" + "label=" + label + ", color=" + color + ", shape=" + shape + ", name=" + name + ", surname=" + surname + ", adres=" + adres + ", postalCode=" + postalCode + ", city=" + city + ", residentAdres=" + residentAdres + ", residentPostalCode=" + residentPostalCode + ", residentCity=" + residentCity + ", details=" + details + ", phoneNr=" + phoneNr + '}';
+    }    
     
 }
