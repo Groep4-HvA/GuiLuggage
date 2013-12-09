@@ -26,7 +26,6 @@ public class MainGuiFrame extends java.awt.Frame {
 
     private List<Medewerker> medList = null;
     private List<Case> caseList = null;
-    private final PasswordConfirm passOverlay = new PasswordConfirm(new javax.swing.JFrame(), true);
     private final java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("Bundle"); // NOI18N
     //Strings for add buttons
     private final String button1;
@@ -373,6 +372,7 @@ public class MainGuiFrame extends java.awt.Frame {
      * TODO: Preset the language of the user
      */
     private void myAccountButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_myAccountButtonActionPerformed
+       PasswordConfirm passOverlay = new PasswordConfirm(new javax.swing.JFrame(), true, handlerId);
         passOverlay.pack();
         passOverlay.setVisible(true);
         passOverlay.setLocationRelativeTo(null);

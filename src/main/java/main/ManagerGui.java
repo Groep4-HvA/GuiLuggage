@@ -24,14 +24,15 @@ import popups.PasswordConfirm;
  */
 public class ManagerGui extends java.awt.Frame {
 
-    private PasswordConfirm passOverlay = new PasswordConfirm(new javax.swing.JFrame(), true);
+    
     private java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("Bundle"); // NOI18N
     /**
      * Creates new form MainGuiFrame
      */
     private boolean beheer;
+    private int handlerId;
 
-    public ManagerGui(boolean beheer) throws SQLException {
+    public ManagerGui(boolean beheer, int handlerId) throws SQLException {
         beheer = this.beheer;
         initComponents();
         this.setLocationRelativeTo(null);
@@ -342,6 +343,7 @@ public class ManagerGui extends java.awt.Frame {
     }//GEN-LAST:event_moreButtonActionPerformed
 
     private void myAccountButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_myAccountButtonActionPerformed
+       PasswordConfirm passOverlay = new PasswordConfirm(new javax.swing.JFrame(), true, handlerId);
         passOverlay.pack();
         passOverlay.setVisible(true);
         passOverlay.setLocationRelativeTo(null);

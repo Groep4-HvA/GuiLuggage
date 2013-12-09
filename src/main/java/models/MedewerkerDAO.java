@@ -87,22 +87,20 @@ public class MedewerkerDAO {
         return list;
     }
 
-    public List<Medewerker> readByID(String user, String pass) throws SQLException {
-        List<Medewerker> list = new LinkedList<Medewerker>();
+    public Medewerker readByID(int medewerkerId) throws SQLException {
         ResultSet rs = null;
         PreparedStatement prdstmt = null;
+        Medewerker tempMedewerker = new Medewerker();
 
-        String query = "SELECT * FROM `Users` WHERE userName=? AND userPass=?;";
+        String query = "SELECT * FROM `Users` WHERE userId=?;";
 
         conn.startConnection();
 
         prdstmt = conn.getConnection().prepareStatement(query);
-        prdstmt.setString(1, user);
-        prdstmt.setString(2, pass);
+        prdstmt.setInt(1, medewerkerId);
         rs = conn.performSelect(prdstmt);
 
         while (rs.next()) {
-            Medewerker tempMedewerker = new Medewerker();
             tempMedewerker.setId(rs.getInt("userId"));
             tempMedewerker.setUsername(rs.getString("userName"));
             tempMedewerker.setPassword(rs.getString("userPass"));
@@ -110,14 +108,14 @@ public class MedewerkerDAO {
             tempMedewerker.setUserLang(rs.getString("userLang"));
             tempMedewerker.setManager(rs.getBoolean("userManager"));
             tempMedewerker.setAppManager(rs.getBoolean("userBeheer"));
-            list.add(tempMedewerker);
+            break;
         }
 
         if (conn != null) {
             conn.closeConnection();
         }
 
-        return list;
+        return tempMedewerker;
     }
 
     public List<Medewerker> readLogIn(String user, String pass) throws SQLException {

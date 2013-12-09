@@ -136,7 +136,7 @@ public class logIn extends javax.swing.JFrame {
             Medewerker medew = list.get(0);
             //System.out.println(medew.toString());
             if(medew.isManager()){
-                ManagerGui main = new ManagerGui(medew.isAppManager());
+                ManagerGui main = new ManagerGui(medew.isAppManager(), medew.getId());
                 main.setVisible(true);
             }else{
                 

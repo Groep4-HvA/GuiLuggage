@@ -8,11 +8,13 @@ import java.awt.Color;
 import java.awt.Toolkit;
 import java.awt.event.WindowEvent;
 import java.sql.SQLException;
+import java.util.Arrays;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.BorderFactory;
 import models.Medewerker;
 import models.MedewerkerDAO;
+import org.apache.commons.codec.digest.DigestUtils;
 
 /**
  *
@@ -144,14 +146,28 @@ public class PasswordConfirm extends javax.swing.JDialog {
 
     private void saveButActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saveButActionPerformed
         if(password != null){
-            if(password == passwordConfirm){
+            if(Arrays.equals(password.getPassword(), passwordConfirm.getPassword())){
+                Medewerker tempMedewerker = null;
                 MedewerkerDAO medewerkerTijdelijk;
                 medewerkerTijdelijk = new MedewerkerDAO();
                 try {
-                    medewerkerTijdelijk.readByID(medewerkerID);
+                    tempMedewerker = medewerkerTijdelijk.readByID(medewerkerID);
                 } catch (SQLException ex) {
                     Logger.getLogger(PasswordConfirm.class.getName()).log(Level.SEVERE, null, ex);
                 }
+                
+                if(tempMedewerker.getPassword().equals(DigestUtils.sha256Hex(String.valueOf(password.getPassword())))){
+                    dispose();
+                } else {
+                    tempMedewerker.setPassword(password.getPassword());
+                    try {
+                        medewerkerTijdelijk.update(tempMedewerker);
+                    } catch (SQLException ex) {
+                        Logger.getLogger(PasswordConfirm.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                }
+                System.out.println(tempMedewerker.toString());
+                dispose();
             }
         }
     }//GEN-LAST:event_saveButActionPerformed
