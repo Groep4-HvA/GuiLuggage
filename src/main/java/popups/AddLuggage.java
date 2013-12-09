@@ -59,28 +59,29 @@ public class AddLuggage extends javax.swing.JFrame {
         phoneNrLabel = new javax.swing.JLabel();
         phoneNrText = new javax.swing.JTextField();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("Bundle"); // NOI18N
         setTitle(bundle.getString("AddLuggage.title")); // NOI18N
 
-        labelLabel.setText(bundle.getString("AddLuggage.labelLabel.text")); // NOI18N
+        java.util.ResourceBundle bundle1 = java.util.ResourceBundle.getBundle("Bundle"); // NOI18N
+        labelLabel.setText(bundle1.getString("AddLuggage.labelLabel.text")); // NOI18N
 
-        colorLabel.setText(bundle.getString("AddLuggage.colorLabel.text")); // NOI18N
+        colorLabel.setText(bundle1.getString("AddLuggage.colorLabel.text")); // NOI18N
 
-        shapeLabel.setText(bundle.getString("AddLuggage.shapeLabel.text")); // NOI18N
+        shapeLabel.setText(bundle1.getString("AddLuggage.shapeLabel.text")); // NOI18N
 
-        storageLocationLabel.setText(bundle.getString("AddLuggage.storageLocationLabel.text")); // NOI18N
+        storageLocationLabel.setText(bundle1.getString("AddLuggage.storageLocationLabel.text")); // NOI18N
 
-        adDetailsLabel.setText(bundle.getString("AddLuggage.adDetailsLabel.text")); // NOI18N
+        adDetailsLabel.setText(bundle1.getString("AddLuggage.adDetailsLabel.text")); // NOI18N
 
-        Save.setText(bundle.getString("AddLuggage.Save.text")); // NOI18N
+        Save.setText(bundle1.getString("AddLuggage.Save.text")); // NOI18N
         Save.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 SaveActionPerformed(evt);
             }
         });
 
-        cancel.setText(bundle.getString("AddLuggage.cancel.text")); // NOI18N
+        cancel.setText(bundle1.getString("AddLuggage.cancel.text")); // NOI18N
         cancel.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cancelActionPerformed(evt);
