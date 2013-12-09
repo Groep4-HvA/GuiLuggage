@@ -337,13 +337,12 @@ public class MainGuiFrame extends java.awt.Frame {
                 LabelDescription.setText("Search:");
                 //TODO: readAll should be from the Cases, not Dao
                 CaseDao dbCase = new CaseDao();
-                List<Case> list = null;
                 try {
-                    list = dbCase.readAll();
+                    caseList = dbCase.readAll();
                 } catch (SQLException ex) {
                     Logger.getLogger(logIn.class.getName()).log(Level.SEVERE, null, ex);
                 }
-                populateTableCase(list);
+                populateTableCase(caseList);
                 inBeheer = false;
             } else {
                 addNewButton1.setText(bundle.getString("MainGuiFrame.addNew") + bundle.getString("Manager"));
@@ -385,7 +384,6 @@ public class MainGuiFrame extends java.awt.Frame {
 
     private void tableResultsMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tableResultsMouseClicked
         if (inBeheer) {
-            System.err.println();
             Popupappmedewerker popup1 = new Popupappmedewerker(medList.get(tableResults.getSelectedRow()));
             popup1.setVisible(true);
         } else {
@@ -419,19 +417,17 @@ public class MainGuiFrame extends java.awt.Frame {
         if (!inBeheer) {
             try {
                 CaseDao cdCase = new CaseDao();
-                List<Case> list;
-                list = cdCase.search(searchInput.getText());
+                caseList = cdCase.search(searchInput.getText());
                 System.out.println(searchInput.getText());
-                populateTableCase(list);
+                populateTableCase(caseList);
             } catch (Exception e) {
                 e.printStackTrace();
             }
         } else {
             try {
                 MedewerkerDAO dbMedewerker = new MedewerkerDAO();
-                List<Medewerker> list = null;
-                list = dbMedewerker.search(searchInput.getText());
-                populateTableMedewerker(list);
+                medList = dbMedewerker.search(searchInput.getText());
+                populateTableMedewerker(medList);
             } catch (Exception e) {
                 e.printStackTrace();
             }
