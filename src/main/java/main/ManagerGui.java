@@ -446,11 +446,35 @@ public class ManagerGui extends java.awt.Frame {
     }//GEN-LAST:event_logoutButtonActionPerformed
 
     private void PDFActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_PDFActionPerformed
-        String pdfje[] = {"Hello world"};
-        int cijfers[] = {1, 4, 5, 6};
-
+        
+        //---Shows amountPending in PDF-------------------------------
+        CaseDao dbCase = new CaseDao();
+        List<Case> listPending = null;
+        try {
+            listPending = dbCase.readAllPending();
+        } catch (SQLException ex) {
+            Logger.getLogger(ManagerGui.class.getName()).log(Level.SEVERE, null, ex);
+        }
+       String pending = Integer.toString(listPending.size());
+       //----Shows amountResolved in PDF-------------------------------
+       List<Case> listResolved = null;
+        try {
+            listResolved = dbCase.readAllResolved();
+        } catch (SQLException ex) {
+            Logger.getLogger(ManagerGui.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        String resolved = Integer.toString(listResolved.size());
+       //----Shows total ----------------------------------------------------------
+       List<Case> list = null;
+        try {
+            list = dbCase.readAll();
+        } catch (SQLException ex) {
+            Logger.getLogger(ManagerGui.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        String total = Integer.toString(list.size());
+       
         PDFGenerator pdf = new PDFGenerator();
-        pdf.generate(pdfje, cijfers, cijfers, cijfers);
+        pdf.generate(pending, resolved, total);
         try {
             pdf.save("Corendon_Overview.pdf");
         } catch (FileNotFoundException ex) {

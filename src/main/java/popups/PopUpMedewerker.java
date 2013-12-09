@@ -137,6 +137,11 @@ public class PopUpMedewerker extends javax.swing.JFrame {
         jScrollPane2.setViewportView(jTextArea2);
 
         statusDropDown.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Pending", "Resolved" }));
+        statusDropDown.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                statusDropDownActionPerformed(evt);
+            }
+        });
 
         printButton.setText(bundle.getString("PopUpMedewerker.printButton.text")); // NOI18N
         printButton.addActionListener(new java.awt.event.ActionListener() {
@@ -345,6 +350,10 @@ public class PopUpMedewerker extends javax.swing.JFrame {
     private void printButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_printButtonActionPerformed
             new printJob();
     }//GEN-LAST:event_printButtonActionPerformed
+
+    private void statusDropDownActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_statusDropDownActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_statusDropDownActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton cancelButton;
