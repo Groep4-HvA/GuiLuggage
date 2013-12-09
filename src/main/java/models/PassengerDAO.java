@@ -136,7 +136,7 @@ public class PassengerDAO {
         prdstmt.setString(11, passenger.getDetails());
         prdstmt.setString(12, passenger.getLabel());
         prdstmt.setInt(13, 7357);//TODO change this to real handlerid when possible
-        prdstmt.setString(14, passenger.getPhoneNr());
+        prdstmt.setString(14, "dummyphonenr");//ditto
         prdstmt.setDate(15, sqlToday);
         prdstmt.executeUpdate();
 

@@ -14,15 +14,13 @@ public class Luggage {
     private String shape;
     private String location;
     private String details;
-    private String phoneNr;
 
-    public Luggage(String label, String color, String shape, String location, String details, String phoneNr) {
+    public Luggage(String label, String color, String shape, String location, String details) {
         this.label = label;
         this.color = color;
         this.shape = shape;
         this.location = location;
         this.details = details;
-        this.phoneNr = phoneNr;
     }
 
     Luggage() {}
@@ -66,19 +64,10 @@ public class Luggage {
     public void setDetails(String details) {
         this.details = details;
     }
-    
-    public String getPhoneNr() {
-        return phoneNr;
-    }
-
-    public void setPhoneNr(String phoneNr) {
-        this.phoneNr = phoneNr;
-    }
 
     @Override
     public String toString() {
-        return "Luggage{" + "label=" + label + ", color=" + color + ", shape=" + shape + ", location=" + location + ", details=" + details + ", phoneNr=" + phoneNr + '}';
+        return "Luggage{" + "label=" + label + ", color=" + color + ", shape=" + shape + ", location=" + location + ", details=" + details + '}';
     }
-    
     
 }
