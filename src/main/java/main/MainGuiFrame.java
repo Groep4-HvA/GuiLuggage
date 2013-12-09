@@ -1,5 +1,7 @@
 package main;
 
+import java.awt.Color;
+import java.awt.Component;
 import popups.PasswordConfirm;
 import popups.Popupappmedewerker;
 import popups.AddLuggage;
@@ -8,9 +10,14 @@ import popups.AddMedewerker;
 import popups.AddPassenger;
 import popups.PopUpMedewerker;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JTable;
+import javax.swing.table.DefaultTableCellRenderer;
+import javax.swing.table.TableCellRenderer;
 import models.Case;
 import models.CaseDao;
 import models.Medewerker;
@@ -194,9 +201,25 @@ public class MainGuiFrame extends java.awt.Frame {
                 {null, null, null, null}
             },
             new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
+                "#", "Labelnumber", "Add date", "Handler"
             }
-        ));
+        ) {
+            Class[] types = new Class [] {
+                java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
+            };
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        tableResults.setRowHeight(20);
         tableResults.setShowVerticalLines(false);
         tableResults.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -370,7 +393,7 @@ public class MainGuiFrame extends java.awt.Frame {
      * TODO: Preset the language of the user
      */
     private void myAccountButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_myAccountButtonActionPerformed
-       PasswordConfirm passOverlay = new PasswordConfirm(new javax.swing.JFrame(), true, handlerId);
+        PasswordConfirm passOverlay = new PasswordConfirm(new javax.swing.JFrame(), true, handlerId);
         passOverlay.pack();
         passOverlay.setVisible(true);
         passOverlay.setLocationRelativeTo(null);
@@ -451,6 +474,16 @@ public class MainGuiFrame extends java.awt.Frame {
             tableResults.getModel().setValueAt(list.get(j).isAppManager(), j, 2);
             tableResults.getModel().setValueAt(list.get(j).isManager(), j, 3);
         }
+        tableResults.setDefaultRenderer(Object.class, new TableCellRenderer() {
+            private DefaultTableCellRenderer DEFAULT_RENDERER = new DefaultTableCellRenderer();
+
+            @Override
+            public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
+                Component c = DEFAULT_RENDERER.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
+                c.setBackground(Color.WHITE);
+                return c;
+            }
+        });
         tableResults.getColumnModel().getColumn(0).setHeaderValue("Name");
         tableResults.getColumnModel().getColumn(1).setHeaderValue("Username");
         tableResults.getColumnModel().getColumn(2).setHeaderValue("Appmanager");
@@ -458,6 +491,9 @@ public class MainGuiFrame extends java.awt.Frame {
     }
 
     public void populateTableCase(List<Case> list) {
+        final ArrayList<Integer> resolveList = new ArrayList<Integer>();
+        final ArrayList<Integer> passengerList = new ArrayList<Integer>();
+        final ArrayList<Integer> luggageList = new ArrayList<Integer>();
         for (int i = 0; i < 50; i++) {
             tableResults.getModel().setValueAt("", i, 0);
             tableResults.getModel().setValueAt("", i, 1);
@@ -465,11 +501,39 @@ public class MainGuiFrame extends java.awt.Frame {
             tableResults.getModel().setValueAt("", i, 3);
         }
         for (int i = 0; i < list.size(); i++) {
-            tableResults.getModel().setValueAt(i+1, i, 0);
+            tableResults.getModel().setValueAt(i + 1, i, 0);
             tableResults.getModel().setValueAt(list.get(i).getLabel(), i, 1);
             tableResults.getModel().setValueAt(list.get(i).getAddDate(), i, 2);
             tableResults.getModel().setValueAt(list.get(i).getHandler(), i, 3);
+            if (list.get(i).getResolveDate() != null) {
+                resolveList.add(i);
+            }
+            if (list.get(i).getHomeAddress() != null) {
+                passengerList.add(i);
+            } else {
+                luggageList.add(i);
+            }
         }
+        tableResults.setDefaultRenderer(Object.class, new TableCellRenderer() {
+            private DefaultTableCellRenderer DEFAULT_RENDERER = new DefaultTableCellRenderer();
+
+            @Override
+            public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
+                Component c = DEFAULT_RENDERER.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
+                if (resolveList.contains(row)) {
+                    c.setBackground(new Color(32, 165, 69));
+                } else {
+                    if (passengerList.contains(row)){
+                        c.setBackground(new Color(240, 149, 23));
+                    } else if(luggageList.contains(row)){
+                        c.setBackground(new Color(37, 132, 193));
+                    } else{
+                        c.setBackground(new Color(240, 240, 240));
+                    }
+                }
+                return c;
+            }
+        });
         tableResults.getColumnModel().getColumn(0).setHeaderValue("#");
         tableResults.getColumnModel().getColumn(1).setHeaderValue("Luggage Number");
         tableResults.getColumnModel().getColumn(2).setHeaderValue("Add date");
