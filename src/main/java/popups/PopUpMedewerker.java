@@ -343,7 +343,7 @@ public class PopUpMedewerker extends javax.swing.JFrame {
     }//GEN-LAST:event_saveButtonActionPerformed
 
     private void printButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_printButtonActionPerformed
-        new printJob();
+            new printJob();
     }//GEN-LAST:event_printButtonActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

@@ -156,15 +156,22 @@ public class Popupappmedewerker extends javax.swing.JFrame {
         medewerker.setName(nameField.getText());
         medewerker.setAppManager(isAppManager.isSelected());
         medewerker.setManager(isManager.isSelected());
+        
+        MedewerkerDAO dbMedewerker;
+        dbMedewerker = new MedewerkerDAO();
+        
         if((firstPasswordField!=null)&&(firstPasswordField==confirmPasswordField)){
             medewerker.setPassword(DigestUtils.sha256Hex(String.valueOf(firstPasswordField)));
-        }
-        MedewerkerDAO dbMedewerker = new MedewerkerDAO();
+        }  else {
+        medewerker.setPassword(firstPasswordField.getPassword());
+       // System.out.println(medewerker.toString());
         try {
             dbMedewerker.update(medewerker);
         } catch (SQLException ex) {
             Logger.getLogger(Popupappmedewerker.class.getName()).log(Level.SEVERE, null, ex);
         }
+        }
+        System.out.println(medewerker.toString());
         dispose();
     }//GEN-LAST:event_saveButtonActionPerformed
 
