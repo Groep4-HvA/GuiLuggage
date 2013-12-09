@@ -36,6 +36,7 @@ public class MainGuiFrame extends java.awt.Frame {
     private boolean beheer;
     private boolean inBeheer = false;
     private boolean luggage = false;
+    private int handlerId;
 
     /**
      * Constructor for the common user and App Manager screen
@@ -43,9 +44,10 @@ public class MainGuiFrame extends java.awt.Frame {
      * @param value
      * @throws java.sql.SQLException
      */
-    public MainGuiFrame(boolean value) throws SQLException {
+    public MainGuiFrame(boolean beheer, int handlerId) throws SQLException {
         //pre init configuration of Strings
-        beheer = value;
+        this.handlerId = handlerId;
+        this.beheer = beheer;
         button1 = (inBeheer) ? bundle.getString("Medewerker") : bundle.getString("Luggage");
         button2 = (inBeheer) ? bundle.getString("Manager") : bundle.getString("Passenger");
         button3 = (luggage) ? bundle.getString("Luggage") : bundle.getString("Passenger");
@@ -398,13 +400,13 @@ public class MainGuiFrame extends java.awt.Frame {
             AddMedewerker gui = new AddMedewerker(true);
             gui.setVisible(true);
         } else {
-            AddLuggage gui = new AddLuggage();
+            AddLuggage gui = new AddLuggage(handlerId);
             gui.setVisible(true);
         }
     }//GEN-LAST:event_addNewButton1ActionPerformed
 
     private void addNewButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addNewButton2ActionPerformed
-        AddPassenger gui3 = new AddPassenger();
+        AddPassenger gui3 = new AddPassenger(handlerId);
         AddMedewerker gui2 = new AddMedewerker(false);
         if (inBeheer) {
             gui2.setVisible(true);

@@ -29,12 +29,13 @@ public class AddPassenger extends javax.swing.JFrame {
     private String residentPostalCode;
     private String residentCity;
     private String details;
-    
+    private int handlerId;
     
     /**
      * Creates new form AddPassenger
      */
-    public AddPassenger() {
+    public AddPassenger(int handlerId) {
+        this.handlerId = handlerId;
         initComponents();
         this.setLocationRelativeTo(null);
     }

@@ -20,6 +20,7 @@ import org.apache.commons.codec.digest.DigestUtils;
  */
 public class logIn extends javax.swing.JFrame {
     private java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("Bundle");
+    private int handlerId;
 
     /**
      * Creates new form logIn
@@ -139,7 +140,7 @@ public class logIn extends javax.swing.JFrame {
                 main.setVisible(true);
             }else{
                 
-                MainGuiFrame main = new MainGuiFrame(medew.isAppManager());
+                MainGuiFrame main = new MainGuiFrame(medew.isAppManager(), medew.getId() );
                 main.setVisible(true);
             }
             dispose();

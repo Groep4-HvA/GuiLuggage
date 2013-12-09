@@ -21,11 +21,13 @@ public class AddLuggage extends javax.swing.JFrame {
     private String shape;
     private String location;
     private String details;
+    private int handlerId;
     
     /**
      * Creates new form guiPopupDesign
      */
-    public AddLuggage() {
+    public AddLuggage(int handlerId) {
+        this.handlerId = handlerId;
         initComponents();
         this.setLocationRelativeTo(null);
     }
@@ -149,7 +151,7 @@ public class AddLuggage extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-    public static AddLuggage form = new AddLuggage();
+    public AddLuggage form = new AddLuggage(handlerId);
     private void cancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelActionPerformed
         dispose();
     }//GEN-LAST:event_cancelActionPerformed
