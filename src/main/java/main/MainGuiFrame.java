@@ -442,6 +442,9 @@ public class MainGuiFrame extends java.awt.Frame {
 
     private void searchButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_searchButtonActionPerformed
         System.out.println(searchInput.getText());
+        //String[] search = {searchInput.getText()};
+        
+        
         if (!inBeheer) {
             try {
                 CaseDao cdCase = new CaseDao();
