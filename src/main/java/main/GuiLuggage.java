@@ -2,6 +2,8 @@ package main;
 
 import java.util.Locale;
 import javax.swing.UIManager;
+import javax.swing.UnsupportedLookAndFeelException;
+import models.Debug;
 
 /**
  *
@@ -21,14 +23,19 @@ public class GuiLuggage {
         Locale.setDefault(english);
         
         current = Locale.getDefault();
-        System.out.println("Current language: "+current.toString());
         logIn login = new logIn();
         login.setVisible(true);
         login.setLocationRelativeTo(null);
-        
+        Debug.printout("Current language: "+current.toString());
         try{ 
             UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
-        }catch(Exception e){
+        }catch(ClassNotFoundException e){
+            e.printStackTrace();
+        } catch (IllegalAccessException e) {
+            e.printStackTrace();
+        } catch (InstantiationException e) {
+            e.printStackTrace();
+        } catch (UnsupportedLookAndFeelException e) {
             e.printStackTrace();
         }
         
