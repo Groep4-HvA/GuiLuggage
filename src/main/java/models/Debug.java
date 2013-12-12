@@ -8,13 +8,9 @@ package models;
 import DBUtil.ConnectionMySQL;
 import java.io.BufferedWriter;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
+import java.io.FileWriter;
 import java.io.IOException;
-import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
-import java.io.UnsupportedEncodingException;
-import java.io.Writer;
 import java.util.Properties;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -24,13 +20,14 @@ import java.util.logging.Logger;
  * @author smillernl
  */
 public class Debug {
-
-    private static Properties prop;
+    private static PrintWriter wout = null;
 
     public Debug() {
+
     }
 
-    public static void out(String out) {
+    public static void printout(String out) {
+        Properties prop = new Properties();
         try {
             prop.load(new FileInputStream(System.getProperty("user.dir") + System.getProperty("file.separator") + "Config.properties"));
         } catch (IOException ex) {
@@ -39,18 +36,12 @@ public class Debug {
         if (prop.getProperty("debug").equals("true")) {
             System.out.println(out);
         } else {
-            Writer writer = null;
-
             try {
-                writer = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(System.getProperty("user.dir") + System.getProperty("file.separator") + "log.txt"), "UTF-8"));
-                writer.write("LOG(Debug):" + out);
-            } catch (IOException ex) {
-                //TODO add exception for report
-            } finally {
-                try {
-                    writer.close();
-                } catch (Exception ex) {
-                }
+                wout = new PrintWriter(new BufferedWriter(new FileWriter(System.getProperty("user.dir") + System.getProperty("file.separator") + "log.txt", true)));
+                wout.println("LOG(Debug):" + out);
+                wout.close();
+            } catch (IOException e) {
+                //TODO add reall catch
             }
         }
     }
