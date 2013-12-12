@@ -2,6 +2,9 @@ package main;
 
 import java.awt.Color;
 import java.awt.Component;
+import java.awt.Menu;
+import java.awt.MenuBar;
+import java.awt.MenuItem;
 import popups.PasswordConfirm;
 import popups.Popupappmedewerker;
 import popups.AddLuggage;
@@ -30,9 +33,12 @@ import models.MedewerkerDAO;
 public class MainGuiFrame extends java.awt.Frame {
     //Java resources
 
-    private List<Medewerker> medList = null;
-    private List<Case> caseList = null;
-    private final java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("Bundle"); // NOI18N
+    private List<Medewerker> medList		    = null;
+    private List<Case> caseList			    = null;
+    private final java.util.ResourceBundle bundle   = java.util.ResourceBundle.getBundle("Bundle"); // NOI18N
+    private MenuBar menuBar			    = new MenuBar();
+    private Menu menu				    = new Menu(bundle.getString("menu"));
+    private MenuItem item			    = new MenuItem(bundle.getString("menu.Item"));
     //Strings for add buttons
     private final String button1;
     private final String button2;
@@ -42,7 +48,6 @@ public class MainGuiFrame extends java.awt.Frame {
     private boolean inBeheer = false;
     private boolean luggage = false;
     private int handlerId;
-
     /**
      * Constructor for the common user and App Manager screen
      *
@@ -50,50 +55,51 @@ public class MainGuiFrame extends java.awt.Frame {
      * @throws java.sql.SQLException
      */
     public MainGuiFrame(boolean beheer, int handlerId) throws SQLException {
-        //pre init configuration of Strings
-        this.handlerId = handlerId;
-        this.beheer = beheer;
-        button1 = (inBeheer) ? bundle.getString("Medewerker") : bundle.getString("Luggage");
-        button2 = (inBeheer) ? bundle.getString("Manager") : bundle.getString("Passenger");
-        button3 = (luggage) ? bundle.getString("Luggage") : bundle.getString("Passenger");
+	//pre init configuration of Strings
+	this.handlerId = handlerId;
+	this.beheer = beheer;
+	button1 = (inBeheer) ? bundle.getString("Medewerker") : bundle.getString("Luggage");
+	button2 = (inBeheer) ? bundle.getString("Manager") : bundle.getString("Passenger");
+	button3 = (luggage) ? bundle.getString("Luggage") : bundle.getString("Passenger");
 
-        //initializing the screen and centering it
-        initComponents();
-        this.setLocationRelativeTo(null);
-        searchInput.requestFocusInWindow();
+	//initializing the screen and centering it
+	initComponents();
+	this.setLocationRelativeTo(null);
+	searchInput.requestFocusInWindow();
 
-        //Access management: users can not see the appmanagement screen
-        appManagementButton.setVisible(beheer);
+	//Access management: users can not see the appmanagement screen
+	appManagementButton.setVisible(beheer);
 
-        //TODO: move DAO reference to Case object. list=case.readAll() rather the caseDao
-        //getting all cases into a list object.
-        CaseDao dbCase = new CaseDao();
-        try {
-            caseList = dbCase.readAll();
-        } catch (SQLException ex) {
-            Logger.getLogger(logIn.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        //Populate table and headers
-        populateTableCase(caseList);
+	//TODO: move DAO reference to Case object. list=case.readAll() rather the caseDao
+	//getting all cases into a list object.
+	CaseDao dbCase = new CaseDao();
+	try {
+	    caseList = dbCase.readAll();
+	} catch (SQLException ex) {
+	    Logger.getLogger(logIn.class.getName()).log(Level.SEVERE, null, ex);
+	}
+	//Populate table and headers
+	populateTableCase(caseList);
     }
-    public void fillTableCases(){
-        CaseDao dbCase = new CaseDao();
-                try {
-                    caseList = dbCase.readAll();
-                } catch (SQLException ex) {
-                    Logger.getLogger(logIn.class.getName()).log(Level.SEVERE, null, ex);
-                }
-                populateTableCase(caseList);
+
+    public void fillTableCases() {
+	CaseDao dbCase = new CaseDao();
+	try {
+	    caseList = dbCase.readAll();
+	} catch (SQLException ex) {
+	    Logger.getLogger(logIn.class.getName()).log(Level.SEVERE, null, ex);
+	}
+	populateTableCase(caseList);
     }
-    
-    public void fillTableMedewerkers(){
-                MedewerkerDAO dbMedewerker = new MedewerkerDAO();
-                try {
-                    medList = dbMedewerker.readAll();
-                } catch (SQLException ex) {
-                    Logger.getLogger(logIn.class.getName()).log(Level.SEVERE, null, ex);
-                }
-                populateTableMedewerker(medList);
+
+    public void fillTableMedewerkers() {
+	MedewerkerDAO dbMedewerker = new MedewerkerDAO();
+	try {
+	    medList = dbMedewerker.readAll();
+	} catch (SQLException ex) {
+	    Logger.getLogger(logIn.class.getName()).log(Level.SEVERE, null, ex);
+	}
+	populateTableMedewerker(medList);
     }
 
     /**
@@ -118,6 +124,7 @@ public class MainGuiFrame extends java.awt.Frame {
         LabelDescription = new javax.swing.JLabel();
         searchInput = new javax.swing.JTextField();
 
+        setName("frame"); // NOI18N
         java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("Bundle"); // NOI18N
         setTitle(bundle.getString("medewerkerMain.title")); // NOI18N
         addWindowListener(new java.awt.event.WindowAdapter() {
@@ -348,14 +355,14 @@ public class MainGuiFrame extends java.awt.Frame {
      * Exit the Application
      */
     private void exitForm(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_exitForm
-        System.exit(0);
+	System.exit(0);
     }//GEN-LAST:event_exitForm
     /*
      * Display advanced Search options
      */
     private void advancedActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_advancedActionPerformed
-        Advanced advancedPopUp = new Advanced();
-        advancedPopUp.setVisible(true);
+	Advanced advancedPopUp = new Advanced();
+	advancedPopUp.setVisible(true);
     }//GEN-LAST:event_advancedActionPerformed
 
     /*
@@ -370,27 +377,37 @@ public class MainGuiFrame extends java.awt.Frame {
      * TODO: Clean this up
      */
     private void appManagementButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_appManagementButtonActionPerformed
-        if (beheer) {
-            if (inBeheer) {
-                addNewButton1.setText(bundle.getString("MainGuiFrame.addNew") + button1);
-                addNewButton2.setText(bundle.getString("MainGuiFrame.addNew") + button2);
-                appManagementButton.setText(bundle.getString("MainGuiFrame.beheerButtonOn"));
-                LabelDescription.setText("Search:");
-                //TODO: readAll should be from the Cases, not Dao
-                fillTableCases();
-                inBeheer = false;
-            } else {
-                addNewButton1.setText(bundle.getString("MainGuiFrame.addNew") + bundle.getString("Manager"));
-                addNewButton2.setText(bundle.getString("MainGuiFrame.addNew") + bundle.getString("Medewerker"));
-                appManagementButton.setText(bundle.getString("MainGuiFrame.beheerButtonOff"));
-                LabelDescription.setText("Search:");
-                //TODO: Move this to the Dao
-                fillTableMedewerkers();
-                inBeheer = true;
-            }
-        } else {
-            System.out.print(bundle.getString("notAuthorized"));
-        }
+	if (beheer) {
+	    if (inBeheer) {
+		addNewButton1.setText(bundle.getString("MainGuiFrame.addNew") + button1);
+		addNewButton2.setText(bundle.getString("MainGuiFrame.addNew") + button2);
+		appManagementButton.setText(bundle.getString("MainGuiFrame.beheerButtonOn"));
+		LabelDescription.setText("Search:");
+		//TODO: readAll should be from the Cases, not Dao
+		fillTableCases();
+		inBeheer = false;
+		
+		menu.remove(item);
+		menuBar.remove(menu);
+		setMenuBar(menuBar);
+	    } else {
+		addNewButton1.setText(bundle.getString("MainGuiFrame.addNew") + bundle.getString("Manager"));
+		addNewButton2.setText(bundle.getString("MainGuiFrame.addNew") + bundle.getString("Medewerker"));
+		appManagementButton.setText(bundle.getString("MainGuiFrame.beheerButtonOff"));
+		LabelDescription.setText("Search:");
+		fillTableMedewerkers();
+		inBeheer = true;
+		
+		menu.setLabel(bundle.getString("menu.Settings"));
+		menu.getAccessibleContext().setAccessibleDescription(bundle.getString("menu.Settings.desc"));
+		menu.add(item);
+		
+		menuBar.add(menu);
+		setMenuBar(menuBar);
+	    }
+	} else {
+	    System.out.print(bundle.getString("notAuthorized"));
+	}
     }//GEN-LAST:event_appManagementButtonActionPerformed
 
     /*
@@ -398,154 +415,154 @@ public class MainGuiFrame extends java.awt.Frame {
      * TODO: Preset the language of the user
      */
     private void myAccountButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_myAccountButtonActionPerformed
-        PasswordConfirm passOverlay = new PasswordConfirm(new javax.swing.JFrame(), true, handlerId);
-        passOverlay.pack();
-        passOverlay.setVisible(true);
-        passOverlay.setLocationRelativeTo(null);
+	PasswordConfirm passOverlay = new PasswordConfirm(new javax.swing.JFrame(), true, handlerId);
+	passOverlay.pack();
+	passOverlay.setVisible(true);
+	passOverlay.setLocationRelativeTo(null);
     }//GEN-LAST:event_myAccountButtonActionPerformed
 
     private void logoutButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_logoutButtonActionPerformed
-        dispose();
-        logIn logOut = new logIn();
-        logOut.setVisible(true);
+	dispose();
+	logIn logOut = new logIn();
+	logOut.setVisible(true);
     }//GEN-LAST:event_logoutButtonActionPerformed
 
     private void tableResultsMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tableResultsMouseClicked
-        if (inBeheer) {
-            Popupappmedewerker popup1 = new Popupappmedewerker(medList.get(tableResults.getSelectedRow()));
-            popup1.setVisible(true);
-        } else {
-            PopUpMedewerker popup = new PopUpMedewerker(caseList.get(tableResults.getSelectedRow()));
-            popup.setVisible(true);
-        }
+	if (inBeheer) {
+	    Popupappmedewerker popup1 = new Popupappmedewerker(medList.get(tableResults.getSelectedRow()));
+	    popup1.setVisible(true);
+	} else {
+	    PopUpMedewerker popup = new PopUpMedewerker(caseList.get(tableResults.getSelectedRow()));
+	    popup.setVisible(true);
+	}
     }//GEN-LAST:event_tableResultsMouseClicked
 
     private void addNewButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addNewButton1ActionPerformed
-        if (inBeheer) {
-            AddMedewerker gui = new AddMedewerker(true);
-            gui.setVisible(true);
-        } else {
-            AddLuggage gui = new AddLuggage(handlerId);
-            gui.setVisible(true);
-        }
+	if (inBeheer) {
+	    AddMedewerker gui = new AddMedewerker(true);
+	    gui.setVisible(true);
+	} else {
+	    AddLuggage gui = new AddLuggage(handlerId);
+	    gui.setVisible(true);
+	}
     }//GEN-LAST:event_addNewButton1ActionPerformed
 
     private void addNewButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addNewButton2ActionPerformed
-        AddPassenger gui3 = new AddPassenger(handlerId);
-        AddMedewerker gui2 = new AddMedewerker(false);
-        if (inBeheer) {
-            gui2.setVisible(true);
-        } else {
-            gui3.setVisible(true);
-        }
+	AddPassenger gui3 = new AddPassenger(handlerId);
+	AddMedewerker gui2 = new AddMedewerker(false);
+	if (inBeheer) {
+	    gui2.setVisible(true);
+	} else {
+	    gui3.setVisible(true);
+	}
     }//GEN-LAST:event_addNewButton2ActionPerformed
 
     private void searchButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_searchButtonActionPerformed
-        System.out.println(searchInput.getText());
-        if (!inBeheer) {
-            try {
-                CaseDao cdCase = new CaseDao();
-                caseList = cdCase.search(searchInput.getText());
-                System.out.println(searchInput.getText());
-                populateTableCase(caseList);
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        } else {
-            try {
-                MedewerkerDAO dbMedewerker = new MedewerkerDAO();
-                medList = dbMedewerker.search(searchInput.getText());
-                populateTableMedewerker(medList);
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
+	System.out.println(searchInput.getText());
+	if (!inBeheer) {
+	    try {
+		CaseDao cdCase = new CaseDao();
+		caseList = cdCase.search(searchInput.getText());
+		System.out.println(searchInput.getText());
+		populateTableCase(caseList);
+	    } catch (Exception e) {
+		e.printStackTrace();
+	    }
+	} else {
+	    try {
+		MedewerkerDAO dbMedewerker = new MedewerkerDAO();
+		medList = dbMedewerker.search(searchInput.getText());
+		populateTableMedewerker(medList);
+	    } catch (Exception e) {
+		e.printStackTrace();
+	    }
 
-        }
+	}
     }//GEN-LAST:event_searchButtonActionPerformed
 
     private void searchInputActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_searchInputActionPerformed
-        searchButtonActionPerformed(evt);
+	searchButtonActionPerformed(evt);
     }//GEN-LAST:event_searchInputActionPerformed
     public void populateTableMedewerker(List<Medewerker> list) {
 	tableResults.getColumnModel().getColumn(0).setMaxWidth(350);
 	tableResults.getColumnModel().getColumn(0).setPreferredWidth(250);
-        for (int i = 0; i < 50; i++) {
-            tableResults.getModel().setValueAt("", i, 0);
-            tableResults.getModel().setValueAt("", i, 1);
-            tableResults.getModel().setValueAt("", i, 2);
-            tableResults.getModel().setValueAt("", i, 3);
-        }
-        for (int j = 0; j < list.size(); j++) {
-            tableResults.getModel().setValueAt(list.get(j).getName(), j, 0);
-            tableResults.getModel().setValueAt(list.get(j).getUsername(), j, 1);
-            tableResults.getModel().setValueAt(list.get(j).isAppManager(), j, 2);
-            tableResults.getModel().setValueAt(list.get(j).isManager(), j, 3);
-        }
-        tableResults.setDefaultRenderer(Object.class, new TableCellRenderer() {
-            private DefaultTableCellRenderer DEFAULT_RENDERER = new DefaultTableCellRenderer();
+	for (int i = 0; i < 50; i++) {
+	    tableResults.getModel().setValueAt("", i, 0);
+	    tableResults.getModel().setValueAt("", i, 1);
+	    tableResults.getModel().setValueAt("", i, 2);
+	    tableResults.getModel().setValueAt("", i, 3);
+	}
+	for (int j = 0; j < list.size(); j++) {
+	    tableResults.getModel().setValueAt(list.get(j).getName(), j, 0);
+	    tableResults.getModel().setValueAt(list.get(j).getUsername(), j, 1);
+	    tableResults.getModel().setValueAt(list.get(j).isAppManager(), j, 2);
+	    tableResults.getModel().setValueAt(list.get(j).isManager(), j, 3);
+	}
+	tableResults.setDefaultRenderer(Object.class, new TableCellRenderer() {
+	    private DefaultTableCellRenderer DEFAULT_RENDERER = new DefaultTableCellRenderer();
 
-            @Override
-            public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
-                Component c = DEFAULT_RENDERER.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
-                c.setBackground(Color.WHITE);
-                return c;
-            }
-        });
-        tableResults.getColumnModel().getColumn(0).setHeaderValue("Name");
-        tableResults.getColumnModel().getColumn(1).setHeaderValue("Username");
-        tableResults.getColumnModel().getColumn(2).setHeaderValue("Appmanager");
-        tableResults.getColumnModel().getColumn(3).setHeaderValue("Manager");
+	    @Override
+	    public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
+		Component c = DEFAULT_RENDERER.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
+		c.setBackground(Color.WHITE);
+		return c;
+	    }
+	});
+	tableResults.getColumnModel().getColumn(0).setHeaderValue("Name");
+	tableResults.getColumnModel().getColumn(1).setHeaderValue("Username");
+	tableResults.getColumnModel().getColumn(2).setHeaderValue("Appmanager");
+	tableResults.getColumnModel().getColumn(3).setHeaderValue("Manager");
     }
 
     public void populateTableCase(List<Case> list) {
 	tableResults.getColumnModel().getColumn(0).setMaxWidth(35);
-        final ArrayList<Integer> resolveList = new ArrayList<Integer>();
-        final ArrayList<Integer> passengerList = new ArrayList<Integer>();
-        final ArrayList<Integer> luggageList = new ArrayList<Integer>();
-        for (int i = 0; i < 50; i++) {
-            tableResults.getModel().setValueAt("", i, 0);
-            tableResults.getModel().setValueAt("", i, 1);
-            tableResults.getModel().setValueAt("", i, 2);
-            tableResults.getModel().setValueAt("", i, 3);
-        }
-        for (int i = 0; i < list.size(); i++) {
-            tableResults.getModel().setValueAt(i + 1, i, 0);
-            tableResults.getModel().setValueAt(list.get(i).getLabel(), i, 1);
-            tableResults.getModel().setValueAt(list.get(i).getAddDate(), i, 2);
-            tableResults.getModel().setValueAt(list.get(i).getHandler(), i, 3);
-            if (list.get(i).getResolveDate() != null) {
-                resolveList.add(i);
-            }
-            if (list.get(i).getHomeAddress() != null) {
-                passengerList.add(i);
-            } else {
-                luggageList.add(i);
-            }
-        }
-        tableResults.setDefaultRenderer(Object.class, new TableCellRenderer() {
-            private DefaultTableCellRenderer DEFAULT_RENDERER = new DefaultTableCellRenderer();
+	final ArrayList<Integer> resolveList = new ArrayList<Integer>();
+	final ArrayList<Integer> passengerList = new ArrayList<Integer>();
+	final ArrayList<Integer> luggageList = new ArrayList<Integer>();
+	for (int i = 0; i < 50; i++) {
+	    tableResults.getModel().setValueAt("", i, 0);
+	    tableResults.getModel().setValueAt("", i, 1);
+	    tableResults.getModel().setValueAt("", i, 2);
+	    tableResults.getModel().setValueAt("", i, 3);
+	}
+	for (int i = 0; i < list.size(); i++) {
+	    tableResults.getModel().setValueAt(i + 1, i, 0);
+	    tableResults.getModel().setValueAt(list.get(i).getLabel(), i, 1);
+	    tableResults.getModel().setValueAt(list.get(i).getAddDate(), i, 2);
+	    tableResults.getModel().setValueAt(list.get(i).getHandler(), i, 3);
+	    if (list.get(i).getResolveDate() != null) {
+		resolveList.add(i);
+	    }
+	    if (list.get(i).getHomeAddress() != null) {
+		passengerList.add(i);
+	    } else {
+		luggageList.add(i);
+	    }
+	}
+	tableResults.setDefaultRenderer(Object.class, new TableCellRenderer() {
+	    private DefaultTableCellRenderer DEFAULT_RENDERER = new DefaultTableCellRenderer();
 
-            @Override
-            public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
-                Component c = DEFAULT_RENDERER.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
-                if (resolveList.contains(row)) {
-                    c.setBackground(new Color(32, 165, 69));
-                } else {
-                    if (passengerList.contains(row)){
-                        c.setBackground(new Color(240, 149, 23));
-                    } else if(luggageList.contains(row)){
-                        c.setBackground(new Color(37, 132, 193));
-                    } else{
-                        c.setBackground(new Color(240, 240, 240));
-                    }
-                }
-                return c;
-            }
-        });
-        tableResults.getColumnModel().getColumn(0).setHeaderValue("#");
-        tableResults.getColumnModel().getColumn(1).setHeaderValue("Luggage Number");
-        tableResults.getColumnModel().getColumn(2).setHeaderValue("Add date");
-        tableResults.getColumnModel().getColumn(3).setHeaderValue("Handler name");
+	    @Override
+	    public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
+		Component c = DEFAULT_RENDERER.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
+		if (resolveList.contains(row)) {
+		    c.setBackground(new Color(32, 165, 69));
+		} else {
+		    if (passengerList.contains(row)) {
+			c.setBackground(new Color(240, 149, 23));
+		    } else if (luggageList.contains(row)) {
+			c.setBackground(new Color(37, 132, 193));
+		    } else {
+			c.setBackground(new Color(240, 240, 240));
+		    }
+		}
+		return c;
+	    }
+	});
+	tableResults.getColumnModel().getColumn(0).setHeaderValue("#");
+	tableResults.getColumnModel().getColumn(1).setHeaderValue("Luggage Number");
+	tableResults.getColumnModel().getColumn(2).setHeaderValue("Add date");
+	tableResults.getColumnModel().getColumn(3).setHeaderValue("Handler name");
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel LabelDescription;
