@@ -314,6 +314,7 @@ public class ManagerGraph extends ApplicationFrame {
         while (rs.next()) {
             xGaySeanx++;
         }
+        
         System.out.println(xGaySeanx);
 
         return xGaySeanx;

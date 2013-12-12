@@ -13,6 +13,7 @@ import java.util.Locale;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.BorderFactory;
+import main.MainGuiFrame;
 import models.Medewerker;
 import models.MedewerkerDAO;
 import org.apache.commons.codec.digest.DigestUtils;
@@ -22,15 +23,17 @@ import org.apache.commons.codec.digest.DigestUtils;
  * @author workplz
  */
 public class PasswordConfirm extends javax.swing.JDialog {
+
     private final Color red = new Color(163, 0, 15);
     private int medewerkerID;
+
     /**
      * Creates new form PasswordConfirm
      */
     public PasswordConfirm(java.awt.Frame parent, boolean modal, int medewerkerID) {
         super(parent, modal);
         this.setUndecorated(true);
-        getRootPane().setBorder( BorderFactory.createLineBorder(red) );
+        getRootPane().setBorder(BorderFactory.createLineBorder(red));
         initComponents();
         this.setLocationRelativeTo(null);
         this.medewerkerID = medewerkerID;
@@ -151,37 +154,42 @@ public class PasswordConfirm extends javax.swing.JDialog {
     }//GEN-LAST:event_passwordActionPerformed
 
     private void saveButActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saveButActionPerformed
-                 Medewerker tempMedewerker = null;
-                MedewerkerDAO medewerkerTijdelijk;
-                medewerkerTijdelijk = new MedewerkerDAO();
-                Locale english, dutch, current;
-                
-                english = new Locale("en", "US");
-                 dutch = new Locale("nl", "NL");
-        
+
+        Medewerker tempMedewerker = null;
+        MedewerkerDAO medewerkerTijdelijk;
+        medewerkerTijdelijk = new MedewerkerDAO();
+        Locale english, dutch, current;
+
+        english = new Locale("en", "US");
+        dutch = new Locale("nl", "NL");
+
         Locale.setDefault(english);
-        
-        if(dropDown.getSelectedItem() == "English"){
+
+        if (dropDown.getSelectedItem() == "English") {
             Locale.setDefault(english);
-                     try {
-                         tempMedewerker = medewerkerTijdelijk.readByID(medewerkerID);
-                     } catch (SQLException ex) {
-                         Logger.getLogger(PasswordConfirm.class.getName()).log(Level.SEVERE, null, ex);
-                     }
-                     tempMedewerker.setUserLang("EN");
+            try {
+                tempMedewerker = medewerkerTijdelijk.readByID(medewerkerID);
+            } catch (SQLException ex) {
+                Logger.getLogger(PasswordConfirm.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            tempMedewerker.setUserLang("EN");
+            //MainGuiFrame f = new MainGuiFrame();
+            dispose();
         }
-        if(dropDown.getSelectedItem() == "Nederlands"){
+        if (dropDown.getSelectedItem() == "Nederlands") {
             Locale.setDefault(dutch);
-                     try {
-                         tempMedewerker = medewerkerTijdelijk.readByID(medewerkerID);
-                     } catch (SQLException ex) {
-                         Logger.getLogger(PasswordConfirm.class.getName()).log(Level.SEVERE, null, ex);
-                     }
-                     tempMedewerker.setUserLang("NL");
+            try {
+                tempMedewerker = medewerkerTijdelijk.readByID(medewerkerID);
+            } catch (SQLException ex) {
+                Logger.getLogger(PasswordConfirm.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            tempMedewerker.setUserLang("NL");
+            dispose();
         }
-        
-        if(password != null){
-            if(Arrays.equals(password.getPassword(), passwordConfirm.getPassword())){
+
+        if (!"".equals(password.getText())) {
+            System.out.println(password.getText());
+            if (Arrays.equals(password.getPassword(), passwordConfirm.getPassword())) {
 //                Medewerker tempMedewerker = null;
 //                MedewerkerDAO medewerkerTijdelijk;
 //                medewerkerTijdelijk = new MedewerkerDAO();
@@ -190,8 +198,8 @@ public class PasswordConfirm extends javax.swing.JDialog {
                 } catch (SQLException ex) {
                     Logger.getLogger(PasswordConfirm.class.getName()).log(Level.SEVERE, null, ex);
                 }
-                
-                if(tempMedewerker.getPassword().equals(DigestUtils.sha256Hex(String.valueOf(password.getPassword())))){
+
+                if (tempMedewerker.getPassword().equals(DigestUtils.sha256Hex(String.valueOf(password.getPassword())))) {
                     dispose();
                 } else {
                     tempMedewerker.setPassword(password.getPassword());
@@ -208,10 +216,10 @@ public class PasswordConfirm extends javax.swing.JDialog {
     }//GEN-LAST:event_saveButActionPerformed
 
     private void dropDownActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_dropDownActionPerformed
-        
+
     }//GEN-LAST:event_dropDownActionPerformed
-    
-    public void close(){
+
+    public void close() {
         WindowEvent winClosingEvent = new WindowEvent(this, WindowEvent.WINDOW_CLOSING);
         Toolkit.getDefaultToolkit().getSystemEventQueue().postEvent(winClosingEvent);
         dispose();
