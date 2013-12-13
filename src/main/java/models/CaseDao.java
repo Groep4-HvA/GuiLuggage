@@ -20,7 +20,8 @@ public class CaseDao {
     public CaseDao() {
         // initialization 
     }
-public List<Case> readAllPending() throws SQLException {
+
+    public List<Case> readAllPending() throws SQLException {
         List<Case> list = new LinkedList<Case>();
         ResultSet rs = null;
         PreparedStatement prdstmt = null;
@@ -43,7 +44,6 @@ public List<Case> readAllPending() throws SQLException {
         }
 
         return list;
-
     }
 
     public List<Case> readAllResolved() throws SQLException {
@@ -94,6 +94,7 @@ public List<Case> readAllPending() throws SQLException {
         }
         return list;
     }
+
     public List<Case> readAll() throws SQLException {
 
         List<Case> list = new LinkedList<Case>();
@@ -197,26 +198,26 @@ public List<Case> readAllPending() throws SQLException {
         return list;
     }
 
-public int update(Case currentCase) throws SQLException {
+    public int update(Case currentCase) throws SQLException {
         DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
         String queryResolve, queryLabel, queryName, querySurName, queryColor, queryShape, queryRAddress, queryRPostalCode, queryRCity, queryHAddress, queryHPostalCode, queryHCity, queryAditional, queryLocation;
-        queryLabel          = currentCase.getLabel();
-        querySurName        = currentCase.getSurName();
-        queryName           = currentCase.getName();
-        queryColor          = currentCase.getColor();
-        queryShape          = currentCase.getShape();
-        queryRAddress       = currentCase.getResidentAddress();
-        queryRPostalCode    = currentCase.getResidentPostalCode();
-        queryRCity          = currentCase.getResidentCity();
-        queryHAddress       = currentCase.getHomeAddress();
-        queryHPostalCode    = currentCase.getHomePostalCode();
-        queryHCity          = currentCase.getHomeCity();
-        queryAditional      = currentCase.getAditionalDetails();
-        queryLocation       = currentCase.getStorageLocation();
-        queryResolve        = (currentCase.getResolveDate()==null) ? null : dateFormat.format(currentCase.getResolveDate());
-        
-        
-        
+        queryLabel = currentCase.getLabel();
+        querySurName = currentCase.getSurName();
+        queryName = currentCase.getName();
+        queryColor = currentCase.getColor();
+        queryShape = currentCase.getShape();
+        queryRAddress = currentCase.getResidentAddress();
+        queryRPostalCode = currentCase.getResidentPostalCode();
+        queryRCity = currentCase.getResidentCity();
+        queryHAddress = currentCase.getHomeAddress();
+        queryHPostalCode = currentCase.getHomePostalCode();
+        queryHCity = currentCase.getHomeCity();
+        queryAditional = currentCase.getAditionalDetails();
+        queryLocation = currentCase.getStorageLocation();
+        queryResolve = (currentCase.getResolveDate() == null) ? null : dateFormat.format(currentCase.getResolveDate());
+
+
+
         PreparedStatement prdstmt = null;
         String query = "UPDATE `cases` SET `Name`=?, `Surname`=?, `homeAddress`=?, `homePostalCode`=?, `homeCity`=?, `residentAddress`=?, `residentPostalCode`=?, `residentCity`=?, `Color`=?, `Shape`=?, `AditionalDetails`=?, `StorageLocation`=?, `ResolveDate`=? WHERE `LuggageNumber`=?;";
         conn.startConnection();
@@ -265,5 +266,88 @@ public int update(Case currentCase) throws SQLException {
             conn.closeConnection();
         }
         return -1;
+    }
+
+    public List<Case> readAllPendingByDate(String date1, String date2) throws SQLException {
+        List<Case> list = new LinkedList<Case>();
+        ResultSet rs = null;
+        PreparedStatement prdstmt = null;
+
+        String query = "SELECT LuggageNumber, AddDate, LEFT(AddDate, 10) FROM cases WHERE ResolveDate is null AND `AddDate` BETWEEN ? AND ? LIMIT 50;";
+        conn.startConnection();
+
+        prdstmt = conn.getConnection().prepareStatement(query);
+        prdstmt.setString(1, date1);
+        prdstmt.setString(2, date2);
+        
+        rs = conn.performSelect(prdstmt);
+
+        while (rs.next()) {
+            Case tempcase = new Case();
+            tempcase.setLabel(rs.getString("LuggageNumber"));
+            tempcase.setAddDate(rs.getDate("AddDate"));
+            list.add(tempcase);
+        }
+
+        if (conn != null) {
+            conn.closeConnection();
+        }
+
+        return list;
+    }
+    public List<Case> readAllResolvedByDate(String date1, String date2) throws SQLException {
+        List<Case> list = new LinkedList<Case>();
+        ResultSet rs = null;
+        PreparedStatement prdstmt = null;
+
+        String query = "SELECT LuggageNumber, AddDate, LEFT(AddDate, 10) FROM cases WHERE ResolveDate is not null AND `AddDate` BETWEEN ? AND ? LIMIT 50;";
+        conn.startConnection();
+
+        prdstmt = conn.getConnection().prepareStatement(query);
+        prdstmt.setString(1, date1);
+        prdstmt.setString(2, date2);
+        
+        rs = conn.performSelect(prdstmt);
+
+        while (rs.next()) {
+            Case tempcase = new Case();
+            tempcase.setLabel(rs.getString("LuggageNumber"));
+            tempcase.setAddDate(rs.getDate("AddDate"));
+            list.add(tempcase);
+        }
+
+        if (conn != null) {
+            conn.closeConnection();
+        }
+
+        return list;
+    }
+
+        public List<Case> readAllTotalByDate(String date1, String date2) throws SQLException {
+        List<Case> list = new LinkedList<Case>();
+        ResultSet rs = null;
+        PreparedStatement prdstmt = null;
+
+        String query = "SELECT LuggageNumber, AddDate, LEFT(AddDate, 10) FROM cases WHERE `AddDate` BETWEEN ? AND ? LIMIT 50;";
+        conn.startConnection();
+
+        prdstmt = conn.getConnection().prepareStatement(query);
+        prdstmt.setString(1, date1);
+        prdstmt.setString(2, date2);
+        
+        rs = conn.performSelect(prdstmt);
+
+        while (rs.next()) {
+            Case tempcase = new Case();
+            tempcase.setLabel(rs.getString("LuggageNumber"));
+            tempcase.setAddDate(rs.getDate("AddDate"));
+            list.add(tempcase);
+        }
+
+        if (conn != null) {
+            conn.closeConnection();
+        }
+
+        return list;
     }
 }
