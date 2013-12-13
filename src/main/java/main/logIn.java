@@ -129,10 +129,9 @@ public class logIn extends javax.swing.JFrame {
         } catch (SQLException ex) {
             Logger.getLogger(logIn.class.getName()).log(Level.SEVERE, null, ex);
         }
-        System.out.println();
         if(list.size()==1){
             Medewerker medew = list.get(0);
-            //System.out.println(medew.toString());
+            //Debug.printout(medew.toString());
             if(medew.isManager()){
                 ManagerGui main = new ManagerGui(medew.isAppManager(), medew.getId());
                 main.setVisible(true);

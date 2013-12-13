@@ -5,6 +5,7 @@
 package popups;
 
 import java.util.Arrays;
+import models.Debug;
 import models.Medewerker;
 import models.MedewerkerDAO;
 
@@ -185,10 +186,10 @@ public class AddMedewerker extends javax.swing.JFrame {
                 errorText.setText(success);
                 dispose();
             } catch (Exception ex) {
-                //System.out.println("sssss");
+                //Debug.printout("sssss");
                 ex.printStackTrace();
                 String dbFailure = resBundle.getString("dbFailure").replaceAll("%&", "medewerker");
-                System.err.println(dbFailure);
+                Debug.printout(dbFailure);
                 errorText.setText(dbFailure);
             }
         } else {

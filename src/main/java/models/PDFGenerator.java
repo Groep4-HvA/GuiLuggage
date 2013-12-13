@@ -5,8 +5,6 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
-import java.util.Arrays;
-import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.apache.pdfbox.pdmodel.PDDocument;
@@ -73,7 +71,7 @@ public class PDFGenerator {
         String location = System.getProperty("user.home")+File.separator+"Documents"+File.separator+filename;
         location = location.replace("\\", "/");
         OutputStream output = new FileOutputStream(location);
-        System.out.println(location);
+        Debug.printout(location);
         try {
             // Make sure that the content stream is closed:
             this.contentStream.close();

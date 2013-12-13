@@ -9,6 +9,7 @@ import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.BorderFactory;
+import models.Debug;
 import models.Medewerker;
 import models.MedewerkerDAO;
 import org.apache.commons.codec.digest.DigestUtils;
@@ -164,14 +165,14 @@ public class Popupappmedewerker extends javax.swing.JFrame {
             medewerker.setPassword(DigestUtils.sha256Hex(String.valueOf(firstPasswordField)));
         }  else {
         medewerker.setPassword(firstPasswordField.getPassword());
-       // System.out.println(medewerker.toString());
+       // Debug.printout(medewerker.toString());
         try {
             dbMedewerker.update(medewerker);
         } catch (SQLException ex) {
             Logger.getLogger(Popupappmedewerker.class.getName()).log(Level.SEVERE, null, ex);
         }
         }
-        System.out.println(medewerker.toString());
+        Debug.printout(medewerker.toString());
         dispose();
     }//GEN-LAST:event_saveButtonActionPerformed
 

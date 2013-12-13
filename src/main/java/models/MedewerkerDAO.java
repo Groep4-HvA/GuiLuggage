@@ -186,7 +186,7 @@ public class MedewerkerDAO {
         queryUserLang = medewerker.getUserLang();
         queryManager = medewerker.isManager();
         queryAppManager = medewerker.isAppManager();
-        System.err.println(medewerker.toString());
+        Debug.printout(medewerker.toString());
         conn.startConnection();
         //  conn = (ConnectionMySQL) DriverManager.getConnection(url, user, pw);
         prdstmt = conn.getConnection().prepareStatement(query);

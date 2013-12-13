@@ -12,6 +12,7 @@ import java.util.logging.Logger;
 import javax.swing.BorderFactory;
 import models.Case;
 import models.CaseDao;
+import models.Debug;
 import models.printJob;
 
 /**
@@ -337,7 +338,7 @@ public class PopUpMedewerker extends javax.swing.JFrame {
         currentCase.setHomeCity(hCityField.getText());
         currentCase.setAditionalDetails(jTextArea1.getText());
         currentCase.setStorageLocation(jTextArea2.getText());
-        System.err.println(currentCase.toString());
+        Debug.printout(currentCase.toString());
         CaseDao dbCase = new CaseDao();
         try {
             dbCase.update(currentCase);

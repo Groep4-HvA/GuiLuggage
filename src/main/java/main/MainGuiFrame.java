@@ -27,6 +27,7 @@ import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.TableCellRenderer;
 import models.Case;
 import models.CaseDao;
+import models.Debug;
 import models.Medewerker;
 import models.MedewerkerDAO;
 import popups.DbDialog;
@@ -425,7 +426,7 @@ public class MainGuiFrame extends java.awt.Frame {
                 setMenuBar(menuBar);
             }
         } else {
-            System.out.print(bundle.getString("notAuthorized"));
+            Debug.printout(bundle.getString("notAuthorized"));
         }
     }//GEN-LAST:event_appManagementButtonActionPerformed
 
@@ -477,12 +478,12 @@ public class MainGuiFrame extends java.awt.Frame {
     }//GEN-LAST:event_addNewButton2ActionPerformed
 
     private void searchButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_searchButtonActionPerformed
-        System.out.println(searchInput.getText());
+        Debug.printout(searchInput.getText());
         if (!inBeheer) {
             try {
                 CaseDao cdCase = new CaseDao();
                 caseList = cdCase.search(searchInput.getText());
-                System.out.println(searchInput.getText());
+                Debug.printout(searchInput.getText());
                 populateTableCase(caseList);
             } catch (Exception e) {
                 e.printStackTrace();

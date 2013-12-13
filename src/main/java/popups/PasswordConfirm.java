@@ -13,7 +13,7 @@ import java.util.Locale;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.BorderFactory;
-import main.MainGuiFrame;
+import models.Debug;
 import models.Medewerker;
 import models.MedewerkerDAO;
 import org.apache.commons.codec.digest.DigestUtils;
@@ -187,8 +187,8 @@ public class PasswordConfirm extends javax.swing.JDialog {
             dispose();
         }
 
-        if (!"".equals(password.getText())) {
-            System.out.println(password.getText());
+        if (password.getPassword().length>0) {
+            Debug.printout(password.getPassword().toString());
             if (Arrays.equals(password.getPassword(), passwordConfirm.getPassword())) {
 //                Medewerker tempMedewerker = null;
 //                MedewerkerDAO medewerkerTijdelijk;
@@ -209,7 +209,7 @@ public class PasswordConfirm extends javax.swing.JDialog {
                         Logger.getLogger(PasswordConfirm.class.getName()).log(Level.SEVERE, null, ex);
                     }
                 }
-                System.out.println(tempMedewerker.toString());
+                Debug.printout(tempMedewerker.toString());
                 dispose();
             }
         }

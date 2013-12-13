@@ -18,6 +18,7 @@ import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import models.Case;
 import models.CaseDao;
+import models.Debug;
 import models.PDFGenerator;
 import models.Passenger;
 import models.PassengerDAO;
@@ -63,7 +64,7 @@ public class ManagerGui extends java.awt.Frame {
         int count = 0;
         while (x < list.size()) {
             count++;
-            //  System.out.println(list.get(x).toString());
+            //Debug.printout(list.get(x).toString());
             jTable1.getModel().setValueAt(count, x, 0);
             jTable1.getModel().setValueAt(list.get(x).getLabel(), x, 1);
             jTable1.getModel().setValueAt(list.get(x).getAddDate(), x, 2);
@@ -385,8 +386,8 @@ public class ManagerGui extends java.awt.Frame {
             int count = 0;
 
             while (x < list.size()) {
-                //System.out.println(list.get(x).toString());
-                System.out.println(list.size());
+                //Debug.printout(list.get(x).toString());
+                Debug.printout(list.size()+"");
                 count++;
 
                 jTable1.getModel().setValueAt(count, x, 0);
@@ -409,7 +410,7 @@ public class ManagerGui extends java.awt.Frame {
             int count = 0;
             while (x < list.size()) {
                 count++;
-                //  System.out.println(list.get(x).toString());
+                //  Debug.printout(list.get(x).toString());
                 jTable1.getModel().setValueAt(count, x, 0);
                 jTable1.getModel().setValueAt(list.get(x).getLabel(), x, 1);
                 jTable1.getModel().setValueAt(list.get(x).getAddDate(), x, 2);
@@ -492,7 +493,7 @@ public class ManagerGui extends java.awt.Frame {
             Date datum2 = jDateChooser2.getDate();
             String dateString2 = String.format("%1$tY-%1$tm-%1$td", datum2);
 
-            System.out.println(dateString);
+            Debug.printout(dateString);
 
 
             if (!dateString.equals(dateString2)) {
@@ -512,8 +513,8 @@ public class ManagerGui extends java.awt.Frame {
                     int x = 0;
                     int count = 0;
                     while (x < list.size()) {
-                        //System.out.println(list.get(x).toString());
-                        System.out.println(list.size());
+                        //Debug.printout(list.get(x).toString());
+                        Debug.printout(list.size()+"");
                         count++;
                         jTable1.getModel().setValueAt(count, x, 0);
                         jTable1.getModel().setValueAt(list.get(x).getLabel(), x, 1);
@@ -538,8 +539,8 @@ public class ManagerGui extends java.awt.Frame {
                 int x = 0;
                 int count = 0;
                 while (x < list.size()) {
-                    //System.out.println(list.get(x).toString());
-                    System.out.println("s");
+                    //Debug.printout(list.get(x).toString());
+                    Debug.printout("s");
                     count++;
                     jTable1.getModel().setValueAt(count, x, 0);
                     jTable1.getModel().setValueAt(list.get(x).getLabel(), x, 1);
@@ -576,8 +577,8 @@ public class ManagerGui extends java.awt.Frame {
             int count = 0;
 
             while (x < list.size()) {
-                //System.out.println(list.get(x).toString());
-                System.out.println(list.size());
+                //Debug.printout(list.get(x).toString());
+                Debug.printout(list.size()+"");
                 count++;
 
                 jTable1.getModel().setValueAt(count, x, 0);

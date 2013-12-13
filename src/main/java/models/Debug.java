@@ -34,7 +34,7 @@ public class Debug {
             Logger.getLogger(ConnectionMySQL.class.getName()).log(Level.SEVERE, null, ex);
         }
         if (prop.getProperty("debug").equals("true")) {
-            System.out.println(out);
+            System.out.println("LOG(Debug):" + out);
         } else {
             try {
                 wout = new PrintWriter(new BufferedWriter(new FileWriter(System.getProperty("user.dir") + System.getProperty("file.separator") + "log.txt", true)));
