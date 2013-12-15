@@ -31,10 +31,10 @@ import models.MedewerkerDAO;
 
 /**
  *
- * @author sean
+ * @author Groep 4 HvA
  */
 public class ManagerGui extends java.awt.Frame {
-    
+
     private java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("Bundle"); // NOI18N
     /**
      * Creates new form MainGuiFrame
@@ -76,7 +76,6 @@ public class ManagerGui extends java.awt.Frame {
         jTable1.getColumnModel().getColumn(1).setHeaderValue("LabelNumber");
         jTable1.getColumnModel().getColumn(2).setHeaderValue("AddDate");
 
-
     }
 
     /**
@@ -107,6 +106,7 @@ public class ManagerGui extends java.awt.Frame {
         PDF = new javax.swing.JButton();
         jDateChooser1 = new com.toedter.calendar.JDateChooser();
         jDateChooser2 = new com.toedter.calendar.JDateChooser();
+        jButton1 = new javax.swing.JButton();
 
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowClosing(java.awt.event.WindowEvent evt) {
@@ -244,9 +244,11 @@ public class ManagerGui extends java.awt.Frame {
             }
         ));
         jScrollPane1.setViewportView(jTable1);
-        jTable1.getColumnModel().getColumn(0).setHeaderValue(bundle.getString("ManagerGui.jTable1.columnModel.title0")); // NOI18N
-        jTable1.getColumnModel().getColumn(1).setHeaderValue(bundle.getString("ManagerGui.jTable1.columnModel.title1")); // NOI18N
-        jTable1.getColumnModel().getColumn(2).setHeaderValue(bundle.getString("ManagerGui.jTable1.columnModel.title2")); // NOI18N
+        if (jTable1.getColumnModel().getColumnCount() > 0) {
+            jTable1.getColumnModel().getColumn(0).setHeaderValue(bundle.getString("ManagerGui.jTable1.columnModel.title0")); // NOI18N
+            jTable1.getColumnModel().getColumn(1).setHeaderValue(bundle.getString("ManagerGui.jTable1.columnModel.title1")); // NOI18N
+            jTable1.getColumnModel().getColumn(2).setHeaderValue(bundle.getString("ManagerGui.jTable1.columnModel.title2")); // NOI18N
+        }
 
         org.jdesktop.layout.GroupLayout jPanel1Layout = new org.jdesktop.layout.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -268,6 +270,18 @@ public class ManagerGui extends java.awt.Frame {
             }
         });
 
+        java.util.ResourceBundle bundle1 = java.util.ResourceBundle.getBundle("main/Bundle"); // NOI18N
+        jButton1.setText(bundle1.getString("ManagerGui.jButton1.text")); // NOI18N
+        jButton1.setActionCommand(bundle1.getString("ManagerGui.jButton1.actionCommand")); // NOI18N
+        jButton1.setMaximumSize(new java.awt.Dimension(61, 23));
+        jButton1.setMinimumSize(new java.awt.Dimension(61, 23));
+        jButton1.setPreferredSize(new java.awt.Dimension(61, 23));
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+
         org.jdesktop.layout.GroupLayout jPanel2Layout = new org.jdesktop.layout.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
@@ -279,14 +293,14 @@ public class ManagerGui extends java.awt.Frame {
                 .add(logoutButton)
                 .addContainerGap())
             .add(jPanel2Layout.createSequentialGroup()
-                .addContainerGap(59, Short.MAX_VALUE)
+                .addContainerGap(61, Short.MAX_VALUE)
                 .add(jPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
                     .add(jPanel2Layout.createSequentialGroup()
-                        .add(jPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING)
+                        .add(jPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
                             .add(jPanel1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                            .add(org.jdesktop.layout.GroupLayout.LEADING, jPanel2Layout.createSequentialGroup()
+                            .add(jPanel2Layout.createSequentialGroup()
                                 .add(missingManager)
-                                .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
+                                .add(18, 18, 18)
                                 .add(foundManager)
                                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
                                 .add(processedManager)
@@ -296,14 +310,14 @@ public class ManagerGui extends java.awt.Frame {
                                 .add(jLabel2)
                                 .add(18, 18, 18)
                                 .add(jLabel3, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 100, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                                .add(389, 389, 389)
+                                .add(398, 398, 398)
                                 .add(graphManager)))
-                        .addContainerGap(58, Short.MAX_VALUE))
+                        .addContainerGap(61, Short.MAX_VALUE))
                     .add(jPanel2Layout.createSequentialGroup()
                         .add(printButton)
-                        .add(18, 18, 18)
+                        .add(33, 33, 33)
                         .add(PDF)
-                        .add(69, 69, 69)
+                        .add(54, 54, 54)
                         .add(jDateChooser1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                         .add(18, 18, 18)
                         .add(jLabel4)
@@ -311,6 +325,8 @@ public class ManagerGui extends java.awt.Frame {
                         .add(jDateChooser2, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                         .add(18, 18, 18)
                         .add(selectButton)
+                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                        .add(jButton1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .add(moreButton)
                         .add(83, 83, 83))))
@@ -322,7 +338,7 @@ public class ManagerGui extends java.awt.Frame {
                 .add(jPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
                     .add(myAccountButton)
                     .add(logoutButton))
-                .add(18, 18, Short.MAX_VALUE)
+                .add(18, 37, Short.MAX_VALUE)
                 .add(jPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
                     .add(missingManager)
                     .add(processedManager)
@@ -340,10 +356,11 @@ public class ManagerGui extends java.awt.Frame {
                         .add(printButton)
                         .add(jLabel4)
                         .add(selectButton)
-                        .add(PDF))
+                        .add(PDF)
+                        .add(jButton1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
                     .add(jDateChooser1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                     .add(jDateChooser2, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(25, Short.MAX_VALUE))
         );
 
         add(jPanel2, java.awt.BorderLayout.CENTER);
@@ -371,30 +388,96 @@ public class ManagerGui extends java.awt.Frame {
 
     private void missingManagerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_missingManagerActionPerformed
         try {
+            Date datum1 = jDateChooser1.getDate();
+            String dateString = String.format("%1$tY-%1$tm-%1$td", datum1);
+            Date datum2 = jDateChooser2.getDate();
+            String dateString2 = String.format("%1$tY-%1$tm-%1$td", datum2);
 
-            CaseDao Case = new CaseDao();
-            List<Case> list;
-            list = Case.readAllPending();
+//          System.out.println(dateString);
+            if (jDateChooser1.getDate() == null || jDateChooser2.getDate() == null) {
 
-            for (int x = 0; x < 50; x++) {
-                jTable1.getModel().setValueAt("", x, 0);
-                jTable1.getModel().setValueAt("", x, 1);
-                jTable1.getModel().setValueAt("", x, 2);
-            }
+                CaseDao Case = new CaseDao();
+                List<Case> list;
+                list = Case.readAllPending();
 
-            int x = 0;
-            int count = 0;
+                for (int x = 0; x < 50; x++) {
+                    jTable1.getModel().setValueAt("", x, 0);
+                    jTable1.getModel().setValueAt("", x, 1);
+                    jTable1.getModel().setValueAt("", x, 2);
+                }
 
-            while (x < list.size()) {
-                //Debug.printout(list.get(x).toString());
-                Debug.printout(list.size()+"");
-                count++;
+                int x = 0;
+                int count = 0;
 
-                jTable1.getModel().setValueAt(count, x, 0);
-                jTable1.getModel().setValueAt(list.get(x).getLabel(), x, 1);
-                jTable1.getModel().setValueAt(list.get(x).getAddDate(), x, 2);
+                while (x < list.size()) {
+                    //System.out.println(list.get(x).toString());
+                    System.out.println(list.size());
+                    count++;
 
-                x++;
+                    jTable1.getModel().setValueAt(count, x, 0);
+                    jTable1.getModel().setValueAt(list.get(x).getLabel(), x, 1);
+                    jTable1.getModel().setValueAt(list.get(x).getAddDate(), x, 2);
+
+                    x++;
+                }
+
+            } else {
+                if (!dateString.equals(dateString2)) {
+
+                    if (dateString.compareTo(dateString2) < 0) {
+
+                        CaseDao Case = new CaseDao();
+                        List<Case> list;
+                        list = Case.readAllPendingByDate(dateString, dateString2);
+
+                        for (int x = 0; x < 50; x++) {
+                            jTable1.getModel().setValueAt("", x, 0);
+                            jTable1.getModel().setValueAt("", x, 1);
+                            jTable1.getModel().setValueAt("", x, 2);
+                        }
+
+                        int x = 0;
+                        int count = 0;
+                        while (x < list.size()) {
+                            //System.out.println(list.get(x).toString());
+                            System.out.println(list.size());
+                            count++;
+                            jTable1.getModel().setValueAt(count, x, 0);
+                            jTable1.getModel().setValueAt(list.get(x).getLabel(), x, 1);
+                            jTable1.getModel().setValueAt(list.get(x).getAddDate(), x, 2);
+
+                            x++;
+                        }
+                    } else {
+                        JOptionPane.showMessageDialog(null, "" + datum1 + " cannot be further in the past then " + datum2);
+                    }
+                } else if (dateString.equals(dateString2)) {
+                    CaseDao Case = new CaseDao();
+                    List<Case> list;
+                    list = Case.readAllPendingByDate(dateString, dateString2);
+
+                    for (int x = 0; x < 50; x++) {
+                        jTable1.getModel().setValueAt("", x, 0);
+                        jTable1.getModel().setValueAt("", x, 1);
+                        jTable1.getModel().setValueAt("", x, 2);
+                    }
+
+                    int x = 0;
+                    int count = 0;
+                    while (x < list.size()) {
+                        //System.out.println(list.get(x).toString());
+                        System.out.println("s");
+                        count++;
+                        jTable1.getModel().setValueAt(count, x, 0);
+                        jTable1.getModel().setValueAt(list.get(x).getLabel(), x, 1);
+                        jTable1.getModel().setValueAt(list.get(x).getAddDate(), x, 2);
+
+                        x++;
+                    }
+
+                } else {
+                    JOptionPane.showMessageDialog(null, "" + datum2 + " Needs to be greater then  " + datum1);
+                }
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -403,38 +486,102 @@ public class ManagerGui extends java.awt.Frame {
 
     private void processedManagerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_processedManagerActionPerformed
         try {
-            CaseDao dbCase = new CaseDao();
-            List<Case> list;
-            list = dbCase.readAll();
-            int x = 0;
-            int count = 0;
-            while (x < list.size()) {
-                count++;
-                //  Debug.printout(list.get(x).toString());
-                jTable1.getModel().setValueAt(count, x, 0);
-                jTable1.getModel().setValueAt(list.get(x).getLabel(), x, 1);
-                jTable1.getModel().setValueAt(list.get(x).getAddDate(), x, 2);
 
-                x++;
-            }        // TODO add your handling code here:
+            Date datum1 = jDateChooser1.getDate();
+            String dateString = String.format("%1$tY-%1$tm-%1$td", datum1);
+            Date datum2 = jDateChooser2.getDate();
+            String dateString2 = String.format("%1$tY-%1$tm-%1$td", datum2);
+
+            if (jDateChooser1.getDate() == null || jDateChooser2.getDate() == null) {
+
+                CaseDao Case = new CaseDao();
+                List<Case> list;
+                list = Case.readAll();
+
+                for (int x = 0; x < 50; x++) {
+                    jTable1.getModel().setValueAt("", x, 0);
+                    jTable1.getModel().setValueAt("", x, 1);
+                    jTable1.getModel().setValueAt("", x, 2);
+                }
+
+                int x = 0;
+                int count = 0;
+
+                while (x < list.size()) {
+                    //System.out.println(list.get(x).toString());
+                    System.out.println(list.size());
+                    count++;
+
+                    jTable1.getModel().setValueAt(count, x, 0);
+                    jTable1.getModel().setValueAt(list.get(x).getLabel(), x, 1);
+                    jTable1.getModel().setValueAt(list.get(x).getAddDate(), x, 2);
+
+                    x++;
+                }
+
+//          System.out.println(dateString);
+            } else {
+                if (!dateString.equals(dateString2)) {
+
+                    if (dateString.compareTo(dateString2) < 0) {
+
+                        CaseDao Case = new CaseDao();
+                        List<Case> list;
+                        list = Case.readAllTotalByDate(dateString, dateString2);
+
+                        for (int x = 0; x < 50; x++) {
+                            jTable1.getModel().setValueAt("", x, 0);
+                            jTable1.getModel().setValueAt("", x, 1);
+                            jTable1.getModel().setValueAt("", x, 2);
+                        }
+
+                        int x = 0;
+                        int count = 0;
+                        while (x < list.size()) {
+                            //System.out.println(list.get(x).toString());
+                            System.out.println(list.size());
+                            count++;
+                            jTable1.getModel().setValueAt(count, x, 0);
+                            jTable1.getModel().setValueAt(list.get(x).getLabel(), x, 1);
+                            jTable1.getModel().setValueAt(list.get(x).getAddDate(), x, 2);
+
+                            x++;
+                        }
+                    } else {
+                        JOptionPane.showMessageDialog(null, "" + datum1 + " cannot be further in the past then " + datum2);
+                    }
+                } else if (dateString.equals(dateString2)) {
+                    CaseDao Case = new CaseDao();
+                    List<Case> list;
+                    list = Case.readAllTotalByDate(dateString, dateString2);
+
+                    for (int x = 0; x < 50; x++) {
+                        jTable1.getModel().setValueAt("", x, 0);
+                        jTable1.getModel().setValueAt("", x, 1);
+                        jTable1.getModel().setValueAt("", x, 2);
+                    }
+
+                    int x = 0;
+                    int count = 0;
+                    while (x < list.size()) {
+                        //System.out.println(list.get(x).toString());
+                        System.out.println("s");
+                        count++;
+                        jTable1.getModel().setValueAt(count, x, 0);
+                        jTable1.getModel().setValueAt(list.get(x).getLabel(), x, 1);
+                        jTable1.getModel().setValueAt(list.get(x).getAddDate(), x, 2);
+
+                        x++;
+                    }
+
+                } else {
+                    JOptionPane.showMessageDialog(null, "" + datum2 + " Needs to be greater then  " + datum1);
+                }
+            }
         } catch (Exception e) {
             e.printStackTrace();
         }
     }//GEN-LAST:event_processedManagerActionPerformed
-
-    private void graphManagerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_graphManagerActionPerformed
-        //jPanel1.setVisible(false);
-        try {
-            ManagerGraph graph = new ManagerGraph("Manager graph", true);
-            Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
-            graph.setLocation(dim.width / 2 - this.getSize().width / 2, dim.height / 2 - this.getSize().height / 2);
-            graph.setLocationRelativeTo(null);
-            graph.setSize(600, 400);
-            graph.setVisible(true);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }//GEN-LAST:event_graphManagerActionPerformed
 
     private void printButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_printButtonActionPerformed
         printJob printJob = new printJob();
@@ -447,33 +594,34 @@ public class ManagerGui extends java.awt.Frame {
     }//GEN-LAST:event_logoutButtonActionPerformed
 
     private void PDFActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_PDFActionPerformed
-        
+
         //---Shows amountPending in PDF-------------------------------
         CaseDao dbCase = new CaseDao();
         List<Case> listPending = null;
         try {
             listPending = dbCase.readAllPending();
         } catch (SQLException ex) {
-            Logger.getLogger(ManagerGui.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ManagerGui.class
+                    .getName()).log(Level.SEVERE, null, ex);
         }
-       String pending = Integer.toString(listPending.size());
-       //----Shows amountResolved in PDF-------------------------------
-       List<Case> listResolved = null;
+        String pending = Integer.toString(listPending.size());
+        //----Shows amountResolved in PDF-------------------------------
+        List<Case> listResolved = null;
         try {
             listResolved = dbCase.readAllResolved();
         } catch (SQLException ex) {
             Logger.getLogger(ManagerGui.class.getName()).log(Level.SEVERE, null, ex);
         }
         String resolved = Integer.toString(listResolved.size());
-       //----Shows total ----------------------------------------------------------
-       List<Case> list = null;
+        //----Shows total ----------------------------------------------------------
+        List<Case> list = null;
         try {
             list = dbCase.readAll();
         } catch (SQLException ex) {
             Logger.getLogger(ManagerGui.class.getName()).log(Level.SEVERE, null, ex);
         }
         String total = Integer.toString(list.size());
-       
+
         PDFGenerator pdf = new PDFGenerator();
         pdf.generate(pending, resolved, total);
         try {
@@ -495,7 +643,6 @@ public class ManagerGui extends java.awt.Frame {
 
             Debug.printout(dateString);
 
-
             if (!dateString.equals(dateString2)) {
 
                 if (dateString.compareTo(dateString2) < 0) {
@@ -514,7 +661,7 @@ public class ManagerGui extends java.awt.Frame {
                     int count = 0;
                     while (x < list.size()) {
                         //Debug.printout(list.get(x).toString());
-                        Debug.printout(list.size()+"");
+                        Debug.printout(list.size() + "");
                         count++;
                         jTable1.getModel().setValueAt(count, x, 0);
                         jTable1.getModel().setValueAt(list.get(x).getLabel(), x, 1);
@@ -563,38 +710,147 @@ public class ManagerGui extends java.awt.Frame {
     private void foundManagerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_foundManagerActionPerformed
         try {
 
-            CaseDao Case = new CaseDao();
-            List<Case> list;
-            list = Case.readAllResolved();
+            Date datum1 = jDateChooser1.getDate();
+            String dateString = String.format("%1$tY-%1$tm-%1$td", datum1);
+            Date datum2 = jDateChooser2.getDate();
+            String dateString2 = String.format("%1$tY-%1$tm-%1$td", datum2);
 
-            for (int x = 0; x < 50; x++) {
-                jTable1.getModel().setValueAt("", x, 0);
-                jTable1.getModel().setValueAt("", x, 1);
-                jTable1.getModel().setValueAt("", x, 2);
-            }
+            if (jDateChooser1.getDate() == null || jDateChooser2.getDate() == null) {
 
-            int x = 0;
-            int count = 0;
+                CaseDao Case = new CaseDao();
+                List<Case> list;
+                list = Case.readAllResolved();
 
-            while (x < list.size()) {
-                //Debug.printout(list.get(x).toString());
-                Debug.printout(list.size()+"");
-                count++;
+                for (int x = 0; x < 50; x++) {
+                    jTable1.getModel().setValueAt("", x, 0);
+                    jTable1.getModel().setValueAt("", x, 1);
+                    jTable1.getModel().setValueAt("", x, 2);
+                }
 
-                jTable1.getModel().setValueAt(count, x, 0);
-                jTable1.getModel().setValueAt(list.get(x).getLabel(), x, 1);
-                jTable1.getModel().setValueAt(list.get(x).getAddDate(), x, 2);
+                int x = 0;
+                int count = 0;
 
-                x++;
+                while (x < list.size()) {
+                    //System.out.println(list.get(x).toString());
+                    System.out.println(list.size());
+                    count++;
+
+                    jTable1.getModel().setValueAt(count, x, 0);
+                    jTable1.getModel().setValueAt(list.get(x).getLabel(), x, 1);
+                    jTable1.getModel().setValueAt(list.get(x).getAddDate(), x, 2);
+
+                    x++;
+                }
+
+//          System.out.println(dateString);
+            } else {
+                if (!dateString.equals(dateString2)) {
+
+                    if (dateString.compareTo(dateString2) < 0) {
+
+                        CaseDao Case = new CaseDao();
+                        List<Case> list;
+                        list = Case.readAllResolvedByDate(dateString, dateString2);
+
+                        for (int x = 0; x < 50; x++) {
+                            jTable1.getModel().setValueAt("", x, 0);
+                            jTable1.getModel().setValueAt("", x, 1);
+                            jTable1.getModel().setValueAt("", x, 2);
+                        }
+
+                        int x = 0;
+                        int count = 0;
+                        while (x < list.size()) {
+                            //System.out.println(list.get(x).toString());
+                            System.out.println(list.size());
+                            count++;
+                            jTable1.getModel().setValueAt(count, x, 0);
+                            jTable1.getModel().setValueAt(list.get(x).getLabel(), x, 1);
+                            jTable1.getModel().setValueAt(list.get(x).getAddDate(), x, 2);
+
+                            x++;
+                        }
+                    } else {
+                        JOptionPane.showMessageDialog(null, "" + datum1 + " cannot be further in the past then " + datum2);
+                    }
+                } else if (dateString.equals(dateString2)) {
+                    CaseDao Case = new CaseDao();
+                    List<Case> list;
+                    list = Case.readAllResolvedByDate(dateString, dateString2);
+
+                    for (int x = 0; x < 50; x++) {
+                        jTable1.getModel().setValueAt("", x, 0);
+                        jTable1.getModel().setValueAt("", x, 1);
+                        jTable1.getModel().setValueAt("", x, 2);
+                    }
+
+                    int x = 0;
+                    int count = 0;
+                    while (x < list.size()) {
+                        //System.out.println(list.get(x).toString());
+                        System.out.println("s");
+                        count++;
+                        jTable1.getModel().setValueAt(count, x, 0);
+                        jTable1.getModel().setValueAt(list.get(x).getLabel(), x, 1);
+                        jTable1.getModel().setValueAt(list.get(x).getAddDate(), x, 2);
+
+                        x++;
+                    }
+
+                } else {
+                    JOptionPane.showMessageDialog(null, "" + datum2 + " Needs to be greater then  " + datum1);
+                }
             }
         } catch (Exception e) {
             e.printStackTrace();
-        }        // TODO add your handling code here:
+        }
+
     }//GEN-LAST:event_foundManagerActionPerformed
+private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+
+    try {
+
+        jDateChooser1.setDate(null);
+        jDateChooser2.setDate(null);
+
+        CaseDao Case = new CaseDao();
+        List<Case> list;
+        list = Case.readAll();
+        int x = 0;
+        int count = 0;
+        while (x < list.size()) {
+            count++;
+            //  System.out.println(list.get(x).toString());
+            jTable1.getModel().setValueAt(count, x, 0);
+            jTable1.getModel().setValueAt(list.get(x).getLabel(), x, 1);
+            jTable1.getModel().setValueAt(list.get(x).getAddDate(), x, 2);
+
+            x++;
+        }        // TODO add your handling code here:
+    } catch (Exception e) {
+        e.printStackTrace();
+    }
+    }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void graphManagerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_graphManagerActionPerformed
+        //jPanel1.setVisible(false);
+        try {
+            ManagerGraph graph = new ManagerGraph("Manager graph", true);
+            Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
+            graph.setLocation(dim.width / 2 - this.getSize().width / 2, dim.height / 2 - this.getSize().height / 2);
+            graph.setLocationRelativeTo(null);
+            graph.setSize(600, 400);
+            graph.setVisible(true);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }//GEN-LAST:event_graphManagerActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton PDF;
     private javax.swing.JButton foundManager;
     private javax.swing.JButton graphManager;
+    private javax.swing.JButton jButton1;
     private com.toedter.calendar.JDateChooser jDateChooser1;
     private com.toedter.calendar.JDateChooser jDateChooser2;
     private javax.swing.JLabel jLabel1;

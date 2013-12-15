@@ -6,4 +6,5 @@ target/*
 *.war
 *.ear
 *.class
+*log.txt
 Config.properties
