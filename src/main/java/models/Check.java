@@ -16,7 +16,7 @@ public class Check {
         return label;
     }
     static public String cleanPhone(String number){
-        number = number.replaceAll("^(?:(?:01\\d{9}|2\\d{7}) ){1,}(?:01\\d{9}|2\\d{7})$", "");
+        number = number.replaceAll("[^0-9()+]", "");
         return number;
     }
     static public boolean verifyLuggage(String label, String color, String shape, String location, String details, String phoneNr){
