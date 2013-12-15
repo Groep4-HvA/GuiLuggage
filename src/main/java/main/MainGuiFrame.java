@@ -2,7 +2,6 @@ package main;
 
 import java.awt.Color;
 import java.awt.Component;
-import java.awt.Dialog;
 import java.awt.Menu;
 import java.awt.MenuBar;
 import java.awt.MenuItem;
@@ -21,7 +20,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.TableCellRenderer;
@@ -87,17 +85,7 @@ public class MainGuiFrame extends java.awt.Frame {
 
         //Access management: users can not see the appmanagement screen
         appManagementButton.setVisible(beheer);
-
-	//TODO: move DAO reference to Case object. list=case.readAll() rather the caseDao
-        //getting all cases into a list object.
-        CaseDao dbCase = new CaseDao();
-        try {
-            caseList = dbCase.readAll();
-        } catch (SQLException ex) {
-            Logger.getLogger(logIn.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        //Populate table and headers
-        populateTableCase(caseList);
+        fillTableCases();
     }
 
     public void fillTableCases() {

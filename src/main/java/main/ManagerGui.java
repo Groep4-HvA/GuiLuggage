@@ -9,8 +9,6 @@ import java.awt.Toolkit;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.sql.SQLException;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 import java.util.logging.Level;
@@ -20,14 +18,8 @@ import models.Case;
 import models.CaseDao;
 import models.Debug;
 import models.PDFGenerator;
-import models.Passenger;
-import models.PassengerDAO;
 import models.printJob;
 import popups.PasswordConfirm;
-import models.Luggage;
-import models.LuggageDAO;
-import models.Medewerker;
-import models.MedewerkerDAO;
 
 /**
  *

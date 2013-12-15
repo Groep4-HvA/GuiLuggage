@@ -7,6 +7,9 @@ package popups;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
+import models.Check;
+import models.Debug;
 import models.Luggage;
 import models.LuggageDAO;
 
@@ -23,7 +26,7 @@ public class AddLuggage extends javax.swing.JFrame {
     private String details;
     private int handlerId;
     private String phoneNr;
-    
+
     /**
      * Creates new form guiPopupDesign
      */
@@ -59,29 +62,28 @@ public class AddLuggage extends javax.swing.JFrame {
         phoneNrLabel = new javax.swing.JLabel();
         phoneNrText = new javax.swing.JTextField();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("Bundle"); // NOI18N
         setTitle(bundle.getString("AddLuggage.title")); // NOI18N
 
-        java.util.ResourceBundle bundle1 = java.util.ResourceBundle.getBundle("Bundle"); // NOI18N
-        labelLabel.setText(bundle1.getString("AddLuggage.labelLabel.text")); // NOI18N
+        labelLabel.setText(bundle.getString("AddLuggage.labelLabel.text")); // NOI18N
 
-        colorLabel.setText(bundle1.getString("AddLuggage.colorLabel.text")); // NOI18N
+        colorLabel.setText(bundle.getString("AddLuggage.colorLabel.text")); // NOI18N
 
-        shapeLabel.setText(bundle1.getString("AddLuggage.shapeLabel.text")); // NOI18N
+        shapeLabel.setText(bundle.getString("AddLuggage.shapeLabel.text")); // NOI18N
 
-        storageLocationLabel.setText(bundle1.getString("AddLuggage.storageLocationLabel.text")); // NOI18N
+        storageLocationLabel.setText(bundle.getString("AddLuggage.storageLocationLabel.text")); // NOI18N
 
-        adDetailsLabel.setText(bundle1.getString("AddLuggage.adDetailsLabel.text")); // NOI18N
+        adDetailsLabel.setText(bundle.getString("AddLuggage.adDetailsLabel.text")); // NOI18N
 
-        Save.setText(bundle1.getString("AddLuggage.Save.text")); // NOI18N
+        Save.setText(bundle.getString("AddLuggage.Save.text")); // NOI18N
         Save.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 SaveActionPerformed(evt);
             }
         });
 
-        cancel.setText(bundle1.getString("AddLuggage.cancel.text")); // NOI18N
+        cancel.setText(bundle.getString("AddLuggage.cancel.text")); // NOI18N
         cancel.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cancelActionPerformed(evt);
@@ -175,26 +177,35 @@ public class AddLuggage extends javax.swing.JFrame {
 
     private void SaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SaveActionPerformed
         Luggage newLuggage;
-        label = labelTextField.getText();
+        label = Check.cleanLabel(labelTextField.getText());
         color = colorTextField.getText();
         shape = shapeTextField.getText();
         location = locationTextField.getText();
         details = detailsTextField.getText();
         phoneNr = phoneNrText.getText();
-        
-        
-        newLuggage = new Luggage(label, color, shape, location, details, phoneNr);
+        if (Check.verifyLuggage(label, color, shape, location, details, phoneNr)) {
+            Debug.printout(Check.cleanPhone(phoneNr));
+            newLuggage = new Luggage(label, color, shape, location, details, phoneNr);
+            saveData(newLuggage);
+
+        } else {
+            JOptionPane.showMessageDialog(null,
+                    "Your input was invalid. The label, color and phone number can not be empty",
+                    "Input error - empty",
+                    JOptionPane.ERROR_MESSAGE
+            );
+        }
+    }//GEN-LAST:event_SaveActionPerformed
+    private void saveData(Luggage item) {
         LuggageDAO test = new LuggageDAO();
-        
         try {
-            test.create(newLuggage, handlerId);
+            test.create(item, handlerId);
         } catch (SQLException ex) {
             Logger.getLogger(AddLuggage.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
-        dispose();
-    }//GEN-LAST:event_SaveActionPerformed
 
+        dispose();
+    }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     public javax.swing.JButton Save;
     public javax.swing.JLabel adDetailsLabel;
