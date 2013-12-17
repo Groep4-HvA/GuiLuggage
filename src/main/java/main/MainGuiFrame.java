@@ -40,6 +40,7 @@ public class MainGuiFrame extends java.awt.Frame {
 
     private List<Medewerker> medList = null;
     private List<Case> caseList = null;
+    private List<Case> caseListMore = null;
     private final java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("Bundle"); // NOI18N
 
     //Menu settings
@@ -86,6 +87,17 @@ public class MainGuiFrame extends java.awt.Frame {
         //Access management: users can not see the appmanagement screen
         appManagementButton.setVisible(beheer);
         fillTableCases();
+    }
+    
+    public void fillTableMore(){
+        CaseDao dbcase = new CaseDao();
+        
+        try{
+            caseListMore = dbcase.ReadAllMore();
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+        
     }
 
     public void fillTableCases() {
@@ -229,6 +241,55 @@ public class MainGuiFrame extends java.awt.Frame {
                 {null, null, null, null},
                 {null, null, null, null},
                 {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
                 {null, null, null, null}
             },
             new String [] {
@@ -258,6 +319,11 @@ public class MainGuiFrame extends java.awt.Frame {
             }
         });
         jScrollPane3.setViewportView(tableResults);
+        java.util.ResourceBundle bundle1 = java.util.ResourceBundle.getBundle("main/Bundle"); // NOI18N
+        tableResults.getColumnModel().getColumn(0).setHeaderValue(bundle1.getString("MainGuiFrame.tableResults.columnModel.title0")); // NOI18N
+        tableResults.getColumnModel().getColumn(1).setHeaderValue(bundle1.getString("MainGuiFrame.tableResults.columnModel.title1")); // NOI18N
+        tableResults.getColumnModel().getColumn(2).setHeaderValue(bundle1.getString("MainGuiFrame.tableResults.columnModel.title2")); // NOI18N
+        tableResults.getColumnModel().getColumn(3).setHeaderValue(bundle1.getString("MainGuiFrame.tableResults.columnModel.title3")); // NOI18N
 
         appManagementButton.setText(bundle.getString("MainGuiFrame.appManagementButton.text")); // NOI18N
         appManagementButton.addActionListener(new java.awt.event.ActionListener() {
@@ -333,7 +399,7 @@ public class MainGuiFrame extends java.awt.Frame {
                     .add(appManagementButton)
                     .add(myAccountButton)
                     .add(logoutButton))
-                .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED, 23, Short.MAX_VALUE)
                 .add(LabelDescription)
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                 .add(searchInput, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
@@ -349,7 +415,7 @@ public class MainGuiFrame extends java.awt.Frame {
                     .add(jPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
                         .add(moreButton)
                         .add(addNewButton2)))
-                .addContainerGap(14, Short.MAX_VALUE))
+                .addContainerGap(24, Short.MAX_VALUE))
         );
 
         add(jPanel2, java.awt.BorderLayout.CENTER);
@@ -376,6 +442,58 @@ public class MainGuiFrame extends java.awt.Frame {
      * TODO: No function assigned yet
      */
     private void moreButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_moreButtonActionPerformed
+        fillTableMore();        
+        
+        List<Case> list = caseListMore;
+        
+        tableResults.getColumnModel().getColumn(0).setMaxWidth(35);
+        final ArrayList<Integer> resolveList = new ArrayList<Integer>();
+        final ArrayList<Integer> passengerList = new ArrayList<Integer>();
+        final ArrayList<Integer> luggageList = new ArrayList<Integer>();
+        for (int i = 0; i < 50; i++) {
+            tableResults.getModel().setValueAt("", i, 0);
+            tableResults.getModel().setValueAt("", i, 1);
+            tableResults.getModel().setValueAt("", i, 2);
+            tableResults.getModel().setValueAt("", i, 3);
+        }
+        for (int i = 0; i < list.size(); i++) {
+            tableResults.getModel().setValueAt(i + 1, i, 0);
+            tableResults.getModel().setValueAt(list.get(i).getLabel(), i, 1);
+            tableResults.getModel().setValueAt(list.get(i).getAddDate(), i, 2);
+            tableResults.getModel().setValueAt(list.get(i).getHandler(), i, 3);
+            if (list.get(i).getResolveDate() != null) {
+                resolveList.add(i);
+            }
+            if (list.get(i).getHomeAddress() != null) {
+                passengerList.add(i);
+            } else {
+                luggageList.add(i);
+            }
+        }
+        tableResults.setDefaultRenderer(Object.class, new TableCellRenderer() {
+            private DefaultTableCellRenderer DEFAULT_RENDERER = new DefaultTableCellRenderer();
+
+            @Override
+            public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
+                Component c = DEFAULT_RENDERER.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
+                if (resolveList.contains(row)) {
+                    c.setBackground(new Color(32, 165, 69));
+                } else {
+                    if (passengerList.contains(row)) {
+                        c.setBackground(new Color(240, 149, 23));
+                    } else if (luggageList.contains(row)) {
+                        c.setBackground(new Color(37, 132, 193));
+                    } else {
+                        c.setBackground(new Color(240, 240, 240));
+                    }
+                }
+                return c;
+            }
+        });
+        tableResults.getColumnModel().getColumn(0).setHeaderValue("#");
+        tableResults.getColumnModel().getColumn(1).setHeaderValue("Luggage Number");
+        tableResults.getColumnModel().getColumn(2).setHeaderValue("Add date");
+        tableResults.getColumnModel().getColumn(3).setHeaderValue("Handler name");
     }//GEN-LAST:event_moreButtonActionPerformed
 
     /*

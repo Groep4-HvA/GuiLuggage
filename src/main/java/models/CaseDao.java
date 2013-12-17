@@ -95,6 +95,50 @@ public class CaseDao {
         return list;
     }
 
+    public List<Case> ReadAllMore() throws SQLException {
+        List<Case> list = new LinkedList<Case>();
+        ResultSet rs = null;
+        PreparedStatement prdstmt = null;
+
+        String query = "SELECT * FROM `cases` LIMIT 99";
+
+        conn.startConnection();
+
+        prdstmt = conn.getConnection().prepareStatement(query);
+        rs = conn.performSelect(prdstmt);
+
+        while (rs.next()) {
+            Case tempcase = new Case();
+            tempcase.setLabel(rs.getString("LuggageNumber"));
+            tempcase.setName(rs.getString("Name"));
+            tempcase.setSurName(rs.getString("Surname"));
+
+            tempcase.setHomeAddress(rs.getString("homeAddress"));
+            tempcase.setHomePostalCode(rs.getString("homePostalCode"));
+            tempcase.setHomeCity(rs.getString("homeCity"));
+
+            tempcase.setResidentAddress(rs.getString("residentAddress"));
+            tempcase.setResidentPostalCode(rs.getString("residentPostalCode"));
+            tempcase.setResidentCity(rs.getString("residentCity"));
+
+            tempcase.setColor(rs.getString("Color"));
+            tempcase.setShape(rs.getString("Shape"));
+            tempcase.setAditionalDetails(rs.getString("AditionalDetails"));
+            tempcase.setStorageLocation(rs.getString("StorageLocation"));
+            tempcase.setHandler(rs.getInt("HandlerID"));
+
+            tempcase.setAddDate(rs.getDate("AddDate"));
+            tempcase.setResolveDate(rs.getDate("ResolveDate"));
+            list.add(tempcase);
+        }
+
+        if (conn != null) {
+            conn.closeConnection();
+        }
+
+        return list;
+    }
+
     public List<Case> readAll() throws SQLException {
 
         List<Case> list = new LinkedList<Case>();
@@ -279,7 +323,7 @@ public class CaseDao {
         prdstmt = conn.getConnection().prepareStatement(query);
         prdstmt.setString(1, date1);
         prdstmt.setString(2, date2);
-        
+
         rs = conn.performSelect(prdstmt);
 
         while (rs.next()) {
@@ -295,6 +339,7 @@ public class CaseDao {
 
         return list;
     }
+
     public List<Case> readAllResolvedByDate(String date1, String date2) throws SQLException {
         List<Case> list = new LinkedList<Case>();
         ResultSet rs = null;
@@ -306,7 +351,7 @@ public class CaseDao {
         prdstmt = conn.getConnection().prepareStatement(query);
         prdstmt.setString(1, date1);
         prdstmt.setString(2, date2);
-        
+
         rs = conn.performSelect(prdstmt);
 
         while (rs.next()) {
@@ -323,7 +368,7 @@ public class CaseDao {
         return list;
     }
 
-        public List<Case> readAllTotalByDate(String date1, String date2) throws SQLException {
+    public List<Case> readAllTotalByDate(String date1, String date2) throws SQLException {
         List<Case> list = new LinkedList<Case>();
         ResultSet rs = null;
         PreparedStatement prdstmt = null;
@@ -334,7 +379,7 @@ public class CaseDao {
         prdstmt = conn.getConnection().prepareStatement(query);
         prdstmt.setString(1, date1);
         prdstmt.setString(2, date2);
-        
+
         rs = conn.performSelect(prdstmt);
 
         while (rs.next()) {
