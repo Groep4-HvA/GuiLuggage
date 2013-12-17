@@ -11,6 +11,7 @@ import java.io.IOException;
 import java.sql.SQLException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.logging.Level;
@@ -40,7 +41,11 @@ public class ManagerGui extends java.awt.Frame {
      */
     private boolean beheer;
     private int handlerId;
-
+    private Date datum1;
+    private Date datum2;
+    private String dateString;
+    private String dateString2;
+    
     public ManagerGui(boolean beheer, int handlerId) throws SQLException {
         this.handlerId = handlerId;
         this.beheer = beheer;
@@ -446,7 +451,9 @@ public class ManagerGui extends java.awt.Frame {
     }//GEN-LAST:event_logoutButtonActionPerformed
 
     private void PDFActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_PDFActionPerformed
-        
+        DateFormat df = new SimpleDateFormat("dd-MM-yyyy");
+        Date today = Calendar.getInstance().getTime();        
+        String date = df.format(today);
         //---Shows amountPending in PDF-------------------------------
         CaseDao dbCase = new CaseDao();
         List<Case> listPending = null;
@@ -474,9 +481,9 @@ public class ManagerGui extends java.awt.Frame {
         String total = Integer.toString(list.size());
        
         PDFGenerator pdf = new PDFGenerator();
-        pdf.generate(pending, resolved, total);
+        pdf.generate(pending, resolved, total, dateString, dateString2);
         try {
-            pdf.save("Corendon_Overview.pdf");
+            pdf.save("Corendon_Overview_"+date+".pdf");
         } catch (FileNotFoundException ex) {
             Logger.getLogger(ManagerGui.class.getName()).log(Level.SEVERE, null, ex);
         } catch (IOException ex) {
@@ -487,10 +494,10 @@ public class ManagerGui extends java.awt.Frame {
     private void selectButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_selectButtonActionPerformed
         try {
 
-            Date datum1 = jDateChooser1.getDate();
-            String dateString = String.format("%1$tY-%1$tm-%1$td", datum1);
-            Date datum2 = jDateChooser2.getDate();
-            String dateString2 = String.format("%1$tY-%1$tm-%1$td", datum2);
+            datum1 = jDateChooser1.getDate();
+            dateString = String.format("%1$tY-%1$tm-%1$td", datum1);
+            datum2 = jDateChooser2.getDate();
+            dateString2 = String.format("%1$tY-%1$tm-%1$td", datum2);
 
             System.out.println(dateString);
 

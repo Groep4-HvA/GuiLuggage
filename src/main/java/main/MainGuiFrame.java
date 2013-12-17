@@ -87,7 +87,6 @@ public class MainGuiFrame extends java.awt.Frame {
     private void initComponents() {
 
         jPanel2 = new javax.swing.JPanel();
-        advanced = new javax.swing.JButton();
         searchButton = new javax.swing.JButton();
         addNewButton1 = new javax.swing.JButton();
         addNewButton2 = new javax.swing.JButton();
@@ -105,14 +104,6 @@ public class MainGuiFrame extends java.awt.Frame {
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowClosing(java.awt.event.WindowEvent evt) {
                 exitForm(evt);
-            }
-        });
-
-        advanced.setText(bundle.getString("MainGuiFrame.advanced.text")); // NOI18N
-        advanced.setToolTipText(bundle.getString("MainGuiFrame.advanced.toolTipText")); // NOI18N
-        advanced.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                advancedActionPerformed(evt);
             }
         });
 
@@ -289,15 +280,13 @@ public class MainGuiFrame extends java.awt.Frame {
                         .addContainerGap(49, Short.MAX_VALUE))))
             .add(jPanel2Layout.createSequentialGroup()
                 .addContainerGap(org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .add(advanced)
-                .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
                 .add(searchButton)
                 .add(0, 0, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
             .add(org.jdesktop.layout.GroupLayout.TRAILING, jPanel2Layout.createSequentialGroup()
-                .addContainerGap(org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap(7, Short.MAX_VALUE)
                 .add(jPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
                     .add(appManagementButton)
                     .add(myAccountButton)
@@ -307,9 +296,7 @@ public class MainGuiFrame extends java.awt.Frame {
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                 .add(searchInput, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                .add(jPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
-                    .add(searchButton)
-                    .add(advanced))
+                .add(searchButton)
                 .add(18, 18, 18)
                 .add(jScrollPane3, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
@@ -318,7 +305,7 @@ public class MainGuiFrame extends java.awt.Frame {
                     .add(jPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
                         .add(moreButton)
                         .add(addNewButton2)))
-                .addContainerGap(8, Short.MAX_VALUE))
+                .addContainerGap(7, Short.MAX_VALUE))
         );
 
         add(jPanel2, java.awt.BorderLayout.CENTER);
@@ -332,13 +319,6 @@ public class MainGuiFrame extends java.awt.Frame {
     private void exitForm(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_exitForm
         System.exit(0);
     }//GEN-LAST:event_exitForm
-    /*
-     * Display advanced Search options
-     */
-    private void advancedActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_advancedActionPerformed
-        Advanced advancedPopUp = new Advanced();
-        advancedPopUp.setVisible(true);
-    }//GEN-LAST:event_advancedActionPerformed
 
     /*
      * Display more results
@@ -543,7 +523,6 @@ public class MainGuiFrame extends java.awt.Frame {
     private javax.swing.JLabel LabelDescription;
     private javax.swing.JButton addNewButton1;
     private javax.swing.JButton addNewButton2;
-    private javax.swing.JButton advanced;
     private javax.swing.JButton appManagementButton;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane3;
