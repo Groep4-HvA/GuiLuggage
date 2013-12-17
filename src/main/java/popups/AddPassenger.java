@@ -349,7 +349,7 @@ public class AddPassenger extends javax.swing.JFrame {
         shape = shapeTextfield.getText();
         name = nameTextfield.getText();
         surname = surnameTextfield.getText();
-        postalCode = rPostalCodeTextfield.getText();
+        postalCode = postalCodeTextfield.getText();
         adres = adresTextfield.getText();
         city = rCityTextfield.getText();
         adres = adresTextfield.getText();
