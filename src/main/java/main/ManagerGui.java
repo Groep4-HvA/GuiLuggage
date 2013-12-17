@@ -9,6 +9,9 @@ import java.awt.Toolkit;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.sql.SQLException;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.logging.Level;
@@ -33,40 +36,44 @@ public class ManagerGui extends java.awt.Frame {
      */
     private boolean beheer;
     private int handlerId;
+    private Date datum1;
+    private Date datum2;
+    private String dateString;
+    private String dateString2;
 
     public ManagerGui(boolean beheer, int handlerId) throws SQLException {
-        this.handlerId = handlerId;
-        this.beheer = beheer;
-        initComponents();
+	this.handlerId = handlerId;
+	this.beheer = beheer;
+	initComponents();
 
-        CaseDao dbCase = new CaseDao();
-        List<Case> list;
-        list = dbCase.readAll();
+	CaseDao dbCase = new CaseDao();
+	List<Case> list;
+	list = dbCase.readAll();
 
-        List<Case> listPending;
-        listPending = dbCase.readAllPending();
-        jLabel1.setText(bundle.getString("Manager.jLabel1.text") + "" + listPending.size());
+	List<Case> listPending;
+	listPending = dbCase.readAllPending();
+	jLabel1.setText(bundle.getString("Manager.jLabel1.text") + "" + listPending.size());
 
-        List<Case> listResolved;
-        listResolved = dbCase.readAllResolved();
-        jLabel2.setText(bundle.getString("Manager.jLabel2.text") + "" + listResolved.size());
+	List<Case> listResolved;
+	listResolved = dbCase.readAllResolved();
+	jLabel2.setText(bundle.getString("Manager.jLabel2.text") + "" + listResolved.size());
 
-        int x = 0;
-        jLabel3.setText(bundle.getString("Manager.jLabel3.text") + "" + list.size());
-        int count = 0;
-        while (x < list.size()) {
-            count++;
-            //Debug.printout(list.get(x).toString());
-            jTable1.getModel().setValueAt(count, x, 0);
-            jTable1.getModel().setValueAt(list.get(x).getLabel(), x, 1);
-            jTable1.getModel().setValueAt(list.get(x).getAddDate(), x, 2);
+	int x = 0;
+	jLabel3.setText(bundle.getString("Manager.jLabel3.text") + "" + list.size());
+	int count = 0;
+	while (x < list.size()) {
+	    count++;
+	    //Debug.printout(list.get(x).toString());
+	    jTable1.getModel().setValueAt(count, x, 0);
+	    jTable1.getModel().setValueAt(list.get(x).getLabel(), x, 1);
+	    jTable1.getModel().setValueAt(list.get(x).getAddDate(), x, 2);
 
-            x++;
-        }
+	    x++;
+	}
 
-        jTable1.getColumnModel().getColumn(0).setHeaderValue("Nr");
-        jTable1.getColumnModel().getColumn(1).setHeaderValue("LabelNumber");
-        jTable1.getColumnModel().getColumn(2).setHeaderValue("AddDate");
+	jTable1.getColumnModel().getColumn(0).setHeaderValue("Nr");
+	jTable1.getColumnModel().getColumn(1).setHeaderValue("LabelNumber");
+	jTable1.getColumnModel().getColumn(2).setHeaderValue("AddDate");
 
     }
 
@@ -361,480 +368,488 @@ public class ManagerGui extends java.awt.Frame {
      * Exit the Application
      */
     private void exitForm(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_exitForm
-        System.exit(0);
+	System.exit(0);
     }//GEN-LAST:event_exitForm
 
     private void moreButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_moreButtonActionPerformed
-        // TODO add your handling code here:
+	// TODO add your handling code here:
     }//GEN-LAST:event_moreButtonActionPerformed
 
     private void myAccountButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_myAccountButtonActionPerformed
-        PasswordConfirm passOverlay = new PasswordConfirm(new javax.swing.JFrame(), true, handlerId);
-        passOverlay.pack();
-        passOverlay.setVisible(true);
-        passOverlay.setLocationRelativeTo(null);
+	PasswordConfirm passOverlay = new PasswordConfirm(new javax.swing.JFrame(), true, handlerId);
+	passOverlay.pack();
+	passOverlay.setVisible(true);
+	passOverlay.setLocationRelativeTo(null);
     }//GEN-LAST:event_myAccountButtonActionPerformed
 
     private void missingManagerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_missingManagerActionPerformed
-        try {
-            Date datum1 = jDateChooser1.getDate();
-            String dateString = String.format("%1$tY-%1$tm-%1$td", datum1);
-            Date datum2 = jDateChooser2.getDate();
-            String dateString2 = String.format("%1$tY-%1$tm-%1$td", datum2);
+	try {
+	    Date datum1 = jDateChooser1.getDate();
+	    String dateString = String.format("%1$tY-%1$tm-%1$td", datum1);
+	    Date datum2 = jDateChooser2.getDate();
+	    String dateString2 = String.format("%1$tY-%1$tm-%1$td", datum2);
 
 //          System.out.println(dateString);
-            if (jDateChooser1.getDate() == null || jDateChooser2.getDate() == null) {
+	    if (jDateChooser1.getDate() == null || jDateChooser2.getDate() == null) {
 
-                CaseDao Case = new CaseDao();
-                List<Case> list;
-                list = Case.readAllPending();
+		CaseDao Case = new CaseDao();
+		List<Case> list;
+		list = Case.readAllPending();
 
-                for (int x = 0; x < 50; x++) {
-                    jTable1.getModel().setValueAt("", x, 0);
-                    jTable1.getModel().setValueAt("", x, 1);
-                    jTable1.getModel().setValueAt("", x, 2);
-                }
+		for (int x = 0; x < 50; x++) {
+		    jTable1.getModel().setValueAt("", x, 0);
+		    jTable1.getModel().setValueAt("", x, 1);
+		    jTable1.getModel().setValueAt("", x, 2);
+		}
 
-                int x = 0;
-                int count = 0;
+		int x = 0;
+		int count = 0;
 
-                while (x < list.size()) {
-                    //System.out.println(list.get(x).toString());
-                    System.out.println(list.size());
-                    count++;
+		while (x < list.size()) {
+		    //System.out.println(list.get(x).toString());
+		    System.out.println(list.size());
+		    count++;
 
-                    jTable1.getModel().setValueAt(count, x, 0);
-                    jTable1.getModel().setValueAt(list.get(x).getLabel(), x, 1);
-                    jTable1.getModel().setValueAt(list.get(x).getAddDate(), x, 2);
+		    jTable1.getModel().setValueAt(count, x, 0);
+		    jTable1.getModel().setValueAt(list.get(x).getLabel(), x, 1);
+		    jTable1.getModel().setValueAt(list.get(x).getAddDate(), x, 2);
 
-                    x++;
-                }
+		    x++;
+		}
 
-            } else {
-                if (!dateString.equals(dateString2)) {
+	    } else {
+		if (!dateString.equals(dateString2)) {
 
-                    if (dateString.compareTo(dateString2) < 0) {
+		    if (dateString.compareTo(dateString2) < 0) {
 
-                        CaseDao Case = new CaseDao();
-                        List<Case> list;
-                        list = Case.readAllPendingByDate(dateString, dateString2);
+			CaseDao Case = new CaseDao();
+			List<Case> list;
+			list = Case.readAllPendingByDate(dateString, dateString2);
 
-                        for (int x = 0; x < 50; x++) {
-                            jTable1.getModel().setValueAt("", x, 0);
-                            jTable1.getModel().setValueAt("", x, 1);
-                            jTable1.getModel().setValueAt("", x, 2);
-                        }
+			for (int x = 0; x < 50; x++) {
+			    jTable1.getModel().setValueAt("", x, 0);
+			    jTable1.getModel().setValueAt("", x, 1);
+			    jTable1.getModel().setValueAt("", x, 2);
+			}
 
-                        int x = 0;
-                        int count = 0;
-                        while (x < list.size()) {
-                            //System.out.println(list.get(x).toString());
-                            System.out.println(list.size());
-                            count++;
-                            jTable1.getModel().setValueAt(count, x, 0);
-                            jTable1.getModel().setValueAt(list.get(x).getLabel(), x, 1);
-                            jTable1.getModel().setValueAt(list.get(x).getAddDate(), x, 2);
+			int x = 0;
+			int count = 0;
+			while (x < list.size()) {
+			    //System.out.println(list.get(x).toString());
+			    System.out.println(list.size());
+			    count++;
+			    jTable1.getModel().setValueAt(count, x, 0);
+			    jTable1.getModel().setValueAt(list.get(x).getLabel(), x, 1);
+			    jTable1.getModel().setValueAt(list.get(x).getAddDate(), x, 2);
 
-                            x++;
-                        }
-                    } else {
-                        JOptionPane.showMessageDialog(null, "" + datum1 + " cannot be further in the past then " + datum2);
-                    }
-                } else if (dateString.equals(dateString2)) {
-                    CaseDao Case = new CaseDao();
-                    List<Case> list;
-                    list = Case.readAllPendingByDate(dateString, dateString2);
+			    x++;
+			}
+		    } else {
+			JOptionPane.showMessageDialog(null, "" + datum1 + " cannot be further in the past then " + datum2);
+		    }
+		} else if (dateString.equals(dateString2)) {
+		    CaseDao Case = new CaseDao();
+		    List<Case> list;
+		    list = Case.readAllPendingByDate(dateString, dateString2);
 
-                    for (int x = 0; x < 50; x++) {
-                        jTable1.getModel().setValueAt("", x, 0);
-                        jTable1.getModel().setValueAt("", x, 1);
-                        jTable1.getModel().setValueAt("", x, 2);
-                    }
+		    for (int x = 0; x < 50; x++) {
+			jTable1.getModel().setValueAt("", x, 0);
+			jTable1.getModel().setValueAt("", x, 1);
+			jTable1.getModel().setValueAt("", x, 2);
+		    }
 
-                    int x = 0;
-                    int count = 0;
-                    while (x < list.size()) {
-                        //System.out.println(list.get(x).toString());
-                        System.out.println("s");
-                        count++;
-                        jTable1.getModel().setValueAt(count, x, 0);
-                        jTable1.getModel().setValueAt(list.get(x).getLabel(), x, 1);
-                        jTable1.getModel().setValueAt(list.get(x).getAddDate(), x, 2);
+		    int x = 0;
+		    int count = 0;
+		    while (x < list.size()) {
+			//System.out.println(list.get(x).toString());
+			System.out.println("s");
+			count++;
+			jTable1.getModel().setValueAt(count, x, 0);
+			jTable1.getModel().setValueAt(list.get(x).getLabel(), x, 1);
+			jTable1.getModel().setValueAt(list.get(x).getAddDate(), x, 2);
 
-                        x++;
-                    }
+			x++;
+		    }
 
-                } else {
-                    JOptionPane.showMessageDialog(null, "" + datum2 + " Needs to be greater then  " + datum1);
-                }
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+		} else {
+		    JOptionPane.showMessageDialog(null, "" + datum2 + " Needs to be greater then  " + datum1);
+		}
+	    }
+	} catch (Exception e) {
+	    e.printStackTrace();
+	}
     }//GEN-LAST:event_missingManagerActionPerformed
 
     private void processedManagerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_processedManagerActionPerformed
-        try {
+	try {
 
-            Date datum1 = jDateChooser1.getDate();
-            String dateString = String.format("%1$tY-%1$tm-%1$td", datum1);
-            Date datum2 = jDateChooser2.getDate();
-            String dateString2 = String.format("%1$tY-%1$tm-%1$td", datum2);
+	    Date datum1 = jDateChooser1.getDate();
+	    String dateString = String.format("%1$tY-%1$tm-%1$td", datum1);
+	    Date datum2 = jDateChooser2.getDate();
+	    String dateString2 = String.format("%1$tY-%1$tm-%1$td", datum2);
 
-            if (jDateChooser1.getDate() == null || jDateChooser2.getDate() == null) {
+	    if (jDateChooser1.getDate() == null || jDateChooser2.getDate() == null) {
 
-                CaseDao Case = new CaseDao();
-                List<Case> list;
-                list = Case.readAll();
+		CaseDao Case = new CaseDao();
+		List<Case> list;
+		list = Case.readAll();
 
-                for (int x = 0; x < 50; x++) {
-                    jTable1.getModel().setValueAt("", x, 0);
-                    jTable1.getModel().setValueAt("", x, 1);
-                    jTable1.getModel().setValueAt("", x, 2);
-                }
+		for (int x = 0; x < 50; x++) {
+		    jTable1.getModel().setValueAt("", x, 0);
+		    jTable1.getModel().setValueAt("", x, 1);
+		    jTable1.getModel().setValueAt("", x, 2);
+		}
 
-                int x = 0;
-                int count = 0;
+		int x = 0;
+		int count = 0;
 
-                while (x < list.size()) {
-                    //System.out.println(list.get(x).toString());
-                    System.out.println(list.size());
-                    count++;
+		while (x < list.size()) {
+		    //System.out.println(list.get(x).toString());
+		    System.out.println(list.size());
+		    count++;
 
-                    jTable1.getModel().setValueAt(count, x, 0);
-                    jTable1.getModel().setValueAt(list.get(x).getLabel(), x, 1);
-                    jTable1.getModel().setValueAt(list.get(x).getAddDate(), x, 2);
+		    jTable1.getModel().setValueAt(count, x, 0);
+		    jTable1.getModel().setValueAt(list.get(x).getLabel(), x, 1);
+		    jTable1.getModel().setValueAt(list.get(x).getAddDate(), x, 2);
 
-                    x++;
-                }
+		    x++;
+		}
 
 //          System.out.println(dateString);
-            } else {
-                if (!dateString.equals(dateString2)) {
+	    } else {
+		if (!dateString.equals(dateString2)) {
 
-                    if (dateString.compareTo(dateString2) < 0) {
+		    if (dateString.compareTo(dateString2) < 0) {
 
-                        CaseDao Case = new CaseDao();
-                        List<Case> list;
-                        list = Case.readAllTotalByDate(dateString, dateString2);
+			CaseDao Case = new CaseDao();
+			List<Case> list;
+			list = Case.readAllTotalByDate(dateString, dateString2);
 
-                        for (int x = 0; x < 50; x++) {
-                            jTable1.getModel().setValueAt("", x, 0);
-                            jTable1.getModel().setValueAt("", x, 1);
-                            jTable1.getModel().setValueAt("", x, 2);
-                        }
+			for (int x = 0; x < 50; x++) {
+			    jTable1.getModel().setValueAt("", x, 0);
+			    jTable1.getModel().setValueAt("", x, 1);
+			    jTable1.getModel().setValueAt("", x, 2);
+			}
 
-                        int x = 0;
-                        int count = 0;
-                        while (x < list.size()) {
-                            //System.out.println(list.get(x).toString());
-                            System.out.println(list.size());
-                            count++;
-                            jTable1.getModel().setValueAt(count, x, 0);
-                            jTable1.getModel().setValueAt(list.get(x).getLabel(), x, 1);
-                            jTable1.getModel().setValueAt(list.get(x).getAddDate(), x, 2);
+			int x = 0;
+			int count = 0;
+			while (x < list.size()) {
+			    //System.out.println(list.get(x).toString());
+			    System.out.println(list.size());
+			    count++;
+			    jTable1.getModel().setValueAt(count, x, 0);
+			    jTable1.getModel().setValueAt(list.get(x).getLabel(), x, 1);
+			    jTable1.getModel().setValueAt(list.get(x).getAddDate(), x, 2);
 
-                            x++;
-                        }
-                    } else {
-                        JOptionPane.showMessageDialog(null, "" + datum1 + " cannot be further in the past then " + datum2);
-                    }
-                } else if (dateString.equals(dateString2)) {
-                    CaseDao Case = new CaseDao();
-                    List<Case> list;
-                    list = Case.readAllTotalByDate(dateString, dateString2);
+			    x++;
+			}
+		    } else {
+			JOptionPane.showMessageDialog(null, "" + datum1 + " cannot be further in the past then " + datum2);
+		    }
+		} else if (dateString.equals(dateString2)) {
+		    CaseDao Case = new CaseDao();
+		    List<Case> list;
+		    list = Case.readAllTotalByDate(dateString, dateString2);
 
-                    for (int x = 0; x < 50; x++) {
-                        jTable1.getModel().setValueAt("", x, 0);
-                        jTable1.getModel().setValueAt("", x, 1);
-                        jTable1.getModel().setValueAt("", x, 2);
-                    }
+		    for (int x = 0; x < 50; x++) {
+			jTable1.getModel().setValueAt("", x, 0);
+			jTable1.getModel().setValueAt("", x, 1);
+			jTable1.getModel().setValueAt("", x, 2);
+		    }
 
-                    int x = 0;
-                    int count = 0;
-                    while (x < list.size()) {
-                        //System.out.println(list.get(x).toString());
-                        System.out.println("s");
-                        count++;
-                        jTable1.getModel().setValueAt(count, x, 0);
-                        jTable1.getModel().setValueAt(list.get(x).getLabel(), x, 1);
-                        jTable1.getModel().setValueAt(list.get(x).getAddDate(), x, 2);
+		    int x = 0;
+		    int count = 0;
+		    while (x < list.size()) {
+			//System.out.println(list.get(x).toString());
+			System.out.println("s");
+			count++;
+			jTable1.getModel().setValueAt(count, x, 0);
+			jTable1.getModel().setValueAt(list.get(x).getLabel(), x, 1);
+			jTable1.getModel().setValueAt(list.get(x).getAddDate(), x, 2);
 
-                        x++;
-                    }
+			x++;
+		    }
 
-                } else {
-                    JOptionPane.showMessageDialog(null, "" + datum2 + " Needs to be greater then  " + datum1);
-                }
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+		} else {
+		    JOptionPane.showMessageDialog(null, "" + datum2 + " Needs to be greater then  " + datum1);
+		}
+	    }
+	} catch (Exception e) {
+	    e.printStackTrace();
+	}
     }//GEN-LAST:event_processedManagerActionPerformed
 
     private void printButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_printButtonActionPerformed
-        printJob printJob = new printJob();
+	printJob printJob = new printJob();
     }//GEN-LAST:event_printButtonActionPerformed
 
     private void logoutButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_logoutButtonActionPerformed
-        dispose();
-        logIn logOut = new logIn();
-        logOut.setVisible(true);
+	dispose();
+	logIn logOut = new logIn();
+	logOut.setVisible(true);
     }//GEN-LAST:event_logoutButtonActionPerformed
 
     private void PDFActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_PDFActionPerformed
+	DateFormat df = new SimpleDateFormat("dd-MM-yyyy");
+	Date today = Calendar.getInstance().getTime();
+	String date = df.format(today);
+	//---Shows amountPending in PDF-------------------------------
+	CaseDao dbCase = new CaseDao();
+	List<Case> listPending = null;
 
-        //---Shows amountPending in PDF-------------------------------
-        CaseDao dbCase = new CaseDao();
-        List<Case> listPending = null;
-        try {
-            listPending = dbCase.readAllPending();
-        } catch (SQLException ex) {
-            Logger.getLogger(ManagerGui.class
-                    .getName()).log(Level.SEVERE, null, ex);
-        }
-        String pending = Integer.toString(listPending.size());
-        //----Shows amountResolved in PDF-------------------------------
-        List<Case> listResolved = null;
-        try {
-            listResolved = dbCase.readAllResolved();
-        } catch (SQLException ex) {
-            Logger.getLogger(ManagerGui.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        String resolved = Integer.toString(listResolved.size());
-        //----Shows total ----------------------------------------------------------
-        List<Case> list = null;
-        try {
-            list = dbCase.readAll();
-        } catch (SQLException ex) {
-            Logger.getLogger(ManagerGui.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        String total = Integer.toString(list.size());
 
-        PDFGenerator pdf = new PDFGenerator();
-        pdf.generate(pending, resolved, total);
-        try {
-            pdf.save("Corendon_Overview.pdf");
-        } catch (FileNotFoundException ex) {
-            Logger.getLogger(ManagerGui.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (IOException ex) {
-            Logger.getLogger(ManagerGui.class.getName()).log(Level.SEVERE, null, ex);
-        }
+	try {
+	    listPending = dbCase.readAllPending();
+	} catch (SQLException ex) {
+	    Logger.getLogger(ManagerGui.class
+		    .getName()).log(Level.SEVERE, null, ex);
+	}
+	String pending = Integer.toString(listPending.size());
+	//----Shows amountResolved in PDF-------------------------------
+	List<Case> listResolved = null;
+
+
+	try {
+	    listResolved = dbCase.readAllResolved();
+	} catch (SQLException ex) {
+	    Logger.getLogger(ManagerGui.class.getName()).log(Level.SEVERE, null, ex);
+	}
+	String resolved = Integer.toString(listResolved.size());
+	//----Shows total ----------------------------------------------------------
+	List<Case> list = null;
+
+
+	try {
+	    list = dbCase.readAll();
+	} catch (SQLException ex) {
+	    Logger.getLogger(ManagerGui.class.getName()).log(Level.SEVERE, null, ex);
+	}
+	String total = Integer.toString(list.size());
+	PDFGenerator pdf = new PDFGenerator();
+
+	pdf.generate(pending, resolved, total, dateString, dateString2);
+
+
+	try {
+	    pdf.save("Corendon_Overview_" + date + ".pdf");
+	} catch (FileNotFoundException ex) {
+	    Logger.getLogger(ManagerGui.class.getName()).log(Level.SEVERE, null, ex);
+	} catch (IOException ex) {
+	    Logger.getLogger(ManagerGui.class.getName()).log(Level.SEVERE, null, ex);
+	}
     }//GEN-LAST:event_PDFActionPerformed
-
     private void selectButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_selectButtonActionPerformed
-        try {
+	try {
 
-            Date datum1 = jDateChooser1.getDate();
-            String dateString = String.format("%1$tY-%1$tm-%1$td", datum1);
-            Date datum2 = jDateChooser2.getDate();
-            String dateString2 = String.format("%1$tY-%1$tm-%1$td", datum2);
+	    datum1 = jDateChooser1.getDate();
+	    dateString = String.format("%1$tY-%1$tm-%1$td", datum1);
+	    datum2 = jDateChooser2.getDate();
+	    dateString2 = String.format("%1$tY-%1$tm-%1$td", datum2);
 
-            Debug.printout(dateString);
+	    Debug.printout(dateString);
 
-            if (!dateString.equals(dateString2)) {
+	    if (!dateString.equals(dateString2)) {
 
-                if (dateString.compareTo(dateString2) < 0) {
+		if (dateString.compareTo(dateString2) < 0) {
 
-                    CaseDao Case = new CaseDao();
-                    List<Case> list;
-                    list = Case.readAllByDate(dateString, dateString2);
+		    CaseDao Case = new CaseDao();
+		    List<Case> list;
+		    list = Case.readAllByDate(dateString, dateString2);
 
-                    for (int x = 0; x < 50; x++) {
-                        jTable1.getModel().setValueAt("", x, 0);
-                        jTable1.getModel().setValueAt("", x, 1);
-                        jTable1.getModel().setValueAt("", x, 2);
-                    }
+		    for (int x = 0; x < 50; x++) {
+			jTable1.getModel().setValueAt("", x, 0);
+			jTable1.getModel().setValueAt("", x, 1);
+			jTable1.getModel().setValueAt("", x, 2);
+		    }
 
-                    int x = 0;
-                    int count = 0;
-                    while (x < list.size()) {
-                        //Debug.printout(list.get(x).toString());
-                        Debug.printout(list.size() + "");
-                        count++;
-                        jTable1.getModel().setValueAt(count, x, 0);
-                        jTable1.getModel().setValueAt(list.get(x).getLabel(), x, 1);
-                        jTable1.getModel().setValueAt(list.get(x).getAddDate(), x, 2);
+		    int x = 0;
+		    int count = 0;
+		    while (x < list.size()) {
+			//Debug.printout(list.get(x).toString());
+			Debug.printout(list.size() + "");
+			count++;
+			jTable1.getModel().setValueAt(count, x, 0);
+			jTable1.getModel().setValueAt(list.get(x).getLabel(), x, 1);
+			jTable1.getModel().setValueAt(list.get(x).getAddDate(), x, 2);
 
-                        x++;
-                    }
-                } else {
-                    JOptionPane.showMessageDialog(null, "" + datum1 + " cannot be further in the past then " + datum2);
-                }
-            } else if (dateString.equals(dateString2)) {
-                CaseDao Case = new CaseDao();
-                List<Case> list;
-                list = Case.readAllByDate(dateString, dateString2);
+			x++;
+		    }
+		} else {
+		    JOptionPane.showMessageDialog(null, "" + datum1 + " cannot be further in the past then " + datum2);
+		}
+	    } else if (dateString.equals(dateString2)) {
+		CaseDao Case = new CaseDao();
+		List<Case> list;
+		list = Case.readAllByDate(dateString, dateString2);
 
-                for (int x = 0; x < 50; x++) {
-                    jTable1.getModel().setValueAt("", x, 0);
-                    jTable1.getModel().setValueAt("", x, 1);
-                    jTable1.getModel().setValueAt("", x, 2);
-                }
+		for (int x = 0; x < 50; x++) {
+		    jTable1.getModel().setValueAt("", x, 0);
+		    jTable1.getModel().setValueAt("", x, 1);
+		    jTable1.getModel().setValueAt("", x, 2);
+		}
 
-                int x = 0;
-                int count = 0;
-                while (x < list.size()) {
-                    //Debug.printout(list.get(x).toString());
-                    Debug.printout("s");
-                    count++;
-                    jTable1.getModel().setValueAt(count, x, 0);
-                    jTable1.getModel().setValueAt(list.get(x).getLabel(), x, 1);
-                    jTable1.getModel().setValueAt(list.get(x).getAddDate(), x, 2);
+		int x = 0;
+		int count = 0;
+		while (x < list.size()) {
+		    //Debug.printout(list.get(x).toString());
+		    Debug.printout("s");
+		    count++;
+		    jTable1.getModel().setValueAt(count, x, 0);
+		    jTable1.getModel().setValueAt(list.get(x).getLabel(), x, 1);
+		    jTable1.getModel().setValueAt(list.get(x).getAddDate(), x, 2);
 
-                    x++;
-                }
+		    x++;
+		}
 
-            } else {
-                JOptionPane.showMessageDialog(null, "" + datum1 + " cannot be further in the past then " + datum2);
-            }
+	    } else {
+		JOptionPane.showMessageDialog(null, "" + datum1 + " cannot be further in the past then " + datum2);
+	    }
 
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+	} catch (Exception e) {
+	    e.printStackTrace();
+	}
 
 
     }//GEN-LAST:event_selectButtonActionPerformed
 
     private void foundManagerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_foundManagerActionPerformed
-        try {
+	try {
 
-            Date datum1 = jDateChooser1.getDate();
-            String dateString = String.format("%1$tY-%1$tm-%1$td", datum1);
-            Date datum2 = jDateChooser2.getDate();
-            String dateString2 = String.format("%1$tY-%1$tm-%1$td", datum2);
+	    Date datum1 = jDateChooser1.getDate();
+	    String dateString = String.format("%1$tY-%1$tm-%1$td", datum1);
+	    Date datum2 = jDateChooser2.getDate();
+	    String dateString2 = String.format("%1$tY-%1$tm-%1$td", datum2);
 
-            if (jDateChooser1.getDate() == null || jDateChooser2.getDate() == null) {
+	    if (jDateChooser1.getDate() == null || jDateChooser2.getDate() == null) {
 
-                CaseDao Case = new CaseDao();
-                List<Case> list;
-                list = Case.readAllResolved();
+		CaseDao Case = new CaseDao();
+		List<Case> list;
+		list = Case.readAllResolved();
 
-                for (int x = 0; x < 50; x++) {
-                    jTable1.getModel().setValueAt("", x, 0);
-                    jTable1.getModel().setValueAt("", x, 1);
-                    jTable1.getModel().setValueAt("", x, 2);
-                }
+		for (int x = 0; x < 50; x++) {
+		    jTable1.getModel().setValueAt("", x, 0);
+		    jTable1.getModel().setValueAt("", x, 1);
+		    jTable1.getModel().setValueAt("", x, 2);
+		}
 
-                int x = 0;
-                int count = 0;
+		int x = 0;
+		int count = 0;
 
-                while (x < list.size()) {
-                    //System.out.println(list.get(x).toString());
-                    System.out.println(list.size());
-                    count++;
+		while (x < list.size()) {
+		    //System.out.println(list.get(x).toString());
+		    System.out.println(list.size());
+		    count++;
 
-                    jTable1.getModel().setValueAt(count, x, 0);
-                    jTable1.getModel().setValueAt(list.get(x).getLabel(), x, 1);
-                    jTable1.getModel().setValueAt(list.get(x).getAddDate(), x, 2);
+		    jTable1.getModel().setValueAt(count, x, 0);
+		    jTable1.getModel().setValueAt(list.get(x).getLabel(), x, 1);
+		    jTable1.getModel().setValueAt(list.get(x).getAddDate(), x, 2);
 
-                    x++;
-                }
+		    x++;
+		}
 
 //          System.out.println(dateString);
-            } else {
-                if (!dateString.equals(dateString2)) {
+	    } else {
+		if (!dateString.equals(dateString2)) {
 
-                    if (dateString.compareTo(dateString2) < 0) {
+		    if (dateString.compareTo(dateString2) < 0) {
 
-                        CaseDao Case = new CaseDao();
-                        List<Case> list;
-                        list = Case.readAllResolvedByDate(dateString, dateString2);
+			CaseDao Case = new CaseDao();
+			List<Case> list;
+			list = Case.readAllResolvedByDate(dateString, dateString2);
 
-                        for (int x = 0; x < 50; x++) {
-                            jTable1.getModel().setValueAt("", x, 0);
-                            jTable1.getModel().setValueAt("", x, 1);
-                            jTable1.getModel().setValueAt("", x, 2);
-                        }
+			for (int x = 0; x < 50; x++) {
+			    jTable1.getModel().setValueAt("", x, 0);
+			    jTable1.getModel().setValueAt("", x, 1);
+			    jTable1.getModel().setValueAt("", x, 2);
+			}
 
-                        int x = 0;
-                        int count = 0;
-                        while (x < list.size()) {
-                            //System.out.println(list.get(x).toString());
-                            System.out.println(list.size());
-                            count++;
-                            jTable1.getModel().setValueAt(count, x, 0);
-                            jTable1.getModel().setValueAt(list.get(x).getLabel(), x, 1);
-                            jTable1.getModel().setValueAt(list.get(x).getAddDate(), x, 2);
+			int x = 0;
+			int count = 0;
+			while (x < list.size()) {
+			    //System.out.println(list.get(x).toString());
+			    System.out.println(list.size());
+			    count++;
+			    jTable1.getModel().setValueAt(count, x, 0);
+			    jTable1.getModel().setValueAt(list.get(x).getLabel(), x, 1);
+			    jTable1.getModel().setValueAt(list.get(x).getAddDate(), x, 2);
 
-                            x++;
-                        }
-                    } else {
-                        JOptionPane.showMessageDialog(null, "" + datum1 + " cannot be further in the past then " + datum2);
-                    }
-                } else if (dateString.equals(dateString2)) {
-                    CaseDao Case = new CaseDao();
-                    List<Case> list;
-                    list = Case.readAllResolvedByDate(dateString, dateString2);
+			    x++;
+			}
+		    } else {
+			JOptionPane.showMessageDialog(null, "" + datum1 + " cannot be further in the past then " + datum2);
+		    }
+		} else if (dateString.equals(dateString2)) {
+		    CaseDao Case = new CaseDao();
+		    List<Case> list;
+		    list = Case.readAllResolvedByDate(dateString, dateString2);
 
-                    for (int x = 0; x < 50; x++) {
-                        jTable1.getModel().setValueAt("", x, 0);
-                        jTable1.getModel().setValueAt("", x, 1);
-                        jTable1.getModel().setValueAt("", x, 2);
-                    }
+		    for (int x = 0; x < 50; x++) {
+			jTable1.getModel().setValueAt("", x, 0);
+			jTable1.getModel().setValueAt("", x, 1);
+			jTable1.getModel().setValueAt("", x, 2);
+		    }
 
-                    int x = 0;
-                    int count = 0;
-                    while (x < list.size()) {
-                        //System.out.println(list.get(x).toString());
-                        System.out.println("s");
-                        count++;
-                        jTable1.getModel().setValueAt(count, x, 0);
-                        jTable1.getModel().setValueAt(list.get(x).getLabel(), x, 1);
-                        jTable1.getModel().setValueAt(list.get(x).getAddDate(), x, 2);
+		    int x = 0;
+		    int count = 0;
+		    while (x < list.size()) {
+			//System.out.println(list.get(x).toString());
+			System.out.println("s");
+			count++;
+			jTable1.getModel().setValueAt(count, x, 0);
+			jTable1.getModel().setValueAt(list.get(x).getLabel(), x, 1);
+			jTable1.getModel().setValueAt(list.get(x).getAddDate(), x, 2);
 
-                        x++;
-                    }
+			x++;
+		    }
 
-                } else {
-                    JOptionPane.showMessageDialog(null, "" + datum2 + " Needs to be greater then  " + datum1);
-                }
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+		} else {
+		    JOptionPane.showMessageDialog(null, "" + datum2 + " Needs to be greater then  " + datum1);
+		}
+	    }
+	} catch (Exception e) {
+	    e.printStackTrace();
+	}
 
     }//GEN-LAST:event_foundManagerActionPerformed
 private void clearButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_clearButtonActionPerformed
 
     try {
 
-        jDateChooser1.setDate(null);
-        jDateChooser2.setDate(null);
+	jDateChooser1.setDate(null);
+	jDateChooser2.setDate(null);
 
-        CaseDao Case = new CaseDao();
-        List<Case> list;
-        list = Case.readAll();
-        int x = 0;
-        int count = 0;
-        while (x < list.size()) {
-            count++;
-            //  System.out.println(list.get(x).toString());
-            jTable1.getModel().setValueAt(count, x, 0);
-            jTable1.getModel().setValueAt(list.get(x).getLabel(), x, 1);
-            jTable1.getModel().setValueAt(list.get(x).getAddDate(), x, 2);
+	CaseDao Case = new CaseDao();
+	List<Case> list;
+	list = Case.readAll();
+	int x = 0;
+	int count = 0;
+	while (x < list.size()) {
+	    count++;
+	    //  System.out.println(list.get(x).toString());
+	    jTable1.getModel().setValueAt(count, x, 0);
+	    jTable1.getModel().setValueAt(list.get(x).getLabel(), x, 1);
+	    jTable1.getModel().setValueAt(list.get(x).getAddDate(), x, 2);
 
-            x++;
-        }        // TODO add your handling code here:
+	    x++;
+	}        // TODO add your handling code here:
     } catch (Exception e) {
-        e.printStackTrace();
+	e.printStackTrace();
     }
     }//GEN-LAST:event_clearButtonActionPerformed
 
     private void graphManagerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_graphManagerActionPerformed
-        //jPanel1.setVisible(false);
-        try {
-            ManagerGraph graph = new ManagerGraph("Manager graph", true);
-            Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
-            graph.setLocation(dim.width / 2 - this.getSize().width / 2, dim.height / 2 - this.getSize().height / 2);
-            graph.setLocationRelativeTo(null);
-            graph.setSize(600, 400);
-            graph.setVisible(true);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+	//jPanel1.setVisible(false);
+	try {
+	    ManagerGraph graph = new ManagerGraph("Manager graph", true);
+	    Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
+	    graph.setLocation(dim.width / 2 - this.getSize().width / 2, dim.height / 2 - this.getSize().height / 2);
+	    graph.setLocationRelativeTo(null);
+	    graph.setSize(600, 400);
+	    graph.setVisible(true);
+	} catch (Exception e) {
+	    e.printStackTrace();
+	}
     }//GEN-LAST:event_graphManagerActionPerformed
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton PDF;
     private javax.swing.JButton clearButton;

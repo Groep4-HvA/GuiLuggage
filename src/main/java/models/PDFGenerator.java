@@ -5,6 +5,12 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Arrays;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.apache.pdfbox.pdmodel.PDDocument;
@@ -18,7 +24,13 @@ import org.apache.pdfbox.pdmodel.font.PDType1Font;
  * @author breud
  */
 public class PDFGenerator {
-
+    
+    DateFormat df = new SimpleDateFormat("MM/dd/yyyy HH:mm:ss");
+    Date today = Calendar.getInstance().getTime();        
+    String date = df.format(today);
+    
+    
+    
     PDDocument document;
     PDPageContentStream contentStream;
     PDFont font = PDType1Font.HELVETICA_BOLD;
@@ -36,24 +48,92 @@ public class PDFGenerator {
             ex.printStackTrace();
         }
     }
+    
+    public void generate(String label, String color, String shape, String name, String surname, String adres, String postalCode, String city, String residentAdres, String residentPostalCode, String residentCity, String details, int handlerId, String phoneNr){
+        try {
+           
+            contentStream.beginText();
+            
+            contentStream.setFont(font, 12);
+            contentStream.moveTextPositionByAmount(100, 700);
+            contentStream.drawString(date);
+            contentStream.moveTextPositionByAmount(0, -40);
+            
+            contentStream.drawString("Labelnumber: ");
+            contentStream.drawString(label);
+            contentStream.moveTextPositionByAmount(0, -40);
+            
+            contentStream.drawString("Color: ");
+            contentStream.drawString(color);
+            contentStream.moveTextPositionByAmount(0, -20);
+            contentStream.drawString("Shape: ");
+            contentStream.drawString(shape);
+            contentStream.moveTextPositionByAmount(0, -20);
+            contentStream.drawString("Name: ");
+            contentStream.drawString(name);
+            //contentStream.moveTextPositionByAmount(0, -20);
+            contentStream.drawString("\t\t    Surname: ");
+            contentStream.drawString(surname);
+            contentStream.moveTextPositionByAmount(0, -40);
+            contentStream.drawString("------Home adress------");
+            contentStream.moveTextPositionByAmount(0, -20);
+            contentStream.drawString("Address: ");
+            contentStream.drawString(adres);
+            contentStream.moveTextPositionByAmount(0, -20);
+            contentStream.drawString("Postalcode: ");
+            contentStream.drawString(postalCode);
+            contentStream.moveTextPositionByAmount(0, -20);
+            contentStream.drawString("City: ");
+            contentStream.drawString(city);
+            contentStream.moveTextPositionByAmount(0, -40);
+            contentStream.drawString("------Resident adress------");
+            contentStream.moveTextPositionByAmount(0, -20);
+            contentStream.drawString("Resident Address: ");
+            contentStream.drawString(residentAdres);
+            contentStream.moveTextPositionByAmount(0, -20);
+            contentStream.drawString("Postalcode: ");
+            contentStream.drawString(residentPostalCode);
+            contentStream.moveTextPositionByAmount(0, -20);
+            contentStream.drawString("City: ");
+            contentStream.drawString(residentCity);
+            contentStream.moveTextPositionByAmount(0, -40);
+            contentStream.drawString("Additonal Details: ");
+            contentStream.drawString(details);
+            contentStream.moveTextPositionByAmount(0, -20);
+            contentStream.drawString("Phonenumber: ");
+            contentStream.drawString(phoneNr);
+            contentStream.moveTextPositionByAmount(0, -20);
+            
+            
+            contentStream.endText();
+            contentStream.close();
+        
+        } catch (IOException ex) {
+            Logger.getLogger(PDFGenerator.class.getName()).log(Level.SEVERE, null, ex);
+        } 
+    }
 
-    public void generate(String pending, String resolved, String total) {
+    public void generate(String pending, String resolved, String total, String dateString, String dateString2) {
         try {
             // See http://pdfbox.apache.org/cookbook/documentcreation.html
             // See http://pdfbox.apache.org/docs/1.8.2/javadocs/index.html?overview-summary.html
             // Tip: Use google
             // TODO: generate the pdf
-
+            contentStream.addRect(20f, 20f, 20f, 20f);
             contentStream.beginText();
             contentStream.setFont(font, 12);
             contentStream.moveTextPositionByAmount(100, 700);
+            contentStream.drawString(date);
+            contentStream.moveTextPositionByAmount(0, -20);
+            contentStream.drawString("From: " +dateString+ " till "+ dateString2);
             
+            contentStream.moveTextPositionByAmount(0, -20);
             contentStream.drawString("Amount pending: ");
             contentStream.drawString(pending);
-            
+            contentStream.moveTextPositionByAmount(0, -20);
             contentStream.drawString("\tAmount resolved: ");
             contentStream.drawString(resolved);
-            
+            contentStream.moveTextPositionByAmount(0, -20);
             contentStream.drawString("\tTotal processed: ");
             contentStream.drawString(total);
             
@@ -71,7 +151,7 @@ public class PDFGenerator {
         String location = System.getProperty("user.home")+File.separator+"Documents"+File.separator+filename;
         location = location.replace("\\", "/");
         OutputStream output = new FileOutputStream(location);
-        Debug.printout(location);
+        System.out.println(location);
         try {
             // Make sure that the content stream is closed:
             this.contentStream.close();
