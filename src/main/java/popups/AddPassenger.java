@@ -4,9 +4,13 @@
  */
 package popups;
 
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.sql.SQLException;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import models.PDFGenerator;
 import models.Passenger;
 import models.PassengerDAO;
 import models.printJob;
@@ -87,6 +91,7 @@ public class AddPassenger extends javax.swing.JFrame {
         jLabel17 = new javax.swing.JLabel();
         phoneNrLabel = new javax.swing.JLabel();
         phoneNrText = new javax.swing.JTextField();
+        PDF = new javax.swing.JButton();
 
         jTextField4.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -95,6 +100,12 @@ public class AddPassenger extends javax.swing.JFrame {
         });
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+
+        labelTextfield.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                labelTextfieldActionPerformed(evt);
+            }
+        });
 
         shapeTextfield.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -169,6 +180,14 @@ public class AddPassenger extends javax.swing.JFrame {
         phoneNrText.setText(bundle.getString("AddPassenger.phoneNrText.text")); // NOI18N
         phoneNrText.setToolTipText(bundle.getString("AddPassenger.phoneNrText.toolTipText")); // NOI18N
 
+        java.util.ResourceBundle bundle1 = java.util.ResourceBundle.getBundle("popups/Bundle"); // NOI18N
+        PDF.setText(bundle1.getString("AddPassenger.PDF.text")); // NOI18N
+        PDF.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                PDFActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -217,7 +236,9 @@ public class AddPassenger extends javax.swing.JFrame {
                                         .addGap(0, 0, Short.MAX_VALUE))
                                     .addGroup(layout.createSequentialGroup()
                                         .addComponent(printButton, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGap(38, 38, 38)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(PDF)
+                                        .addGap(18, 18, 18)
                                         .addComponent(saveButton, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                         .addComponent(cancelButton, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE))))))
@@ -326,7 +347,8 @@ public class AddPassenger extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(printButton)
-                            .addComponent(saveButton))))
+                            .addComponent(saveButton)
+                            .addComponent(PDF))))
                 .addContainerGap())
         );
 
@@ -388,7 +410,43 @@ public class AddPassenger extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_postalCodeTextfieldActionPerformed
 
+    private void PDFActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_PDFActionPerformed
+        PassengerDAO receipt = new PassengerDAO();
+        
+        label = labelTextfield.getText();
+        color = colorTextfield.getText();
+        shape = shapeTextfield.getText();
+        name = nameTextfield.getText();
+        surname = surnameTextfield.getText();
+        postalCode = postalCodeTextfield.getText();
+        adres = adresTextfield.getText();
+        city = cityTextfield.getText();
+        adres = adresTextfield.getText();
+        residentAdres = residentAdresTextfield.getText();
+        residentPostalCode = rPostalCodeTextfield.getText();
+        residentCity = rCityTextfield.getText();
+        details = detailsTextfield.getText();
+        phoneNr = phoneNrText.getText();
+        
+        
+        PDFGenerator passengerReceipt = new PDFGenerator();
+       // passengerReceipt = null;
+        passengerReceipt.generate(label, color, shape, name, surname, adres, postalCode, city, residentAdres, residentPostalCode, residentCity, details, handlerId, phoneNr);
+        try {
+            passengerReceipt.save("Receipt_" + label + ".pdf");
+        } catch (FileNotFoundException ex) {
+            Logger.getLogger(AddPassenger.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IOException ex) {
+            Logger.getLogger(AddPassenger.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_PDFActionPerformed
+
+    private void labelTextfieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_labelTextfieldActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_labelTextfieldActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton PDF;
     private javax.swing.JTextField adresTextfield;
     private javax.swing.JToggleButton cancelButton;
     private javax.swing.JTextField cityTextfield;
