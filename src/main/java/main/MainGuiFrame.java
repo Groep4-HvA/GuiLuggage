@@ -11,7 +11,6 @@ import java.awt.event.ActionListener;
 import popups.PasswordConfirm;
 import popups.Popupappmedewerker;
 import popups.AddLuggage;
-import popups.Advanced;
 import popups.AddMedewerker;
 import popups.AddPassenger;
 import popups.PopUpMedewerker;
