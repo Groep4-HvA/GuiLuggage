@@ -67,7 +67,7 @@ public class ManagerGraph extends ApplicationFrame {
 	    while (rs.next()) {
 		rowAmmount = rs.getInt(1);
 	    }
-	    Debug.printout("Between: " + firstDate + " and " + lastDate + ". . . " + rowAmmount + " records of type " + type);
+	    Debug.println("Between: " + firstDate + " and " + lastDate + ". . . " + rowAmmount + " records of type " + type);
 	} catch (SQLException ex) {
 	    Logger.getLogger(ManagerGraph.class.getName()).log(Level.SEVERE, null, ex);
 	}

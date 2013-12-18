@@ -26,7 +26,7 @@ public class Debug {
 
     }
 
-    public static void printout(String out) {
+    public static void println(String out) {
         Properties prop = new Properties();
         try {
             prop.load(new FileInputStream(System.getProperty("user.dir") + System.getProperty("file.separator") + "Config.properties"));

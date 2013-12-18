@@ -188,7 +188,7 @@ public class PasswordConfirm extends javax.swing.JDialog {
         }
 
         if (password.getPassword().length>0) {
-            Debug.printout(password.getPassword().toString());
+            Debug.println(password.getPassword().toString());
             if (Arrays.equals(password.getPassword(), passwordConfirm.getPassword())) {
 //                Medewerker tempMedewerker = null;
 //                MedewerkerDAO medewerkerTijdelijk;
@@ -209,7 +209,7 @@ public class PasswordConfirm extends javax.swing.JDialog {
                         Logger.getLogger(PasswordConfirm.class.getName()).log(Level.SEVERE, null, ex);
                     }
                 }
-                Debug.printout(tempMedewerker.toString());
+                Debug.println(tempMedewerker.toString());
                 dispose();
             }
         }

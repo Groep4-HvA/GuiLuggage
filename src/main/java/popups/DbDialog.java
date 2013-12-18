@@ -40,7 +40,7 @@ public class DbDialog extends javax.swing.JDialog {
         dbHostInput.setText(prop.getProperty("db_ip"));
         dbNameInput.setText(prop.getProperty("db_name"));
         dbUserInput.setText(prop.getProperty("db_username"));
-        Debug.printout("Done");
+        Debug.println("Done");
     }
 
     /**

@@ -43,7 +43,7 @@ public class GuiLuggage {
 	logIn login = new logIn();
 	login.setVisible(true);
 	login.setLocationRelativeTo(null);
-	Debug.printout("Current language: " + current.toString());
+	Debug.println("Current language: " + current.toString());
 	try {
 	    UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
 	} catch (ClassNotFoundException e) {
@@ -62,7 +62,7 @@ public class GuiLuggage {
 	boolean fullSettings = settingsRead();
 	File f = new File(System.getProperty("user.dir") + "/Config.properties");
 	if (f.exists() && fullSettings) {
-	    Debug.printout("All clear, starting application");
+	    Debug.println("All clear, starting application");
 	} else {
 	    Properties prop = new Properties();
 	    try {
@@ -84,7 +84,7 @@ public class GuiLuggage {
 	    } catch (UnsupportedEncodingException ex) {
 		Logger.getLogger(GuiLuggage.class.getName()).log(Level.SEVERE, null, ex);
 	    }
-	    writer.println("#This file is generated from the sample file because no file was found");
+	    writer.println("#This file is generated from the sample file because no file was found, or not all values was found");
 	    writer.println();
 	    writer.println("db_ip=" + ip);
 	    writer.println("db_name=" + dbName);
@@ -111,10 +111,10 @@ public class GuiLuggage {
 	    orig_dbPass = prop.getProperty("db_password");
 	    orig_debug = prop.getProperty("debug");
 	} catch (Exception e) {
-	    Debug.printout(e.toString());
+	    Debug.println(e.toString());
 	    result = false;
 	}
-	if(orig_dbIp==null||orig_dbName==null||orig_dbUser==null||orig_dbPass==null||orig_debug==null){
+	if (orig_dbIp == null || orig_dbName == null || orig_dbUser == null || orig_dbPass == null || orig_debug == null) {
 	    result = false;
 	}
 	return result;

@@ -186,10 +186,10 @@ public class AddMedewerker extends javax.swing.JFrame {
                 errorText.setText(success);
                 dispose();
             } catch (Exception ex) {
-                //Debug.printout("sssss");
+                //Debug.println("sssss");
                 ex.printStackTrace();
                 String dbFailure = resBundle.getString("dbFailure").replaceAll("%&", "medewerker");
-                Debug.printout(dbFailure);
+                Debug.println(dbFailure);
                 errorText.setText(dbFailure);
             }
         } else {

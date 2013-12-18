@@ -338,7 +338,7 @@ public class PopUpMedewerker extends javax.swing.JFrame {
         currentCase.setHomeCity(hCityField.getText());
         currentCase.setAditionalDetails(jTextArea1.getText());
         currentCase.setStorageLocation(jTextArea2.getText());
-        Debug.printout(currentCase.toString());
+        Debug.println(currentCase.toString());
         CaseDao dbCase = new CaseDao();
         try {
             dbCase.update(currentCase);

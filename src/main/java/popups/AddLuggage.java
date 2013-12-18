@@ -184,7 +184,7 @@ public class AddLuggage extends javax.swing.JFrame {
         details = detailsTextField.getText();
         phoneNr = phoneNrText.getText();
         if (Check.verifyLuggage(label, color, shape, location, details, phoneNr)) {
-            Debug.printout(Check.cleanPhone(phoneNr));
+            Debug.println(Check.cleanPhone(phoneNr));
             newLuggage = new Luggage(label, color, shape, location, details, phoneNr);
             saveData(newLuggage);
 

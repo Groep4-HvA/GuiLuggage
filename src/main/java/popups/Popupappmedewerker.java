@@ -165,14 +165,14 @@ public class Popupappmedewerker extends javax.swing.JFrame {
             medewerker.setPassword(DigestUtils.sha256Hex(String.valueOf(firstPasswordField)));
         }  else {
         medewerker.setPassword(firstPasswordField.getPassword());
-       // Debug.printout(medewerker.toString());
+       // Debug.println(medewerker.toString());
         try {
             dbMedewerker.update(medewerker);
         } catch (SQLException ex) {
             Logger.getLogger(Popupappmedewerker.class.getName()).log(Level.SEVERE, null, ex);
         }
         }
-        Debug.printout(medewerker.toString());
+        Debug.println(medewerker.toString());
         dispose();
     }//GEN-LAST:event_saveButtonActionPerformed
 

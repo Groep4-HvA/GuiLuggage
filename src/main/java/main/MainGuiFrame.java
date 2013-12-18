@@ -393,7 +393,7 @@ public class MainGuiFrame extends java.awt.Frame {
                 setMenuBar(menuBar);
             }
         } else {
-            Debug.printout(bundle.getString("notAuthorized"));
+            Debug.println(bundle.getString("notAuthorized"));
         }
     }//GEN-LAST:event_appManagementButtonActionPerformed
 
@@ -445,12 +445,12 @@ public class MainGuiFrame extends java.awt.Frame {
     }//GEN-LAST:event_addNewButton2ActionPerformed
 
     private void searchButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_searchButtonActionPerformed
-        Debug.printout(searchInput.getText());
+        Debug.println(searchInput.getText());
         if (!inBeheer) {
             try {
                 CaseDao cdCase = new CaseDao();
                 caseList = cdCase.search(searchInput.getText());
-                Debug.printout(searchInput.getText());
+                Debug.println(searchInput.getText());
                 populateTableCase(caseList);
             } catch (Exception e) {
                 e.printStackTrace();
