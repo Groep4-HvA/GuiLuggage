@@ -593,7 +593,7 @@ public class ManagerGui extends java.awt.Frame {
 	DateFormat df = new SimpleDateFormat("dd-MM-yyyy");
 	Date today = Calendar.getInstance().getTime();
 	String date = df.format(today);
-	//---Shows amountPending in PDF-------------------------------
+	//---Shows totalPending in PDF-------------------------------
 	CaseDao dbCase = new CaseDao();
 	List<Case> listPending = null;
 
@@ -605,7 +605,7 @@ public class ManagerGui extends java.awt.Frame {
 		    .getName()).log(Level.SEVERE, null, ex);
 	}
 	String pending = Integer.toString(listPending.size());
-	//----Shows amountResolved in PDF-------------------------------
+	//----Shows totalResolved in PDF-------------------------------
 	List<Case> listResolved = null;
 
 
@@ -617,17 +617,40 @@ public class ManagerGui extends java.awt.Frame {
 	String resolved = Integer.toString(listResolved.size());
 	//----Shows total ----------------------------------------------------------
 	List<Case> list = null;
-
-
 	try {
 	    list = dbCase.readAll();
 	} catch (SQLException ex) {
 	    Logger.getLogger(ManagerGui.class.getName()).log(Level.SEVERE, null, ex);
 	}
 	String total = Integer.toString(list.size());
+        //------pending by date---------------------------------------------------
+        List<Case> datePending = null;
+        try {
+            datePending = dbCase.readAllPendingByDate(dateString, dateString2);
+        } catch (SQLException ex) {
+            Logger.getLogger(ManagerGui.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        String pendingByDate = Integer.toString(datePending.size());
+        //-----resolvedByDate----------------------------------------------------
+        List<Case> dateResolved = null;
+        try {
+            dateResolved = dbCase.readAllResolvedByDate(dateString, dateString2);
+        } catch (SQLException ex) {
+            Logger.getLogger(ManagerGui.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        String resolvedByDate = Integer.toString(dateResolved.size());
+        //-----totalByDate------------------------------------------------------
+        List<Case> dateTotal = null;
+        try {
+            dateTotal = dbCase.readAllTotalByDate(dateString, dateString2);
+        } catch (SQLException ex) {
+            Logger.getLogger(ManagerGui.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        String totalByDate = Integer.toString(dateTotal.size());
+        
 	PDFGenerator pdf = new PDFGenerator();
 
-	pdf.generate(pending, resolved, total, dateString, dateString2);
+	pdf.generate(pending, resolved, total, dateString, dateString2, pendingByDate, resolvedByDate,totalByDate);
 
 
 	try {

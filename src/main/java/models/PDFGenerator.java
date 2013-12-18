@@ -113,7 +113,7 @@ public class PDFGenerator {
         } 
     }
 
-    public void generate(String pending, String resolved, String total, String dateString, String dateString2) {
+    public void generate(String pending, String resolved, String total, String dateString, String dateString2, String pendingByDate, String resolvedByDate, String totalByDate) {
         try {
             // See http://pdfbox.apache.org/cookbook/documentcreation.html
             // See http://pdfbox.apache.org/docs/1.8.2/javadocs/index.html?overview-summary.html
@@ -124,18 +124,31 @@ public class PDFGenerator {
             contentStream.setFont(font, 12);
             contentStream.moveTextPositionByAmount(100, 700);
             contentStream.drawString(date);
+            
+            
             contentStream.moveTextPositionByAmount(0, -20);
+            contentStream.drawString("Total pending: ");
+            contentStream.drawString(pending);
+            contentStream.moveTextPositionByAmount(0, -20);
+            contentStream.drawString("Total resolved: ");
+            contentStream.drawString(resolved);
+            contentStream.moveTextPositionByAmount(0, -20);
+            contentStream.drawString("Total processed: ");
+            contentStream.drawString(total);
+            
+            contentStream.moveTextPositionByAmount(0, -40);
             contentStream.drawString("From: " +dateString+ " till "+ dateString2);
             
             contentStream.moveTextPositionByAmount(0, -20);
             contentStream.drawString("Amount pending: ");
-            contentStream.drawString(pending);
+            contentStream.drawString(pendingByDate);
             contentStream.moveTextPositionByAmount(0, -20);
-            contentStream.drawString("\tAmount resolved: ");
-            contentStream.drawString(resolved);
+            contentStream.drawString("Amount resolved: ");
+            contentStream.drawString(resolvedByDate);
             contentStream.moveTextPositionByAmount(0, -20);
-            contentStream.drawString("\tTotal processed: ");
-            contentStream.drawString(total);
+            contentStream.drawString("Amount processed: ");
+            contentStream.drawString(totalByDate);
+            
             
             contentStream.endText();
             contentStream.close();
