@@ -117,7 +117,6 @@ public class GuiLuggage {
 	if(orig_dbIp==null||orig_dbName==null||orig_dbUser==null||orig_dbPass==null||orig_debug==null){
 	    result = false;
 	}
-	System.err.println(result + "");
 	return result;
     }
 }
