@@ -28,6 +28,7 @@ import models.Debug;
 import models.Medewerker;
 import models.MedewerkerDAO;
 import popups.DbDialog;
+import java.awt.*;
 
 /**
  *
@@ -403,8 +404,11 @@ public class MainGuiFrame extends java.awt.Frame {
      */
     private void myAccountButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_myAccountButtonActionPerformed
         PasswordConfirm passOverlay = new PasswordConfirm(new javax.swing.JFrame(), true, handlerId);
+        
         passOverlay.pack();
+      
         passOverlay.setVisible(true);
+       
         passOverlay.setLocationRelativeTo(null);
     }//GEN-LAST:event_myAccountButtonActionPerformed
 
@@ -427,10 +431,22 @@ public class MainGuiFrame extends java.awt.Frame {
     private void addNewButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addNewButton1ActionPerformed
         if (inBeheer) {
             AddMedewerker gui = new AddMedewerker(true);
+            gui.dispose();
+            gui.setUndecorated(true);
+            for(float i = 0.0f; i < 1.0f; i+= 0.005f){
+            gui.setOpacity(i);
+          //  System.out.println(i);
             gui.setVisible(true);
+            }
         } else {
             AddLuggage gui = new AddLuggage(handlerId);
+            gui.dispose();
+            gui.setUndecorated(true);
+            for(float i = 0.0f; i < 1.0f; i+= 0.004f){
+            gui.setOpacity(i);
+          //  System.out.println(i);
             gui.setVisible(true);
+            }
         }
     }//GEN-LAST:event_addNewButton1ActionPerformed
 
@@ -438,9 +454,21 @@ public class MainGuiFrame extends java.awt.Frame {
         AddPassenger gui3 = new AddPassenger(handlerId);
         AddMedewerker gui2 = new AddMedewerker(false);
         if (inBeheer) {
+            gui2.dispose();
+            gui2.setUndecorated(true);
+            for(float i = 0.0f; i < 1.0f; i+= 0.004f){
+            gui2.setOpacity(i);
+          //  System.out.println(i);
             gui2.setVisible(true);
+            }
         } else {
+            gui3.dispose();
+            gui3.setUndecorated(true);
+            for(float i = 0.0f; i < 1.0f; i+= 0.005f){
+            gui3.setOpacity(i);
+            //System.out.println(i);
             gui3.setVisible(true);
+            }
         }
     }//GEN-LAST:event_addNewButton2ActionPerformed
 
