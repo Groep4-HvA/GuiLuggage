@@ -28,7 +28,6 @@ import models.Debug;
 import models.Medewerker;
 import models.MedewerkerDAO;
 import popups.DbDialog;
-import java.awt.*;
 
 /**
  *
@@ -353,14 +352,14 @@ public class MainGuiFrame extends java.awt.Frame {
 
     /*
      * Display more results
-     * TODO: No function assigned yet
+     * TODO: How-Fei will do this
      */
     private void moreButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_moreButtonActionPerformed
     }//GEN-LAST:event_moreButtonActionPerformed
 
     /*
      * Switch to the Application Management screen.
-     * TODO: Clean this up
+     * TODO: Clean this up (Make a menu method, )
      */
     private void appManagementButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_appManagementButtonActionPerformed
         if (beheer) {

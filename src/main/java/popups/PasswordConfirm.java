@@ -150,7 +150,7 @@ public class PasswordConfirm extends javax.swing.JDialog {
     }//GEN-LAST:event_cancelButActionPerformed
 
     private void passwordActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_passwordActionPerformed
-        // TODO add your handling code here:
+        saveButActionPerformed(evt);
     }//GEN-LAST:event_passwordActionPerformed
 
     private void saveButActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saveButActionPerformed

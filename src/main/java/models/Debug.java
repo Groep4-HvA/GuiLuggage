@@ -41,7 +41,7 @@ public class Debug {
                 wout.println("LOG(Debug):" + out);
                 wout.close();
             } catch (IOException e) {
-                //TODO add reall catch
+                Debug.println(e.toString());
             }
         }
     }
