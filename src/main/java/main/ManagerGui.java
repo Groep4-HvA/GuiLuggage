@@ -22,7 +22,7 @@ import models.CaseDao;
 import models.Debug;
 import models.PDFGenerator;
 import models.printJob;
-import popups.PasswordConfirm;
+import popups.MyAccount;
 
 /**
  *
@@ -377,7 +377,7 @@ public class ManagerGui extends java.awt.Frame {
     }//GEN-LAST:event_moreButtonActionPerformed
 
     private void myAccountButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_myAccountButtonActionPerformed
-	PasswordConfirm passOverlay = new PasswordConfirm(new javax.swing.JFrame(), true, handlerId);
+	MyAccount passOverlay = new MyAccount(new javax.swing.JFrame(), true, handlerId);
 	passOverlay.pack();
 	passOverlay.setVisible(true);
 	passOverlay.setLocationRelativeTo(null);

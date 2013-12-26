@@ -22,7 +22,7 @@ import org.apache.commons.codec.digest.DigestUtils;
  *
  * @author workplz
  */
-public class PasswordConfirm extends javax.swing.JDialog {
+public class MyAccount extends javax.swing.JDialog {
 
     private final Color red = new Color(163, 0, 15);
     private int medewerkerID;
@@ -30,7 +30,7 @@ public class PasswordConfirm extends javax.swing.JDialog {
     /**
      * Creates new form PasswordConfirm
      */
-    public PasswordConfirm(java.awt.Frame parent, boolean modal, int medewerkerID) {
+    public MyAccount(java.awt.Frame parent, boolean modal, int medewerkerID) {
         super(parent, modal);
         this.setUndecorated(true);
         getRootPane().setBorder(BorderFactory.createLineBorder(red));
@@ -170,7 +170,7 @@ public class PasswordConfirm extends javax.swing.JDialog {
             try {
                 tempMedewerker = medewerkerTijdelijk.readByID(medewerkerID);
             } catch (SQLException ex) {
-                Logger.getLogger(PasswordConfirm.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(MyAccount.class.getName()).log(Level.SEVERE, null, ex);
             }
             tempMedewerker.setUserLang("EN");
             //MainGuiFrame f = new MainGuiFrame();
@@ -181,7 +181,7 @@ public class PasswordConfirm extends javax.swing.JDialog {
             try {
                 tempMedewerker = medewerkerTijdelijk.readByID(medewerkerID);
             } catch (SQLException ex) {
-                Logger.getLogger(PasswordConfirm.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(MyAccount.class.getName()).log(Level.SEVERE, null, ex);
             }
             tempMedewerker.setUserLang("NL");
             dispose();
@@ -196,7 +196,7 @@ public class PasswordConfirm extends javax.swing.JDialog {
                 try {
                     tempMedewerker = medewerkerTijdelijk.readByID(medewerkerID);
                 } catch (SQLException ex) {
-                    Logger.getLogger(PasswordConfirm.class.getName()).log(Level.SEVERE, null, ex);
+                    Logger.getLogger(MyAccount.class.getName()).log(Level.SEVERE, null, ex);
                 }
 
                 if (tempMedewerker.getPassword().equals(DigestUtils.sha256Hex(String.valueOf(password.getPassword())))) {
@@ -206,7 +206,7 @@ public class PasswordConfirm extends javax.swing.JDialog {
                     try {
                         medewerkerTijdelijk.update(tempMedewerker);
                     } catch (SQLException ex) {
-                        Logger.getLogger(PasswordConfirm.class.getName()).log(Level.SEVERE, null, ex);
+                        Logger.getLogger(MyAccount.class.getName()).log(Level.SEVERE, null, ex);
                     }
                 }
                 Debug.println(tempMedewerker.toString());

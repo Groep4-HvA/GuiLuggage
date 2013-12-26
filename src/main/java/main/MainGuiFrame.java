@@ -8,6 +8,8 @@ import java.awt.MenuItem;
 import java.awt.MenuShortcut;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.AdjustmentEvent;
+import java.awt.event.AdjustmentListener;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
@@ -25,7 +27,7 @@ import popups.AddLuggage;
 import popups.AddMedewerker;
 import popups.AddPassenger;
 import popups.DbDialog;
-import popups.PasswordConfirm;
+import popups.MyAccount;
 import popups.PopUpMedewerker;
 import popups.Popupappmedewerker;
 
@@ -53,17 +55,17 @@ public class MainGuiFrame extends java.awt.Frame {
     //Strings for add buttons
     private final String button1;
     private final String button2;
-    private String button3 = null;
     //Access Management
     private boolean beheer;
+    private int handlerId;
     private boolean inBeheer = false;
     private boolean luggage = false;
-    private int handlerId;
 
     /**
      * Constructor for the common user and App Manager screen
      *
-     * @param value
+     * @param beheer
+     * @param handlerId
      * @throws java.sql.SQLException
      */
     public MainGuiFrame(boolean beheer, int handlerId) throws SQLException {
@@ -72,7 +74,6 @@ public class MainGuiFrame extends java.awt.Frame {
         this.beheer = beheer;
         button1 = (inBeheer) ? bundle.getString("Medewerker") : bundle.getString("Luggage");
         button2 = (inBeheer) ? bundle.getString("Manager") : bundle.getString("Passenger");
-        button3 = (luggage) ? bundle.getString("Luggage") : bundle.getString("Passenger");
 
         //initializing the screen and centering it
         MyDBListener actionDb = new MyDBListener();
@@ -86,37 +87,7 @@ public class MainGuiFrame extends java.awt.Frame {
         //Access management: users can not see the appmanagement screen
         appManagementButton.setVisible(beheer);
         fillTableCases();
-    }
-    
-    public void fillTableMore(){
-        CaseDao dbcase = new CaseDao();
-        
-        try{
-            caseListMore = dbcase.ReadAllMore();
-        }catch(Exception e){
-            e.printStackTrace();
-        }
-        
-    }
-
-    public void fillTableCases() {
-        CaseDao dbCase = new CaseDao();
-        try {
-            caseList = dbCase.readAll();
-        } catch (SQLException ex) {
-            Logger.getLogger(logIn.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        populateTableCase(caseList);
-    }
-
-    public void fillTableMedewerkers() {
-        MedewerkerDAO dbMedewerker = new MedewerkerDAO();
-        try {
-            medList = dbMedewerker.readAll();
-        } catch (SQLException ex) {
-            Logger.getLogger(logIn.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        populateTableMedewerker(medList);
+        fadeMore();
     }
 
     /**
@@ -309,7 +280,7 @@ public class MainGuiFrame extends java.awt.Frame {
             }
         });
         jScrollPane3.setViewportView(tableResults);
-        java.util.ResourceBundle bundle1 = java.util.ResourceBundle.getBundle("main/Bundle"); // NOI18N
+        java.util.ResourceBundle bundle1 = java.util.ResourceBundle.getBundle("Bundle"); // NOI18N
         tableResults.getColumnModel().getColumn(0).setHeaderValue(bundle1.getString("MainGuiFrame.tableResults.columnModel.title0")); // NOI18N
         tableResults.getColumnModel().getColumn(1).setHeaderValue(bundle1.getString("MainGuiFrame.tableResults.columnModel.title1")); // NOI18N
         tableResults.getColumnModel().getColumn(2).setHeaderValue(bundle1.getString("MainGuiFrame.tableResults.columnModel.title2")); // NOI18N
@@ -421,58 +392,7 @@ public class MainGuiFrame extends java.awt.Frame {
      * TODO: How-Fei will do this
      */
     private void moreButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_moreButtonActionPerformed
-        fillTableMore();        
-        
-        List<Case> list = caseListMore;
-        
-        tableResults.getColumnModel().getColumn(0).setMaxWidth(35);
-        final ArrayList<Integer> resolveList = new ArrayList<Integer>();
-        final ArrayList<Integer> passengerList = new ArrayList<Integer>();
-        final ArrayList<Integer> luggageList = new ArrayList<Integer>();
-        for (int i = 0; i < 50; i++) {
-            tableResults.getModel().setValueAt("", i, 0);
-            tableResults.getModel().setValueAt("", i, 1);
-            tableResults.getModel().setValueAt("", i, 2);
-            tableResults.getModel().setValueAt("", i, 3);
-        }
-        for (int i = 0; i < list.size(); i++) {
-            tableResults.getModel().setValueAt(i + 1, i, 0);
-            tableResults.getModel().setValueAt(list.get(i).getLabel(), i, 1);
-            tableResults.getModel().setValueAt(list.get(i).getAddDate(), i, 2);
-            tableResults.getModel().setValueAt(list.get(i).getHandler(), i, 3);
-            if (list.get(i).getResolveDate() != null) {
-                resolveList.add(i);
-            }
-            if (list.get(i).getHomeAddress() != null) {
-                passengerList.add(i);
-            } else {
-                luggageList.add(i);
-            }
-        }
-        tableResults.setDefaultRenderer(Object.class, new TableCellRenderer() {
-            private DefaultTableCellRenderer DEFAULT_RENDERER = new DefaultTableCellRenderer();
-
-            @Override
-            public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
-                Component c = DEFAULT_RENDERER.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
-                if (resolveList.contains(row)) {
-                    c.setBackground(new Color(32, 165, 69));
-                } else {
-                    if (passengerList.contains(row)) {
-                        c.setBackground(new Color(240, 149, 23));
-                    } else if (luggageList.contains(row)) {
-                        c.setBackground(new Color(37, 132, 193));
-                    } else {
-                        c.setBackground(new Color(240, 240, 240));
-                    }
-                }
-                return c;
-            }
-        });
-        tableResults.getColumnModel().getColumn(0).setHeaderValue("#");
-        tableResults.getColumnModel().getColumn(1).setHeaderValue("Luggage Number");
-        tableResults.getColumnModel().getColumn(2).setHeaderValue("Add date");
-        tableResults.getColumnModel().getColumn(3).setHeaderValue("Handler name");
+        fillTableMore();
     }//GEN-LAST:event_moreButtonActionPerformed
 
     /*
@@ -520,13 +440,10 @@ public class MainGuiFrame extends java.awt.Frame {
      * TODO: Preset the language of the user
      */
     private void myAccountButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_myAccountButtonActionPerformed
-        PasswordConfirm passOverlay = new PasswordConfirm(new javax.swing.JFrame(), true, handlerId);
-        
-        passOverlay.pack();
-      
-        passOverlay.setVisible(true);
-       
-        passOverlay.setLocationRelativeTo(null);
+        MyAccount myAccount = new MyAccount(new javax.swing.JFrame(), true, handlerId);
+        myAccount.pack();
+        myAccount.setVisible(true);
+        myAccount.setLocationRelativeTo(null);
     }//GEN-LAST:event_myAccountButtonActionPerformed
 
     private void logoutButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_logoutButtonActionPerformed
@@ -550,19 +467,19 @@ public class MainGuiFrame extends java.awt.Frame {
             AddMedewerker gui = new AddMedewerker(true);
             gui.dispose();
             gui.setUndecorated(true);
-            for(float i = 0.0f; i < 1.0f; i+= 0.005f){
-            gui.setOpacity(i);
-          //  System.out.println(i);
-            gui.setVisible(true);
+            for (float i = 0.0f; i < 1.0f; i += 0.005f) {
+                gui.setOpacity(i);
+                //  System.out.println(i);
+                gui.setVisible(true);
             }
         } else {
             AddLuggage gui = new AddLuggage(handlerId);
             gui.dispose();
             gui.setUndecorated(true);
-            for(float i = 0.0f; i < 1.0f; i+= 0.004f){
-            gui.setOpacity(i);
-          //  System.out.println(i);
-            gui.setVisible(true);
+            for (float i = 0.0f; i < 1.0f; i += 0.004f) {
+                gui.setOpacity(i);
+                //  System.out.println(i);
+                gui.setVisible(true);
             }
         }
     }//GEN-LAST:event_addNewButton1ActionPerformed
@@ -573,18 +490,18 @@ public class MainGuiFrame extends java.awt.Frame {
         if (inBeheer) {
             gui2.dispose();
             gui2.setUndecorated(true);
-            for(float i = 0.0f; i < 1.0f; i+= 0.004f){
-            gui2.setOpacity(i);
-          //  System.out.println(i);
-            gui2.setVisible(true);
+            for (float i = 0.0f; i < 1.0f; i += 0.004f) {
+                gui2.setOpacity(i);
+                //  System.out.println(i);
+                gui2.setVisible(true);
             }
         } else {
             gui3.dispose();
             gui3.setUndecorated(true);
-            for(float i = 0.0f; i < 1.0f; i+= 0.005f){
-            gui3.setOpacity(i);
-            //System.out.println(i);
-            gui3.setVisible(true);
+            for (float i = 0.0f; i < 1.0f; i += 0.005f) {
+                gui3.setOpacity(i);
+                //System.out.println(i);
+                gui3.setVisible(true);
             }
         }
     }//GEN-LAST:event_addNewButton2ActionPerformed
@@ -615,6 +532,36 @@ public class MainGuiFrame extends java.awt.Frame {
     private void searchInputActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_searchInputActionPerformed
         searchButtonActionPerformed(evt);
     }//GEN-LAST:event_searchInputActionPerformed
+    public void fillTableMore() {
+        CaseDao dbcase = new CaseDao();
+        try {
+            caseList = dbcase.ReadAllMore();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        populateTableCase(caseList);
+    }
+
+    private void fillTableCases() {
+        CaseDao dbCase = new CaseDao();
+        try {
+            caseList = dbCase.readAll();
+        } catch (SQLException ex) {
+            Logger.getLogger(logIn.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        populateTableCase(caseList);
+    }
+
+    public void fillTableMedewerkers() {
+        MedewerkerDAO dbMedewerker = new MedewerkerDAO();
+        try {
+            medList = dbMedewerker.readAll();
+        } catch (SQLException ex) {
+            Logger.getLogger(logIn.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        populateTableMedewerker(medList);
+    }
+
     public void populateTableMedewerker(List<Medewerker> list) {
         tableResults.getColumnModel().getColumn(0).setMaxWidth(350);
         tableResults.getColumnModel().getColumn(0).setPreferredWidth(250);
@@ -714,16 +661,34 @@ public class MainGuiFrame extends java.awt.Frame {
     private javax.swing.JTextField searchInput;
     private javax.swing.JTable tableResults;
     // End of variables declaration//GEN-END:variables
+
+    private void fadeMore() {
+        jScrollPane3.getVerticalScrollBar().addAdjustmentListener(new AdjustmentListener() {
+            @Override
+            public void adjustmentValueChanged(AdjustmentEvent ae) {
+                boolean fadable;
+                fadable = (jScrollPane3.getVerticalScrollBar().getValue() > 1500);
+                if (fadable) {
+                    Debug.println(fadable + "");
+                }
+            }
+        });
+    }
+
     private class MyDBListener implements ActionListener {
+
         @Override
         public void actionPerformed(ActionEvent e) {
             dialogDb();
         }
     }
+
     private class MyLangListener implements ActionListener {
+
         @Override
         public void actionPerformed(ActionEvent e) {
             dialogDb();
         }
     }
+
 }
