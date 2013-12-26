@@ -34,7 +34,7 @@ public class AddPassenger extends javax.swing.JFrame {
     private String details;
     private int handlerId;
     private String phoneNr;
-    
+
     /**
      * Creates new form AddPassenger
      */
@@ -309,13 +309,13 @@ public class AddPassenger extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void printButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_printButtonActionPerformed
-	printJob printJob = new printJob();
-	printJob.start();
+        printJob printJob = new printJob();
+        printJob.start();
     }//GEN-LAST:event_printButtonActionPerformed
 
     private void saveButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saveButtonActionPerformed
         Passenger newPassenger;
-        
+
         label = labelTextfield.getText();
         color = colorTextfield.getText();
         shape = shapeTextfield.getText();
@@ -330,8 +330,8 @@ public class AddPassenger extends javax.swing.JFrame {
         residentCity = rCityTextfield.getText();
         details = detailsTextfield.getText();
         phoneNr = phoneNrText.getText();
-        
-        newPassenger = new Passenger(label,color,shape,name,surname,adres,postalCode,city,residentAdres,residentPostalCode,residentCity,details, phoneNr);
+
+        newPassenger = new Passenger(label, color, shape, name, surname, adres, postalCode, city, residentAdres, residentPostalCode, residentCity, details, phoneNr);
         PassengerDAO test = new PassengerDAO();
         try {
             //        try {
@@ -340,11 +340,11 @@ public class AddPassenger extends javax.swing.JFrame {
             //            //Debug.printout("sssss");
             //            ex.printStackTrace();
             //        }
-              test.create(newPassenger, handlerId);
+            test.create(newPassenger, handlerId);
         } catch (SQLException ex) {
             Logger.getLogger(AddPassenger.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
+
         dispose();
     }//GEN-LAST:event_saveButtonActionPerformed
 
@@ -354,7 +354,7 @@ public class AddPassenger extends javax.swing.JFrame {
 
     private void pdfButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pdfButtonActionPerformed
         PassengerDAO receipt = new PassengerDAO();
-        
+
         label = labelTextfield.getText();
         color = colorTextfield.getText();
         shape = shapeTextfield.getText();
@@ -369,18 +369,11 @@ public class AddPassenger extends javax.swing.JFrame {
         residentCity = rCityTextfield.getText();
         details = detailsTextfield.getText();
         phoneNr = phoneNrText.getText();
-        
-        
+
         PDFGenerator passengerReceipt = new PDFGenerator();
-       // passengerReceipt = null;
+        // passengerReceipt = null;
         passengerReceipt.generate(label, color, shape, name, surname, adres, postalCode, city, residentAdres, residentPostalCode, residentCity, details, handlerId, phoneNr);
-        try {
-            passengerReceipt.save("Receipt_" + label + ".pdf");
-        } catch (FileNotFoundException ex) {
-            Logger.getLogger(AddPassenger.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (IOException ex) {
-            Logger.getLogger(AddPassenger.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        passengerReceipt.save("Receipt_" + label);
     }//GEN-LAST:event_pdfButtonActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
