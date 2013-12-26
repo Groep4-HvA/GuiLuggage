@@ -8,12 +8,6 @@ import java.awt.MenuItem;
 import java.awt.MenuShortcut;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import popups.PasswordConfirm;
-import popups.Popupappmedewerker;
-import popups.AddLuggage;
-import popups.AddMedewerker;
-import popups.AddPassenger;
-import popups.PopUpMedewerker;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
@@ -27,7 +21,13 @@ import models.CaseDao;
 import models.Debug;
 import models.Medewerker;
 import models.MedewerkerDAO;
+import popups.AddLuggage;
+import popups.AddMedewerker;
+import popups.AddPassenger;
 import popups.DbDialog;
+import popups.PasswordConfirm;
+import popups.PopUpMedewerker;
+import popups.Popupappmedewerker;
 
 /**
  *

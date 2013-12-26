@@ -581,6 +581,7 @@ public class ManagerGui extends java.awt.Frame {
 
     private void printButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_printButtonActionPerformed
 	printJob printJob = new printJob();
+	printJob.start();
     }//GEN-LAST:event_printButtonActionPerformed
 
     private void logoutButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_logoutButtonActionPerformed

@@ -7,10 +7,8 @@ import java.io.IOException;
 import java.io.OutputStream;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.apache.pdfbox.pdmodel.PDDocument;
@@ -24,6 +22,15 @@ import org.apache.pdfbox.pdmodel.font.PDType1Font;
  * @author breud
  */
 public class PDFGenerator {
+
+    public static int stringWidth(String s, PDFont font, double fontSize) {
+        try {
+            return (int) (font.getStringWidth(s) * fontSize / 1000) + 1;
+        } catch (IOException ex) {
+            // ignore, but return 0
+            return 0;
+        }
+    }
     
     DateFormat df = new SimpleDateFormat("MM/dd/yyyy HH:mm:ss");
     Date today = Calendar.getInstance().getTime();        
@@ -175,14 +182,5 @@ public class PDFGenerator {
             ex.printStackTrace();
         }
         output.close();
-    }
-
-    public static int stringWidth(String s, PDFont font, double fontSize) {
-        try {
-            return (int) (font.getStringWidth(s) * fontSize / 1000) + 1;
-        } catch (IOException ex) {
-            // ignore, but return 0
-            return 0;
-        }
     }
 }
