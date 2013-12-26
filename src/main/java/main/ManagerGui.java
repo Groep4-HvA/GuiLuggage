@@ -40,6 +40,7 @@ public class ManagerGui extends java.awt.Frame {
     private Date datum2;
     private String dateString;
     private String dateString2;
+    private PDFGenerator pdf;
 
     public ManagerGui(boolean beheer, int handlerId) throws SQLException {
 	this.handlerId = handlerId;
@@ -267,7 +268,7 @@ public class ManagerGui extends java.awt.Frame {
             }
         });
 
-        java.util.ResourceBundle bundle1 = java.util.ResourceBundle.getBundle("main/Bundle"); // NOI18N
+        java.util.ResourceBundle bundle1 = java.util.ResourceBundle.getBundle("Bundle"); // NOI18N
         clearButton.setText(bundle1.getString("ManagerGui.clearButton.text")); // NOI18N
         clearButton.setActionCommand(bundle1.getString("ManagerGui.clearButton.actionCommand")); // NOI18N
         clearButton.setMaximumSize(new java.awt.Dimension(61, 23));
@@ -483,10 +484,10 @@ public class ManagerGui extends java.awt.Frame {
     private void processedManagerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_processedManagerActionPerformed
 	try {
 
-	    Date datum1 = jDateChooser1.getDate();
-	    String dateString = String.format("%1$tY-%1$tm-%1$td", datum1);
-	    Date datum2 = jDateChooser2.getDate();
-	    String dateString2 = String.format("%1$tY-%1$tm-%1$td", datum2);
+	    datum1 = jDateChooser1.getDate();
+	    dateString = String.format("%1$tY-%1$tm-%1$td", datum1);
+	    datum2 = jDateChooser2.getDate();
+	    dateString2 = String.format("%1$tY-%1$tm-%1$td", datum2);
 
 	    if (jDateChooser1.getDate() == null || jDateChooser2.getDate() == null) {
 
@@ -580,8 +581,7 @@ public class ManagerGui extends java.awt.Frame {
     }//GEN-LAST:event_processedManagerActionPerformed
 
     private void printButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_printButtonActionPerformed
-	printJob printJob = new printJob();
-	printJob.start();
+	pdf.print();
     }//GEN-LAST:event_printButtonActionPerformed
 
     private void logoutButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_logoutButtonActionPerformed
@@ -649,18 +649,10 @@ public class ManagerGui extends java.awt.Frame {
 	}
 	String totalByDate = Integer.toString(dateTotal.size());
 
-	PDFGenerator pdf = new PDFGenerator();
+	pdf = new PDFGenerator();
 
 	pdf.generate(pending, resolved, total, dateString, dateString2, pendingByDate, resolvedByDate, totalByDate);
-
-
-	try {
-	    pdf.save("Corendon_Overview_" + date + ".pdf");
-	} catch (FileNotFoundException ex) {
-	    Logger.getLogger(ManagerGui.class.getName()).log(Level.SEVERE, null, ex);
-	} catch (IOException ex) {
-	    Logger.getLogger(ManagerGui.class.getName()).log(Level.SEVERE, null, ex);
-	}
+	pdf.save("Corendon_Overview_" + date);
     }//GEN-LAST:event_PDFActionPerformed
     private void selectButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_selectButtonActionPerformed
 	try {
@@ -739,10 +731,10 @@ public class ManagerGui extends java.awt.Frame {
     private void foundManagerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_foundManagerActionPerformed
 	try {
 
-	    Date datum1 = jDateChooser1.getDate();
-	    String dateString = String.format("%1$tY-%1$tm-%1$td", datum1);
-	    Date datum2 = jDateChooser2.getDate();
-	    String dateString2 = String.format("%1$tY-%1$tm-%1$td", datum2);
+	    datum1 = jDateChooser1.getDate();
+	    dateString = String.format("%1$tY-%1$tm-%1$td", datum1);
+	    datum2 = jDateChooser2.getDate();
+	    dateString2 = String.format("%1$tY-%1$tm-%1$td", datum2);
 
 	    if (jDateChooser1.getDate() == null || jDateChooser2.getDate() == null) {
 

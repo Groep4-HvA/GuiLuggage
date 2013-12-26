@@ -1,5 +1,6 @@
 package models;
 
+import java.awt.print.PrinterException;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
@@ -167,10 +168,14 @@ public class PDFGenerator {
 
     }
 
-    public void save(String filename) throws FileNotFoundException, IOException {
-        String location = System.getProperty("user.home")+File.separator+"Documents"+File.separator+filename;
-        location = location.replace("\\", "/");
-        OutputStream output = new FileOutputStream(location);
+    public void save(String filename){
+        String location = System.getProperty("user.home")+File.separator+"Documents"+File.separator+filename+".pdf";
+        OutputStream output=null;
+	try {
+	    output = new FileOutputStream(location);
+	} catch (FileNotFoundException ex) {
+	    Logger.getLogger(PDFGenerator.class.getName()).log(Level.SEVERE, null, ex);
+	}
         System.out.println(location);
         try {
             // Make sure that the content stream is closed:
@@ -181,6 +186,22 @@ public class PDFGenerator {
         } catch (Exception ex) {
             ex.printStackTrace();
         }
-        output.close();
+	try {
+	    output.close();
+	} catch (IOException ex) {
+	    Logger.getLogger(PDFGenerator.class.getName()).log(Level.SEVERE, null, ex);
+	}
+    }
+
+    public void print() {
+	try {
+	    this.contentStream.close();
+	    this.document.print();
+	    this.document.close();
+	} catch (PrinterException ex) {
+	    Logger.getLogger(PDFGenerator.class.getName()).log(Level.SEVERE, null, ex);
+	} catch (IOException ex) {
+	    Logger.getLogger(PDFGenerator.class.getName()).log(Level.SEVERE, null, ex);
+	}
     }
 }
