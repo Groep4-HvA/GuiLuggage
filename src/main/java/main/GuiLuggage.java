@@ -1,6 +1,5 @@
 package main;
 
-import DBUtil.ConnectionMySQL;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -9,8 +8,6 @@ import java.io.PrintWriter;
 import java.io.UnsupportedEncodingException;
 import java.util.Locale;
 import java.util.Properties;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 import models.Debug;
@@ -47,13 +44,13 @@ public class GuiLuggage {
 	try {
 	    UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
 	} catch (ClassNotFoundException e) {
-	    e.printStackTrace();
+	    Debug.printError(e.toString());
 	} catch (IllegalAccessException e) {
-	    e.printStackTrace();
+	    Debug.printError(e.toString());
 	} catch (InstantiationException e) {
-	    e.printStackTrace();
+	    Debug.printError(e.toString());
 	} catch (UnsupportedLookAndFeelException e) {
-	    e.printStackTrace();
+	    Debug.printError(e.toString());
 	}
 
     }
@@ -67,8 +64,8 @@ public class GuiLuggage {
 	    Properties prop = new Properties();
 	    try {
 		prop.load(new FileInputStream(System.getProperty("user.dir") + "/Config.sample.properties"));
-	    } catch (IOException ex) {
-		Logger.getLogger(ConnectionMySQL.class.getName()).log(Level.SEVERE, null, ex);
+	    } catch (IOException e) {
+		Debug.printError(e.toString());
 	    }
 	    String ip = (orig_dbIp != null) ? orig_dbIp : prop.getProperty("db_ip");
 	    String dbName = (orig_dbName != null) ? orig_dbName : prop.getProperty("db_name");
@@ -79,10 +76,10 @@ public class GuiLuggage {
 	    PrintWriter writer = null;
 	    try {
 		writer = new PrintWriter("Config.properties", "UTF-8");
-	    } catch (FileNotFoundException ex) {
-		Logger.getLogger(GuiLuggage.class.getName()).log(Level.SEVERE, null, ex);
-	    } catch (UnsupportedEncodingException ex) {
-		Logger.getLogger(GuiLuggage.class.getName()).log(Level.SEVERE, null, ex);
+	    } catch (FileNotFoundException e) {
+		Debug.printError(e.toString());
+	    } catch (UnsupportedEncodingException e) {
+		Debug.printError(e.toString());
 	    }
 	    writer.println("#This file is generated from the sample file because no file was found, or not all values was found");
 	    writer.println();

@@ -4,8 +4,6 @@ import java.awt.Color;
 import java.sql.SQLException;
 import java.util.Date;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  *
@@ -155,8 +153,8 @@ public class Case {
         Medewerker dBhandler = null;
         try {
             dBhandler = dbMedewerker.getMedewerkerById(handlerID);
-        } catch (SQLException ex) {
-            Logger.getLogger(Case.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SQLException e) {
+            Debug.printError(e.toString());
         }
         this.handler = dBhandler.getName();
     }
@@ -181,8 +179,8 @@ public class Case {
         List<Case> list = null;
         try {
             cases.readAll();
-        } catch (SQLException ex) {
-            Logger.getLogger(Case.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SQLException e) {
+            Debug.printError(e.toString());
         }
         return list;
     }

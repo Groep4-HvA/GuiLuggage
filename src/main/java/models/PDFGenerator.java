@@ -10,8 +10,7 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import org.apache.pdfbox.exceptions.COSVisitorException;
 import org.apache.pdfbox.pdmodel.PDDocument;
 import org.apache.pdfbox.pdmodel.PDPage;
 import org.apache.pdfbox.pdmodel.edit.PDPageContentStream;
@@ -116,8 +115,8 @@ public class PDFGenerator {
             contentStream.endText();
             contentStream.close();
         
-        } catch (IOException ex) {
-            Logger.getLogger(PDFGenerator.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IOException e) {
+            Debug.printError(e.toString());
         } 
     }
 
@@ -160,8 +159,8 @@ public class PDFGenerator {
             
             contentStream.endText();
             contentStream.close();
-        } catch (IOException ex) {
-            Logger.getLogger(PDFGenerator.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IOException e) {
+            Debug.printError(e.toString());
         }
 
 
@@ -173,8 +172,8 @@ public class PDFGenerator {
         OutputStream output=null;
 	try {
 	    output = new FileOutputStream(location);
-	} catch (FileNotFoundException ex) {
-	    Logger.getLogger(PDFGenerator.class.getName()).log(Level.SEVERE, null, ex);
+	} catch (FileNotFoundException e) {
+	    Debug.printError(e.toString());
 	}
         System.out.println(location);
         try {
@@ -183,13 +182,15 @@ public class PDFGenerator {
             // Save the results and ensure that the document is properly closed:
             this.document.save(output);
             this.document.close();
-        } catch (Exception ex) {
-            ex.printStackTrace();
+        } catch (IOException e) {
+            Debug.printError(e.toString());
+        } catch (COSVisitorException e) {
+            Debug.printError(e.toString());
         }
 	try {
 	    output.close();
-	} catch (IOException ex) {
-	    Logger.getLogger(PDFGenerator.class.getName()).log(Level.SEVERE, null, ex);
+	} catch (IOException e) {
+	    Debug.printError(e.toString());
 	}
     }
 
@@ -198,10 +199,10 @@ public class PDFGenerator {
 	    this.contentStream.close();
 	    this.document.print();
 	    this.document.close();
-	} catch (PrinterException ex) {
-	    Logger.getLogger(PDFGenerator.class.getName()).log(Level.SEVERE, null, ex);
-	} catch (IOException ex) {
-	    Logger.getLogger(PDFGenerator.class.getName()).log(Level.SEVERE, null, ex);
+	} catch (PrinterException e) {
+	    Debug.printError(e.toString());
+	} catch (IOException e) {
+	    Debug.printError(e.toString());
 	}
     }
 }

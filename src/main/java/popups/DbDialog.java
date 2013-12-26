@@ -6,13 +6,10 @@
 
 package popups;
 
-import DBUtil.ConnectionMySQL;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.Properties;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import models.Debug;
 
 /**
@@ -34,8 +31,8 @@ public class DbDialog extends javax.swing.JDialog {
         prop = new Properties();
         try {
             prop.load(new FileInputStream(System.getProperty("user.dir")+System.getProperty("file.separator")+"Config.properties"));
-        } catch (IOException ex) {
-            Logger.getLogger(ConnectionMySQL.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IOException e) {
+            Debug.printError(e.toString());
         }
         dbHostInput.setText(prop.getProperty("db_ip"));
         dbNameInput.setText(prop.getProperty("db_name"));
@@ -160,8 +157,8 @@ public class DbDialog extends javax.swing.JDialog {
             prop.setProperty("db_password", dbPassInput.getText());
             prop.store(new FileOutputStream("Config.properties"), null);
             dispose();
-        } catch (IOException ex) {
-            Logger.getLogger(DbDialog.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IOException e) {
+            Debug.printError(e.toString());
         }
     }//GEN-LAST:event_saveButtonActionPerformed
 

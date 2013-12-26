@@ -10,8 +10,6 @@ import java.sql.SQLException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import models.Debug;
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartPanel;
@@ -67,8 +65,8 @@ public class ManagerGraph extends ApplicationFrame {
 		rowAmmount = rs.getInt(1);
 	    }
 	    Debug.println("Between: " + firstDate + " and " + lastDate + ". . . " + rowAmmount + " records of type " + type);
-	} catch (SQLException ex) {
-	    Logger.getLogger(ManagerGraph.class.getName()).log(Level.SEVERE, null, ex);
+	} catch (SQLException e) {
+	   Debug.printError(e.toString());
 	}
 	return rowAmmount;
     }

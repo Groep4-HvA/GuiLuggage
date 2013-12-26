@@ -6,8 +6,7 @@ package main;
 
 import java.sql.SQLException;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import models.Debug;
 import models.Medewerker;
 import models.MedewerkerDAO;
 import org.apache.commons.codec.digest.DigestUtils;
@@ -126,8 +125,8 @@ public class logIn extends javax.swing.JFrame {
         List<Medewerker> list = null;
         try {
             list = dbMedewerker.readLogIn(username, password);
-        } catch (SQLException ex) {
-            Logger.getLogger(logIn.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SQLException e) {
+            Debug.printError(e.toString());
         }
         if(list.size()==1){
             Medewerker medew = list.get(0);

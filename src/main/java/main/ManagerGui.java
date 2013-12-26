@@ -5,23 +5,19 @@
 package main;
 
 import java.awt.Dimension;
+import java.awt.HeadlessException;
 import java.awt.Toolkit;
-import java.io.FileNotFoundException;
-import java.io.IOException;
 import java.sql.SQLException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import models.Case;
 import models.CaseDao;
 import models.Debug;
 import models.PDFGenerator;
-import models.printJob;
 import popups.MyAccount;
 
 /**
@@ -385,10 +381,10 @@ public class ManagerGui extends java.awt.Frame {
 
     private void missingManagerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_missingManagerActionPerformed
 	try {
-	    Date datum1 = jDateChooser1.getDate();
-	    String dateString = String.format("%1$tY-%1$tm-%1$td", datum1);
-	    Date datum2 = jDateChooser2.getDate();
-	    String dateString2 = String.format("%1$tY-%1$tm-%1$td", datum2);
+	    datum1 = jDateChooser1.getDate();
+	    dateString = String.format("%1$tY-%1$tm-%1$td", datum1);
+	    datum2 = jDateChooser2.getDate();
+	    dateString2 = String.format("%1$tY-%1$tm-%1$td", datum2);
 
 //          System.out.println(dateString);
 	    if (jDateChooser1.getDate() == null || jDateChooser2.getDate() == null) {
@@ -476,9 +472,11 @@ public class ManagerGui extends java.awt.Frame {
 		    JOptionPane.showMessageDialog(null, "" + datum2 + " Needs to be greater then  " + datum1);
 		}
 	    }
-	} catch (Exception e) {
-	    e.printStackTrace();
-	}
+	} catch (SQLException e) {
+	    Debug.printError(e.toString());
+	} catch (HeadlessException e) {
+            Debug.printError(e.toString());
+        }
     }//GEN-LAST:event_missingManagerActionPerformed
 
     private void processedManagerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_processedManagerActionPerformed
@@ -575,9 +573,11 @@ public class ManagerGui extends java.awt.Frame {
 		    JOptionPane.showMessageDialog(null, "" + datum2 + " Needs to be greater then  " + datum1);
 		}
 	    }
-	} catch (Exception e) {
-	    e.printStackTrace();
-	}
+	} catch (SQLException e) {
+	    Debug.printError(e.toString());
+	} catch (HeadlessException e) {
+            Debug.printError(e.toString());
+        }
     }//GEN-LAST:event_processedManagerActionPerformed
 
     private void printButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_printButtonActionPerformed
@@ -601,9 +601,8 @@ public class ManagerGui extends java.awt.Frame {
 
 	try {
 	    listPending = dbCase.readAllPending();
-	} catch (SQLException ex) {
-	    Logger.getLogger(ManagerGui.class
-		    .getName()).log(Level.SEVERE, null, ex);
+	} catch (SQLException e) {
+	    Debug.printError(e.toString());
 	}
 	String pending = Integer.toString(listPending.size());
 	//----Shows totalResolved in PDF-------------------------------
@@ -612,40 +611,40 @@ public class ManagerGui extends java.awt.Frame {
 
 	try {
 	    listResolved = dbCase.readAllResolved();
-	} catch (SQLException ex) {
-	    Logger.getLogger(ManagerGui.class.getName()).log(Level.SEVERE, null, ex);
+	} catch (SQLException e) {
+	    Debug.printError(e.toString());
 	}
 	String resolved = Integer.toString(listResolved.size());
 	//----Shows total ----------------------------------------------------------
 	List<Case> list = null;
 	try {
 	    list = dbCase.readAll();
-	} catch (SQLException ex) {
-	    Logger.getLogger(ManagerGui.class.getName()).log(Level.SEVERE, null, ex);
+	} catch (SQLException e) {
+	    Debug.printError(e.toString());
 	}
 	String total = Integer.toString(list.size());
 	//------pending by date---------------------------------------------------
 	List<Case> datePending = null;
 	try {
 	    datePending = dbCase.readAllPendingByDate(dateString, dateString2);
-	} catch (SQLException ex) {
-	    Logger.getLogger(ManagerGui.class.getName()).log(Level.SEVERE, null, ex);
+	} catch (SQLException e) {
+	    Debug.printError(e.toString());
 	}
 	String pendingByDate = Integer.toString(datePending.size());
 	//-----resolvedByDate----------------------------------------------------
 	List<Case> dateResolved = null;
 	try {
 	    dateResolved = dbCase.readAllResolvedByDate(dateString, dateString2);
-	} catch (SQLException ex) {
-	    Logger.getLogger(ManagerGui.class.getName()).log(Level.SEVERE, null, ex);
+	} catch (SQLException e) {
+	    Debug.printError(e.toString());
 	}
 	String resolvedByDate = Integer.toString(dateResolved.size());
 	//-----totalByDate------------------------------------------------------
 	List<Case> dateTotal = null;
 	try {
 	    dateTotal = dbCase.readAllTotalByDate(dateString, dateString2);
-	} catch (SQLException ex) {
-	    Logger.getLogger(ManagerGui.class.getName()).log(Level.SEVERE, null, ex);
+	} catch (SQLException e) {
+	    Debug.printError(e.toString());
 	}
 	String totalByDate = Integer.toString(dateTotal.size());
 

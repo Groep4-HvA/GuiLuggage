@@ -4,15 +4,11 @@
  */
 package popups;
 
-import java.io.FileNotFoundException;
-import java.io.IOException;
 import java.sql.SQLException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import models.Debug;
 import models.PDFGenerator;
 import models.Passenger;
 import models.PassengerDAO;
-import models.printJob;
 
 /**
  *
@@ -34,9 +30,11 @@ public class AddPassenger extends javax.swing.JFrame {
     private String details;
     private int handlerId;
     private String phoneNr;
+    private PDFGenerator pdf;
 
     /**
      * Creates new form AddPassenger
+     * @param handlerId
      */
     public AddPassenger(int handlerId) {
         this.handlerId = handlerId;
@@ -309,8 +307,9 @@ public class AddPassenger extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void printButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_printButtonActionPerformed
-        printJob printJob = new printJob();
-        printJob.start();
+        pdf = new PDFGenerator();
+        pdf.generate(label, color, shape, name, surname, adres, postalCode, city, residentAdres, residentPostalCode, residentCity, details, handlerId, phoneNr);
+        pdf.print();
     }//GEN-LAST:event_printButtonActionPerformed
 
     private void saveButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saveButtonActionPerformed
@@ -341,8 +340,8 @@ public class AddPassenger extends javax.swing.JFrame {
             //            ex.printStackTrace();
             //        }
             test.create(newPassenger, handlerId);
-        } catch (SQLException ex) {
-            Logger.getLogger(AddPassenger.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SQLException e) {
+            Debug.printError(e.toString());
         }
 
         dispose();
@@ -370,10 +369,10 @@ public class AddPassenger extends javax.swing.JFrame {
         details = detailsTextfield.getText();
         phoneNr = phoneNrText.getText();
 
-        PDFGenerator passengerReceipt = new PDFGenerator();
+        pdf = new PDFGenerator();
         // passengerReceipt = null;
-        passengerReceipt.generate(label, color, shape, name, surname, adres, postalCode, city, residentAdres, residentPostalCode, residentCity, details, handlerId, phoneNr);
-        passengerReceipt.save("Receipt_" + label);
+        pdf.generate(label, color, shape, name, surname, adres, postalCode, city, residentAdres, residentPostalCode, residentCity, details, handlerId, phoneNr);
+        pdf.save("Receipt_" + label);
     }//GEN-LAST:event_pdfButtonActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

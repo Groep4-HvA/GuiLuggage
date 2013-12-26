@@ -13,8 +13,6 @@ import java.awt.event.AdjustmentListener;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.TableCellRenderer;
@@ -41,7 +39,6 @@ public class MainGuiFrame extends java.awt.Frame {
 
     private List<Medewerker> medList = null;
     private List<Case> caseList = null;
-    private List<Case> caseListMore = null;
     private final java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("Bundle"); // NOI18N
 
     //Menu settings
@@ -59,16 +56,14 @@ public class MainGuiFrame extends java.awt.Frame {
     private boolean beheer;
     private int handlerId;
     private boolean inBeheer = false;
-    private boolean luggage = false;
 
     /**
      * Constructor for the common user and App Manager screen
      *
      * @param beheer
      * @param handlerId
-     * @throws java.sql.SQLException
      */
-    public MainGuiFrame(boolean beheer, int handlerId) throws SQLException {
+    public MainGuiFrame(boolean beheer, int handlerId){
         //pre init configuration of Strings
         this.handlerId = handlerId;
         this.beheer = beheer;
@@ -457,7 +452,7 @@ public class MainGuiFrame extends java.awt.Frame {
             Popupappmedewerker popup1 = new Popupappmedewerker(medList.get(tableResults.getSelectedRow()));
             popup1.setVisible(true);
         } else {
-            PopUpMedewerker popup = new PopUpMedewerker(caseList.get(tableResults.getSelectedRow()));
+            PopUpMedewerker popup = new PopUpMedewerker(caseList.get(tableResults.getSelectedRow()), handlerId);
             popup.setVisible(true);
         }
     }//GEN-LAST:event_tableResultsMouseClicked
@@ -514,16 +509,16 @@ public class MainGuiFrame extends java.awt.Frame {
                 caseList = cdCase.search(searchInput.getText());
                 Debug.println(searchInput.getText());
                 populateTableCase(caseList);
-            } catch (Exception e) {
-                e.printStackTrace();
+            } catch (SQLException e) {
+                Debug.printError(e.toString());
             }
         } else {
             try {
                 MedewerkerDAO dbMedewerker = new MedewerkerDAO();
                 medList = dbMedewerker.search(searchInput.getText());
                 populateTableMedewerker(medList);
-            } catch (Exception e) {
-                e.printStackTrace();
+            } catch (SQLException e) {
+                Debug.printError(e.toString());
             }
 
         }
@@ -536,8 +531,8 @@ public class MainGuiFrame extends java.awt.Frame {
         CaseDao dbcase = new CaseDao();
         try {
             caseList = dbcase.ReadAllMore();
-        } catch (Exception e) {
-            e.printStackTrace();
+        } catch (SQLException e) {
+            Debug.printError(e.toString());
         }
         populateTableCase(caseList);
     }
@@ -546,8 +541,8 @@ public class MainGuiFrame extends java.awt.Frame {
         CaseDao dbCase = new CaseDao();
         try {
             caseList = dbCase.readAll();
-        } catch (SQLException ex) {
-            Logger.getLogger(logIn.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SQLException e) {
+            Debug.printError(e.toString());
         }
         populateTableCase(caseList);
     }
@@ -556,8 +551,8 @@ public class MainGuiFrame extends java.awt.Frame {
         MedewerkerDAO dbMedewerker = new MedewerkerDAO();
         try {
             medList = dbMedewerker.readAll();
-        } catch (SQLException ex) {
-            Logger.getLogger(logIn.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SQLException e) {
+            Debug.printError(e.toString());
         }
         populateTableMedewerker(medList);
     }
@@ -578,7 +573,7 @@ public class MainGuiFrame extends java.awt.Frame {
             tableResults.getModel().setValueAt(list.get(j).isManager(), j, 3);
         }
         tableResults.setDefaultRenderer(Object.class, new TableCellRenderer() {
-            private DefaultTableCellRenderer DEFAULT_RENDERER = new DefaultTableCellRenderer();
+            private final DefaultTableCellRenderer DEFAULT_RENDERER = new DefaultTableCellRenderer();
 
             @Override
             public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
@@ -619,7 +614,7 @@ public class MainGuiFrame extends java.awt.Frame {
             }
         }
         tableResults.setDefaultRenderer(Object.class, new TableCellRenderer() {
-            private DefaultTableCellRenderer DEFAULT_RENDERER = new DefaultTableCellRenderer();
+            private final DefaultTableCellRenderer DEFAULT_RENDERER = new DefaultTableCellRenderer();
 
             @Override
             public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {

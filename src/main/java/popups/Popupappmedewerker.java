@@ -6,8 +6,6 @@ package popups;
 
 import java.awt.Color;
 import java.sql.SQLException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.BorderFactory;
 import models.Debug;
 import models.Medewerker;
@@ -168,8 +166,8 @@ public class Popupappmedewerker extends javax.swing.JFrame {
        // Debug.println(medewerker.toString());
         try {
             dbMedewerker.update(medewerker);
-        } catch (SQLException ex) {
-            Logger.getLogger(Popupappmedewerker.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SQLException e) {
+            Debug.printError(e.toString());
         }
         }
         Debug.println(medewerker.toString());

@@ -8,14 +8,14 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Properties;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import models.Debug;
 
 /**
  *
  * @author ahmed
  */
 public class ConnectionMySQL {
+
     public static String DRIVER = "com.mysql.jdbc.Driver";
     public static String DBURL;
     public static String DBUSER;
@@ -25,13 +25,12 @@ public class ConnectionMySQL {
     private int affectedRows = -1;
     Connection conn = null;
 
-    
-    public ConnectionMySQL(){
+    public ConnectionMySQL() {
         Properties prop = new Properties();
         try {
-            prop.load(new FileInputStream(System.getProperty("user.dir")+"/Config.properties"));
-        } catch (IOException ex) {
-            Logger.getLogger(ConnectionMySQL.class.getName()).log(Level.SEVERE, null, ex);
+            prop.load(new FileInputStream(System.getProperty("user.dir") + "/Config.properties"));
+        } catch (IOException e) {
+            Debug.printError(e.toString());
         }
         String ip = prop.getProperty("db_ip");
         String dbName = prop.getProperty("db_name");
@@ -40,45 +39,46 @@ public class ConnectionMySQL {
         DBURL = "jdbc:mysql://" + ip + ":3306/" + dbName;
     }
 
-    public void startConnection()  {
+    public void startConnection() {
         try {
-            
+
             Class.forName(DRIVER);
             DriverManager.setLoginTimeout(5);
             conn = DriverManager.getConnection(DBURL, DBUSER, DBPASS);
-            
-        } catch (Exception e) {
-            
+
+        } catch (ClassNotFoundException e) {
+            Debug.printError(e.toString());
+        } catch (SQLException e) {
+            Debug.printError(e.toString());
         }
     }
 
-    public void closeConnection()  {
-       try{
+    public void closeConnection() {
+        try {
             if (conn != null && !conn.isClosed()) {
                 conn.close();
             }
-       } catch (Exception e) {
-                       
+        } catch (SQLException e) {
+            Debug.printError(e.toString());
         }
         conn = null;
     }
 
-    public ResultSet performSelect(PreparedStatement prdstmt) throws SQLException {       
-            result = prdstmt.executeQuery();
-        
+    public ResultSet performSelect(PreparedStatement prdstmt) throws SQLException {
+        result = prdstmt.executeQuery();
+
         return result;
     }
 
     public int performUpdate(PreparedStatement prdstmt) throws SQLException {
-        
-            affectedRows = prdstmt.executeUpdate();
-       
+
+        affectedRows = prdstmt.executeUpdate();
+
         return affectedRows;
     }
 
     public Connection getConnection() {
         return conn;
     }
-    
-    
+
 }

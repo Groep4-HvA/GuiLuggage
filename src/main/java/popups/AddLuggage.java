@@ -5,8 +5,6 @@
 package popups;
 
 import java.sql.SQLException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import models.Check;
 import models.Debug;
@@ -200,8 +198,8 @@ public class AddLuggage extends javax.swing.JFrame {
         LuggageDAO test = new LuggageDAO();
         try {
             test.create(item, handlerId);
-        } catch (SQLException ex) {
-            Logger.getLogger(AddLuggage.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SQLException e) {
+            Debug.printError(e.toString());
         }
 
         dispose();

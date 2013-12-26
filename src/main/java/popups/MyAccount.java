@@ -10,8 +10,6 @@ import java.awt.event.WindowEvent;
 import java.sql.SQLException;
 import java.util.Arrays;
 import java.util.Locale;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.BorderFactory;
 import models.Debug;
 import models.Medewerker;
@@ -169,8 +167,8 @@ public class MyAccount extends javax.swing.JDialog {
             Locale.setDefault(english);
             try {
                 tempMedewerker = medewerkerTijdelijk.readByID(medewerkerID);
-            } catch (SQLException ex) {
-                Logger.getLogger(MyAccount.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (SQLException e) {
+                Debug.printError(e.toString());
             }
             tempMedewerker.setUserLang("EN");
             //MainGuiFrame f = new MainGuiFrame();
@@ -180,8 +178,8 @@ public class MyAccount extends javax.swing.JDialog {
             Locale.setDefault(dutch);
             try {
                 tempMedewerker = medewerkerTijdelijk.readByID(medewerkerID);
-            } catch (SQLException ex) {
-                Logger.getLogger(MyAccount.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (SQLException e) {
+                Debug.printError(e.toString());
             }
             tempMedewerker.setUserLang("NL");
             dispose();
@@ -195,8 +193,8 @@ public class MyAccount extends javax.swing.JDialog {
 //                medewerkerTijdelijk = new MedewerkerDAO();
                 try {
                     tempMedewerker = medewerkerTijdelijk.readByID(medewerkerID);
-                } catch (SQLException ex) {
-                    Logger.getLogger(MyAccount.class.getName()).log(Level.SEVERE, null, ex);
+                } catch (SQLException e) {
+                    Debug.printError(e.toString());
                 }
 
                 if (tempMedewerker.getPassword().equals(DigestUtils.sha256Hex(String.valueOf(password.getPassword())))) {
@@ -205,8 +203,8 @@ public class MyAccount extends javax.swing.JDialog {
                     tempMedewerker.setPassword(password.getPassword());
                     try {
                         medewerkerTijdelijk.update(tempMedewerker);
-                    } catch (SQLException ex) {
-                        Logger.getLogger(MyAccount.class.getName()).log(Level.SEVERE, null, ex);
+                    } catch (SQLException e) {
+                        Debug.printError(e.toString());
                     }
                 }
                 Debug.println(tempMedewerker.toString());
