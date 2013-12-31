@@ -24,6 +24,7 @@ public class logIn extends javax.swing.JFrame {
      * Creates new form logIn
      */
     public logIn() {
+	Check.resetMedew(null);
         initComponents();
         this.setLocationRelativeTo(null);
         userName.requestFocusInWindow();
