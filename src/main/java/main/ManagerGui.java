@@ -16,6 +16,7 @@ import java.util.List;
 import javax.swing.JOptionPane;
 import models.Case;
 import models.CaseDao;
+import models.Check;
 import models.Debug;
 import models.PDFGenerator;
 import popups.MyAccount;
@@ -39,39 +40,42 @@ public class ManagerGui extends java.awt.Frame {
     private PDFGenerator pdf;
 
     public ManagerGui(boolean beheer, int handlerId) throws SQLException {
-	this.handlerId = handlerId;
-	this.beheer = beheer;
-	initComponents();
+	if (!Check.verifyLogin()) {
+	    Runtime.getRuntime().exit(1);
+	} else {
+	    this.handlerId = handlerId;
+	    this.beheer = beheer;
+	    initComponents();
 
-	CaseDao dbCase = new CaseDao();
-	List<Case> list;
-	list = dbCase.readAll();
+	    CaseDao dbCase = new CaseDao();
+	    List<Case> list;
+	    list = dbCase.readAll();
 
-	List<Case> listPending;
-	listPending = dbCase.readAllPending();
-	jLabel1.setText(bundle.getString("Manager.jLabel1.text") + "" + listPending.size());
+	    List<Case> listPending;
+	    listPending = dbCase.readAllPending();
+	    jLabel1.setText(bundle.getString("Manager.jLabel1.text") + "" + listPending.size());
 
-	List<Case> listResolved;
-	listResolved = dbCase.readAllResolved();
-	jLabel2.setText(bundle.getString("Manager.jLabel2.text") + "" + listResolved.size());
+	    List<Case> listResolved;
+	    listResolved = dbCase.readAllResolved();
+	    jLabel2.setText(bundle.getString("Manager.jLabel2.text") + "" + listResolved.size());
 
-	int x = 0;
-	jLabel3.setText(bundle.getString("Manager.jLabel3.text") + "" + list.size());
-	int count = 0;
-	while (x < list.size()) {
-	    count++;
-	    //Debug.println(list.get(x).toString());
-	    jTable1.getModel().setValueAt(count, x, 0);
-	    jTable1.getModel().setValueAt(list.get(x).getLabel(), x, 1);
-	    jTable1.getModel().setValueAt(list.get(x).getAddDate(), x, 2);
+	    int x = 0;
+	    jLabel3.setText(bundle.getString("Manager.jLabel3.text") + "" + list.size());
+	    int count = 0;
+	    while (x < list.size()) {
+		count++;
+		//Debug.println(list.get(x).toString());
+		jTable1.getModel().setValueAt(count, x, 0);
+		jTable1.getModel().setValueAt(list.get(x).getLabel(), x, 1);
+		jTable1.getModel().setValueAt(list.get(x).getAddDate(), x, 2);
 
-	    x++;
+		x++;
+	    }
+
+	    jTable1.getColumnModel().getColumn(0).setHeaderValue("Nr");
+	    jTable1.getColumnModel().getColumn(1).setHeaderValue("LabelNumber");
+	    jTable1.getColumnModel().getColumn(2).setHeaderValue("AddDate");
 	}
-
-	jTable1.getColumnModel().getColumn(0).setHeaderValue("Nr");
-	jTable1.getColumnModel().getColumn(1).setHeaderValue("LabelNumber");
-	jTable1.getColumnModel().getColumn(2).setHeaderValue("AddDate");
-
     }
 
     /**
@@ -475,8 +479,8 @@ public class ManagerGui extends java.awt.Frame {
 	} catch (SQLException e) {
 	    Debug.printError(e.toString());
 	} catch (HeadlessException e) {
-            Debug.printError(e.toString());
-        }
+	    Debug.printError(e.toString());
+	}
     }//GEN-LAST:event_missingManagerActionPerformed
 
     private void processedManagerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_processedManagerActionPerformed
@@ -576,8 +580,8 @@ public class ManagerGui extends java.awt.Frame {
 	} catch (SQLException e) {
 	    Debug.printError(e.toString());
 	} catch (HeadlessException e) {
-            Debug.printError(e.toString());
-        }
+	    Debug.printError(e.toString());
+	}
     }//GEN-LAST:event_processedManagerActionPerformed
 
     private void printButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_printButtonActionPerformed

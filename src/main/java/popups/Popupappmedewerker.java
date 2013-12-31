@@ -7,6 +7,7 @@ package popups;
 import java.awt.Color;
 import java.sql.SQLException;
 import javax.swing.BorderFactory;
+import models.Check;
 import models.Debug;
 import models.Medewerker;
 import models.MedewerkerDAO;
@@ -17,18 +18,24 @@ import org.apache.commons.codec.digest.DigestUtils;
  * @author Jeroen
  */
 public class Popupappmedewerker extends javax.swing.JFrame {
+
     private final Color red = new Color(163, 0, 15);
     private Medewerker medewerker = new Medewerker();
+
     /**
      * Creates new form Popupappmedewerker
      */
     public Popupappmedewerker(Medewerker medewerker) {
-        this.medewerker = medewerker;
-        this.setUndecorated(true);
-        getRootPane().setBorder( BorderFactory.createLineBorder(red) );
-        initComponents();
-        this.setLocationRelativeTo(null);
-        fillData();
+	if (!Check.verifyLogin()) {
+	    Runtime.getRuntime().exit(1);
+	} else {
+	    this.medewerker = medewerker;
+	    this.setUndecorated(true);
+	    getRootPane().setBorder(BorderFactory.createLineBorder(red));
+	    initComponents();
+	    this.setLocationRelativeTo(null);
+	    fillData();
+	}
     }
 
     /**
@@ -145,39 +152,39 @@ public class Popupappmedewerker extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-    private void fillData(){
-        nameField.setText(medewerker.getName());
-        userNameField.setText(medewerker.getUsername());
-        isAppManager.setSelected(medewerker.isAppManager());
-        isManager.setSelected(medewerker.isManager());
+
+    private void fillData() {
+	nameField.setText(medewerker.getName());
+	userNameField.setText(medewerker.getUsername());
+	isAppManager.setSelected(medewerker.isAppManager());
+	isManager.setSelected(medewerker.isManager());
     }
     private void saveButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saveButtonActionPerformed
-        medewerker.setName(nameField.getText());
-        medewerker.setAppManager(isAppManager.isSelected());
-        medewerker.setManager(isManager.isSelected());
-        
-        MedewerkerDAO dbMedewerker;
-        dbMedewerker = new MedewerkerDAO();
-        
-        if((firstPasswordField!=null)&&(firstPasswordField==confirmPasswordField)){
-            medewerker.setPassword(DigestUtils.sha256Hex(String.valueOf(firstPasswordField)));
-        }  else {
-        medewerker.setPassword(firstPasswordField.getPassword());
-       // Debug.println(medewerker.toString());
-        try {
-            dbMedewerker.update(medewerker);
-        } catch (SQLException e) {
-            Debug.printError(e.toString());
-        }
-        }
-        Debug.println(medewerker.toString());
-        dispose();
+	medewerker.setName(nameField.getText());
+	medewerker.setAppManager(isAppManager.isSelected());
+	medewerker.setManager(isManager.isSelected());
+
+	MedewerkerDAO dbMedewerker;
+	dbMedewerker = new MedewerkerDAO();
+
+	if ((firstPasswordField != null) && (firstPasswordField == confirmPasswordField)) {
+	    medewerker.setPassword(DigestUtils.sha256Hex(String.valueOf(firstPasswordField)));
+	} else {
+	    medewerker.setPassword(firstPasswordField.getPassword());
+	    // Debug.println(medewerker.toString());
+	    try {
+		dbMedewerker.update(medewerker);
+	    } catch (SQLException e) {
+		Debug.printError(e.toString());
+	    }
+	}
+	Debug.println(medewerker.toString());
+	dispose();
     }//GEN-LAST:event_saveButtonActionPerformed
 
     private void cancelButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelButtonActionPerformed
-        dispose();
+	dispose();
     }//GEN-LAST:event_cancelButtonActionPerformed
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton cancelButton;
     private javax.swing.JPasswordField confirmPasswordField;

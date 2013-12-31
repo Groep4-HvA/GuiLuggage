@@ -6,6 +6,7 @@ package main;
 
 import java.sql.SQLException;
 import java.util.List;
+import models.Check;
 import models.Debug;
 import models.Medewerker;
 import models.MedewerkerDAO;
@@ -131,6 +132,7 @@ public class logIn extends javax.swing.JFrame {
         if(list.size()==1){
             Medewerker medew = list.get(0);
             //Debug.printout(medew.toString());
+	    Check.setMedew(medew);
             if(medew.isManager()){
                 ManagerGui main = new ManagerGui(medew.isAppManager(), medew.getId());
                 main.setVisible(true);
@@ -144,7 +146,7 @@ public class logIn extends javax.swing.JFrame {
             errorLabel.setText(bundle.getString("noLogin"));
         }
         }catch(Exception e){
-            e.printStackTrace();
+            Debug.printError(e.toString());
         }
     }//GEN-LAST:event_LogInActionPerformed
 

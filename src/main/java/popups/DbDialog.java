@@ -3,13 +3,13 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package popups;
 
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.Properties;
+import models.Check;
 import models.Debug;
 
 /**
@@ -23,21 +23,26 @@ public class DbDialog extends javax.swing.JDialog {
      */
     private final java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("Bundle"); // NOI18N
     private Properties prop;
+
     public DbDialog(java.awt.Frame parent, boolean modal) {
-        super(parent, modal);
-        this.setUndecorated(true);
-        initComponents();
-        this.setLocationRelativeTo(null);
-        prop = new Properties();
-        try {
-            prop.load(new FileInputStream(System.getProperty("user.dir")+System.getProperty("file.separator")+"Config.properties"));
-        } catch (IOException e) {
-            Debug.printError(e.toString());
-        }
-        dbHostInput.setText(prop.getProperty("db_ip"));
-        dbNameInput.setText(prop.getProperty("db_name"));
-        dbUserInput.setText(prop.getProperty("db_username"));
-        Debug.println("Done");
+	super(parent, modal);
+	if (!Check.verifyLogin()) {
+	    Runtime.getRuntime().exit(1);
+	} else {
+	    this.setUndecorated(true);
+	    initComponents();
+	    this.setLocationRelativeTo(null);
+	    prop = new Properties();
+	    try {
+		prop.load(new FileInputStream(System.getProperty("user.dir") + System.getProperty("file.separator") + "Config.properties"));
+	    } catch (IOException e) {
+		Debug.printError(e.toString());
+	    }
+	    dbHostInput.setText(prop.getProperty("db_ip"));
+	    dbNameInput.setText(prop.getProperty("db_name"));
+	    dbUserInput.setText(prop.getProperty("db_username"));
+	    Debug.println("Done");
+	}
     }
 
     /**
@@ -146,23 +151,21 @@ public class DbDialog extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void cancelButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelButtonActionPerformed
-        dispose();
+	dispose();
     }//GEN-LAST:event_cancelButtonActionPerformed
 
     private void saveButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saveButtonActionPerformed
-        try {
-            prop.setProperty("db_ip", dbHostInput.getText());
-            prop.setProperty("db_name", dbNameInput.getText());
-            prop.setProperty("db_username", dbUserInput.getText());
-            prop.setProperty("db_password", dbPassInput.getText());
-            prop.store(new FileOutputStream("Config.properties"), null);
-            dispose();
-        } catch (IOException e) {
-            Debug.printError(e.toString());
-        }
+	try {
+	    prop.setProperty("db_ip", dbHostInput.getText());
+	    prop.setProperty("db_name", dbNameInput.getText());
+	    prop.setProperty("db_username", dbUserInput.getText());
+	    prop.setProperty("db_password", dbPassInput.getText());
+	    prop.store(new FileOutputStream("Config.properties"), null);
+	    dispose();
+	} catch (IOException e) {
+	    Debug.printError(e.toString());
+	}
     }//GEN-LAST:event_saveButtonActionPerformed
-
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton cancelButton;
     private javax.swing.JLabel dbHost;

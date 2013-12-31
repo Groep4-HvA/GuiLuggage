@@ -29,9 +29,13 @@ public class AddLuggage extends javax.swing.JFrame {
      * Creates new form guiPopupDesign
      */
     public AddLuggage(int handlerId) {
-        this.handlerId = handlerId;
-        initComponents();
-        this.setLocationRelativeTo(null);
+	if (!Check.verifyLogin()) {
+	    Runtime.getRuntime().exit(1);
+	} else {
+	    this.handlerId = handlerId;
+	    initComponents();
+	    this.setLocationRelativeTo(null);
+	}
     }
 
     /**
@@ -170,39 +174,38 @@ public class AddLuggage extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void cancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelActionPerformed
-        dispose();
+	dispose();
     }//GEN-LAST:event_cancelActionPerformed
 
     private void SaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SaveActionPerformed
-        Luggage newLuggage;
-        label = Check.cleanLabel(labelTextField.getText());
-        color = colorTextField.getText();
-        shape = shapeTextField.getText();
-        location = locationTextField.getText();
-        details = detailsTextField.getText();
-        phoneNr = phoneNrText.getText();
-        if (Check.verifyLuggage(label, color, shape, location, details, phoneNr)) {
-            Debug.println(Check.cleanPhone(phoneNr));
-            newLuggage = new Luggage(label, color, shape, location, details, phoneNr);
-            saveData(newLuggage);
+	Luggage newLuggage;
+	label = Check.cleanLabel(labelTextField.getText());
+	color = colorTextField.getText();
+	shape = shapeTextField.getText();
+	location = locationTextField.getText();
+	details = detailsTextField.getText();
+	phoneNr = phoneNrText.getText();
+	if (Check.verifyLuggage(label, color, shape, location, details, phoneNr)) {
+	    Debug.println(Check.cleanPhone(phoneNr));
+	    newLuggage = new Luggage(label, color, shape, location, details, phoneNr);
+	    saveData(newLuggage);
 
-        } else {
-            JOptionPane.showMessageDialog(null,
-                    "Your input was invalid. The label, color and phone number can not be empty",
-                    "Input error - empty",
-                    JOptionPane.ERROR_MESSAGE
-            );
-        }
+	} else {
+	    JOptionPane.showMessageDialog(null,
+		    "Your input was invalid. The label, color and phone number can not be empty",
+		    "Input error - empty",
+		    JOptionPane.ERROR_MESSAGE);
+	}
     }//GEN-LAST:event_SaveActionPerformed
     private void saveData(Luggage item) {
-        LuggageDAO test = new LuggageDAO();
-        try {
-            test.create(item, handlerId);
-        } catch (SQLException e) {
-            Debug.printError(e.toString());
-        }
+	LuggageDAO test = new LuggageDAO();
+	try {
+	    test.create(item, handlerId);
+	} catch (SQLException e) {
+	    Debug.printError(e.toString());
+	}
 
-        dispose();
+	dispose();
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     public javax.swing.JButton Save;

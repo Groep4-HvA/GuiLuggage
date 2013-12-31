@@ -5,6 +5,7 @@
 package popups;
 
 import java.util.Arrays;
+import models.Check;
 import models.Debug;
 import models.Medewerker;
 import models.MedewerkerDAO;
@@ -27,9 +28,13 @@ public class AddMedewerker extends javax.swing.JFrame {
      * Creates new form AddMedewerker
      */
     public AddMedewerker(boolean manager) {
-        this.manager = manager;
-        initComponents();
-        this.setLocationRelativeTo(null);
+	if (!Check.verifyLogin()) {
+	    Runtime.getRuntime().exit(1);
+	} else {
+	    AddMedewerker.manager = manager;
+	    initComponents();
+	    this.setLocationRelativeTo(null);
+	}
     }
     public static AddMedewerker form = new AddMedewerker(manager);
 
@@ -159,41 +164,41 @@ public class AddMedewerker extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void cancelButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelButtonActionPerformed
-        dispose();
+	dispose();
     }//GEN-LAST:event_cancelButtonActionPerformed
 
     private void saveButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saveButtonActionPerformed
-        Medewerker nieuweMedewerker;
-        name = nameTextField.getText();
-        username = usernameTextField.getText();
-        password = firstPasswordField.getPassword();
-        confirmPassword = confirmPasswordField.getPassword();
-        appManager = appManagerCheckBox.isSelected();
+	Medewerker nieuweMedewerker;
+	name = nameTextField.getText();
+	username = usernameTextField.getText();
+	password = firstPasswordField.getPassword();
+	confirmPassword = confirmPasswordField.getPassword();
+	appManager = appManagerCheckBox.isSelected();
 
-        if (Arrays.equals(confirmPassword, password)) {
-            errorText.setText("");
-            nieuweMedewerker = new Medewerker(username, password, name, "EN", manager, appManager);
-            MedewerkerDAO test = new MedewerkerDAO();
-            try {
-                test.create(nieuweMedewerker);
-                String success = resBundle.getString("addSuccess").replaceAll("%&", "medewerker");
-                errorText.setText(success);
-                dispose();
-            } catch (Exception ex) {
-                //Debug.println("sssss");
-                ex.printStackTrace();
-                String dbFailure = resBundle.getString("dbFailure").replaceAll("%&", "medewerker");
-                Debug.println(dbFailure);
-                errorText.setText(dbFailure);
-            }
-        } else {
-            errorText.setText(resBundle.getString("errorPassNotEqual"));
-        }
+	if (Arrays.equals(confirmPassword, password)) {
+	    errorText.setText("");
+	    nieuweMedewerker = new Medewerker(username, password, name, "EN", manager, appManager);
+	    MedewerkerDAO test = new MedewerkerDAO();
+	    try {
+		test.create(nieuweMedewerker);
+		String success = resBundle.getString("addSuccess").replaceAll("%&", "medewerker");
+		errorText.setText(success);
+		dispose();
+	    } catch (Exception ex) {
+		//Debug.println("sssss");
+		ex.printStackTrace();
+		String dbFailure = resBundle.getString("dbFailure").replaceAll("%&", "medewerker");
+		Debug.println(dbFailure);
+		errorText.setText(dbFailure);
+	    }
+	} else {
+	    errorText.setText(resBundle.getString("errorPassNotEqual"));
+	}
     }//GEN-LAST:event_saveButtonActionPerformed
 
     @Override
     public String toString() {
-        return "AddMedewerker{" + "name=" + name + ", username=" + username + ", appManager=" + appManager + ", password=" + password + ", confirmPassword=" + confirmPassword + '}';
+	return "AddMedewerker{" + "name=" + name + ", username=" + username + ", appManager=" + appManager + ", password=" + password + ", confirmPassword=" + confirmPassword + '}';
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JCheckBox appManagerCheckBox;

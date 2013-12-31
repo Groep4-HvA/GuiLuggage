@@ -10,6 +10,7 @@ import java.sql.SQLException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import models.Check;
 import models.Debug;
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartPanel;
@@ -32,12 +33,16 @@ public class ManagerGraph extends ApplicationFrame {
 
     public ManagerGraph(final String title, boolean beheer) throws SQLException {
 	super(title);
-	final CategoryDataset dataset = createDataset();
-	final JFreeChart chart = createChart(dataset);
-	final ChartPanel chartPanel = new ChartPanel(chart);
-	//chartPanel.setPreferredSize(new Dimension(1366, 768));
-	setContentPane(chartPanel);
-	chartPanel.setLocation(getRootPane().getWidth()/2, getRootPane().getHeight()/2);
+	if (!Check.verifyLogin()) {
+	    Runtime.getRuntime().exit(1);
+	} else {
+	    final CategoryDataset dataset = createDataset();
+	    final JFreeChart chart = createChart(dataset);
+	    final ChartPanel chartPanel = new ChartPanel(chart);
+	    //chartPanel.setPreferredSize(new Dimension(1366, 768));
+	    setContentPane(chartPanel);
+	    chartPanel.setLocation(getRootPane().getWidth() / 2, getRootPane().getHeight() / 2);
+	}
     }
 
     public int getMonthCount(String firstDate, String lastDate, String type) {
@@ -66,7 +71,7 @@ public class ManagerGraph extends ApplicationFrame {
 	    }
 	    Debug.println("Between: " + firstDate + " and " + lastDate + ". . . " + rowAmmount + " records of type " + type);
 	} catch (SQLException e) {
-	   Debug.printError(e.toString());
+	    Debug.printError(e.toString());
 	}
 	return rowAmmount;
     }

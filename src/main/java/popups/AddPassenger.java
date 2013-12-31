@@ -5,6 +5,7 @@
 package popups;
 
 import java.sql.SQLException;
+import models.Check;
 import models.Debug;
 import models.PDFGenerator;
 import models.Passenger;
@@ -34,12 +35,17 @@ public class AddPassenger extends javax.swing.JFrame {
 
     /**
      * Creates new form AddPassenger
+     *
      * @param handlerId
      */
     public AddPassenger(int handlerId) {
-        this.handlerId = handlerId;
-        initComponents();
-        this.setLocationRelativeTo(null);
+	if (!Check.verifyLogin()) {
+	    Runtime.getRuntime().exit(1);
+	} else {
+	    this.handlerId = handlerId;
+	    initComponents();
+	    this.setLocationRelativeTo(null);
+	}
     }
 
     /**
@@ -148,7 +154,7 @@ public class AddPassenger extends javax.swing.JFrame {
         phoneNrText.setText(bundle.getString("AddPassenger.phoneNrText.text")); // NOI18N
         phoneNrText.setToolTipText(bundle.getString("AddPassenger.phoneNrText.toolTipText")); // NOI18N
 
-        java.util.ResourceBundle bundle1 = java.util.ResourceBundle.getBundle("popups/Bundle"); // NOI18N
+        java.util.ResourceBundle bundle1 = java.util.ResourceBundle.getBundle("Bundle"); // NOI18N
         pdfButton.setText(bundle1.getString("AddPassenger.pdfButton.text")); // NOI18N
         pdfButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -307,74 +313,73 @@ public class AddPassenger extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void printButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_printButtonActionPerformed
-        pdf = new PDFGenerator();
-        pdf.generate(label, color, shape, name, surname, adres, postalCode, city, residentAdres, residentPostalCode, residentCity, details, handlerId, phoneNr);
-        pdf.print();
+	pdf = new PDFGenerator();
+	pdf.generate(label, color, shape, name, surname, adres, postalCode, city, residentAdres, residentPostalCode, residentCity, details, handlerId, phoneNr);
+	pdf.print();
     }//GEN-LAST:event_printButtonActionPerformed
 
     private void saveButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saveButtonActionPerformed
-        Passenger newPassenger;
+	Passenger newPassenger;
 
-        label = labelTextfield.getText();
-        color = colorTextfield.getText();
-        shape = shapeTextfield.getText();
-        name = nameTextfield.getText();
-        surname = surnameTextfield.getText();
-        postalCode = postalCodeTextfield.getText();
-        adres = adresTextfield.getText();
-        city = rCityTextfield.getText();
-        adres = adresTextfield.getText();
-        residentAdres = residentAdresTextfield.getText();
-        residentPostalCode = rPostalCodeTextfield.getText();
-        residentCity = rCityTextfield.getText();
-        details = detailsTextfield.getText();
-        phoneNr = phoneNrText.getText();
+	label = labelTextfield.getText();
+	color = colorTextfield.getText();
+	shape = shapeTextfield.getText();
+	name = nameTextfield.getText();
+	surname = surnameTextfield.getText();
+	postalCode = postalCodeTextfield.getText();
+	adres = adresTextfield.getText();
+	city = rCityTextfield.getText();
+	adres = adresTextfield.getText();
+	residentAdres = residentAdresTextfield.getText();
+	residentPostalCode = rPostalCodeTextfield.getText();
+	residentCity = rCityTextfield.getText();
+	details = detailsTextfield.getText();
+	phoneNr = phoneNrText.getText();
 
-        newPassenger = new Passenger(label, color, shape, name, surname, adres, postalCode, city, residentAdres, residentPostalCode, residentCity, details, phoneNr);
-        PassengerDAO test = new PassengerDAO();
-        try {
-            //        try {
-            //            test.create(newPassenger);
-            //        } catch (Exception ex) {
-            //            //Debug.printout("sssss");
-            //            ex.printStackTrace();
-            //        }
-            test.create(newPassenger, handlerId);
-        } catch (SQLException e) {
-            Debug.printError(e.toString());
-        }
+	newPassenger = new Passenger(label, color, shape, name, surname, adres, postalCode, city, residentAdres, residentPostalCode, residentCity, details, phoneNr);
+	PassengerDAO test = new PassengerDAO();
+	try {
+	    //        try {
+	    //            test.create(newPassenger);
+	    //        } catch (Exception ex) {
+	    //            //Debug.printout("sssss");
+	    //            ex.printStackTrace();
+	    //        }
+	    test.create(newPassenger, handlerId);
+	} catch (SQLException e) {
+	    Debug.printError(e.toString());
+	}
 
-        dispose();
+	dispose();
     }//GEN-LAST:event_saveButtonActionPerformed
 
     private void cancelButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelButtonActionPerformed
-        dispose();
+	dispose();
     }//GEN-LAST:event_cancelButtonActionPerformed
 
     private void pdfButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pdfButtonActionPerformed
-        PassengerDAO receipt = new PassengerDAO();
+	PassengerDAO receipt = new PassengerDAO();
 
-        label = labelTextfield.getText();
-        color = colorTextfield.getText();
-        shape = shapeTextfield.getText();
-        name = nameTextfield.getText();
-        surname = surnameTextfield.getText();
-        postalCode = postalCodeTextfield.getText();
-        adres = adresTextfield.getText();
-        city = cityTextfield.getText();
-        adres = adresTextfield.getText();
-        residentAdres = residentAdresTextfield.getText();
-        residentPostalCode = rPostalCodeTextfield.getText();
-        residentCity = rCityTextfield.getText();
-        details = detailsTextfield.getText();
-        phoneNr = phoneNrText.getText();
+	label = labelTextfield.getText();
+	color = colorTextfield.getText();
+	shape = shapeTextfield.getText();
+	name = nameTextfield.getText();
+	surname = surnameTextfield.getText();
+	postalCode = postalCodeTextfield.getText();
+	adres = adresTextfield.getText();
+	city = cityTextfield.getText();
+	adres = adresTextfield.getText();
+	residentAdres = residentAdresTextfield.getText();
+	residentPostalCode = rPostalCodeTextfield.getText();
+	residentCity = rCityTextfield.getText();
+	details = detailsTextfield.getText();
+	phoneNr = phoneNrText.getText();
 
-        pdf = new PDFGenerator();
-        // passengerReceipt = null;
-        pdf.generate(label, color, shape, name, surname, adres, postalCode, city, residentAdres, residentPostalCode, residentCity, details, handlerId, phoneNr);
-        pdf.save("Receipt_" + label);
+	pdf = new PDFGenerator();
+	// passengerReceipt = null;
+	pdf.generate(label, color, shape, name, surname, adres, postalCode, city, residentAdres, residentPostalCode, residentCity, details, handlerId, phoneNr);
+	pdf.save("Receipt_" + label);
     }//GEN-LAST:event_pdfButtonActionPerformed
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel addressHLabel;
     private javax.swing.JLabel addressRLabel;
