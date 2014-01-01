@@ -9,4 +9,4 @@ target/*
 *log.txt
 Config.properties
 
-log.txt
+*log.txt
