@@ -13,8 +13,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import javax.imageio.ImageIO;
-import javax.swing.JPanel;
-import javax.swing.JTable;
+import javax.swing.*;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.TableCellRenderer;
 import models.*;
@@ -81,6 +80,7 @@ public class MainGuiFrame extends java.awt.Frame {
 
 	    //Access management: users can not see the appmanagement screen
 	    appManagementButton.setVisible(beheer);
+        moreButton.setVisible(false);
 	    fillTableCases();
 	    fadeMore();
 	}
@@ -98,7 +98,7 @@ public class MainGuiFrame extends java.awt.Frame {
         searchButton = new javax.swing.JButton();
         addNewButton1 = new javax.swing.JButton();
         addNewButton2 = new javax.swing.JButton();
-        javax.swing.JButton moreButton = new javax.swing.JButton();
+        moreButton = new javax.swing.JButton();
         jScrollPane3 = new javax.swing.JScrollPane();
         tableResults = new javax.swing.JTable();
         appManagementButton = new javax.swing.JButton();
@@ -655,7 +655,8 @@ public class MainGuiFrame extends java.awt.Frame {
     private javax.swing.JButton myAccountButton;
     private javax.swing.JButton searchButton;
     private javax.swing.JTextField searchInput;
-    private javax.swing.JTable tableResults;
+    private JTable tableResults;
+    private JButton moreButton;
     // End of variables declaration//GEN-END:variables
 
     private void fadeMore() {
@@ -666,7 +667,7 @@ public class MainGuiFrame extends java.awt.Frame {
 		fadable = (jScrollPane3.getVerticalScrollBar().getValue() > 1500);
 		if (fadable) {
 		    Debug.println(fadable + "");
-		    //moreButton.setVisible(false);
+		    moreButton.setVisible(true);
 		}
 	    }
 	});

@@ -1,5 +1,5 @@
 target/*
-
+.idea/*
 
 # Package Files #
 *.jar
@@ -7,6 +7,7 @@ target/*
 *.ear
 *.class
 *log.txt
+*.iml
 Config.properties
 
 *log.txt
