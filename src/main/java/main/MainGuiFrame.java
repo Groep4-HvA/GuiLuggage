@@ -1,34 +1,24 @@
+/**
+ *
+ */
 package main;
 
-import java.awt.Color;
-import java.awt.Component;
-import java.awt.Menu;
-import java.awt.MenuBar;
-import java.awt.MenuItem;
-import java.awt.MenuShortcut;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.AdjustmentEvent;
 import java.awt.event.AdjustmentListener;
+import java.io.IOException;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import javax.imageio.ImageIO;
+import javax.swing.JPanel;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.TableCellRenderer;
-import models.Case;
-import models.CaseDao;
-import models.Check;
-import models.Debug;
-import models.Medewerker;
-import models.MedewerkerDAO;
-import popups.AddLuggage;
-import popups.AddMedewerker;
-import popups.AddPassenger;
-import popups.DbDialog;
-import popups.MyAccount;
-import popups.PopUpMedewerker;
-import popups.Popupappmedewerker;
+import models.*;
+import popups.*;
 
 /**
  *
@@ -55,6 +45,7 @@ public class MainGuiFrame extends java.awt.Frame {
     private boolean beheer;
     private int handlerId;
     private boolean inBeheer = false;
+    private Image bg;
 
     /**
      * Constructor for the common user and App Manager screen
@@ -63,6 +54,11 @@ public class MainGuiFrame extends java.awt.Frame {
      * @param handlerId
      */
     public MainGuiFrame(boolean beheer, int handlerId) {
+	try {
+	    this.bg = ImageIO.read(getClass().getResourceAsStream("/img/bg.png"));
+	} catch (IOException e) {
+	    Debug.printError(e.toString());
+	}
 	if (!Check.verifyLogin()) {
 	    Runtime.getRuntime().exit(1);
 	} else {
@@ -96,7 +92,7 @@ public class MainGuiFrame extends java.awt.Frame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jPanel2 = new javax.swing.JPanel();
+        jPanel2 = new ImagePanel();
         searchButton = new javax.swing.JButton();
         addNewButton1 = new javax.swing.JButton();
         addNewButton2 = new javax.swing.JButton();
@@ -651,7 +647,7 @@ public class MainGuiFrame extends java.awt.Frame {
     private javax.swing.JButton addNewButton1;
     private javax.swing.JButton addNewButton2;
     private javax.swing.JButton appManagementButton;
-    private javax.swing.JPanel jPanel2;
+    private ImagePanel jPanel2;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JButton logoutButton;
     private javax.swing.JButton myAccountButton;
@@ -686,6 +682,15 @@ public class MainGuiFrame extends java.awt.Frame {
 	@Override
 	public void actionPerformed(ActionEvent e) {
 	    dialogDb();
+	}
+    }
+
+    private class ImagePanel extends JPanel {
+	@Override
+	protected void paintComponent(Graphics g) {
+	    super.paintComponent(g); // paint the background image and scale it to fill the entire space
+	    Dimension d = super.getSize();
+	    g.drawImage(bg, 0, 0, d.width, d.height, null);
 	}
     }
 }

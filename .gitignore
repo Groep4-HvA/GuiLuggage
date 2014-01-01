@@ -8,3 +8,5 @@ target/*
 *.class
 *log.txt
 Config.properties
+
+log.txt

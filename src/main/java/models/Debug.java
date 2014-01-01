@@ -42,7 +42,7 @@ public class Debug {
     }
 
     public static void printError(String out) {
-        System.out.println("LOG(Error):" + out);
+        System.err.println("LOG(Error):" + out);
         try {
             wout = new PrintWriter(new BufferedWriter(new FileWriter(System.getProperty("user.dir") + System.getProperty("file.separator") + "log.txt", true)));
             wout.println("LOG(Error):" + out);
