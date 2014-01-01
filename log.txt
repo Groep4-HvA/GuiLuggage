@@ -1,2 +1,4 @@
 LOG(Debug):Current language: en_US
 LOG(Error):java.lang.NullPointerException
+LOG(Error):java.lang.RuntimeException: Uncompilable source code - Erroneous sym type: moreButton.setVisible
+LOG(Error):java.lang.RuntimeException: Uncompilable source code - Erroneous sym type: searchInput.requestFocusInWindow

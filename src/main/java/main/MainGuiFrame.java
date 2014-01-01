@@ -27,10 +27,10 @@ import popups.*;
  */
 public class MainGuiFrame extends java.awt.Frame {
     //Java resources
-
     private List<Medewerker> medList = null;
     private List<Case> caseList = null;
     private final java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("Bundle"); // NOI18N
+    
     //Menu settings
     private MenuBar menuBar = new MenuBar();
     private Menu menu = new Menu(bundle.getString("menu"));
@@ -38,9 +38,11 @@ public class MainGuiFrame extends java.awt.Frame {
     private MenuShortcut langs = new MenuShortcut(76);
     private MenuItem db = new MenuItem(bundle.getString("menu.db"), dbs);
     private MenuItem language = new MenuItem(bundle.getString("menu.lang"), langs);
+    
     //Strings for add buttons
     private String button1 = null;
     private String button2 = null;
+    
     //Access Management
     private boolean beheer;
     private int handlerId;
@@ -664,6 +666,7 @@ public class MainGuiFrame extends java.awt.Frame {
 		fadable = (jScrollPane3.getVerticalScrollBar().getValue() > 1500);
 		if (fadable) {
 		    Debug.println(fadable + "");
+		    //moreButton.setVisible(false);
 		}
 	    }
 	});
@@ -689,8 +692,10 @@ public class MainGuiFrame extends java.awt.Frame {
 	@Override
 	protected void paintComponent(Graphics g) {
 	    super.paintComponent(g); // paint the background image and scale it to fill the entire space
+	    Graphics2D g2 = (Graphics2D)g;
 	    Dimension d = super.getSize();
-	    g.drawImage(bg, 0, 0, d.width, d.height, null);
+	    g2.setRenderingHint(RenderingHints.KEY_INTERPOLATION,RenderingHints.VALUE_INTERPOLATION_BICUBIC);
+	    g2.drawImage(bg, 0, 0, d.width, d.height, null);
 	}
     }
 }
