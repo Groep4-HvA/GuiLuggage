@@ -35,23 +35,39 @@ public class Case {
 
     public Case() {
     }
-
+    /**
+     * Get the status
+     * @return the status of the case
+     */
     public Color getStatus(){
         if(this.getName()==null){}
         return Color.RED;
     }
+    
+    /**
+     * Get the label
+     * @return the label of the case
+     */
     public String getLabel() {
         return label;
     }
 
+    /**
+     * Set the label of the case
+     * @param label 
+     */
     public void setLabel(String label) {
         this.label = label;
     }
 
+    /**
+     * Get the name
+     * @return name set in the case
+     */
     public String getName() {
         return name;
     }
-
+    //TODO: complete javadoc
     public void setName(String name) {
         this.name = name;
     }

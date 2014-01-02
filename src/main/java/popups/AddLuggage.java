@@ -27,6 +27,7 @@ public class AddLuggage extends javax.swing.JFrame {
 
     /**
      * Creates new form guiPopupDesign
+     * @param handlerId
      */
     public AddLuggage(int handlerId) {
 	if (!Check.verifyLogin()) {

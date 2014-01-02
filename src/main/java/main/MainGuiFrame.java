@@ -695,7 +695,7 @@ public class MainGuiFrame extends java.awt.Frame {
 	    super.paintComponent(g); // paint the background image and scale it to fill the entire space
 	    Graphics2D g2 = (Graphics2D)g;
 	    Dimension d = super.getSize();
-	    g2.setRenderingHint(RenderingHints.KEY_INTERPOLATION,RenderingHints.VALUE_INTERPOLATION_BICUBIC);
+	    g2.setRenderingHint(RenderingHints.KEY_INTERPOLATION,RenderingHints.VALUE_INTERPOLATION_BILINEAR);
 	    g2.drawImage(bg, 0, 0, d.width, d.height, null);
 	}
     }

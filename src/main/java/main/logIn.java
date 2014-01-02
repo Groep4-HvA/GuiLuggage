@@ -1,7 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package main;
 
 import java.sql.SQLException;
@@ -17,7 +13,7 @@ import org.apache.commons.codec.digest.DigestUtils;
  * @author ChrisvanderHeijden
  */
 public class logIn extends javax.swing.JFrame {
-    private java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("Bundle");
+    private final java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("Bundle");
     private int handlerId;
 
     /**
@@ -117,7 +113,10 @@ public class logIn extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
+    /**
+     * Log in as soon as the button is pressed
+     * @param evt 
+     */
     private void LogInActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_LogInActionPerformed
         try{
         String username = userName.getText();
@@ -146,7 +145,7 @@ public class logIn extends javax.swing.JFrame {
         }else {
             errorLabel.setText(bundle.getString("noLogin"));
         }
-        }catch(Exception e){
+        }catch(SQLException e){
             Debug.printError(e.toString());
         }
     }//GEN-LAST:event_LogInActionPerformed

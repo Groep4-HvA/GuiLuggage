@@ -17,16 +17,16 @@ import models.Debug;
  * @author groep 4
  */
 public class GuiLuggage {
-
-    /**
-     * @param args the command line arguments
-     */
     private static String orig_dbIp;
     private static String orig_dbName;
     private static String orig_dbUser;
     private static String orig_dbPass;
     private static String orig_debug;
 
+    /**
+     * Init of the program
+     * @param args 
+     */
     public static void main(String[] args) {
 	checkConfigFile();
 
@@ -54,7 +54,9 @@ public class GuiLuggage {
 	}
 
     }
-
+    /**
+     * Check if the config file is valid and complete
+     */
     private static void checkConfigFile() {
 	boolean fullSettings = settingsRead();
 	File f = new File(System.getProperty("user.dir") + "/Config.properties");
@@ -92,6 +94,10 @@ public class GuiLuggage {
 	}
     }
 
+    /**
+     * Check if all settings can be read
+     * @return settings can be read or not
+     */
     private static boolean settingsRead() {
 	boolean result = true;
 	Properties prop = new Properties();

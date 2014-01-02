@@ -20,6 +20,12 @@ public class Debug {
 
     private static PrintWriter wout = null;
 
+    /**
+     * print a string (location is based on settings)
+     *
+     * @see system.out.println()
+     * @param out
+     */
     public static void println(String out) {
         Properties prop = new Properties();
 
@@ -41,6 +47,12 @@ public class Debug {
         }
     }
 
+    /**
+     * Print an error to the log and the console
+     *
+     * @see system.err.println()
+     * @param out
+     */
     public static void printError(String out) {
         System.err.println("LOG(Error):" + out);
         try {
@@ -52,6 +64,9 @@ public class Debug {
         }
     }
 
+    /**
+     * Constructor
+     */
     public Debug() {
     }
 }

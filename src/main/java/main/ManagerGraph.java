@@ -22,15 +22,24 @@ import org.jfree.chart.renderer.category.LineAndShapeRenderer;
 import org.jfree.data.category.CategoryDataset;
 import org.jfree.data.category.DefaultCategoryDataset;
 import org.jfree.ui.ApplicationFrame;
-
+/**
+ * 
+ * @author Jerroen en Yorrick
+ */
 public class ManagerGraph extends ApplicationFrame {
 
     ConnectionMySQL conn = new ConnectionMySQL();
-    private DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-    private Date date = new Date();
-    private String dateString = dateFormat.format(date);
+    private final DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+    private final Date date = new Date();
+    private final String dateString = dateFormat.format(date);
     private PreparedStatement prdstmt = null;
-
+    
+    /**
+     * Constructor
+     * @param title
+     * @param beheer
+     * @throws SQLException 
+     */
     public ManagerGraph(final String title, boolean beheer) throws SQLException {
 	super(title);
 	if (!Check.verifyLogin()) {
@@ -44,7 +53,13 @@ public class ManagerGraph extends ApplicationFrame {
 	    chartPanel.setLocation(getRootPane().getWidth() / 2, getRootPane().getHeight() / 2);
 	}
     }
-
+    /**
+     * Get the data from the database
+     * @param firstDate
+     * @param lastDate
+     * @param type
+     * @return 
+     */
     public int getMonthCount(String firstDate, String lastDate, String type) {
 	int rowAmmount = 0;
 	try {
@@ -62,8 +77,7 @@ public class ManagerGraph extends ApplicationFrame {
 	    prdstmt.setString(1, firstDate);
 	    prdstmt.setString(2, lastDate);
 
-	    ResultSet rs = null;
-
+	    ResultSet rs;
 	    rs = conn.performSelect(prdstmt);
 
 	    while (rs.next()) {
@@ -75,7 +89,10 @@ public class ManagerGraph extends ApplicationFrame {
 	}
 	return rowAmmount;
     }
-
+    /**
+     * Create a dataset to feed to the graph constructor
+     * @return 
+     */
     private CategoryDataset createDataset() {
 
 	// row keys...
@@ -142,7 +159,11 @@ public class ManagerGraph extends ApplicationFrame {
 	return dataset;
 
     }
-
+    /**
+     * Construct the actual chart
+     * @param dataset
+     * @return 
+     */
     private JFreeChart createChart(final CategoryDataset dataset) {
 
 	// create the chart...
@@ -188,7 +209,10 @@ public class ManagerGraph extends ApplicationFrame {
 
 	return chart;
     }
-
+    /**
+     * Override the close options
+     * @param evt 
+     */
     @Override
     public void windowClosing(final WindowEvent evt) {
 	if (evt.getWindow() == this) {
