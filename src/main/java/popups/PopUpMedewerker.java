@@ -31,6 +31,7 @@ public class PopUpMedewerker extends javax.swing.JFrame {
      * Creates new form PopUpMedewerker
      *
      * @param currentcase
+     * @param handlerId
      */
     public PopUpMedewerker(Case currentcase, int handlerId) {
 	if (!Check.verifyLogin()) {

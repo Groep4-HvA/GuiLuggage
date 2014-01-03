@@ -142,8 +142,8 @@ public class CaseDao {
     public List<Case> readAll() throws SQLException {
 
         List<Case> list = new LinkedList<Case>();
-        ResultSet rs = null;
-        PreparedStatement prdstmt = null;
+        ResultSet rs;
+        PreparedStatement prdstmt;
 
         String query = "SELECT * FROM `cases` LIMIT 50";
 
