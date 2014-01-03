@@ -17,6 +17,7 @@ public class Medewerker {
     private String userLang;
     private boolean isManager;
     private boolean isAppManager;
+    
     public Medewerker() {
     }
 
