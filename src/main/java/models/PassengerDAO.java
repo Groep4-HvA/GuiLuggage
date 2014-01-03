@@ -32,7 +32,7 @@ public class PassengerDAO {
         PreparedStatement prdstmt = null;
         java.util.Date today = new java.util.Date();
         DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
-        String query = "SELECT `name`, `surname`, `homeAddress`, `homePostalCode`, `homeCity`,`residentAddress`,`residentPostalCode`, `residentCity`, `color`, `shape`, `additionalDetails`, `labelNumber` FROM `passengers` LIMIT 50";
+        String query = "SELECT `name`, `surname`, `homeAddress`, `homePostalCode`, `homeCity`,`residentAddress`,`residentPostalCode`, `residentCity`, `color`, `shape`, `additionalDetails`, `labelNumber`, `emailAdress` FROM `passengers` LIMIT 50";
 
         conn.startConnection();
 
@@ -53,6 +53,7 @@ public class PassengerDAO {
             tempPassenger.setShape(rs.getString("shape"));
             tempPassenger.setDetails(rs.getString("additionalDetails"));
             tempPassenger.setLabel(rs.getString("labelNumber"));
+            tempPassenger.setEmailAdress(rs.getString("emailAdress"));
             list.add(tempPassenger);
         }
 
@@ -115,7 +116,7 @@ public class PassengerDAO {
 
     public int create(Passenger passenger, int handlerId) throws SQLException {
         PreparedStatement prdstmt = null;
-        String query = "INSERT INTO `cases`  ( `name`, `surname`, `homeAddress`, `homePostalCode`, `homeCity`,`residentAddress`,`residentPostalCode`, `residentCity`, `color`, `shape`, `aditionalDetails`, `LuggageNumber`,`HandlerID`,`PhoneNr`,`addDate`) VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?);";
+        String query = "INSERT INTO `cases`  ( `name`, `surname`, `homeAddress`, `homePostalCode`, `homeCity`,`residentAddress`,`residentPostalCode`, `residentCity`, `color`, `shape`, `aditionalDetails`, `LuggageNumber`,`HandlerID`,`PhoneNr`,`addDate`, `emailAdress`) VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?);";
         java.util.Date today = new java.util.Date();
         java.sql.Date sqlToday = new java.sql.Date(today.getTime());
         conn.startConnection();
@@ -137,6 +138,7 @@ public class PassengerDAO {
         prdstmt.setInt(13, handlerId);
         prdstmt.setString(14, passenger.getPhoneNr());
         prdstmt.setDate(15, sqlToday);
+        prdstmt.setString(16, passenger.getEmailAdress());
         prdstmt.executeUpdate();
 
         if (conn != null) {
