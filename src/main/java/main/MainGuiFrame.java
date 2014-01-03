@@ -668,7 +668,9 @@ public class MainGuiFrame extends java.awt.Frame {
 		if (fadable) {
 		    Debug.println(fadable + "");
 		    moreButton.setVisible(true);
-		}
+		}else{
+                    moreButton.setVisible(false);
+                }
 	    }
 	});
     }
