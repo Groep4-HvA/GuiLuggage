@@ -54,7 +54,7 @@
                                   <Group type="102" alignment="0" attributes="0">
                                       <Component id="cityHLabel" min="-2" max="-2" attributes="0"/>
                                       <EmptySpace type="separate" max="-2" attributes="0"/>
-                                      <Component id="cityTextfield" pref="403" max="32767" attributes="0"/>
+                                      <Component id="cityTextfield" pref="402" max="32767" attributes="0"/>
                                   </Group>
                               </Group>
                           </Group>
@@ -82,14 +82,17 @@
                       </Group>
                   </Group>
                   <Group type="102" attributes="0">
-                      <Group type="103" groupAlignment="1" max="-2" attributes="0">
-                          <Component id="colorLabel" alignment="0" pref="114" max="32767" attributes="0"/>
-                          <Component id="lLabelLabel" alignment="0" pref="114" max="32767" attributes="0"/>
-                          <Component id="shapeLabel" alignment="0" pref="114" max="32767" attributes="0"/>
-                          <Component id="nameLabel" alignment="0" pref="114" max="32767" attributes="0"/>
-                          <Component id="phoneNrLabel" alignment="0" max="32767" attributes="0"/>
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Group type="103" alignment="0" groupAlignment="1" max="-2" attributes="0">
+                              <Component id="colorLabel" alignment="0" pref="114" max="32767" attributes="0"/>
+                              <Component id="lLabelLabel" alignment="0" pref="114" max="32767" attributes="0"/>
+                              <Component id="shapeLabel" alignment="0" pref="114" max="32767" attributes="0"/>
+                              <Component id="nameLabel" alignment="0" pref="114" max="32767" attributes="0"/>
+                              <Component id="phoneNrLabel" alignment="0" max="32767" attributes="0"/>
+                          </Group>
+                          <Component id="emailAdressLabel" alignment="0" min="-2" max="-2" attributes="0"/>
                       </Group>
-                      <EmptySpace max="32767" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Component id="colorTextfield" alignment="1" max="32767" attributes="0"/>
                           <Component id="shapeTextfield" alignment="1" max="32767" attributes="0"/>
@@ -99,9 +102,10 @@
                               <EmptySpace type="separate" max="-2" attributes="0"/>
                               <Component id="surNameLabel" min="-2" max="-2" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
-                              <Component id="surnameTextfield" pref="388" max="32767" attributes="0"/>
+                              <Component id="surnameTextfield" pref="393" max="32767" attributes="0"/>
                           </Group>
                           <Component id="phoneNrText" alignment="0" max="32767" attributes="0"/>
+                          <Component id="emailAdress" alignment="0" max="32767" attributes="0"/>
                       </Group>
                   </Group>
               </Group>
@@ -112,7 +116,7 @@
     <DimensionLayout dim="1">
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" alignment="0" attributes="0">
-              <EmptySpace max="32767" attributes="0"/>
+              <EmptySpace min="-2" pref="23" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="labelTextfield" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="lLabelLabel" alignment="3" min="-2" max="-2" attributes="0"/>
@@ -139,7 +143,12 @@
                   <Component id="phoneNrLabel" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="phoneNrText" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace min="-2" pref="25" max="-2" attributes="0"/>
+              <EmptySpace type="unrelated" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="3" attributes="0">
+                  <Component id="emailAdressLabel" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="emailAdress" alignment="3" min="-2" max="-2" attributes="0"/>
+              </Group>
+              <EmptySpace max="32767" attributes="0"/>
               <Component id="hAddressLabel" min="-2" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
               <Component id="homeSeparator" min="-2" max="-2" attributes="0"/>
@@ -384,6 +393,9 @@
           <ResourceString bundle="Bundle.properties" key="AddPassenger.phoneNrText.toolTipText" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
         </Property>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="phoneNrTextActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JButton" name="pdfButton">
       <Properties>
@@ -393,6 +405,23 @@
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="pdfButtonActionPerformed"/>
+      </Events>
+    </Component>
+    <Component class="javax.swing.JLabel" name="emailAdressLabel">
+      <Properties>
+        <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
+          <ResourceString bundle="popups/Bundle.properties" key="AddPassenger.emailAdressLabel.text" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
+        </Property>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JTextField" name="emailAdress">
+      <Properties>
+        <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
+          <ResourceString bundle="popups/Bundle.properties" key="AddPassenger.emailAdress.text" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
+        </Property>
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="emailAdressActionPerformed"/>
       </Events>
     </Component>
   </SubComponents>

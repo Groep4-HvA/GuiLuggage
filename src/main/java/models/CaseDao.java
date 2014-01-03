@@ -116,6 +116,7 @@ public class CaseDao {
             tempcase.setHomeAddress(rs.getString("homeAddress"));
             tempcase.setHomePostalCode(rs.getString("homePostalCode"));
             tempcase.setHomeCity(rs.getString("homeCity"));
+       //     tempcase.setEmailAdress(rs.getString("emailAdress"));
 
             tempcase.setResidentAddress(rs.getString("residentAddress"));
             tempcase.setResidentPostalCode(rs.getString("residentPostalCode"));
@@ -157,6 +158,7 @@ public class CaseDao {
             tempcase.setLabel(rs.getString("LuggageNumber"));
             tempcase.setName(rs.getString("Name"));
             tempcase.setSurName(rs.getString("Surname"));
+            tempcase.setEmailAdress(rs.getString("emailAdress"));
 
             tempcase.setHomeAddress(rs.getString("homeAddress"));
             tempcase.setHomePostalCode(rs.getString("homePostalCode"));

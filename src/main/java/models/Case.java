@@ -15,6 +15,7 @@ public class Case {
     private String label;
     private String name;
     private String surName;
+    private String emailAdress;
     
     private String homeAddress;
     private String homePostalCode;
@@ -28,6 +29,7 @@ public class Case {
     private String shape;
     private String aditionalDetails;
     private String storageLocation;
+    
     
     private String handler;
     private Date addDate;
@@ -200,6 +202,16 @@ public class Case {
         }
         return list;
     }
+
+    public String getEmailAdress() {
+        return emailAdress;
+    }
+
+    public void setEmailAdress(String emailAdress) {
+        this.emailAdress = emailAdress;
+    }
+    
+    
 
     @Override
     public String toString() {

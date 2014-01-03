@@ -56,7 +56,7 @@ public class PDFGenerator {
         }
     }
     
-    public void generate(String label, String color, String shape, String name, String surname, String adres, String postalCode, String city, String residentAdres, String residentPostalCode, String residentCity, String details, int handlerId, String phoneNr){
+    public void generate(String label, String color, String shape, String name, String surname, String adres, String postalCode, String city, String residentAdres, String residentPostalCode, String residentCity, String details, int handlerId, String phoneNr, String email){
         try {
            
             contentStream.beginText();
@@ -110,6 +110,8 @@ public class PDFGenerator {
             contentStream.drawString("Phonenumber: ");
             contentStream.drawString(phoneNr);
             contentStream.moveTextPositionByAmount(0, -20);
+            contentStream.drawString("email: ");
+            contentStream.drawString(email);
             
             
             contentStream.endText();
