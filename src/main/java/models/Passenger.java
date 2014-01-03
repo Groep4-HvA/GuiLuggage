@@ -22,11 +22,12 @@ public class Passenger {
     private String residentCity;
     private String details;
     private String phoneNr;
+    private String emailAdress;
 
     public Passenger() {
     }
 
-    public Passenger(String label, String color, String shape, String name, String surname, String adres, String postalCode, String city, String residentAdres, String residentPostalCode, String residentCity, String details, String phoneNr) {
+    public Passenger(String label, String color, String shape, String name, String surname, String adres, String postalCode, String city, String residentAdres, String residentPostalCode, String residentCity, String details, String phoneNr, String emailAdress) {
         this.label = label;
         this.color = color;
         this.shape = shape;
@@ -40,6 +41,7 @@ public class Passenger {
         this.residentCity = residentCity;
         this.details = details;
         this.phoneNr = phoneNr;
+        this.emailAdress = emailAdress;
     }
 
     public String getPhoneNr() {
@@ -147,6 +149,16 @@ public class Passenger {
         this.details = details;
     }
 
+    public String getEmailAdress() {
+        return emailAdress;
+    }
+
+    public void setEmailAdress(String emailAdress) {
+        this.emailAdress = emailAdress;
+    }
+    
+    
+    
     @Override
     public String toString() {
         return "Passenger{" + "label=" + label + ", color=" + color + ", shape=" + shape + ", name=" + name + ", surname=" + surname + ", adres=" + adres + ", postalCode=" + postalCode + ", city=" + city + ", residentAdres=" + residentAdres + ", residentPostalCode=" + residentPostalCode + ", residentCity=" + residentCity + ", details=" + details + ", phoneNr=" + phoneNr + '}';
