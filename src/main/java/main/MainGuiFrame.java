@@ -26,6 +26,7 @@ import popups.*;
  * @since 15-10-13
  */
 public class MainGuiFrame extends java.awt.Frame {
+
     //Java resources
     private List<Medewerker> medList = null;
     private List<Case> caseList = null;
@@ -509,6 +510,18 @@ public class MainGuiFrame extends java.awt.Frame {
 
     private void searchButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_searchButtonActionPerformed
         Debug.println(searchInput.getText());
+        
+        String std = searchInput.getText();
+        String replaceAll = std.replaceAll("\\s+", "");
+        String[] parts = replaceAll.split(",");
+        
+        int count = 1;
+        for (String part : parts) {
+            
+            Debug.println("Part " + count + ":" + part);
+            count++;
+        }
+        
         if (!inBeheer) {
             try {
                 CaseDao cdCase = new CaseDao();
