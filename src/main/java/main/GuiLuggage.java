@@ -22,6 +22,7 @@ public class GuiLuggage {
     private static String orig_dbUser;
     private static String orig_dbPass;
     private static String orig_debug;
+    private static String orig_airfield;
 
     /**
      * Init of the program
@@ -74,6 +75,7 @@ public class GuiLuggage {
 	    String dbUser = (orig_dbUser != null) ? orig_dbUser : prop.getProperty("db_username");
 	    String dbPass = (orig_dbPass != null) ? orig_dbPass : prop.getProperty("db_password");
 	    String debug = (orig_debug != null) ? orig_debug : prop.getProperty("debug");
+            String airfield = (orig_airfield != null) ? orig_airfield : prop.getProperty("airfield");
 
 	    PrintWriter writer = null;
 	    try {
@@ -90,6 +92,7 @@ public class GuiLuggage {
 	    writer.println("db_username=" + dbUser);
 	    writer.println("db_password=" + dbPass);
 	    writer.println("debug=" + debug);
+            writer.println("airfield=" + airfield);
 	    writer.close();
 	}
     }
@@ -113,11 +116,12 @@ public class GuiLuggage {
 	    orig_dbUser = prop.getProperty("db_username");
 	    orig_dbPass = prop.getProperty("db_password");
 	    orig_debug = prop.getProperty("debug");
+            orig_airfield = prop.getProperty("airfield");
 	} catch (Exception e) {
 	    Debug.println(e.toString());
 	    result = false;
 	}
-	if (orig_dbIp == null || orig_dbName == null || orig_dbUser == null || orig_dbPass == null || orig_debug == null) {
+	if (orig_dbIp == null || orig_dbName == null || orig_dbUser == null || orig_dbPass == null || orig_debug == null || orig_airfield == null) {
 	    result = false;
 	}
 	return result;

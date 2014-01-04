@@ -8,6 +8,9 @@ import DBUtil.ConnectionMySQL;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -18,6 +21,9 @@ import java.util.List;
 public class MedewerkerDAO {
 
     ConnectionMySQL conn = new ConnectionMySQL();
+    private final DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+    private final Date date = new Date();
+    private final String dateString = dateFormat.format(date);
 
     public MedewerkerDAO() {
         // initialization 
@@ -26,8 +32,8 @@ public class MedewerkerDAO {
     public List<Medewerker> search(String searchInput) throws SQLException {
 
         List<Medewerker> list = new LinkedList<Medewerker>();
-        ResultSet rs = null;
-        PreparedStatement prdstmt = null;
+        ResultSet rs;
+        PreparedStatement prdstmt;
 
         String query = "SELECT `userName`, `userRealName`, `userPass`, `userBeheer`, `userLang` FROM `Users` WHERE `username` LIKE ? OR `userRealName` LIKE ? OR `userBeheer` LIKE ? LIMIT 50";
 
@@ -59,8 +65,8 @@ public class MedewerkerDAO {
 
     public List<Medewerker> readAll() throws SQLException {
         List<Medewerker> list = new LinkedList<Medewerker>();
-        ResultSet rs = null;
-        PreparedStatement prdstmt = null;
+        ResultSet rs;
+        PreparedStatement prdstmt;
 
         String query = "SELECT  * FROM `Users` LIMIT 50";
 
@@ -88,8 +94,8 @@ public class MedewerkerDAO {
     }
 
     public Medewerker readByID(int medewerkerId) throws SQLException {
-        ResultSet rs = null;
-        PreparedStatement prdstmt = null;
+        ResultSet rs;
+        PreparedStatement prdstmt;
         Medewerker tempMedewerker = new Medewerker();
 
         String query = "SELECT * FROM `Users` WHERE userId=?;";
@@ -120,8 +126,8 @@ public class MedewerkerDAO {
 
     public List<Medewerker> readLogIn(String user, String pass) throws SQLException {
         List<Medewerker> list = new LinkedList<Medewerker>();
-        ResultSet rs = null;
-        PreparedStatement prdstmt = null;
+        ResultSet rs;
+        PreparedStatement prdstmt;
 
         String query = "SELECT * FROM `Users` WHERE userName=? AND userPass=?;";
 
@@ -152,20 +158,22 @@ public class MedewerkerDAO {
     }
 
     public int create(Medewerker medewerker) throws SQLException {
-        PreparedStatement prdstmt = null;
-        String query = "INSERT INTO `Users` (`userName`, `userRealName`, `userPass`, `userManager`, `userBeheer`, `userLang`) VALUES(?, ?, ?, ?, ?, ?);";
+        PreparedStatement prdstmt;
+        String query = "INSERT INTO `Users` (`userName`, `userRealName`, `userPass`, `userManager`, `userBeheer`, `userLang`, `passDate`) VALUES(?, ?, ?, ?, ?, ?, ?);";
 
         conn.startConnection();
         //  conn = (ConnectionMySQL) DriverManager.getConnection(url, user, pw);
         prdstmt = conn.getConnection().prepareStatement(query);
         // some code needs to be writing
         //ps = conn.prepareStatement(query);
+
         prdstmt.setString(1, medewerker.getUsername());
         prdstmt.setString(2, medewerker.getName());
         prdstmt.setString(3, medewerker.getPassword());
         prdstmt.setBoolean(4, medewerker.isManager());
         prdstmt.setBoolean(5, medewerker.isAppManager());
         prdstmt.setString(6, medewerker.getUserLang());
+        prdstmt.setString(7, dateString);
         prdstmt.executeUpdate();
 
         if (conn != null) {
@@ -175,8 +183,8 @@ public class MedewerkerDAO {
     }
 
     public int update(Medewerker medewerker) throws SQLException {
-        PreparedStatement prdstmt = null;
-        String query = "UPDATE `Users` SET `userName`=?, `userRealName`=?, `userPass`=?, `userManager`=?, `userBeheer`=?, `userLang`=? WHERE `userId`=?;";
+        PreparedStatement prdstmt;
+        String query = "UPDATE `Users` SET `userName`=?, `userRealName`=?, `userPass`=?, `userManager`=?, `userBeheer`=?, `userLang`=? `passDate`=? WHERE `userId`=?;";
 
         String queryUserName, queryName, queryPass, queryUserLang;
         boolean queryManager, queryAppManager;
@@ -198,7 +206,9 @@ public class MedewerkerDAO {
         prdstmt.setBoolean(4, queryManager);
         prdstmt.setBoolean(5, queryAppManager);
         prdstmt.setString(6, queryUserLang);
-        prdstmt.setInt(7, medewerker.getId());
+        prdstmt.setString(7, dateString);
+        prdstmt.setInt(8, medewerker.getId());
+        
         prdstmt.executeUpdate();
 
         if (conn != null) {
@@ -224,8 +234,8 @@ public class MedewerkerDAO {
 
     public Medewerker getMedewerkerById(int handlerID) throws SQLException {
         Medewerker result = new Medewerker();
-        ResultSet rs = null;
-        PreparedStatement prdstmt = null;
+        ResultSet rs;
+        PreparedStatement prdstmt;
 
         String query = "SELECT * FROM `Users` WHERE userId=?;";
 

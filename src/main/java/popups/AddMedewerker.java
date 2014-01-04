@@ -4,6 +4,7 @@
  */
 package popups;
 
+import java.sql.SQLException;
 import java.util.Arrays;
 import models.Check;
 import models.Debug;
@@ -184,9 +185,8 @@ public class AddMedewerker extends javax.swing.JFrame {
 		String success = resBundle.getString("addSuccess").replaceAll("%&", "medewerker");
 		errorText.setText(success);
 		dispose();
-	    } catch (Exception ex) {
-		//Debug.println("sssss");
-		ex.printStackTrace();
+	    } catch (SQLException e) {
+		Debug.printError(e.toString());
 		String dbFailure = resBundle.getString("dbFailure").replaceAll("%&", "medewerker");
 		Debug.println(dbFailure);
 		errorText.setText(dbFailure);
