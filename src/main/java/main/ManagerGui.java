@@ -7,12 +7,15 @@ package main;
 import java.awt.Dimension;
 import java.awt.HeadlessException;
 import java.awt.Toolkit;
+import java.io.IOException;
 import java.sql.SQLException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import models.Case;
 import models.CaseDao;
@@ -20,6 +23,8 @@ import models.Check;
 import models.Debug;
 import models.PDFGenerator;
 import popups.MyAccount;
+import org.apache.pdfbox.*;
+import org.apache.pdfbox.pdmodel.PDDocument;
 
 /**
  *
@@ -38,6 +43,11 @@ public class ManagerGui extends java.awt.Frame {
     private String dateString;
     private String dateString2;
     private PDFGenerator pdf;
+    public ManagerGraph graph;
+    
+        DateFormat df = new SimpleDateFormat("dd-MM-yyyy");
+        Date today = Calendar.getInstance().getTime();
+       private String date = df.format(today);
 
     /**
      * Shows the GUI for the manager
@@ -85,6 +95,71 @@ public class ManagerGui extends java.awt.Frame {
         }
     }
 
+    private PDFGenerator makePDF(){
+        
+//        DateFormat df = new SimpleDateFormat("dd-MM-yyyy");
+//        Date today = Calendar.getInstance().getTime();
+//        String date = df.format(today);
+        //---Shows totalPending in PDF-------------------------------
+        CaseDao dbCase = new CaseDao();
+        List<Case> listPending = null;
+
+        try {
+            listPending = dbCase.readAllPending();
+        } catch (SQLException e) {
+            Debug.printError(e.toString());
+        }
+        String pending = Integer.toString(listPending.size());
+        //----Shows totalResolved in PDF-------------------------------
+        List<Case> listResolved = null;
+
+        try {
+            listResolved = dbCase.readAllResolved();
+        } catch (SQLException e) {
+            Debug.printError(e.toString());
+        }
+        String resolved = Integer.toString(listResolved.size());
+        //----Shows total ----------------------------------------------------------
+        List<Case> list = null;
+        try {
+            list = dbCase.readAll();
+        } catch (SQLException e) {
+            Debug.printError(e.toString());
+        }
+        String total = Integer.toString(list.size());
+        //------pending by date---------------------------------------------------
+        List<Case> datePending = null;
+        try {
+            datePending = dbCase.readAllPendingByDate(dateString, dateString2);
+        } catch (SQLException e) {
+            Debug.printError(e.toString());
+        }
+        String pendingByDate = Integer.toString(datePending.size());
+        //-----resolvedByDate----------------------------------------------------
+        List<Case> dateResolved = null;
+        try {
+            dateResolved = dbCase.readAllResolvedByDate(dateString, dateString2);
+        } catch (SQLException e) {
+            Debug.printError(e.toString());
+        }
+        String resolvedByDate = Integer.toString(dateResolved.size());
+        //-----totalByDate------------------------------------------------------
+        List<Case> dateTotal = null;
+        try {
+            dateTotal = dbCase.readAllTotalByDate(dateString, dateString2);
+        } catch (SQLException e) {
+            Debug.printError(e.toString());
+        }
+        String totalByDate = Integer.toString(dateTotal.size());
+        
+        pdf = new PDFGenerator();
+
+        pdf.generate(pending, resolved, total, dateString, dateString2, pendingByDate, resolvedByDate, totalByDate);
+        pdf.save("Corendon_Overview_" + date);
+        return pdf;
+        
+    }
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -612,7 +687,10 @@ public class ManagerGui extends java.awt.Frame {
      * @param evt
      */
     private void printButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_printButtonActionPerformed
-        pdf.print();
+    
+        pdf = makePDF();
+        
+        pdf.print("Corendon_Overview_" + date);
     }//GEN-LAST:event_printButtonActionPerformed
     /**
      * Log out of the application
@@ -630,65 +708,67 @@ public class ManagerGui extends java.awt.Frame {
      * @param evt
      */
     private void PDFActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_PDFActionPerformed
-        DateFormat df = new SimpleDateFormat("dd-MM-yyyy");
-        Date today = Calendar.getInstance().getTime();
-        String date = df.format(today);
-        //---Shows totalPending in PDF-------------------------------
-        CaseDao dbCase = new CaseDao();
-        List<Case> listPending = null;
+//        DateFormat df = new SimpleDateFormat("dd-MM-yyyy");
+//        Date today = Calendar.getInstance().getTime();
+//        String date = df.format(today);
+//        //---Shows totalPending in PDF-------------------------------
+//        CaseDao dbCase = new CaseDao();
+//        List<Case> listPending = null;
+//
+//        try {
+//            listPending = dbCase.readAllPending();
+//        } catch (SQLException e) {
+//            Debug.printError(e.toString());
+//        }
+//        String pending = Integer.toString(listPending.size());
+//        //----Shows totalResolved in PDF-------------------------------
+//        List<Case> listResolved = null;
+//
+//        try {
+//            listResolved = dbCase.readAllResolved();
+//        } catch (SQLException e) {
+//            Debug.printError(e.toString());
+//        }
+//        String resolved = Integer.toString(listResolved.size());
+//        //----Shows total ----------------------------------------------------------
+//        List<Case> list = null;
+//        try {
+//            list = dbCase.readAll();
+//        } catch (SQLException e) {
+//            Debug.printError(e.toString());
+//        }
+//        String total = Integer.toString(list.size());
+//        //------pending by date---------------------------------------------------
+//        List<Case> datePending = null;
+//        try {
+//            datePending = dbCase.readAllPendingByDate(dateString, dateString2);
+//        } catch (SQLException e) {
+//            Debug.printError(e.toString());
+//        }
+//        String pendingByDate = Integer.toString(datePending.size());
+//        //-----resolvedByDate----------------------------------------------------
+//        List<Case> dateResolved = null;
+//        try {
+//            dateResolved = dbCase.readAllResolvedByDate(dateString, dateString2);
+//        } catch (SQLException e) {
+//            Debug.printError(e.toString());
+//        }
+//        String resolvedByDate = Integer.toString(dateResolved.size());
+//        //-----totalByDate------------------------------------------------------
+//        List<Case> dateTotal = null;
+//        try {
+//            dateTotal = dbCase.readAllTotalByDate(dateString, dateString2);
+//        } catch (SQLException e) {
+//            Debug.printError(e.toString());
+//        }
+//        String totalByDate = Integer.toString(dateTotal.size());
 
-        try {
-            listPending = dbCase.readAllPending();
-        } catch (SQLException e) {
-            Debug.printError(e.toString());
-        }
-        String pending = Integer.toString(listPending.size());
-        //----Shows totalResolved in PDF-------------------------------
-        List<Case> listResolved = null;
-
-        try {
-            listResolved = dbCase.readAllResolved();
-        } catch (SQLException e) {
-            Debug.printError(e.toString());
-        }
-        String resolved = Integer.toString(listResolved.size());
-        //----Shows total ----------------------------------------------------------
-        List<Case> list = null;
-        try {
-            list = dbCase.readAll();
-        } catch (SQLException e) {
-            Debug.printError(e.toString());
-        }
-        String total = Integer.toString(list.size());
-        //------pending by date---------------------------------------------------
-        List<Case> datePending = null;
-        try {
-            datePending = dbCase.readAllPendingByDate(dateString, dateString2);
-        } catch (SQLException e) {
-            Debug.printError(e.toString());
-        }
-        String pendingByDate = Integer.toString(datePending.size());
-        //-----resolvedByDate----------------------------------------------------
-        List<Case> dateResolved = null;
-        try {
-            dateResolved = dbCase.readAllResolvedByDate(dateString, dateString2);
-        } catch (SQLException e) {
-            Debug.printError(e.toString());
-        }
-        String resolvedByDate = Integer.toString(dateResolved.size());
-        //-----totalByDate------------------------------------------------------
-        List<Case> dateTotal = null;
-        try {
-            dateTotal = dbCase.readAllTotalByDate(dateString, dateString2);
-        } catch (SQLException e) {
-            Debug.printError(e.toString());
-        }
-        String totalByDate = Integer.toString(dateTotal.size());
-
-        pdf = new PDFGenerator();
-
-        pdf.generate(pending, resolved, total, dateString, dateString2, pendingByDate, resolvedByDate, totalByDate);
-        pdf.save("Corendon_Overview_" + date);
+//        pdf = new PDFGenerator();
+//
+//        pdf.generate(pending, resolved, total, dateString, dateString2, pendingByDate, resolvedByDate, totalByDate);
+//        pdf.save("Corendon_Overview_" + date);
+        makePDF();
+        
     }//GEN-LAST:event_PDFActionPerformed
     /**
      * Show only the data between the selected dates
@@ -912,7 +992,7 @@ public class ManagerGui extends java.awt.Frame {
     private void graphManagerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_graphManagerActionPerformed
         //jPanel1.setVisible(false);
         try {
-            ManagerGraph graph = new ManagerGraph("Manager graph", true);
+            graph = new ManagerGraph("Manager graph", true);
             Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
             graph.setLocation(dim.width / 2 - this.getSize().width / 2, dim.height / 2 - this.getSize().height / 2);
             graph.setLocationRelativeTo(null);

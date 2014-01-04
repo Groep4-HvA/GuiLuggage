@@ -416,7 +416,7 @@ public class PopUpMedewerker extends javax.swing.JFrame {
         String email = emailAdressField.getText();
 	pdf = new PDFGenerator();
 	pdf.generate(label, color, shape, name, surname, adres, postalCode, city, residentAdres, residentPostalCode, residentCity, details, handlerId, phoneNr, email);
-	pdf.print();
+	pdf.print("");
     }//GEN-LAST:event_printButtonActionPerformed
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton cancelButton;

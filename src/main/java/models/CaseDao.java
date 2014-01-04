@@ -116,7 +116,7 @@ public class CaseDao {
             tempcase.setHomeAddress(rs.getString("homeAddress"));
             tempcase.setHomePostalCode(rs.getString("homePostalCode"));
             tempcase.setHomeCity(rs.getString("homeCity"));
-       //     tempcase.setEmailAdress(rs.getString("emailAdress"));
+            tempcase.setEmailAdress(rs.getString("emailAdress"));
 
             tempcase.setResidentAddress(rs.getString("residentAddress"));
             tempcase.setResidentPostalCode(rs.getString("residentPostalCode"));

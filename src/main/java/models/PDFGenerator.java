@@ -1,6 +1,8 @@
 package models;
 
+import java.awt.Image;
 import java.awt.print.PrinterException;
+import java.awt.print.PrinterJob;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
@@ -10,18 +12,30 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import javax.print.PrintService;
 import org.apache.pdfbox.exceptions.COSVisitorException;
 import org.apache.pdfbox.pdmodel.PDDocument;
 import org.apache.pdfbox.pdmodel.PDPage;
 import org.apache.pdfbox.pdmodel.edit.PDPageContentStream;
 import org.apache.pdfbox.pdmodel.font.PDFont;
 import org.apache.pdfbox.pdmodel.font.PDType1Font;
+//import org.apache.pdfbox.pdfparser;
+import org.apache.pdfbox.ImportFDF;
+import org.apache.pdfbox.pdmodel.graphics.xobject.PDJpeg;
+import org.apache.pdfbox.pdmodel.graphics.xobject.PDXObjectImage;
+import main.*;
 
 /**
  *
  * @author breud
  */
+
+
+
 public class PDFGenerator {
+    
+    
+    
 
     public static int stringWidth(String s, PDFont font, double fontSize) {
         try {
@@ -36,21 +50,44 @@ public class PDFGenerator {
     Date today = Calendar.getInstance().getTime();        
     String date = df.format(today);
     
+    PDXObjectImage test;
+    PDXObjectImage hallo;
+    PDXObjectImage grafiek;
+    
     
     
     PDDocument document;
+    //PDDocument hoi;
+    
+    
+
+    
     PDPageContentStream contentStream;
     PDFont font = PDType1Font.HELVETICA_BOLD;
+    
+    
 
     public PDFGenerator() {
         try {
+            
+//            this.hoi = new PDDocument();
+//            hoi = PDDocument.load(getClass().getResourceAsStream("/PDF/Corendon.pdd"));
+            
+          
+            
             // Create a document and add a page to it
-            this.document = new PDDocument();
-            PDPage page = new PDPage();
+           this.document = new PDDocument();
+           PDPage page = new PDPage();
+          
+            
             this.document.addPage(page);
-
+         //   this.hoi.addPage(page);
+            test = new PDJpeg(document, getClass().getResourceAsStream("/img/hoi4.jpg"));
+            hallo = new PDJpeg(document, getClass().getResourceAsStream("/img/help.jpg"));
+          
             // Start a new content stream which will "hold" the to be created content
             this.contentStream = new PDPageContentStream(document, page);
+            
         } catch (IOException ex) {
             ex.printStackTrace();
         }
@@ -58,7 +95,8 @@ public class PDFGenerator {
     
     public void generate(String label, String color, String shape, String name, String surname, String adres, String postalCode, String city, String residentAdres, String residentPostalCode, String residentCity, String details, int handlerId, String phoneNr, String email){
         try {
-           
+            
+            
             contentStream.beginText();
             
             contentStream.setFont(font, 12);
@@ -128,11 +166,15 @@ public class PDFGenerator {
             // See http://pdfbox.apache.org/docs/1.8.2/javadocs/index.html?overview-summary.html
             // Tip: Use google
             // TODO: generate the pdf
-            contentStream.addRect(20f, 20f, 20f, 20f);
+           // contentStream.addRect(20f, 20f, 20f, 20f);
+            
+            contentStream.drawImage(hallo, 0, 360);
+            contentStream.drawImage(test, 20, 50);
             contentStream.beginText();
             contentStream.setFont(font, 12);
             contentStream.moveTextPositionByAmount(100, 700);
             contentStream.drawString(date);
+            
             
             
             contentStream.moveTextPositionByAmount(0, -20);
@@ -196,15 +238,23 @@ public class PDFGenerator {
 	}
     }
 
-    public void print() {
+    public void print(String filename) {
+        String location = System.getProperty("user.home")+File.separator+"Documents"+File.separator+filename+".pdf";
 	try {
-	    this.contentStream.close();
-	    this.document.print();
-	    this.document.close();
+            PrintService ps;
+            document = PDDocument.load(location);
+            PrinterJob job = PrinterJob.getPrinterJob();
+            job.setJobName(filename);
+            job.setPageable(document);
+            job.printDialog();
+            job.print();
+
 	} catch (PrinterException e) {
 	    Debug.printError(e.toString());
 	} catch (IOException e) {
 	    Debug.printError(e.toString());
 	}
     }
+    
+   
 }
