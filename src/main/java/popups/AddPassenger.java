@@ -169,7 +169,7 @@ public class AddPassenger extends javax.swing.JFrame {
             }
         });
 
-        java.util.ResourceBundle bundle1 = java.util.ResourceBundle.getBundle("popups/Bundle"); // NOI18N
+        java.util.ResourceBundle bundle1 = java.util.ResourceBundle.getBundle("Bundle"); // NOI18N
         emailAdressLabel.setText(bundle1.getString("AddPassenger.emailAdressLabel.text")); // NOI18N
 
         emailAdress.setText(bundle1.getString("AddPassenger.emailAdress.text")); // NOI18N

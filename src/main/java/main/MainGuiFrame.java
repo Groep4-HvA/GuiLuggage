@@ -493,7 +493,7 @@ public class MainGuiFrame extends java.awt.Frame {
             gui2.dispose();
             gui2.setUndecorated(true);
             for (float i = 0.0f; i < 1.0f; i += 0.004f) {
-                gui2.setOpacity(i);
+                //gui2.setOpacity(i);
                 //  System.out.println(i);
                 gui2.setVisible(true);
             }
@@ -501,7 +501,7 @@ public class MainGuiFrame extends java.awt.Frame {
             gui3.dispose();
             gui3.setUndecorated(true);
             for (float i = 0.0f; i < 1.0f; i += 0.005f) {
-                gui3.setOpacity(i);
+                //gui3.setOpacity(i);
                 //System.out.println(i);
                 gui3.setVisible(true);
             }

@@ -192,7 +192,7 @@ public class PopUpMedewerker extends javax.swing.JFrame {
 
         phoneNrField.setText(bundle.getString("PopUpMedewerker.phoneNrField.text")); // NOI18N
 
-        java.util.ResourceBundle bundle1 = java.util.ResourceBundle.getBundle("popups/Bundle"); // NOI18N
+        java.util.ResourceBundle bundle1 = java.util.ResourceBundle.getBundle("Bundle"); // NOI18N
         emailAdressLabel.setText(bundle1.getString("PopUpMedewerker.emailAdressLabel.text")); // NOI18N
 
         emailAdressField.setText(bundle1.getString("PopUpMedewerker.emailAdressField.text")); // NOI18N

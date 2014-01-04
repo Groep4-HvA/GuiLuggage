@@ -184,7 +184,7 @@ public class MedewerkerDAO {
 
     public int update(Medewerker medewerker) throws SQLException {
         PreparedStatement prdstmt;
-        String query = "UPDATE `Users` SET `userName`=?, `userRealName`=?, `userPass`=?, `userManager`=?, `userBeheer`=?, `userLang`=? `passDate`=? WHERE `userId`=?;";
+        String query = "UPDATE `Users` SET `userName`=?, `userRealName`=?, `userPass`=?, `userManager`=?, `userBeheer`=?, `userLang`=?, `passDate`=? WHERE `userId`=?;";
 
         String queryUserName, queryName, queryPass, queryUserLang;
         boolean queryManager, queryAppManager;

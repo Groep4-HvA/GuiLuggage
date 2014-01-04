@@ -25,22 +25,43 @@ import org.apache.commons.codec.digest.DigestUtils;
 public class MyAccount extends javax.swing.JDialog {
 
     private final Color red = new Color(163, 0, 15);
+    private Medewerker tempMedewerker = null;
+    private MedewerkerDAO medewerkerTijdelijk = new MedewerkerDAO();
     private int medewerkerID;
+    private int lang;
 
     /**
      * Creates new form PasswordConfirm
+     *
+     * @param parent
+     * @param modal
+     * @param medewerkerID
      */
     public MyAccount(java.awt.Frame parent, boolean modal, int medewerkerID) {
-	super(parent, modal);
-	if (!Check.verifyLogin()) {
-	    Runtime.getRuntime().exit(1);
-	} else {
-	    this.setUndecorated(true);
-	    getRootPane().setBorder(BorderFactory.createLineBorder(red));
-	    initComponents();
-	    this.setLocationRelativeTo(null);
-	    this.medewerkerID = medewerkerID;
-	}
+        super(parent, modal);
+        if (!Check.verifyLogin()) {
+            Runtime.getRuntime().exit(1);
+        } else {
+            this.setUndecorated(true);
+            getRootPane().setBorder(BorderFactory.createLineBorder(red));
+            initComponents();
+            this.setLocationRelativeTo(null);
+            this.medewerkerID = medewerkerID;
+        }
+        try {
+            tempMedewerker = medewerkerTijdelijk.readByID(medewerkerID);
+        } catch (SQLException e) {
+            Debug.printError(e.toString());
+        }
+        if (tempMedewerker.getUserLang().equals("EN")) {
+            dropDown.setSelectedIndex(0);
+            Debug.println("EN");
+            lang = 0;
+        } else {
+            dropDown.setSelectedIndex(1);
+            Debug.println("NL");
+            lang = 1;
+        }
     }
 
     /**
@@ -61,7 +82,7 @@ public class MyAccount extends javax.swing.JDialog {
         saveBut = new javax.swing.JButton();
         cancelBut = new javax.swing.JButton();
         jLabel4 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
+        jPasswordField1 = new javax.swing.JPasswordField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -100,12 +121,6 @@ public class MyAccount extends javax.swing.JDialog {
 
         jLabel4.setText("Old password:");
 
-        jTextField1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField1ActionPerformed(evt);
-            }
-        });
-
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -119,25 +134,23 @@ public class MyAccount extends javax.swing.JDialog {
                         .addComponent(cancelBut))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel2)
-                                .addGap(54, 54, 54))
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel3)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)))
+                            .addComponent(jLabel2)
+                            .addComponent(jLabel3))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(passwordConfirm)
                             .addComponent(password)))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel1)
-                                .addGap(53, 53, 53))
+                            .addComponent(jLabel1)
                             .addComponent(jLabel4))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(dropDown, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jTextField1))))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(28, 28, 28)
+                                .addComponent(dropDown, 0, 225, Short.MAX_VALUE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(46, 46, 46)
+                                .addComponent(jPasswordField1)))))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -150,7 +163,7 @@ public class MyAccount extends javax.swing.JDialog {
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jPasswordField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(password, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -170,88 +183,72 @@ public class MyAccount extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void cancelButActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelButActionPerformed
-	close();
+        close();
     }//GEN-LAST:event_cancelButActionPerformed
 
     private void passwordActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_passwordActionPerformed
-	saveButActionPerformed(evt);
+        saveButActionPerformed(evt);
     }//GEN-LAST:event_passwordActionPerformed
 
     private void saveButActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saveButActionPerformed
+        Locale english, dutch, current;
 
-	Medewerker tempMedewerker = null;
-	MedewerkerDAO medewerkerTijdelijk;
-	medewerkerTijdelijk = new MedewerkerDAO();
-	Locale english, dutch, current;
+        english = new Locale("en", "US");
+        dutch = new Locale("nl", "NL");
+        Locale.setDefault(english);
+        boolean change = false;
 
-	english = new Locale("en", "US");
-	dutch = new Locale("nl", "NL");
-        
-	Locale.setDefault(english);
-
-	if (dropDown.getSelectedItem() == "English") {
-	    Locale.setDefault(english);
-	    try {
-		tempMedewerker = medewerkerTijdelijk.readByID(medewerkerID);
-	    } catch (SQLException e) {
-		Debug.printError(e.toString());
-	    }
-	    tempMedewerker.setUserLang("EN");
-	    //MainGuiFrame f = new MainGuiFrame();
-	    dispose();
-	}
-	if (dropDown.getSelectedItem() == "Nederlands") {
-	    Locale.setDefault(dutch);
-	    try {
-		tempMedewerker = medewerkerTijdelijk.readByID(medewerkerID);
-	    } catch (SQLException e) {
-		Debug.printError(e.toString());
-	    }
-	    tempMedewerker.setUserLang("NL");
-	    dispose();
-	}
-
-	if (password.getPassword().length > 0) {
-	    Debug.println(password.getPassword().toString());
-	    if (Arrays.equals(password.getPassword(), passwordConfirm.getPassword())) {
-//                Medewerker tempMedewerker = null;
-//                MedewerkerDAO medewerkerTijdelijk;
-//                medewerkerTijdelijk = new MedewerkerDAO();
-		try {
-		    tempMedewerker = medewerkerTijdelijk.readByID(medewerkerID);
-		} catch (SQLException e) {
-		    Debug.printError(e.toString());
-		}
-
-		if (tempMedewerker.getPassword().equals(DigestUtils.sha256Hex(String.valueOf(password.getPassword())))) {
-		    dispose();
-		} else {
-		    tempMedewerker.setPassword(password.getPassword());
-		    try {
-			medewerkerTijdelijk.update(tempMedewerker);
-		    } catch (SQLException e) {
-			Debug.printError(e.toString());
-		    }
-		}
-		Debug.println(tempMedewerker.toString());
-		dispose();
-	    }else{
+        if (dropDown.getSelectedIndex() != lang) {
+            if (dropDown.getSelectedIndex() == 0) {
+                Locale.setDefault(english);
+                tempMedewerker.setUserLang("EN");
+            }
+            if (dropDown.getSelectedIndex() == 1) {
+                Locale.setDefault(dutch);
+                tempMedewerker.setUserLang("NL");
+            }
+            change = true;
+        }
+        Debug.println(change + "");
+        if (password.getPassword().length > 0) {
+            Debug.println(password.getPassword().toString());
+            if (Arrays.equals(password.getPassword(), passwordConfirm.getPassword())) {
+                try {
+                    tempMedewerker = medewerkerTijdelijk.readByID(medewerkerID);
+                    if (tempMedewerker.getPassword().equals(DigestUtils.sha256Hex(String.valueOf(password.getPassword())))) {
+                        dispose();
+                    } else {
+                        tempMedewerker.setPassword(password.getPassword());
+                    }
+                    Debug.println(tempMedewerker.toString());
+                    change = true;
+                } catch (SQLException e) {
+                    Debug.printError(e.toString());
+                }
+            } else {
                 JOptionPane.showMessageDialog(null, "Passwords do not match");
             }
-	}
+        }
+        Debug.println(change + "");
+        if (change) {
+            Debug.println(tempMedewerker.toString());
+            try {
+                medewerkerTijdelijk.update(tempMedewerker);
+            } catch (SQLException e) {
+                Debug.printError(e.toString());
+            }
+
+        }
+        dispose();
     }//GEN-LAST:event_saveButActionPerformed
 
     private void dropDownActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_dropDownActionPerformed
     }//GEN-LAST:event_dropDownActionPerformed
 
-    private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField1ActionPerformed
-
     public void close() {
-	WindowEvent winClosingEvent = new WindowEvent(this, WindowEvent.WINDOW_CLOSING);
-	Toolkit.getDefaultToolkit().getSystemEventQueue().postEvent(winClosingEvent);
-	dispose();
+        WindowEvent winClosingEvent = new WindowEvent(this, WindowEvent.WINDOW_CLOSING);
+        Toolkit.getDefaultToolkit().getSystemEventQueue().postEvent(winClosingEvent);
+        dispose();
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     public javax.swing.JButton cancelBut;
@@ -260,7 +257,7 @@ public class MyAccount extends javax.swing.JDialog {
     public javax.swing.JLabel jLabel2;
     public javax.swing.JLabel jLabel3;
     public javax.swing.JLabel jLabel4;
-    public javax.swing.JTextField jTextField1;
+    public javax.swing.JPasswordField jPasswordField1;
     public javax.swing.JPasswordField password;
     public javax.swing.JPasswordField passwordConfirm;
     public javax.swing.JButton saveBut;
