@@ -1,8 +1,0 @@
-LOG(Debug):Current language: en_US
-LOG(Error):java.lang.NullPointerException
-LOG(Error):java.lang.RuntimeException: Uncompilable source code - Erroneous sym type: moreButton.setVisible
-LOG(Error):java.lang.RuntimeException: Uncompilable source code - Erroneous sym type: searchInput.requestFocusInWindow
-LOG(Error):java.sql.SQLException: Parameter index out of range (16 > number of parameters, which is 15).
-LOG(Error):com.mysql.jdbc.exceptions.jdbc4.CommunicationsException: Communications link failure
-
-The last packet sent successfully to the server was 0 milliseconds ago. The driver has not received any packets from the server.
