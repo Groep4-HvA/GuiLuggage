@@ -10,6 +10,8 @@ import java.awt.event.WindowEvent;
 import java.sql.SQLException;
 import java.util.Arrays;
 import java.util.Locale;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.BorderFactory;
 import javax.swing.JOptionPane;
 import models.Check;
@@ -82,7 +84,7 @@ public class MyAccount extends javax.swing.JDialog {
         saveBut = new javax.swing.JButton();
         cancelBut = new javax.swing.JButton();
         jLabel4 = new javax.swing.JLabel();
-        jPasswordField1 = new javax.swing.JPasswordField();
+        passwordOld = new javax.swing.JPasswordField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -144,13 +146,10 @@ public class MyAccount extends javax.swing.JDialog {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel1)
                             .addComponent(jLabel4))
+                        .addGap(28, 28, 28)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(28, 28, 28)
-                                .addComponent(dropDown, 0, 225, Short.MAX_VALUE))
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(46, 46, 46)
-                                .addComponent(jPasswordField1)))))
+                            .addComponent(dropDown, 0, 225, Short.MAX_VALUE)
+                            .addComponent(passwordOld))))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -163,7 +162,7 @@ public class MyAccount extends javax.swing.JDialog {
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4)
-                    .addComponent(jPasswordField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(passwordOld, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(password, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -212,32 +211,42 @@ public class MyAccount extends javax.swing.JDialog {
         Debug.println(change + "");
         if (password.getPassword().length > 0) {
             Debug.println(password.getPassword().toString());
-            if (Arrays.equals(password.getPassword(), passwordConfirm.getPassword())) {
-                try {
-                    tempMedewerker = medewerkerTijdelijk.readByID(medewerkerID);
-                    if (tempMedewerker.getPassword().equals(DigestUtils.sha256Hex(String.valueOf(password.getPassword())))) {
-                        dispose();
-                    } else {
-                        tempMedewerker.setPassword(password.getPassword());
-                    }
-                    Debug.println(tempMedewerker.toString());
-                    change = true;
-                } catch (SQLException e) {
-                    Debug.printError(e.toString());
-                }
-            } else {
-                JOptionPane.showMessageDialog(null, "Passwords do not match");
-            }
-        }
-        Debug.println(change + "");
-        if (change) {
-            Debug.println(tempMedewerker.toString());
             try {
-                medewerkerTijdelijk.update(tempMedewerker);
-            } catch (SQLException e) {
-                Debug.printError(e.toString());
+                tempMedewerker = medewerkerTijdelijk.readByID(medewerkerID);
+            } catch (SQLException ex) {
+                Logger.getLogger(MyAccount.class.getName()).log(Level.SEVERE, null, ex);
             }
+            if (tempMedewerker.getPassword().equals(DigestUtils.sha256Hex(String.valueOf(passwordOld.getPassword())))) {
 
+                if (Arrays.equals(password.getPassword(), passwordConfirm.getPassword())) {
+                    try {
+                        tempMedewerker = medewerkerTijdelijk.readByID(medewerkerID);
+                        if (!tempMedewerker.getPassword().equals(DigestUtils.sha256Hex(String.valueOf(password.getPassword())))) {
+                            tempMedewerker.setPassword(password.getPassword());
+                            change = true;
+                        } else {
+                            dispose();
+                        }
+                        Debug.println(tempMedewerker.toString());
+
+                    } catch (SQLException e) {
+                        Debug.printError(e.toString());
+                    }
+                } else {
+                    JOptionPane.showMessageDialog(null, "Passwords do not match");
+                }
+
+
+                Debug.println(change + "");
+                if (change) {
+                    Debug.println(tempMedewerker.toString());
+                    try {
+                        medewerkerTijdelijk.update(tempMedewerker);
+                    } catch (SQLException e) {
+                        Debug.printError(e.toString());
+                    }
+                }
+            }
         }
         dispose();
     }//GEN-LAST:event_saveButActionPerformed
@@ -257,9 +266,9 @@ public class MyAccount extends javax.swing.JDialog {
     public javax.swing.JLabel jLabel2;
     public javax.swing.JLabel jLabel3;
     public javax.swing.JLabel jLabel4;
-    public javax.swing.JPasswordField jPasswordField1;
     public javax.swing.JPasswordField password;
     public javax.swing.JPasswordField passwordConfirm;
+    public javax.swing.JPasswordField passwordOld;
     public javax.swing.JButton saveBut;
     // End of variables declaration//GEN-END:variables
 }
