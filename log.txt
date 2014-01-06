@@ -6,3 +6,10 @@ LOG(Error):java.sql.SQLException: Parameter index out of range (16 > number of p
 LOG(Error):com.mysql.jdbc.exceptions.jdbc4.CommunicationsException: Communications link failure
 
 The last packet sent successfully to the server was 0 milliseconds ago. The driver has not received any packets from the server.
+LOG(Error):com.mysql.jdbc.exceptions.jdbc4.MySQLSyntaxErrorException: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '`passDate`='2014-01-04' WHERE `userId`=53' at line 1
+LOG(Error):com.mysql.jdbc.exceptions.jdbc4.MySQLSyntaxErrorException: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '`passDate`='2014-01-04' WHERE `userId`=48' at line 1
+LOG(Error):com.mysql.jdbc.exceptions.jdbc4.MySQLSyntaxErrorException: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '`passDate`='2014-01-04' WHERE `userId`=48' at line 1
+LOG(Error):com.mysql.jdbc.exceptions.jdbc4.MySQLSyntaxErrorException: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '`passDate`='2014-01-04' WHERE `userId`=31' at line 1
+LOG(Error):com.mysql.jdbc.exceptions.jdbc4.MySQLSyntaxErrorException: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '`passDate`='2014-01-04' WHERE `userId`=39' at line 1
+LOG(Error):com.mysql.jdbc.exceptions.jdbc4.MySQLSyntaxErrorException: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '`passDate`='2014-01-04' WHERE `userId`=41' at line 1
+LOG(Error):com.mysql.jdbc.exceptions.jdbc4.MySQLSyntaxErrorException: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '`passDate`='2014-01-04' WHERE `userId`=48' at line 1
