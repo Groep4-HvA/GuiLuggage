@@ -12,6 +12,7 @@ import java.util.Arrays;
 import java.util.Locale;
 import javax.swing.BorderFactory;
 import javax.swing.JOptionPane;
+import main.MainGuiFrame;
 import models.Check;
 import models.Debug;
 import models.Medewerker;
@@ -26,9 +27,9 @@ public class MyAccount extends javax.swing.JDialog {
 
     private final Color red = new Color(163, 0, 15);
     private Medewerker tempMedewerker = null;
-    private MedewerkerDAO medewerkerTijdelijk = new MedewerkerDAO();
+    private final MedewerkerDAO medewerkerTijdelijk = new MedewerkerDAO();
     private int medewerkerID;
-    private int lang;
+    private final int lang;
 
     /**
      * Creates new form PasswordConfirm
@@ -99,11 +100,6 @@ public class MyAccount extends javax.swing.JDialog {
         });
 
         dropDown.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "English", "Nederlands" }));
-        dropDown.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                dropDownActionPerformed(evt);
-            }
-        });
 
         saveBut.setText("Save");
         saveBut.addActionListener(new java.awt.event.ActionListener() {
@@ -133,24 +129,24 @@ public class MyAccount extends javax.swing.JDialog {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(cancelBut))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel2)
-                            .addComponent(jLabel3))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addGap(12, 12, 12)))
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(passwordConfirm)
+                            .addComponent(passwordConfirm, javax.swing.GroupLayout.DEFAULT_SIZE, 207, Short.MAX_VALUE)
                             .addComponent(password)))
                     .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, 128, Short.MAX_VALUE)
+                            .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGap(12, 12, 12)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel1)
-                            .addComponent(jLabel4))
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(28, 28, 28)
-                                .addComponent(dropDown, 0, 225, Short.MAX_VALUE))
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(46, 46, 46)
-                                .addComponent(jPasswordField1)))))
+                            .addComponent(jPasswordField1)
+                            .addComponent(dropDown, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -183,7 +179,9 @@ public class MyAccount extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void cancelButActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelButActionPerformed
-        close();
+        dispose();
+        MainGuiFrame main = new MainGuiFrame(false, lang);
+        main.requestFocus();
     }//GEN-LAST:event_cancelButActionPerformed
 
     private void passwordActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_passwordActionPerformed
@@ -197,6 +195,7 @@ public class MyAccount extends javax.swing.JDialog {
         dutch = new Locale("nl", "NL");
         Locale.setDefault(english);
         boolean change = false;
+        boolean hold = false;
 
         if (dropDown.getSelectedIndex() != lang) {
             if (dropDown.getSelectedIndex() == 0) {
@@ -211,22 +210,14 @@ public class MyAccount extends javax.swing.JDialog {
         }
         Debug.println(change + "");
         if (password.getPassword().length > 0) {
-            Debug.println(password.getPassword().toString());
             if (Arrays.equals(password.getPassword(), passwordConfirm.getPassword())) {
-                try {
-                    tempMedewerker = medewerkerTijdelijk.readByID(medewerkerID);
-                    if (tempMedewerker.getPassword().equals(DigestUtils.sha256Hex(String.valueOf(password.getPassword())))) {
-                        dispose();
-                    } else {
-                        tempMedewerker.setPassword(password.getPassword());
-                    }
-                    Debug.println(tempMedewerker.toString());
+                if (!tempMedewerker.getPassword().equals(DigestUtils.sha256Hex(String.valueOf(password.getPassword())))) {
+                    tempMedewerker.setPassword(password.getPassword());
                     change = true;
-                } catch (SQLException e) {
-                    Debug.printError(e.toString());
                 }
             } else {
                 JOptionPane.showMessageDialog(null, "Passwords do not match");
+                hold = true;
             }
         }
         Debug.println(change + "");
@@ -239,11 +230,8 @@ public class MyAccount extends javax.swing.JDialog {
             }
 
         }
-        dispose();
+        if(!hold){dispose();}
     }//GEN-LAST:event_saveButActionPerformed
-
-    private void dropDownActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_dropDownActionPerformed
-    }//GEN-LAST:event_dropDownActionPerformed
 
     public void close() {
         WindowEvent winClosingEvent = new WindowEvent(this, WindowEvent.WINDOW_CLOSING);
