@@ -33,11 +33,9 @@ public class MainGuiFrame extends java.awt.Frame {
     private List<Medewerker> medList = null;
     private List<Case> caseList = null;
     private final java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("Bundle"); // NOI18N
-
     //Strings for add buttons
     private String button1 = null;
     private String button2 = null;
-
     //Access Management
     private boolean beheer;
     private int handlerId;
@@ -71,7 +69,8 @@ public class MainGuiFrame extends java.awt.Frame {
             initComponents();
             this.setLocationRelativeTo(null);
             searchInput.requestFocusInWindow();
-            searchInput.addFocusListener(new MainFocus() {});
+            searchInput.addFocusListener(new MainFocus() {
+            });
 
             //Access management: users can not see the appmanagement screen
             appManagementButton.setVisible(beheer);
@@ -377,6 +376,7 @@ public class MainGuiFrame extends java.awt.Frame {
         System.exit(0);
     }//GEN-LAST:event_exitForm
 
+
     private void menuBeheer() {
         //Menu settings
         MenuBar menuBar = new MenuBar();
@@ -531,14 +531,21 @@ public class MainGuiFrame extends java.awt.Frame {
                 caseList = cdCase.search(searchInput.getText());
                 Debug.println(searchInput.getText());
                 populateTableCase(caseList);
+                if (caseList.isEmpty()) {
+                    JOptionPane.showMessageDialog(null, "No search results found.");
+                }
             } catch (SQLException e) {
                 Debug.printError(e.toString());
+
             }
         } else {
             try {
                 MedewerkerDAO dbMedewerker = new MedewerkerDAO();
                 medList = dbMedewerker.search(searchInput.getText());
                 populateTableMedewerker(medList);
+                if (medList.isEmpty()) {
+                    JOptionPane.showMessageDialog(null, "No search results found.");
+                }
             } catch (SQLException e) {
                 Debug.printError(e.toString());
             }
@@ -660,7 +667,8 @@ public class MainGuiFrame extends java.awt.Frame {
         tableResults.getColumnModel().getColumn(2).setHeaderValue("Add date");
         tableResults.getColumnModel().getColumn(3).setHeaderValue("Handler name");
     }
-    public void focusSearch(){
+
+    public void focusSearch() {
         searchInput.requestFocus();
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -720,9 +728,9 @@ public class MainGuiFrame extends java.awt.Frame {
         @Override
         public void focusGained(FocusEvent e) {
             Debug.println("Focus gained");
-            if(inBeheer){
+            if (inBeheer) {
                 fillTableMedewerkers();
-            }else{
+            } else {
                 fillTableCases();
             }
         }
@@ -731,7 +739,6 @@ public class MainGuiFrame extends java.awt.Frame {
         public void focusLost(FocusEvent e) {
             Debug.println("Focus lost");
         }
-
     }
 
     private class ImagePanel extends JPanel {

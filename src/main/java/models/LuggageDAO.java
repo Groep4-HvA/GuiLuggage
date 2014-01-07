@@ -43,6 +43,7 @@ public class LuggageDAO {
         prdstmt.setString(8,    luggage.getPhoneNr());
 
         prdstmt.executeUpdate();
+        Debug.println("INSERT INTO DB");
 
         if (conn != null) {
             conn.closeConnection();

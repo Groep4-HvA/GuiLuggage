@@ -57,7 +57,7 @@ public class Check {
      * @return
      */
     static public String cleanLabel(String label) {
-        label = label.replaceAll("[^\\\\p{L}\\\\p{Nd}]", "");
+        label = label.replaceAll("\\s+", "");
         return label;
     }
 
@@ -85,10 +85,13 @@ public class Check {
      */
     static public boolean verifyLuggage(String label, String color, String shape, String location, String details, String phoneNr) {
         boolean verified = true;
+        
         if (label == null || color == null || phoneNr == null) {
             verified = false;
         } else if (label.equals("") || color.equals("") || phoneNr.equals("")) {
             verified = false;
+        } else {
+            verified = true;
         }
         return verified;
     }
