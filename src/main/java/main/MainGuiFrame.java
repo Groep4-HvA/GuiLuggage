@@ -8,6 +8,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.AdjustmentEvent;
 import java.awt.event.AdjustmentListener;
+import java.awt.event.FocusEvent;
+import java.awt.event.FocusListener;
 import java.awt.event.KeyEvent;
 import java.io.IOException;
 import java.sql.SQLException;
@@ -31,7 +33,7 @@ public class MainGuiFrame extends java.awt.Frame {
     private List<Medewerker> medList = null;
     private List<Case> caseList = null;
     private final java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("Bundle"); // NOI18N
-    
+
     //Strings for add buttons
     private String button1 = null;
     private String button2 = null;
@@ -54,6 +56,7 @@ public class MainGuiFrame extends java.awt.Frame {
         } else {
             menuBeheer();
             //pre init configuration of Strings
+            Debug.println("Configuring variables");
             this.handlerId = handlerId;
             this.beheer = beheer;
             button1 = (inBeheer) ? bundle.getString("Medewerker") : bundle.getString("Luggage");
@@ -68,11 +71,11 @@ public class MainGuiFrame extends java.awt.Frame {
             initComponents();
             this.setLocationRelativeTo(null);
             searchInput.requestFocusInWindow();
+            searchInput.addFocusListener(new MainFocus() {});
 
             //Access management: users can not see the appmanagement screen
             appManagementButton.setVisible(beheer);
             moreButton.setVisible(false);
-            fillTableCases();
             fadeMore();
         }
     }
@@ -379,9 +382,9 @@ public class MainGuiFrame extends java.awt.Frame {
         MenuBar menuBar = new MenuBar();
         Menu menu = new Menu(bundle.getString("menu"));
 
-        MenuShortcut dbSC= new MenuShortcut(KeyEvent.VK_D);
+        MenuShortcut dbSC = new MenuShortcut(KeyEvent.VK_D);
         MenuShortcut helpSC = new MenuShortcut(KeyEvent.VK_F1);
-        
+
         MenuItem db = new MenuItem(bundle.getString("menu.db"), dbSC);
         MenuItem help = new MenuItem(bundle.getString("menu.help"), helpSC);
 
@@ -487,41 +490,41 @@ public class MainGuiFrame extends java.awt.Frame {
     }//GEN-LAST:event_addNewButton1ActionPerformed
 
     private void addNewButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addNewButton2ActionPerformed
-        AddPassenger gui3 = new AddPassenger(handlerId);
-        AddMedewerker gui2 = new AddMedewerker(false);
         if (inBeheer) {
-            gui2.dispose();
-            gui2.setUndecorated(true);
+            AddMedewerker gui = new AddMedewerker(false);
+            gui.dispose();
+            gui.setUndecorated(true);
             for (float i = 0.0f; i < 1.0f; i += 0.004f) {
                 //gui2.setOpacity(i);
                 //  System.out.println(i);
-                gui2.setVisible(true);
+                gui.setVisible(true);
             }
         } else {
-            gui3.dispose();
-            gui3.setUndecorated(true);
+            AddPassenger gui = new AddPassenger(handlerId);
+            gui.dispose();
+            gui.setUndecorated(true);
             for (float i = 0.0f; i < 1.0f; i += 0.005f) {
                 //gui3.setOpacity(i);
                 //System.out.println(i);
-                gui3.setVisible(true);
+                gui.setVisible(true);
             }
         }
     }//GEN-LAST:event_addNewButton2ActionPerformed
 
     private void searchButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_searchButtonActionPerformed
         Debug.println(searchInput.getText());
-        
+
         String std = searchInput.getText();
         String replaceAll = std.replaceAll("\\s+", "");
         String[] parts = replaceAll.split(",");
-        
+
         int count = 1;
         for (String part : parts) {
-            
+
             Debug.println("Part " + count + ":" + part);
             count++;
         }
-        
+
         if (!inBeheer) {
             try {
                 CaseDao cdCase = new CaseDao();
@@ -657,6 +660,9 @@ public class MainGuiFrame extends java.awt.Frame {
         tableResults.getColumnModel().getColumn(2).setHeaderValue("Add date");
         tableResults.getColumnModel().getColumn(3).setHeaderValue("Handler name");
     }
+    public void focusSearch(){
+        searchInput.requestFocus();
+    }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel LabelDescription;
     private javax.swing.JButton addNewButton1;
@@ -707,6 +713,25 @@ public class MainGuiFrame extends java.awt.Frame {
             dialog = new DbDialog(MainGuiFrame, true);
             dialog.setVisible(true);
         }
+    }
+
+    private abstract class MainFocus implements FocusListener {
+
+        @Override
+        public void focusGained(FocusEvent e) {
+            Debug.println("Focus gained");
+            if(inBeheer){
+                fillTableMedewerkers();
+            }else{
+                fillTableCases();
+            }
+        }
+
+        @Override
+        public void focusLost(FocusEvent e) {
+            Debug.println("Focus lost");
+        }
+
     }
 
     private class ImagePanel extends JPanel {
