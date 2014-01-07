@@ -179,8 +179,8 @@ public class ManagerGui extends java.awt.Frame {
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
         PDF = new javax.swing.JButton();
-        jDateChooser1 = new com.toedter.calendar.JDateChooser();
-        jDateChooser2 = new com.toedter.calendar.JDateChooser();
+        firstDateChooser = new com.toedter.calendar.JDateChooser();
+        secondDateChooser = new com.toedter.calendar.JDateChooser();
         clearButton = new javax.swing.JButton();
 
         addWindowListener(new java.awt.event.WindowAdapter() {
@@ -343,9 +343,8 @@ public class ManagerGui extends java.awt.Frame {
             }
         });
 
-        java.util.ResourceBundle bundle1 = java.util.ResourceBundle.getBundle("Bundle"); // NOI18N
-        clearButton.setText(bundle1.getString("ManagerGui.clearButton.text")); // NOI18N
-        clearButton.setActionCommand(bundle1.getString("ManagerGui.clearButton.actionCommand")); // NOI18N
+        clearButton.setText(bundle.getString("ManagerGui.clearButton.text")); // NOI18N
+        clearButton.setActionCommand(bundle.getString("ManagerGui.clearButton.actionCommand")); // NOI18N
         clearButton.setMaximumSize(new java.awt.Dimension(61, 23));
         clearButton.setMinimumSize(new java.awt.Dimension(61, 23));
         clearButton.setPreferredSize(new java.awt.Dimension(61, 23));
@@ -367,11 +366,11 @@ public class ManagerGui extends java.awt.Frame {
                         .add(18, 18, 18)
                         .add(PDF)
                         .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .add(jDateChooser1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                        .add(firstDateChooser, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                         .add(18, 18, 18)
                         .add(jLabel4)
                         .add(18, 18, 18)
-                        .add(jDateChooser2, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                        .add(secondDateChooser, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
                         .add(selectButton)
                         .add(18, 18, 18)
@@ -393,7 +392,7 @@ public class ManagerGui extends java.awt.Frame {
                         .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .add(graphManager))
                     .add(org.jdesktop.layout.GroupLayout.TRAILING, jPanel2Layout.createSequentialGroup()
-                        .add(0, 6, Short.MAX_VALUE)
+                        .add(0, 0, Short.MAX_VALUE)
                         .add(jPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
                             .add(org.jdesktop.layout.GroupLayout.TRAILING, jPanel2Layout.createSequentialGroup()
                                 .add(myAccountButton)
@@ -430,9 +429,9 @@ public class ManagerGui extends java.awt.Frame {
                         .add(jLabel4)
                         .add(PDF)
                         .add(printButton))
-                    .add(jDateChooser2, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                    .add(jDateChooser1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(30, Short.MAX_VALUE))
+                    .add(secondDateChooser, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                    .add(firstDateChooser, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(44, Short.MAX_VALUE))
         );
 
         add(jPanel2, java.awt.BorderLayout.CENTER);
@@ -472,13 +471,13 @@ public class ManagerGui extends java.awt.Frame {
      */
     private void missingManagerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_missingManagerActionPerformed
 	try {
-	    datum1 = jDateChooser1.getDate();
+	    datum1 = firstDateChooser.getDate();
 	    dateString = String.format("%1$tY-%1$tm-%1$td", datum1);
-	    datum2 = jDateChooser2.getDate();
+	    datum2 = secondDateChooser.getDate();
 	    dateString2 = String.format("%1$tY-%1$tm-%1$td", datum2);
 
 //          System.out.println(dateString);
-	    if (jDateChooser1.getDate() == null || jDateChooser2.getDate() == null) {
+	    if (firstDateChooser.getDate() == null || secondDateChooser.getDate() == null) {
 
 		CaseDao Case = new CaseDao();
 		List<Case> list;
@@ -577,12 +576,12 @@ public class ManagerGui extends java.awt.Frame {
     private void processedManagerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_processedManagerActionPerformed
 	try {
 
-	    datum1 = jDateChooser1.getDate();
+	    datum1 = firstDateChooser.getDate();
 	    dateString = String.format("%1$tY-%1$tm-%1$td", datum1);
-	    datum2 = jDateChooser2.getDate();
+	    datum2 = secondDateChooser.getDate();
 	    dateString2 = String.format("%1$tY-%1$tm-%1$td", datum2);
 
-	    if (jDateChooser1.getDate() == null || jDateChooser2.getDate() == null) {
+	    if (firstDateChooser.getDate() == null || secondDateChooser.getDate() == null) {
 
 		CaseDao Case = new CaseDao();
 		List<Case> list;
@@ -769,9 +768,9 @@ public class ManagerGui extends java.awt.Frame {
     private void selectButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_selectButtonActionPerformed
 	try {
 
-	    datum1 = jDateChooser1.getDate();
+	    datum1 = firstDateChooser.getDate();
 	    dateString = String.format("%1$tY-%1$tm-%1$td", datum1);
-	    datum2 = jDateChooser2.getDate();
+	    datum2 = secondDateChooser.getDate();
 	    dateString2 = String.format("%1$tY-%1$tm-%1$td", datum2);
 
 	    Debug.println(dateString);
@@ -849,12 +848,12 @@ public class ManagerGui extends java.awt.Frame {
     private void foundManagerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_foundManagerActionPerformed
 	try {
 
-	    datum1 = jDateChooser1.getDate();
+	    datum1 = firstDateChooser.getDate();
 	    dateString = String.format("%1$tY-%1$tm-%1$td", datum1);
-	    datum2 = jDateChooser2.getDate();
+	    datum2 = secondDateChooser.getDate();
 	    dateString2 = String.format("%1$tY-%1$tm-%1$td", datum2);
 
-	    if (jDateChooser1.getDate() == null || jDateChooser2.getDate() == null) {
+	    if (firstDateChooser.getDate() == null || secondDateChooser.getDate() == null) {
 
 		CaseDao Case = new CaseDao();
 		List<Case> list;
@@ -955,8 +954,8 @@ public class ManagerGui extends java.awt.Frame {
      */
     private void clearButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_clearButtonActionPerformed
 	try {
-	    jDateChooser1.setDate(null);
-	    jDateChooser2.setDate(null);
+	    firstDateChooser.setDate(null);
+	    secondDateChooser.setDate(null);
 
 	    CaseDao Case = new CaseDao();
 	    List<Case> list;
@@ -983,10 +982,10 @@ public class ManagerGui extends java.awt.Frame {
      */
     private void graphManagerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_graphManagerActionPerformed
 	//jPanel1.setVisible(false);
-	if (jDateChooser2.getDate() == null || jDateChooser1.getDate() == null) {
+	if (secondDateChooser.getDate() == null || firstDateChooser.getDate() == null) {
 	    graph = new ManagerGraph("Manager graph", true);
 	} else {
-	    graph = new ManagerGraph("Manager graph", true, jDateChooser2.getDate(), jDateChooser1.getDate());
+	    graph = new ManagerGraph("Manager graph", true, firstDateChooser.getDate(), secondDateChooser.getDate());
 	}
 	try {
 	    Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
@@ -1001,10 +1000,9 @@ public class ManagerGui extends java.awt.Frame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton PDF;
     private javax.swing.JButton clearButton;
+    private com.toedter.calendar.JDateChooser firstDateChooser;
     private javax.swing.JButton foundManager;
     private javax.swing.JButton graphManager;
-    private com.toedter.calendar.JDateChooser jDateChooser1;
-    private com.toedter.calendar.JDateChooser jDateChooser2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -1018,6 +1016,7 @@ public class ManagerGui extends java.awt.Frame {
     private javax.swing.JButton myAccountButton;
     private javax.swing.JButton printButton;
     private javax.swing.JButton processedManager;
+    private com.toedter.calendar.JDateChooser secondDateChooser;
     private javax.swing.JButton selectButton;
     // End of variables declaration//GEN-END:variables
 }
