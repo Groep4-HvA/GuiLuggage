@@ -208,7 +208,7 @@ public class ManagerGraph extends ApplicationFrame {
 	final DefaultCategoryDataset dataset = new DefaultCategoryDataset();
 	String firstMY;
 	String lastMY;
-	if (dateDiff(firstDate, lastDate) <= 31) {
+	if (Check.dateDiff(firstDate, lastDate) <= 31) {
 	    graphTitle += " (" + bundle.getString("days") + ")";
 	    while (!firstCal.after(secondCal)) {
 		int year = firstCal.get(Calendar.YEAR);
@@ -221,7 +221,7 @@ public class ManagerGraph extends ApplicationFrame {
 		dataset.addValue(getMonthCount(firstMY, lastMY, "total"), total, firstCal.get(Calendar.DAY_OF_MONTH) + "");
 		firstCal.add(Calendar.DATE, 1);
 	    }
-	} else if (dateDiff(firstDate, lastDate) > 31 && dateDiff(firstDate, lastDate) <= 123) {
+	} else if (Check.dateDiff(firstDate, lastDate) > 31 && Check.dateDiff(firstDate, lastDate) <= 123) {
 	    graphTitle += " (" + bundle.getString("weeks") + ")";
 	    while (!firstCal.after(secondCal)) {
 		int year = firstCal.get(Calendar.YEAR);
@@ -236,7 +236,6 @@ public class ManagerGraph extends ApplicationFrame {
 	    }
 	} else {
 	    graphTitle += " (" + bundle.getString("months") + ")";
-
 	    while (!firstCal.after(secondCal)) {
 		int year = firstCal.get(Calendar.YEAR);
 		int month = firstCal.get(Calendar.MONTH) +1;
@@ -250,14 +249,6 @@ public class ManagerGraph extends ApplicationFrame {
 	    }
 	}
 	return dataset;
-
-    }
-
-    private int dateDiff(Date d1, Date d2) {
-	long diff = d2.getTime() - d1.getTime();
-	int diffDays = (int) (diff / (24 * 60 * 60 * 1000));
-
-	return diffDays;
 
     }
 
