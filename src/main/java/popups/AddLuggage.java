@@ -192,17 +192,11 @@ public class AddLuggage extends javax.swing.JFrame {
     private void SaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SaveActionPerformed
         Luggage newLuggage;
         label = Check.cleanLabel(labelTextField.getText());
-        Debug.println(label);
         color = colorTextField.getText();
-        Debug.println(colorTextField.getText());
         shape = shapeTextField.getText();
-        Debug.println(shapeTextField.getText());
         location = locationTextField.getText();
-        Debug.println(locationTextField.getText());
         details = detailsTextField.getText();
-        Debug.println(detailsTextField.getText());
         phoneNr = phoneNrText.getText();
-        Debug.println(phoneNrText.getText());
         if (Check.verifyLuggage(label, color, shape, location, details, phoneNr)) {
             Debug.println(Check.cleanPhone(phoneNr));
             newLuggage = new Luggage(label, color, shape, location, details, phoneNr);
