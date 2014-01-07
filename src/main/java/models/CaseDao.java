@@ -8,6 +8,7 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.LinkedList;
 import java.util.List;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -177,11 +178,14 @@ public class CaseDao {
             tempcase.setAddDate(rs.getDate("AddDate"));
             tempcase.setResolveDate(rs.getDate("ResolveDate"));
             list.add(tempcase);
+            
+            
+                
         }
 
         if (conn != null) {
             conn.closeConnection();
-        }
+        }               
 
         return list;
     }
@@ -211,7 +215,7 @@ public class CaseDao {
         prdstmt.setString(12, "%" + searchInput + "%");
 
         rs = conn.performSelect(prdstmt);
-
+        
         while (rs.next()) {
             Case tempCase = new Case();
             tempCase.setLabel(rs.getString("LuggageNumber"));

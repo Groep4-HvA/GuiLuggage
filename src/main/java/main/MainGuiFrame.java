@@ -379,6 +379,7 @@ public class MainGuiFrame extends java.awt.Frame {
 	System.exit(0);
     }//GEN-LAST:event_exitForm
 
+
     private void menuBeheer() {
 	//Menu settings
 	MenuBar menuBar = new MenuBar();
@@ -527,23 +528,30 @@ public class MainGuiFrame extends java.awt.Frame {
 	    count++;
 	}
 
-	if (!inBeheer) {
-	    try {
-		CaseDao cdCase = new CaseDao();
-		caseList = cdCase.search(searchInput.getText());
-		Debug.println(searchInput.getText());
-		populateTableCase(caseList);
-	    } catch (SQLException e) {
-		Debug.printError(e.toString());
-	    }
-	} else {
-	    try {
-		MedewerkerDAO dbMedewerker = new MedewerkerDAO();
-		medList = dbMedewerker.search(searchInput.getText());
-		populateTableMedewerker(medList);
-	    } catch (SQLException e) {
-		Debug.printError(e.toString());
-	    }
+        if (!inBeheer) {
+            try {
+                CaseDao cdCase = new CaseDao();
+                caseList = cdCase.search(searchInput.getText());
+                Debug.println(searchInput.getText());
+                populateTableCase(caseList);
+                if (caseList.isEmpty()) {
+                    JOptionPane.showMessageDialog(null, "No search results found.");
+                }
+            } catch (SQLException e) {
+                Debug.printError(e.toString());
+
+            }
+        } else {
+            try {
+                MedewerkerDAO dbMedewerker = new MedewerkerDAO();
+                medList = dbMedewerker.search(searchInput.getText());
+                populateTableMedewerker(medList);
+                if (medList.isEmpty()) {
+                    JOptionPane.showMessageDialog(null, "No search results found.");
+                }
+            } catch (SQLException e) {
+                Debug.printError(e.toString());
+            }
 
 	}
     }//GEN-LAST:event_searchButtonActionPerformed
@@ -678,7 +686,7 @@ public class MainGuiFrame extends java.awt.Frame {
     }
 
     public void focusSearch() {
-	searchInput.requestFocus();
+        searchInput.requestFocus();
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel LabelDescription;
@@ -744,10 +752,10 @@ public class MainGuiFrame extends java.awt.Frame {
 	    }
 	}
 
-	@Override
-	public void focusLost(FocusEvent e) {
-	    Debug.println("Focus lost");
-	}
+        @Override
+        public void focusLost(FocusEvent e) {
+            Debug.println("Focus lost");
+        }
     }
 
     private class ImagePanel extends JPanel {
