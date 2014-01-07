@@ -13,8 +13,6 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import models.Case;
 import models.CaseDao;
@@ -397,12 +395,12 @@ public class ManagerGui extends java.awt.Frame {
      * @param evt
      */
     private void missingManagerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_missingManagerActionPerformed
-        datum1 = jDateChooser1.getDate();
+        datum1 = firstDateChooser.getDate();
         dateString = String.format("%1$tY-%1$tm-%1$td", datum1);
-        datum2 = jDateChooser2.getDate();
+        datum2 = secondDateChooser.getDate();
         dateString2 = String.format("%1$tY-%1$tm-%1$td", datum2);
         try {
-            if (jDateChooser1.getDate() == null || jDateChooser2.getDate() == null) {
+            if (firstDateChooser.getDate() == null || secondDateChooser.getDate() == null) {
                 list = dbCase.readAllPending();
                 fillTable(list);
             } else {
@@ -434,12 +432,12 @@ public class ManagerGui extends java.awt.Frame {
     private void processedManagerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_processedManagerActionPerformed
         try {
 
-            datum1 = jDateChooser1.getDate();
+            datum1 = firstDateChooser.getDate();
             dateString = String.format("%1$tY-%1$tm-%1$td", datum1);
-            datum2 = jDateChooser2.getDate();
+            datum2 = secondDateChooser.getDate();
             dateString2 = String.format("%1$tY-%1$tm-%1$td", datum2);
 
-            if (jDateChooser1.getDate() == null || jDateChooser2.getDate() == null) {
+            if (firstDateChooser.getDate() == null || secondDateChooser.getDate() == null) {
                 list = dbCase.readAll();
                 fillTable(list);
 
@@ -501,9 +499,9 @@ public class ManagerGui extends java.awt.Frame {
      */
     private void selectButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_selectButtonActionPerformed
         try {
-            datum1 = jDateChooser1.getDate();
+            datum1 = firstDateChooser.getDate();
             dateString = String.format("%1$tY-%1$tm-%1$td", datum1);
-            datum2 = jDateChooser2.getDate();
+            datum2 = secondDateChooser.getDate();
             dateString2 = String.format("%1$tY-%1$tm-%1$td", datum2);
 
             Debug.println(dateString);
@@ -539,12 +537,12 @@ public class ManagerGui extends java.awt.Frame {
      */
     private void foundManagerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_foundManagerActionPerformed
         try {
-            datum1 = jDateChooser1.getDate();
+            datum1 = firstDateChooser.getDate();
             dateString = String.format("%1$tY-%1$tm-%1$td", datum1);
-            datum2 = jDateChooser2.getDate();
+            datum2 = secondDateChooser.getDate();
             dateString2 = String.format("%1$tY-%1$tm-%1$td", datum2);
 
-            if (jDateChooser1.getDate() == null || jDateChooser2.getDate() == null) {
+            if (firstDateChooser.getDate() == null || secondDateChooser.getDate() == null) {
                 list = dbCase.readAllResolved();
                 fillTable(list);
             } else {
@@ -577,8 +575,8 @@ public class ManagerGui extends java.awt.Frame {
      */
     private void clearButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_clearButtonActionPerformed
         try {
-            jDateChooser1.setDate(null);
-            jDateChooser2.setDate(null);
+            firstDateChooser.setDate(null);
+            secondDateChooser.setDate(null);
             list = dbCase.readAll();
             fillTable(list);
         } catch (SQLException e) {

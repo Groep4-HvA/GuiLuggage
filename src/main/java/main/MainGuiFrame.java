@@ -425,7 +425,7 @@ public class MainGuiFrame extends java.awt.Frame {
                 appManagementButton.setText(bundle.getString("MainGuiFrame.beheerButtonOn"));
                 LabelDescription.setText(bundle.getString("Search")+":");
                 //TODO: readAll should be from the Cases, not Dao
-                fillTableCases();
+                fillTableCases(notify);
                 inBeheer = false;
                 menuBeheer();
             } else {
