@@ -69,103 +69,186 @@ public class Case {
     public String getName() {
         return name;
     }
-    //TODO: complete javadoc
+    /**
+     * Set the name associated with the case
+     * @param name 
+     */
     public void setName(String name) {
         this.name = name;
     }
 
+    /**
+     * get the surname of the client
+     * @return 
+     */
     public String getSurName() {
         return surName;
     }
 
+    /**
+     * Set the surname
+     * @param surName 
+     */
     public void setSurName(String surName) {
         this.surName = surName;
     }
 
+    /**
+     * Get the home address
+     * @return 
+     */
     public String getHomeAddress() {
         return homeAddress;
     }
 
+    /**
+     * Set the home address
+     * @param homeAddress 
+     */
     public void setHomeAddress(String homeAddress) {
         this.homeAddress = homeAddress;
     }
 
+    /**
+     * get the postal code of the home address
+     * @return 
+     */
     public String getHomePostalCode() {
         return homePostalCode;
     }
 
+    /**
+     * Set the postal code of the home address
+     * @param homePostalCode 
+     */
     public void setHomePostalCode(String homePostalCode) {
         this.homePostalCode = homePostalCode;
     }
 
+    /**
+     * Get the city of the home
+     * @return 
+     */
     public String getHomeCity() {
         return homeCity;
     }
 
+    /**
+     * Set the city of the home
+     * @param homeCity 
+     */
     public void setHomeCity(String homeCity) {
         this.homeCity = homeCity;
     }
 
+    /**
+     * Get address at the destination
+     * @return 
+     */
     public String getResidentAddress() {
         return residentAddress;
     }
 
+    /**
+     * Set the address at the destination
+     * @param residentAddress 
+     */
     public void setResidentAddress(String residentAddress) {
         this.residentAddress = residentAddress;
     }
 
+    /**
+     * Get the postal code at the destination
+     * @return 
+     */
     public String getResidentPostalCode() {
         return residentPostalCode;
     }
 
+    /**
+     * Set the postal code at the destination
+     * @param residentPostalCode 
+     */
     public void setResidentPostalCode(String residentPostalCode) {
         this.residentPostalCode = residentPostalCode;
     }
 
+    /**
+     * Get the city of the destination
+     * @return 
+     */
     public String getResidentCity() {
         return residentCity;
     }
 
+    /**
+     * Set the city of the destination
+     * @param residentCity 
+     */
     public void setResidentCity(String residentCity) {
         this.residentCity = residentCity;
     }
 
-    public String getColor() {
-        return color;
-    }
-
-    public void setColor(String color) {
-        this.color = color;
-    }
-
+    /**
+     * Get the shape of the luggage
+     * @return 
+     */
     public String getShape() {
         return shape;
     }
 
+    /**
+     * Set the shape of the luggage
+     * @param shape 
+     */
     public void setShape(String shape) {
         this.shape = shape;
     }
 
+    /**
+     * Get the additional details
+     * @return 
+     */
     public String getAditionalDetails() {
         return aditionalDetails;
     }
 
+    /**
+     * Set the additional details
+     * @param aditionalDetails 
+     */
     public void setAditionalDetails(String aditionalDetails) {
         this.aditionalDetails = aditionalDetails;
     }
 
+    /**
+     * Get the storage location
+     * @return 
+     */
     public String getStorageLocation() {
         return storageLocation;
     }
 
+    /**
+     * Set the storage Location
+     * @param storageLocation 
+     */
     public void setStorageLocation(String storageLocation) {
         this.storageLocation = storageLocation;
     }
 
+    /**
+     * Get the handler of the luggage
+     * @return 
+     */
     public String getHandler() {
         return handler;
     }
 
+    /**
+     * Set the handler of the luggage
+     * @param handlerID 
+     */
     public void setHandler(int handlerID) {
         MedewerkerDAO dbMedewerker = new MedewerkerDAO();
         Medewerker dBhandler = null;
@@ -177,42 +260,76 @@ public class Case {
         this.handler = dBhandler.getName();
     }
 
+    /**
+     * Get the add-date
+     * @return 
+     */
     public Date getAddDate() {
         return addDate;
     }
 
+    /**
+     * Set the add-date
+     * @param addDate 
+     */
     public void setAddDate(Date addDate) {
         this.addDate = addDate;
     }
 
+    /**
+     * Get the resolve date
+     * @return 
+     */
     public Date getResolveDate() {
         return resolveDate;
     }
 
+    /**
+     * Set the resolve date
+     * @param resolveDate 
+     */
     public void setResolveDate(Date resolveDate) {
         this.resolveDate = resolveDate;
     }
-    public List<Case> readAll(){
-        CaseDao cases = new CaseDao();
-        List<Case> list = null;
-        try {
-            cases.readAll();
-        } catch (SQLException e) {
-            Debug.printError(e.toString());
-        }
-        return list;
-    }
 
+    /**
+     * Get the email address
+     * @return 
+     */
     public String getEmailAdress() {
         return emailAdress;
     }
 
+    /**
+     * Set the email address
+     * @param emailAdress 
+     */
     public void setEmailAdress(String emailAdress) {
         this.emailAdress = emailAdress;
+    }
+
+    /**
+     * get the color of the case
+     * @return 
+     */
+    public String getColor() {
+        return color;
+    }
+
+    /**
+     * Set the color of the case
+     * @param color 
+     */
+    public void setColor(String color) {
+        this.color = color;
     }
     
     
 
+    /**
+     * parse the object to a string
+     * @return 
+     */
     @Override
     public String toString() {
         return "Case{" + "status=" + status + ", label=" + label + ", name=" + name + ", surName=" + surName + ", homeAddress=" + homeAddress + ", homePostalCode=" + homePostalCode + ", homeCity=" + homeCity + ", residentAddress=" + residentAddress + ", residentPostalCode=" + residentPostalCode + ", residentCity=" + residentCity + ", color=" + color + ", shape=" + shape + ", aditionalDetails=" + aditionalDetails + ", storageLocation=" + storageLocation + ", handler=" + handler + ", addDate=" + addDate + ", resolveDate=" + resolveDate + '}';

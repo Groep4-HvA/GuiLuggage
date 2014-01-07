@@ -23,8 +23,8 @@ public class CaseDao {
 
     public List<Case> readAllPending() throws SQLException {
         List<Case> list = new LinkedList<Case>();
-        ResultSet rs = null;
-        PreparedStatement prdstmt = null;
+        ResultSet rs;
+        PreparedStatement prdstmt;
 
         String query = "SELECT * FROM cases WHERE `ResolveDate` is null";
         conn.startConnection();
@@ -48,8 +48,8 @@ public class CaseDao {
 
     public List<Case> readAllResolved() throws SQLException {
         List<Case> list = new LinkedList<Case>();
-        ResultSet rs = null;
-        PreparedStatement prdstmt = null;
+        ResultSet rs;
+        PreparedStatement prdstmt;
 
         String query = "SELECT * FROM cases WHERE `ResolveDate` is not null";
         conn.startConnection();
@@ -74,8 +74,8 @@ public class CaseDao {
 
     public List<Case> readAllByDate(String date1, String date2) throws SQLException {
         List<Case> list = new LinkedList<Case>();
-        ResultSet rs = null;
-        PreparedStatement prdstmt = null;
+        ResultSet rs;
+        PreparedStatement prdstmt;
 
         String query = "SELECT LuggageNumber, AddDate, LEFT(AddDate, 10) FROM cases WHERE `AddDate` BETWEEN ? AND ? LIMIT 50;";
         conn.startConnection(); //2013-12-09
@@ -97,8 +97,8 @@ public class CaseDao {
 
     public List<Case> ReadAllMore() throws SQLException {
         List<Case> list = new LinkedList<Case>();
-        ResultSet rs = null;
-        PreparedStatement prdstmt = null;
+        ResultSet rs;
+        PreparedStatement prdstmt;
 
         String query = "SELECT * FROM `cases` LIMIT 99";
 
@@ -189,8 +189,8 @@ public class CaseDao {
     public List<Case> search(String searchInput) throws SQLException {
 
         List<Case> list = new LinkedList<Case>();
-        ResultSet rs = null;
-        PreparedStatement prdstmt = null;
+        ResultSet rs;
+        PreparedStatement prdstmt;
 
         String query = "SELECT * FROM `cases` WHERE `Name` LIKE ? OR `Surname` LIKE ? OR `homeAddress` LIKE ? OR `homePostalCode` LIKE ? OR `homeCity` LIKE ? OR `residentAddress` LIKE ? OR `residentPostalCode` LIKE ? OR `residentCity` LIKE ? OR `Color` LIKE ? OR `Shape` LIKE ? OR `AditionalDetails` LIKE ? OR `LuggageNumber` LIKE ?  LIMIT 50";
         conn.startConnection();
@@ -262,9 +262,7 @@ public class CaseDao {
         queryLocation = currentCase.getStorageLocation();
         queryResolve = (currentCase.getResolveDate() == null) ? null : dateFormat.format(currentCase.getResolveDate());
 
-
-
-        PreparedStatement prdstmt = null;
+        PreparedStatement prdstmt;
         String query = "UPDATE `cases` SET `Name`=?, `Surname`=?, `homeAddress`=?, `homePostalCode`=?, `homeCity`=?, `residentAddress`=?, `residentPostalCode`=?, `residentCity`=?, `Color`=?, `Shape`=?, `AditionalDetails`=?, `StorageLocation`=?, `ResolveDate`=? WHERE `LuggageNumber`=?;";
         conn.startConnection();
         //  conn = (ConnectionMySQL) DriverManager.getConnection(url, user, pw);
@@ -316,8 +314,8 @@ public class CaseDao {
 
     public List<Case> readAllPendingByDate(String date1, String date2) throws SQLException {
         List<Case> list = new LinkedList<Case>();
-        ResultSet rs = null;
-        PreparedStatement prdstmt = null;
+        ResultSet rs;
+        PreparedStatement prdstmt;
 
         String query = "SELECT LuggageNumber, AddDate, LEFT(AddDate, 10) FROM cases WHERE ResolveDate is null AND `AddDate` BETWEEN ? AND ? LIMIT 50;";
         conn.startConnection();
@@ -344,8 +342,8 @@ public class CaseDao {
 
     public List<Case> readAllResolvedByDate(String date1, String date2) throws SQLException {
         List<Case> list = new LinkedList<Case>();
-        ResultSet rs = null;
-        PreparedStatement prdstmt = null;
+        ResultSet rs;
+        PreparedStatement prdstmt;
 
         String query = "SELECT LuggageNumber, AddDate, LEFT(AddDate, 10) FROM cases WHERE ResolveDate is not null AND `AddDate` BETWEEN ? AND ? LIMIT 50;";
         conn.startConnection();
@@ -372,8 +370,8 @@ public class CaseDao {
 
     public List<Case> readAllTotalByDate(String date1, String date2) throws SQLException {
         List<Case> list = new LinkedList<Case>();
-        ResultSet rs = null;
-        PreparedStatement prdstmt = null;
+        ResultSet rs;
+        PreparedStatement prdstmt;
 
         String query = "SELECT LuggageNumber, AddDate, LEFT(AddDate, 10) FROM cases WHERE `AddDate` BETWEEN ? AND ? LIMIT 50;";
         conn.startConnection();

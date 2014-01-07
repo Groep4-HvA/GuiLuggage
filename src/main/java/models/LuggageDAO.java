@@ -24,7 +24,7 @@ public class LuggageDAO {
     }
 
     public int create(Luggage luggage, int handlerId) throws SQLException {
-        PreparedStatement prdstmt = null;
+        PreparedStatement prdstmt;
         String query = "INSERT INTO `cases`  ( `LuggageNumber`, `color`, `shape`, `storageLocation`, `aditionalDetails`,`addDate`,`HandlerID`,`PhoneNr`) VALUES(?,?,?,?,?,?,?,?);";
         java.util.Date today = new java.util.Date();
         java.sql.Date sqlToday = new java.sql.Date(today.getTime());
@@ -53,8 +53,8 @@ public class LuggageDAO {
     public List<Luggage> readAll() throws SQLException {
 
         List<Luggage> list = new LinkedList<Luggage>();
-        ResultSet rs = null;
-        PreparedStatement prdstmt = null;
+        ResultSet rs;
+        PreparedStatement prdstmt;
 
         String query = "SELECT `LuggageNumber`, `color`, `storageLocation`, `additionalDetails`, `shape` FROM `luggage` LIMIT 50";
 
@@ -81,7 +81,7 @@ public class LuggageDAO {
     }
 
     public int update(Luggage luggage) throws SQLException {
-        PreparedStatement prdstmt = null;
+        PreparedStatement prdstmt;
         String query = "UPDATE LUGGAGE"
                 + "SET labelNumber=?, color?, shape=?, storageLocation=?, additionalDetails=?, status=?"
                 + "FROM luggage"

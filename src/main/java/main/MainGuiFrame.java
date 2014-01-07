@@ -117,14 +117,14 @@ public class MainGuiFrame extends java.awt.Frame {
             }
         });
 
-        addNewButton1.setText("Add new: " + button1);
+        addNewButton1.setText(bundle.getString("AddNew")+": " + button1);
         addNewButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 addNewButton1ActionPerformed(evt);
             }
         });
 
-        addNewButton2.setText("Add new: "+ button2);
+        addNewButton2.setText(bundle.getString("AddNew")+": " + button2);
         addNewButton2.setToolTipText(bundle.getString("MainGuiFrame.addNewButton2.toolTipText")); // NOI18N
         addNewButton2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -421,7 +421,7 @@ public class MainGuiFrame extends java.awt.Frame {
                 addNewButton1.setText(bundle.getString("MainGuiFrame.addNew") + button1);
                 addNewButton2.setText(bundle.getString("MainGuiFrame.addNew") + button2);
                 appManagementButton.setText(bundle.getString("MainGuiFrame.beheerButtonOn"));
-                LabelDescription.setText("Search:");
+                LabelDescription.setText(bundle.getString("Search")+":");
                 //TODO: readAll should be from the Cases, not Dao
                 fillTableCases();
                 inBeheer = false;
@@ -430,7 +430,7 @@ public class MainGuiFrame extends java.awt.Frame {
                 addNewButton1.setText(bundle.getString("MainGuiFrame.addNew") + bundle.getString("Manager"));
                 addNewButton2.setText(bundle.getString("MainGuiFrame.addNew") + bundle.getString("Medewerker"));
                 appManagementButton.setText(bundle.getString("MainGuiFrame.beheerButtonOff"));
-                LabelDescription.setText("Search:");
+                LabelDescription.setText(bundle.getString("Search")+":");
                 fillTableMedewerkers();
                 inBeheer = true;
                 menuBeheer();
@@ -604,10 +604,10 @@ public class MainGuiFrame extends java.awt.Frame {
                 return c;
             }
         });
-        tableResults.getColumnModel().getColumn(0).setHeaderValue("Name");
-        tableResults.getColumnModel().getColumn(1).setHeaderValue("Username");
-        tableResults.getColumnModel().getColumn(2).setHeaderValue("Appmanager");
-        tableResults.getColumnModel().getColumn(3).setHeaderValue("Manager");
+        tableResults.getColumnModel().getColumn(0).setHeaderValue(bundle.getString("table.Name"));
+        tableResults.getColumnModel().getColumn(1).setHeaderValue(bundle.getString("table.Username"));
+        tableResults.getColumnModel().getColumn(2).setHeaderValue(bundle.getString("table.Appmanager"));
+        tableResults.getColumnModel().getColumn(3).setHeaderValue(bundle.getString("table.Manager"));
     }
 
     public void populateTableCase(List<Case> list) {
@@ -656,9 +656,9 @@ public class MainGuiFrame extends java.awt.Frame {
             }
         });
         tableResults.getColumnModel().getColumn(0).setHeaderValue("#");
-        tableResults.getColumnModel().getColumn(1).setHeaderValue("Luggage Number");
-        tableResults.getColumnModel().getColumn(2).setHeaderValue("Add date");
-        tableResults.getColumnModel().getColumn(3).setHeaderValue("Handler name");
+        tableResults.getColumnModel().getColumn(1).setHeaderValue(bundle.getString("table.LuggageNumber"));
+        tableResults.getColumnModel().getColumn(2).setHeaderValue(bundle.getString("table.AddDate"));
+        tableResults.getColumnModel().getColumn(3).setHeaderValue(bundle.getString("table.HandlerName"));
     }
     public void focusSearch(){
         searchInput.requestFocus();

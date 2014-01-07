@@ -1,6 +1,5 @@
 package models;
 
-import java.awt.Image;
 import java.awt.print.PrinterException;
 import java.awt.print.PrinterJob;
 import java.io.File;
@@ -12,9 +11,6 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javax.print.PrintService;
 import org.apache.pdfbox.exceptions.COSVisitorException;
 import org.apache.pdfbox.pdmodel.PDDocument;
 import org.apache.pdfbox.pdmodel.PDPage;
@@ -22,10 +18,8 @@ import org.apache.pdfbox.pdmodel.edit.PDPageContentStream;
 import org.apache.pdfbox.pdmodel.font.PDFont;
 import org.apache.pdfbox.pdmodel.font.PDType1Font;
 //import org.apache.pdfbox.pdfparser;
-import org.apache.pdfbox.ImportFDF;
 import org.apache.pdfbox.pdmodel.graphics.xobject.PDJpeg;
 import org.apache.pdfbox.pdmodel.graphics.xobject.PDXObjectImage;
-import main.*;
 
 /**
  *
@@ -33,11 +27,18 @@ import main.*;
  */
 public class PDFGenerator {
 
+    /**
+     * Find the width of the string
+     * @param s
+     * @param font
+     * @param fontSize
+     * @return 
+     */
     public static int stringWidth(String s, PDFont font, double fontSize) {
 	try {
 	    return (int) (font.getStringWidth(s) * fontSize / 1000) + 1;
-	} catch (IOException ex) {
-	    // ignore, but return 0
+	} catch (IOException e) {
+            Debug.printError(e.toString());
 	    return 0;
 	}
     }
@@ -48,22 +49,17 @@ public class PDFGenerator {
     PDXObjectImage hallo;
     PDXObjectImage grafiek;
     PDDocument document;
-    //PDDocument hoi;
     PDPageContentStream contentStream;
     PDFont font = PDType1Font.HELVETICA_BOLD;
 
+    /**
+     * Start a new PDF Generator object
+     */
     public PDFGenerator() {
 	try {
-
-//            this.hoi = new PDDocument();
-//            hoi = PDDocument.load(getClass().getResourceAsStream("/PDF/Corendon.pdd"));
-
-
-
 	    // Create a document and add a page to it
 	    this.document = new PDDocument();
 	    PDPage page = new PDPage();
-
 
 	    this.document.addPage(page);
 	    //   this.hoi.addPage(page);
@@ -73,11 +69,29 @@ public class PDFGenerator {
 	    // Start a new content stream which will "hold" the to be created content
 	    this.contentStream = new PDPageContentStream(document, page);
 
-	} catch (IOException ex) {
-	    ex.printStackTrace();
+	} catch (IOException e) {
+	    Debug.printError(e.toString());
 	}
     }
 
+    /**
+     * User - Generate a PDF with the following information
+     * @param label
+     * @param color
+     * @param shape
+     * @param name
+     * @param surname
+     * @param adres
+     * @param postalCode
+     * @param city
+     * @param residentAdres
+     * @param residentPostalCode
+     * @param residentCity
+     * @param details
+     * @param handlerId
+     * @param phoneNr
+     * @param email 
+     */
     public void generate(String label, String color, String shape, String name, String surname, String adres, String postalCode, String city, String residentAdres, String residentPostalCode, String residentCity, String details, int handlerId, String phoneNr, String email) {
 	try {
 
@@ -145,6 +159,17 @@ public class PDFGenerator {
 	}
     }
 
+    /**
+     * Manager - Generate a PDF with the following information
+     * @param pending
+     * @param resolved
+     * @param total
+     * @param dateString
+     * @param dateString2
+     * @param pendingByDate
+     * @param resolvedByDate
+     * @param totalByDate 
+     */
     public void generate(String pending, String resolved, String total, String dateString, String dateString2, String pendingByDate, String resolvedByDate, String totalByDate) {
 	try {
 	    // See http://pdfbox.apache.org/cookbook/documentcreation.html
@@ -196,6 +221,10 @@ public class PDFGenerator {
 
     }
 
+    /**
+     * Save the PDF to a file with the specified filename
+     * @param filename 
+     */
     public void save(String filename) {
 	String location = System.getProperty("user.home") + File.separator + "Documents" + File.separator + filename + ".pdf";
 	OutputStream output = null;
@@ -211,26 +240,23 @@ public class PDFGenerator {
 	    // Save the results and ensure that the document is properly closed:
 	    this.document.save(output);
 	    this.document.close();
+            output.close();
 	} catch (IOException e) {
 	    Debug.printError(e.toString());
 	} catch (COSVisitorException e) {
 	    Debug.printError(e.toString());
 	}
-	try {
-	    output.close();
-	} catch (IOException e) {
-	    Debug.printError(e.toString());
-	}
     }
 
+    /**
+     * print the PDF that was generated
+     */
     public void print() {
 	try {
-	    String filename = null;
-	    String location = System.getProperty("user.home") + File.separator + "Documents" + File.separator + filename + ".pdf";
 	    PrinterJob job = PrinterJob.getPrinterJob();
 	    document.print(job);
-	} catch (PrinterException ex) {
-	    Logger.getLogger(PDFGenerator.class.getName()).log(Level.SEVERE, null, ex);
+	} catch (PrinterException e) {
+	    Debug.printError(e.toString());
 	}
     }
 }

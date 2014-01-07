@@ -28,8 +28,8 @@ public class PassengerDAO {
     public List<Passenger> readAll() throws SQLException {
 
         List<Passenger> list = new LinkedList<Passenger>();
-        ResultSet rs = null;
-        PreparedStatement prdstmt = null;
+        ResultSet rs;
+        PreparedStatement prdstmt;
         java.util.Date today = new java.util.Date();
         DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
         String query = "SELECT `name`, `surname`, `homeAddress`, `homePostalCode`, `homeCity`,`residentAddress`,`residentPostalCode`, `residentCity`, `color`, `shape`, `additionalDetails`, `labelNumber`, `emailAdress` FROM `passengers` LIMIT 50";
@@ -67,8 +67,8 @@ public class PassengerDAO {
     public List<Passenger> search(String searchInput) throws SQLException {
 
         List<Passenger> list = new LinkedList<Passenger>();
-        ResultSet rs = null;
-        PreparedStatement prdstmt = null;
+        ResultSet rs;
+        PreparedStatement prdstmt;
 
         String query = "SELECT `name`, `surname`, `homeAddress`, `homePostalCode`, `homeCity`,`residentAddress`,`residentPostalCode`, `residentCity`, `color`, `shape`, `additionalDetails`, `labelNumber` FROM `passengers` WHERE `name` LIKE ? OR `surname` LIKE ? OR `homeAddress` LIKE ? OR `homePostalCode` LIKE ? OR `homeCity` LIKE ? OR `residentAddress` LIKE ? OR `residentPostalCode` LIKE ? OR `residentCity` LIKE ? OR `color` LIKE ? OR `shape` LIKE ? OR `additionalDetails` LIKE ? OR `labelNumber` LIKE ?  LIMIT 50";
         conn.startConnection();
@@ -115,7 +115,7 @@ public class PassengerDAO {
     }
 
     public int create(Passenger passenger, int handlerId) throws SQLException {
-        PreparedStatement prdstmt = null;
+        PreparedStatement prdstmt;
         String query = "INSERT INTO `cases`  ( `name`, `surname`, `homeAddress`, `homePostalCode`, `homeCity`,`residentAddress`,`residentPostalCode`, `residentCity`, `color`, `shape`, `aditionalDetails`, `LuggageNumber`,`HandlerID`,`PhoneNr`,`addDate`, `emailAdress`) VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?);";
         java.util.Date today = new java.util.Date();
         java.sql.Date sqlToday = new java.sql.Date(today.getTime());

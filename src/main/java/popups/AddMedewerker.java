@@ -23,10 +23,11 @@ public class AddMedewerker extends javax.swing.JFrame {
     private static boolean manager;
     private char[] password;
     private char[] confirmPassword;
-    private java.util.ResourceBundle resBundle = java.util.ResourceBundle.getBundle("Bundle");
+    private final java.util.ResourceBundle resBundle = java.util.ResourceBundle.getBundle("Bundle");
 
     /**
      * Creates new form AddMedewerker
+     * @param manager
      */
     public AddMedewerker(boolean manager) {
 	if (!Check.verifyLogin()) {
@@ -37,6 +38,10 @@ public class AddMedewerker extends javax.swing.JFrame {
 	    this.setLocationRelativeTo(null);
 	}
     }
+
+    /**
+     *  something something...Magic... I really have ni idea, it's generated
+     */
     public static AddMedewerker form = new AddMedewerker(manager);
 
     /**

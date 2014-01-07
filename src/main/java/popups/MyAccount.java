@@ -88,11 +88,12 @@ public class MyAccount extends javax.swing.JDialog {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
-        jLabel1.setText("Language: ");
+        java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("Bundle"); // NOI18N
+        jLabel1.setText(bundle.getString("MyAcc.langLabel")); // NOI18N
 
-        jLabel2.setText("Password: ");
+        jLabel2.setText(bundle.getString("MyAcc.passLabel")); // NOI18N
 
-        jLabel3.setText("Confirm password: ");
+        jLabel3.setText(bundle.getString("MyAcc.confPassLabel")); // NOI18N
 
         password.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -107,21 +108,21 @@ public class MyAccount extends javax.swing.JDialog {
             }
         });
 
-        saveBut.setText("Save");
+        saveBut.setText(bundle.getString("MyAcc.saveButton")); // NOI18N
         saveBut.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 saveButActionPerformed(evt);
             }
         });
 
-        cancelBut.setText("Cancel");
+        cancelBut.setText(bundle.getString("MyAcc.cancelButton")); // NOI18N
         cancelBut.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cancelButActionPerformed(evt);
             }
         });
 
-        jLabel4.setText("Old password:");
+        jLabel4.setText(bundle.getString("MyAcc.oldPassLabel")); // NOI18N
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);

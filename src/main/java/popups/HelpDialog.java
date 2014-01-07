@@ -6,20 +6,15 @@
 package popups;
 
 import java.io.IOException;
-import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.Locale;
 import models.Debug;
-import org.apache.pdfbox.pdmodel.PDDocument;
 
 /**
  *
  * @author smillernl
  */
 public class HelpDialog extends javax.swing.JFrame {
-
-    private PDDocument pdf;
-
     /**
      * Creates new form HelpDialog
      */

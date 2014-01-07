@@ -29,7 +29,6 @@ public class Check {
     private static String orig_debug;
     private static String orig_airfield;
     private static final java.util.ResourceBundle BUNDLE = java.util.ResourceBundle.getBundle("Bundle");
-
     private static Medewerker medew;
 
     /**
@@ -116,7 +115,7 @@ public class Check {
             ConnectionMySQL connect = new ConnectionMySQL();
             connect.getConnection();
             Connection con = connect.getConnection();
-            Statement stmt = null;
+            Statement stmt;
             try{
                 stmt = con.createStatement();
                 result = stmt.execute("show tables;");
