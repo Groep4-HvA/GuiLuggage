@@ -10,6 +10,7 @@ import java.io.UnsupportedEncodingException;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.Date;
 import java.util.Properties;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -37,7 +38,7 @@ public class Check {
      * @param medew
      */
     public static void setMedew(Medewerker medew) {
-        Check.medew = medew;
+	Check.medew = medew;
     }
 
     /**
@@ -46,7 +47,7 @@ public class Check {
      * @param medew
      */
     public static void resetMedew(Medewerker medew) {
-        Check.medew = null;
+	Check.medew = null;
     }
 
     /**
@@ -56,8 +57,8 @@ public class Check {
      * @return
      */
     static public String cleanLabel(String label) {
-        label = label.replaceAll("[^\\\\p{L}\\\\p{Nd}]", "");
-        return label;
+	label = label.replaceAll("[^\\\\p{L}\\\\p{Nd}]", "");
+	return label;
     }
 
     /**
@@ -67,8 +68,8 @@ public class Check {
      * @return
      */
     static public String cleanPhone(String number) {
-        number = number.replaceAll("[^0-9()+]", "");
-        return number;
+	number = number.replaceAll("[^0-9()+]", "");
+	return number;
     }
 
     /**
@@ -83,13 +84,13 @@ public class Check {
      * @return if parameters are valid
      */
     static public boolean verifyLuggage(String label, String color, String shape, String location, String details, String phoneNr) {
-        boolean verified = true;
-        if (label == null || color == null || phoneNr == null) {
-            verified = false;
-        } else if (label.equals("") || color.equals("") || phoneNr.equals("")) {
-            verified = false;
-        }
-        return verified;
+	boolean verified = true;
+	if (label == null || color == null || phoneNr == null) {
+	    verified = false;
+	} else if (label.equals("") || color.equals("") || phoneNr.equals("")) {
+	    verified = false;
+	}
+	return verified;
     }
 
     /**
@@ -98,12 +99,12 @@ public class Check {
      * @return loggedIn
      */
     public static boolean verifyLogin() {
-        try {
-            return medew.getName() != null && medew.getPassword() != null;
-        } catch (NullPointerException e) {
-            Debug.printError(e.toString());
-            return false;
-        }
+	try {
+	    return medew.getName() != null && medew.getPassword() != null;
+	} catch (NullPointerException e) {
+	    Debug.printError(e.toString());
+	    return false;
+	}
     }
 
     /**
@@ -139,42 +140,56 @@ public class Check {
      * Check if the config file is valid and complete
      */
     public static void checkConfigFile() {
-        boolean fullSettings = settingsRead();
-        File f = new File(System.getProperty("user.dir") + "/Config.properties");
-        if (f.exists() && fullSettings) {
-            Debug.println("All clear, starting application");
-        } else {
-            Properties prop = new Properties();
-            try {
-                prop.load(new FileInputStream(System.getProperty("user.dir") + "/Config.sample.properties"));
-            } catch (IOException e) {
-                Debug.printError(e.toString());
-            }
-            String ip = (orig_dbIp != null) ? orig_dbIp : prop.getProperty("db_ip");
-            String dbName = (orig_dbName != null) ? orig_dbName : prop.getProperty("db_name");
-            String dbUser = (orig_dbUser != null) ? orig_dbUser : prop.getProperty("db_username");
-            String dbPass = (orig_dbPass != null) ? orig_dbPass : prop.getProperty("db_password");
-            String debug = (orig_debug != null) ? orig_debug : prop.getProperty("debug");
-            String airfield = (orig_airfield != null) ? orig_airfield : prop.getProperty("airfield");
+	boolean fullSettings = settingsRead();
+	File f = new File(System.getProperty("user.dir") + "/Config.properties");
+	if (f.exists() && fullSettings) {
+	    Debug.println("All clear, starting application");
+	} else {
+	    Properties prop = new Properties();
+	    try {
+		prop.load(new FileInputStream(System.getProperty("user.dir") + "/Config.sample.properties"));
+	    } catch (IOException e) {
+		Debug.printError(e.toString());
+	    }
+	    String ip = (orig_dbIp != null) ? orig_dbIp : prop.getProperty("db_ip");
+	    String dbName = (orig_dbName != null) ? orig_dbName : prop.getProperty("db_name");
+	    String dbUser = (orig_dbUser != null) ? orig_dbUser : prop.getProperty("db_username");
+	    String dbPass = (orig_dbPass != null) ? orig_dbPass : prop.getProperty("db_password");
+	    String debug = (orig_debug != null) ? orig_debug : prop.getProperty("debug");
+	    String airfield = (orig_airfield != null) ? orig_airfield : prop.getProperty("airfield");
 
-            PrintWriter writer = null;
-            try {
-                writer = new PrintWriter("Config.properties", "UTF-8");
-            } catch (FileNotFoundException e) {
-                Debug.printError(e.toString());
-            } catch (UnsupportedEncodingException e) {
-                Debug.printError(e.toString());
-            }
-            writer.println("#This file is generated from the sample file because no file was found, or not all values was found");
-            writer.println();
-            writer.println("db_ip=" + ip);
-            writer.println("db_name=" + dbName);
-            writer.println("db_username=" + dbUser);
-            writer.println("db_password=" + dbPass);
-            writer.println("debug=" + debug);
-            writer.println("airfield=" + airfield);
-            writer.close();
-        }
+	    PrintWriter writer = null;
+	    try {
+		writer = new PrintWriter("Config.properties", "UTF-8");
+	    } catch (FileNotFoundException e) {
+		Debug.printError(e.toString());
+	    } catch (UnsupportedEncodingException e) {
+		Debug.printError(e.toString());
+	    }
+	    writer.println("#This file is generated from the sample file because no file was found, or not all values was found");
+	    writer.println();
+	    writer.println("db_ip=" + ip);
+	    writer.println("db_name=" + dbName);
+	    writer.println("db_username=" + dbUser);
+	    writer.println("db_password=" + dbPass);
+	    writer.println("debug=" + debug);
+	    writer.println("airfield=" + airfield);
+	    writer.close();
+	}
+    }
+
+    /**
+     * Compare two dates and return the difference in days
+     * @param d1 The first date
+     * @param d2 The second date
+     * @return Difference between d1 and d2
+     */
+    public static int dateDiff(Date d1, Date d2) {
+	long diff = d2.getTime() - d1.getTime();
+	int diffDays = (int) (diff / (24 * 60 * 60 * 1000));
+
+	return diffDays;
+
     }
 
     /**
@@ -183,28 +198,28 @@ public class Check {
      * @return settings can be read or not
      */
     private static boolean settingsRead() {
-        boolean result = true;
-        Properties prop = new Properties();
-        try {
-            prop.load(new FileInputStream(System.getProperty("user.dir") + "/Config.properties"));
-        } catch (IOException ex) {
-            result = false;
-            System.err.println("No config file found, generating one...");
-        }
-        try {
-            orig_dbIp = prop.getProperty("db_ip");
-            orig_dbName = prop.getProperty("db_name");
-            orig_dbUser = prop.getProperty("db_username");
-            orig_dbPass = prop.getProperty("db_password");
-            orig_debug = prop.getProperty("debug");
-            orig_airfield = prop.getProperty("airfield");
-        } catch (Exception e) {
-            Debug.println(e.toString());
-            result = false;
-        }
-        if (orig_dbIp == null || orig_dbName == null || orig_dbUser == null || orig_dbPass == null || orig_debug == null || orig_airfield == null) {
-            result = false;
-        }
-        return result;
+	boolean result = true;
+	Properties prop = new Properties();
+	try {
+	    prop.load(new FileInputStream(System.getProperty("user.dir") + "/Config.properties"));
+	} catch (IOException ex) {
+	    result = false;
+	    System.err.println("No config file found, generating one...");
+	}
+	try {
+	    orig_dbIp = prop.getProperty("db_ip");
+	    orig_dbName = prop.getProperty("db_name");
+	    orig_dbUser = prop.getProperty("db_username");
+	    orig_dbPass = prop.getProperty("db_password");
+	    orig_debug = prop.getProperty("debug");
+	    orig_airfield = prop.getProperty("airfield");
+	} catch (Exception e) {
+	    Debug.println(e.toString());
+	    result = false;
+	}
+	if (orig_dbIp == null || orig_dbName == null || orig_dbUser == null || orig_dbPass == null || orig_debug == null || orig_airfield == null) {
+	    result = false;
+	}
+	return result;
     }
 }

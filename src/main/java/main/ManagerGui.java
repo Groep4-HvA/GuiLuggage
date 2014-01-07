@@ -13,6 +13,8 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import models.Case;
 import models.CaseDao;
@@ -104,8 +106,8 @@ public class ManagerGui extends java.awt.Frame {
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
         PDF = new javax.swing.JButton();
-        jDateChooser1 = new com.toedter.calendar.JDateChooser();
-        jDateChooser2 = new com.toedter.calendar.JDateChooser();
+        firstDateChooser = new com.toedter.calendar.JDateChooser();
+        secondDateChooser = new com.toedter.calendar.JDateChooser();
         clearButton = new javax.swing.JButton();
 
         addWindowListener(new java.awt.event.WindowAdapter() {
@@ -268,9 +270,8 @@ public class ManagerGui extends java.awt.Frame {
             }
         });
 
-        java.util.ResourceBundle bundle1 = java.util.ResourceBundle.getBundle("Bundle"); // NOI18N
-        clearButton.setText(bundle1.getString("ManagerGui.clearButton.text")); // NOI18N
-        clearButton.setActionCommand(bundle1.getString("ManagerGui.clearButton.actionCommand")); // NOI18N
+        clearButton.setText(bundle.getString("ManagerGui.clearButton.text")); // NOI18N
+        clearButton.setActionCommand(bundle.getString("ManagerGui.clearButton.actionCommand")); // NOI18N
         clearButton.setMaximumSize(new java.awt.Dimension(61, 23));
         clearButton.setMinimumSize(new java.awt.Dimension(61, 23));
         clearButton.setPreferredSize(new java.awt.Dimension(61, 23));
@@ -292,11 +293,11 @@ public class ManagerGui extends java.awt.Frame {
                         .add(18, 18, 18)
                         .add(PDF)
                         .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .add(jDateChooser1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                        .add(firstDateChooser, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                         .add(18, 18, 18)
                         .add(jLabel4)
                         .add(18, 18, 18)
-                        .add(jDateChooser2, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                        .add(secondDateChooser, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
                         .add(selectButton)
                         .add(18, 18, 18)
@@ -318,7 +319,7 @@ public class ManagerGui extends java.awt.Frame {
                         .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .add(graphManager))
                     .add(org.jdesktop.layout.GroupLayout.TRAILING, jPanel2Layout.createSequentialGroup()
-                        .add(0, 6, Short.MAX_VALUE)
+                        .add(0, 0, Short.MAX_VALUE)
                         .add(jPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
                             .add(org.jdesktop.layout.GroupLayout.TRAILING, jPanel2Layout.createSequentialGroup()
                                 .add(myAccountButton)
@@ -355,9 +356,9 @@ public class ManagerGui extends java.awt.Frame {
                         .add(jLabel4)
                         .add(PDF)
                         .add(printButton))
-                    .add(jDateChooser2, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                    .add(jDateChooser1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(30, Short.MAX_VALUE))
+                    .add(secondDateChooser, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                    .add(firstDateChooser, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(44, Short.MAX_VALUE))
         );
 
         add(jPanel2, java.awt.BorderLayout.CENTER);
@@ -590,27 +591,28 @@ public class ManagerGui extends java.awt.Frame {
      * @param evt
      */
     private void graphManagerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_graphManagerActionPerformed
-        //jPanel1.setVisible(false);
-        try {
-            graph = new ManagerGraph(bundle.getString("ManagerGraph"), true);
-            Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
-            graph.setLocation(dim.width / 2 - this.getSize().width / 2, dim.height / 2 - this.getSize().height / 2);
-            graph.setLocationRelativeTo(null);
-            graph.setSize(600, 400);
-            graph.setVisible(true);
-        } catch (HeadlessException e) {
-            Debug.printError(e.toString());
-        } catch (SQLException e) {
-            Debug.printError(e.toString());
-        }
+	//jPanel1.setVisible(false);
+	if (secondDateChooser.getDate() == null || firstDateChooser.getDate() == null) {
+	    graph = new ManagerGraph("Manager graph", true);
+	} else {
+	    graph = new ManagerGraph("Manager graph", true, firstDateChooser.getDate(), secondDateChooser.getDate());
+	}
+	try {
+	    Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
+	    graph.setLocation(dim.width / 2 - this.getSize().width / 2, dim.height / 2 - this.getSize().height / 2);
+	    graph.setLocationRelativeTo(null);
+	    graph.setSize(600, 400);
+	    graph.setVisible(true);
+	} catch (HeadlessException e) {
+	    Debug.printError(e.toString());
+	}
     }//GEN-LAST:event_graphManagerActionPerformed
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton PDF;
     private javax.swing.JButton clearButton;
+    private com.toedter.calendar.JDateChooser firstDateChooser;
     private javax.swing.JButton foundManager;
     private javax.swing.JButton graphManager;
-    private com.toedter.calendar.JDateChooser jDateChooser1;
-    private com.toedter.calendar.JDateChooser jDateChooser2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -624,6 +626,7 @@ public class ManagerGui extends java.awt.Frame {
     private javax.swing.JButton myAccountButton;
     private javax.swing.JButton printButton;
     private javax.swing.JButton processedManager;
+    private com.toedter.calendar.JDateChooser secondDateChooser;
     private javax.swing.JButton selectButton;
     // End of variables declaration//GEN-END:variables
     

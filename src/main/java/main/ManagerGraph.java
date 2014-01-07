@@ -9,6 +9,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 import models.Check;
 import models.Debug;
@@ -22,26 +23,59 @@ import org.jfree.chart.renderer.category.LineAndShapeRenderer;
 import org.jfree.data.category.CategoryDataset;
 import org.jfree.data.category.DefaultCategoryDataset;
 import org.jfree.ui.ApplicationFrame;
+
 /**
- * 
- * @author Jerroen en Yorrick
+ *
+ * @author Jeroen en Yorick
  */
 public class ManagerGraph extends ApplicationFrame {
 
     ConnectionMySQL conn = new ConnectionMySQL();
     private final DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+    private java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("Bundle"); // NOI18N
     private final Date date = new Date();
     private final String dateString = dateFormat.format(date);
     private PreparedStatement prdstmt = null;
-    
+    private Date firstDate;
+    private Date lastDate;
+    private String graphTitle;
+
     /**
      * Constructor
+     *
      * @param title
      * @param beheer
-     * @throws SQLException 
+     * @throws SQLException
      */
-    public ManagerGraph(final String title, boolean beheer) throws SQLException {
+    public ManagerGraph(final String title, boolean beheer) {
+
 	super(title);
+	if (!Check.verifyLogin()) {
+	    Runtime.getRuntime().exit(1);
+	} else {
+
+	    final CategoryDataset dataset = createDefaultDataset();
+	    final JFreeChart chart = createChart(dataset);
+	    final ChartPanel chartPanel = new ChartPanel(chart);
+	    //chartPanel.setPreferredSize(new Dimension(1366, 768));
+	    setContentPane(chartPanel);
+	    chartPanel.setLocation(getRootPane().getWidth() / 2, getRootPane().getHeight() / 2);
+	}
+    }
+
+    /**
+     * Constructor
+     *
+     * @param title
+     * @param beheer
+     * @param firstDate
+     * @param lastDate
+     * @throws SQLException
+     */
+    public ManagerGraph(String title, boolean beheer, Date firstDate, Date lastDate) {
+	super(title);
+	this.firstDate = firstDate;
+	this.lastDate = lastDate;
 	if (!Check.verifyLogin()) {
 	    Runtime.getRuntime().exit(1);
 	} else {
@@ -53,12 +87,14 @@ public class ManagerGraph extends ApplicationFrame {
 	    chartPanel.setLocation(getRootPane().getWidth() / 2, getRootPane().getHeight() / 2);
 	}
     }
+
     /**
      * Get the data from the database
+     *
      * @param firstDate
      * @param lastDate
      * @param type
-     * @return 
+     * @return
      */
     public int getMonthCount(String firstDate, String lastDate, String type) {
 	int rowAmmount = 0;
@@ -89,10 +125,52 @@ public class ManagerGraph extends ApplicationFrame {
 	}
 	return rowAmmount;
     }
+
     /**
      * Create a dataset to feed to the graph constructor
-     * @return 
+     *
+     * @return
      */
+    private CategoryDataset createDefaultDataset() {
+
+	// row keys...
+	final String lost = "Pending";
+	final String found = "Resolved";
+	final String total = "Total";
+
+	Calendar cal = Calendar.getInstance();
+	cal.setTime(date);
+	int month = cal.get(Calendar.MONTH);
+	month++;
+	int day = cal.get(Calendar.DAY_OF_MONTH);
+	int year = cal.get(Calendar.YEAR);
+
+	String[] months = {bundle.getString("jan"),
+	    bundle.getString("feb"),
+	    bundle.getString("march"),
+	    bundle.getString("april"),
+	    bundle.getString("may"),
+	    bundle.getString("juni"),
+	    bundle.getString("juli"),
+	    bundle.getString("aug"),
+	    bundle.getString("sept"),
+	    bundle.getString("okt"),
+	    bundle.getString("nov"),
+	    bundle.getString("dec")};
+
+	graphTitle = months[month - 1];
+	// create the dataset...
+	final DefaultCategoryDataset dataset = new DefaultCategoryDataset();
+
+	for (int i = 1; i <= day; i++) {
+	    dataset.addValue(getMonthCount(year + "-" + month + "-" + i, year + "-" + month + "-" + i, "pending"), lost, i + "");
+	    dataset.addValue(getMonthCount(year + "-" + month + "-" + i, year + "-" + month + "-" + i, "none"), found, i + "");
+	    dataset.addValue(getMonthCount(year + "-" + month + "-" + i, year + "-" + month + "-" + i, "total"), total, i + "");
+	}
+	return dataset;
+
+    }
+
     private CategoryDataset createDataset() {
 
 	// row keys...
@@ -100,76 +178,92 @@ public class ManagerGraph extends ApplicationFrame {
 	final String found = "Resolved";
 	final String total = "Total";
 
-	// column keys...
-	final String januari = "Januari";
-	final String februari = "Februari";
-	final String march = "March";
-	final String april = "April";
-	final String may = "May";
-	final String june = "June";
-	final String july = "July";
-	final String august = "August";
-	final String september = "September";
-	final String october = "October";
-	final String november = "November";
-	final String december = "December";
-
+	Calendar firstCal = Calendar.getInstance();
+	Calendar secondCal = Calendar.getInstance();
+	firstCal.setTime(firstDate);
+	secondCal.setTime(lastDate);
+	int firstMonth = firstCal.get(Calendar.MONTH);
+	firstMonth++;
+	int secondMonth = secondCal.get(Calendar.MONTH);
+	secondMonth++;
+	String[] months = {
+	    bundle.getString("jan"),
+	    bundle.getString("feb"),
+	    bundle.getString("march"),
+	    bundle.getString("april"),
+	    bundle.getString("may"),
+	    bundle.getString("juni"),
+	    bundle.getString("juli"),
+	    bundle.getString("aug"),
+	    bundle.getString("sept"),
+	    bundle.getString("okt"),
+	    bundle.getString("nov"),
+	    bundle.getString("dec")};
+	if (firstMonth != secondMonth) {
+	    graphTitle = months[firstMonth - 1] + " " + bundle.getString("till") + " " + months[secondMonth - 1];
+	} else {
+	    graphTitle = months[firstMonth - 1];
+	}
 	// create the dataset...
 	final DefaultCategoryDataset dataset = new DefaultCategoryDataset();
-
-	dataset.addValue(getMonthCount("2013-01-01", "2013-01-31", "pending"), lost, januari);
-	dataset.addValue(getMonthCount("2013-02-01", "2013-02-31", "pending"), lost, februari);
-	dataset.addValue(getMonthCount("2013-03-01", "2013-03-31", "pending"), lost, march);
-	dataset.addValue(getMonthCount("2013-04-01", "2013-04-31", "pending"), lost, april);
-	dataset.addValue(getMonthCount("2013-05-01", "2013-05-31", "pending"), lost, may);
-	dataset.addValue(getMonthCount("2013-06-01", "2013-06-31", "pending"), lost, june);
-	dataset.addValue(getMonthCount("2013-07-01", "2013-07-31", "pending"), lost, july);
-	dataset.addValue(getMonthCount("2013-08-01", "2013-08-31", "pending"), lost, august);
-	dataset.addValue(getMonthCount("2013-09-01", "2013-09-31", "pending"), lost, september);
-	dataset.addValue(getMonthCount("2013-10-01", "2013-10-31", "pending"), lost, october);
-	dataset.addValue(getMonthCount("2013-11-01", "2013-11-31", "pending"), lost, november);
-	dataset.addValue(getMonthCount("2013-12-01", "2013-12-31", "pending"), lost, december);
-
-	dataset.addValue(getMonthCount("2013-01-01", "2013-01-31", "none"), found, januari);
-	dataset.addValue(getMonthCount("2013-02-01", "2013-02-31", "none"), found, februari);
-	dataset.addValue(getMonthCount("2013-03-01", "2013-03-31", "none"), found, march);
-	dataset.addValue(getMonthCount("2013-04-01", "2013-04-31", "none"), found, april);
-	dataset.addValue(getMonthCount("2013-05-01", "2013-05-31", "none"), found, may);
-	dataset.addValue(getMonthCount("2013-06-01", "2013-06-31", "none"), found, june);
-	dataset.addValue(getMonthCount("2013-07-01", "2013-07-31", "none"), found, july);
-	dataset.addValue(getMonthCount("2013-08-01", "2013-08-31", "none"), found, august);
-	dataset.addValue(getMonthCount("2013-09-01", "2013-09-31", "none"), found, september);
-	dataset.addValue(getMonthCount("2013-10-01", "2013-10-31", "none"), found, october);
-	dataset.addValue(getMonthCount("2013-11-01", "2013-11-31", "none"), found, november);
-	dataset.addValue(getMonthCount("2013-12-01", "2013-12-31", "none"), found, december);
-
-	dataset.addValue(getMonthCount("2013-01-01", "2013-01-31", "total"), total, januari);
-	dataset.addValue(getMonthCount("2013-02-01", "2013-02-31", "total"), total, februari);
-	dataset.addValue(getMonthCount("2013-03-01", "2013-03-31", "total"), total, march);
-	dataset.addValue(getMonthCount("2013-04-01", "2013-04-31", "total"), total, april);
-	dataset.addValue(getMonthCount("2013-05-01", "2013-05-31", "total"), total, may);
-	dataset.addValue(getMonthCount("2013-06-01", "2013-06-31", "total"), total, june);
-	dataset.addValue(getMonthCount("2013-07-01", "2013-07-31", "total"), total, july);
-	dataset.addValue(getMonthCount("2013-08-01", "2013-08-31", "total"), total, august);
-	dataset.addValue(getMonthCount("2013-09-01", "2013-09-31", "total"), total, september);
-	dataset.addValue(getMonthCount("2013-10-01", "2013-10-31", "total"), total, october);
-	dataset.addValue(getMonthCount("2013-11-01", "2013-11-31", "total"), total, november);
-	dataset.addValue(getMonthCount("2013-12-01", "2013-12-31", "total"), total, december);
-
+	String firstMY;
+	String lastMY;
+	if (Check.dateDiff(firstDate, lastDate) <= 31) {
+	    graphTitle += " (" + bundle.getString("days") + ")";
+	    while (!firstCal.after(secondCal)) {
+		int year = firstCal.get(Calendar.YEAR);
+		int month = firstCal.get(Calendar.MONTH) + 1;
+		int day = firstCal.get(Calendar.DAY_OF_MONTH);
+		firstMY = String.format("%d-%d-%d\n", year, month, day);
+		lastMY = String.format("%d-%d-%d\n", year, month, day);
+		dataset.addValue(getMonthCount(firstMY, lastMY, "pending"), lost, firstCal.get(Calendar.DAY_OF_MONTH) + "");
+		dataset.addValue(getMonthCount(firstMY, lastMY, "none"), found, firstCal.get(Calendar.DAY_OF_MONTH) + "");
+		dataset.addValue(getMonthCount(firstMY, lastMY, "total"), total, firstCal.get(Calendar.DAY_OF_MONTH) + "");
+		firstCal.add(Calendar.DATE, 1);
+	    }
+	} else if (Check.dateDiff(firstDate, lastDate) > 31 && Check.dateDiff(firstDate, lastDate) <= 123) {
+	    graphTitle += " (" + bundle.getString("weeks") + ")";
+	    while (!firstCal.after(secondCal)) {
+		int year = firstCal.get(Calendar.YEAR);
+		int month = firstCal.get(Calendar.MONTH) + 1;
+		int day = firstCal.get(Calendar.DAY_OF_MONTH);
+		firstMY = String.format("%d-%d-%d\n", year, month, day);
+		lastMY = String.format("%d-%d-%d\n", year, month, day + 7);
+		dataset.addValue(getMonthCount(firstMY, lastMY, "pending"), lost, firstCal.get(Calendar.WEEK_OF_YEAR) + "");
+		dataset.addValue(getMonthCount(firstMY, lastMY, "none"), found, firstCal.get(Calendar.WEEK_OF_YEAR) + "");
+		dataset.addValue(getMonthCount(firstMY, lastMY, "total"), total, firstCal.get(Calendar.WEEK_OF_YEAR) + "");
+		firstCal.add(Calendar.DATE, 7);
+	    }
+	} else {
+	    graphTitle += " (" + bundle.getString("months") + ")";
+	    while (!firstCal.after(secondCal)) {
+		int year = firstCal.get(Calendar.YEAR);
+		int month = firstCal.get(Calendar.MONTH) +1;
+		int day = firstCal.get(Calendar.DAY_OF_MONTH);
+		firstMY = String.format("%d-%d-%d\n", year, month, day);
+		lastMY = String.format("%d-%d-%d\n", year, month, firstCal.getActualMaximum(Calendar.DAY_OF_MONTH));
+		dataset.addValue(getMonthCount(firstMY, lastMY, "pending"), lost, months[month - 1]);
+		dataset.addValue(getMonthCount(firstMY, lastMY, "none"), found, months[month - 1]);
+		dataset.addValue(getMonthCount(firstMY, lastMY, "total"), total, months[month - 1]);
+		firstCal.add(Calendar.DATE, firstCal.getActualMaximum(Calendar.DAY_OF_MONTH));
+	    }
+	}
 	return dataset;
 
     }
+
     /**
      * Construct the actual chart
+     *
      * @param dataset
-     * @return 
+     * @return
      */
     private JFreeChart createChart(final CategoryDataset dataset) {
 
 	// create the chart...
 	final JFreeChart chart = ChartFactory.createLineChart(
 		"Luggage Statistics", // chart title
-		"Months", // domain axis label
+		graphTitle, // domain axis label
 		"#", // range axis label
 		dataset, // data
 		PlotOrientation.VERTICAL, // orientation
@@ -209,9 +303,11 @@ public class ManagerGraph extends ApplicationFrame {
 
 	return chart;
     }
+
     /**
      * Override the close options
-     * @param evt 
+     *
+     * @param evt
      */
     @Override
     public void windowClosing(final WindowEvent evt) {
