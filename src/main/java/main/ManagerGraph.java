@@ -34,13 +34,15 @@ public class ManagerGraph extends ApplicationFrame {
     private final String dateString = dateFormat.format(date);
     private PreparedStatement prdstmt = null;
     
+    private Date firstDate;
+    private Date lastDate;
     /**
      * Constructor
      * @param title
      * @param beheer
      * @throws SQLException 
      */
-    public ManagerGraph(final String title, boolean beheer) throws SQLException {
+    public ManagerGraph(final String title, boolean beheer){
 	super(title);
 	if (!Check.verifyLogin()) {
 	    Runtime.getRuntime().exit(1);
@@ -53,6 +55,24 @@ public class ManagerGraph extends ApplicationFrame {
 	    chartPanel.setLocation(getRootPane().getWidth() / 2, getRootPane().getHeight() / 2);
 	}
     }
+
+    public ManagerGraph(String title, boolean beheer,Date firstDate, Date lastDate) {
+	super(title);
+	this.firstDate = firstDate;
+	this.lastDate = lastDate;
+		if (!Check.verifyLogin()) {
+	    Runtime.getRuntime().exit(1);
+	} else {
+	    final CategoryDataset dataset = createDataset();
+	    final JFreeChart chart = createChart(dataset);
+	    final ChartPanel chartPanel = new ChartPanel(chart);
+	    //chartPanel.setPreferredSize(new Dimension(1366, 768));
+	    setContentPane(chartPanel);
+	    chartPanel.setLocation(getRootPane().getWidth() / 2, getRootPane().getHeight() / 2);
+	}
+    }
+
+    
     /**
      * Get the data from the database
      * @param firstDate

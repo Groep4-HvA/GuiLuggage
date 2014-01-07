@@ -13,6 +13,8 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import models.Case;
 import models.CaseDao;
@@ -981,16 +983,18 @@ public class ManagerGui extends java.awt.Frame {
      */
     private void graphManagerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_graphManagerActionPerformed
 	//jPanel1.setVisible(false);
-	try {
+	if (jDateChooser2.getDate() == null || jDateChooser1.getDate() == null) {
 	    graph = new ManagerGraph("Manager graph", true);
+	} else {
+	    graph = new ManagerGraph("Manager graph", true, jDateChooser2.getDate(), jDateChooser1.getDate());
+	}
+	try {
 	    Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
 	    graph.setLocation(dim.width / 2 - this.getSize().width / 2, dim.height / 2 - this.getSize().height / 2);
 	    graph.setLocationRelativeTo(null);
 	    graph.setSize(600, 400);
 	    graph.setVisible(true);
 	} catch (HeadlessException e) {
-	    Debug.printError(e.toString());
-	} catch (SQLException e) {
 	    Debug.printError(e.toString());
 	}
     }//GEN-LAST:event_graphManagerActionPerformed
