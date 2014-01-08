@@ -7,12 +7,21 @@ package main;
 import java.awt.Dimension;
 import java.awt.HeadlessException;
 import java.awt.Toolkit;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.sql.SQLException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import models.Case;
 import models.CaseDao;
@@ -38,12 +47,10 @@ public class ManagerGui extends java.awt.Frame {
     private String dateString;
     private String dateString2;
     private PDFGenerator pdf;
-
     private final CaseDao dbCase = new CaseDao();
     private List<Case> list;
     private List<Case> listPending;
     private List<Case> listResolved;
-
     public ManagerGraph graph;
     private final DateFormat df = new SimpleDateFormat("dd-MM-yyyy");
     private final Date today = Calendar.getInstance().getTime();
@@ -57,25 +64,25 @@ public class ManagerGui extends java.awt.Frame {
      * @throws SQLException
      */
     public ManagerGui(boolean beheer, int handlerId) throws SQLException {
-        if (!Check.verifyLogin()) {
-            Runtime.getRuntime().exit(1);
-        } else {
-            this.handlerId = handlerId;
-            this.beheer = beheer;
-            initComponents();
+	if (!Check.verifyLogin()) {
+	    Runtime.getRuntime().exit(1);
+	} else {
+	    this.handlerId = handlerId;
+	    this.beheer = beheer;
+	    initComponents();
 
-            list = dbCase.readAll();
-            listPending = dbCase.readAllPending();
-            listResolved = dbCase.readAllResolved();
+	    list = dbCase.readAll();
+	    listPending = dbCase.readAllPending();
+	    listResolved = dbCase.readAllResolved();
 
-            jLabel1.setText(bundle.getString("Manager.jLabel1.text") + "" + listPending.size());
-            jLabel2.setText(bundle.getString("Manager.jLabel2.text") + "" + listResolved.size());
-            jLabel3.setText(bundle.getString("Manager.jLabel3.text") + "" + list.size());
-            jTable1.getColumnModel().getColumn(0).setHeaderValue("#");
-            jTable1.getColumnModel().getColumn(1).setHeaderValue(bundle.getString("table.LuggageNumber"));
-            jTable1.getColumnModel().getColumn(2).setHeaderValue(bundle.getString("table.AddDate"));
-            fillTable(list);
-        }
+	    jLabel1.setText(bundle.getString("Manager.jLabel1.text") + "" + listPending.size());
+	    jLabel2.setText(bundle.getString("Manager.jLabel2.text") + "" + listResolved.size());
+	    jLabel3.setText(bundle.getString("Manager.jLabel3.text") + "" + list.size());
+	    jTable1.getColumnModel().getColumn(0).setHeaderValue("#");
+	    jTable1.getColumnModel().getColumn(1).setHeaderValue(bundle.getString("table.LuggageNumber"));
+	    jTable1.getColumnModel().getColumn(2).setHeaderValue(bundle.getString("table.AddDate"));
+	    fillTable(list);
+	}
     }
 
     /**
@@ -368,7 +375,7 @@ public class ManagerGui extends java.awt.Frame {
      * Exit the Application
      */
     private void exitForm(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_exitForm
-        System.exit(0);
+	System.exit(0);
     }//GEN-LAST:event_exitForm
     /**
      * Get more entries
@@ -376,7 +383,7 @@ public class ManagerGui extends java.awt.Frame {
      * @param evt
      */
     private void moreButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_moreButtonActionPerformed
-        // TODO How-Fei does this
+	// TODO How-Fei does this
     }//GEN-LAST:event_moreButtonActionPerformed
     /**
      * Show My Account
@@ -384,10 +391,10 @@ public class ManagerGui extends java.awt.Frame {
      * @param evt
      */
     private void myAccountButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_myAccountButtonActionPerformed
-        MyAccount passOverlay = new MyAccount(new javax.swing.JFrame(), true, handlerId);
-        passOverlay.pack();
-        passOverlay.setVisible(true);
-        passOverlay.setLocationRelativeTo(null);
+	MyAccount passOverlay = new MyAccount(new javax.swing.JFrame(), true, handlerId);
+	passOverlay.pack();
+	passOverlay.setVisible(true);
+	passOverlay.setLocationRelativeTo(null);
     }//GEN-LAST:event_myAccountButtonActionPerformed
     /**
      * Show only the missing entries
@@ -395,34 +402,34 @@ public class ManagerGui extends java.awt.Frame {
      * @param evt
      */
     private void missingManagerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_missingManagerActionPerformed
-        datum1 = firstDateChooser.getDate();
-        dateString = String.format("%1$tY-%1$tm-%1$td", datum1);
-        datum2 = secondDateChooser.getDate();
-        dateString2 = String.format("%1$tY-%1$tm-%1$td", datum2);
-        try {
-            if (firstDateChooser.getDate() == null || secondDateChooser.getDate() == null) {
-                list = dbCase.readAllPending();
-                fillTable(list);
-            } else {
-                if (!dateString.equals(dateString2)) {
-                    if (dateString.compareTo(dateString2) < 0) {
-                        list = dbCase.readAllPendingByDate(dateString, dateString2);
-                        fillTable(list);
-                    } else {
-                        JOptionPane.showMessageDialog(null, datum1 + " " + bundle.getString("furtherInPast") + " " + datum2);
-                    }
-                } else if (dateString.equals(dateString2)) {
-                    list = dbCase.readAllPendingByDate(dateString, dateString2);
-                    fillTable(list);
-                } else {
-                    JOptionPane.showMessageDialog(null, datum1 + " " + bundle.getString("needsToBeGreater") + " " + datum2);
-                }
-            }
-        } catch (SQLException e) {
-            Debug.printError(e.toString());
-        } catch (HeadlessException e) {
-            Debug.printError(e.toString());
-        }
+	datum1 = firstDateChooser.getDate();
+	dateString = String.format("%1$tY-%1$tm-%1$td", datum1);
+	datum2 = secondDateChooser.getDate();
+	dateString2 = String.format("%1$tY-%1$tm-%1$td", datum2);
+	try {
+	    if (firstDateChooser.getDate() == null || secondDateChooser.getDate() == null) {
+		list = dbCase.readAllPending();
+		fillTable(list);
+	    } else {
+		if (!dateString.equals(dateString2)) {
+		    if (dateString.compareTo(dateString2) < 0) {
+			list = dbCase.readAllPendingByDate(dateString, dateString2);
+			fillTable(list);
+		    } else {
+			JOptionPane.showMessageDialog(null, datum1 + " " + bundle.getString("furtherInPast") + " " + datum2);
+		    }
+		} else if (dateString.equals(dateString2)) {
+		    list = dbCase.readAllPendingByDate(dateString, dateString2);
+		    fillTable(list);
+		} else {
+		    JOptionPane.showMessageDialog(null, datum1 + " " + bundle.getString("needsToBeGreater") + " " + datum2);
+		}
+	    }
+	} catch (SQLException e) {
+	    Debug.printError(e.toString());
+	} catch (HeadlessException e) {
+	    Debug.printError(e.toString());
+	}
     }//GEN-LAST:event_missingManagerActionPerformed
     /**
      * Show only the processed entries
@@ -430,39 +437,39 @@ public class ManagerGui extends java.awt.Frame {
      * @param evt
      */
     private void processedManagerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_processedManagerActionPerformed
-        try {
+	try {
 
-            datum1 = firstDateChooser.getDate();
-            dateString = String.format("%1$tY-%1$tm-%1$td", datum1);
-            datum2 = secondDateChooser.getDate();
-            dateString2 = String.format("%1$tY-%1$tm-%1$td", datum2);
+	    datum1 = firstDateChooser.getDate();
+	    dateString = String.format("%1$tY-%1$tm-%1$td", datum1);
+	    datum2 = secondDateChooser.getDate();
+	    dateString2 = String.format("%1$tY-%1$tm-%1$td", datum2);
 
-            if (firstDateChooser.getDate() == null || secondDateChooser.getDate() == null) {
-                list = dbCase.readAll();
-                fillTable(list);
+	    if (firstDateChooser.getDate() == null || secondDateChooser.getDate() == null) {
+		list = dbCase.readAll();
+		fillTable(list);
 
 //          System.out.println(dateString);
-            } else {
-                if (!dateString.equals(dateString2)) {
-                    if (dateString.compareTo(dateString2) < 0) {
-                        list = dbCase.readAllTotalByDate(dateString, dateString2);
-                        fillTable(list);
-                    } else {
-                        JOptionPane.showMessageDialog(null, datum1 + " " + bundle.getString("furtherInPast") + " " + datum2);
-                    }
-                } else if (dateString.equals(dateString2)) {
-                    list = dbCase.readAllTotalByDate(dateString, dateString2);
-                    fillTable(list);
+	    } else {
+		if (!dateString.equals(dateString2)) {
+		    if (dateString.compareTo(dateString2) < 0) {
+			list = dbCase.readAllTotalByDate(dateString, dateString2);
+			fillTable(list);
+		    } else {
+			JOptionPane.showMessageDialog(null, datum1 + " " + bundle.getString("furtherInPast") + " " + datum2);
+		    }
+		} else if (dateString.equals(dateString2)) {
+		    list = dbCase.readAllTotalByDate(dateString, dateString2);
+		    fillTable(list);
 
-                } else {
-                    JOptionPane.showMessageDialog(null, datum1 + " " + bundle.getString("needsToBeGreater") + " " + datum2);
-                }
-            }
-        } catch (SQLException e) {
-            Debug.printError(e.toString());
-        } catch (HeadlessException e) {
-            Debug.printError(e.toString());
-        }
+		} else {
+		    JOptionPane.showMessageDialog(null, datum1 + " " + bundle.getString("needsToBeGreater") + " " + datum2);
+		}
+	    }
+	} catch (SQLException e) {
+	    Debug.printError(e.toString());
+	} catch (HeadlessException e) {
+	    Debug.printError(e.toString());
+	}
     }//GEN-LAST:event_processedManagerActionPerformed
     /**
      * Print a page with the PDF
@@ -470,8 +477,8 @@ public class ManagerGui extends java.awt.Frame {
      * @param evt
      */
     private void printButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_printButtonActionPerformed
-        makePDF();
-        pdf.print();
+	makePDF();
+	pdf.print();
     }//GEN-LAST:event_printButtonActionPerformed
     /**
      * Log out of the application
@@ -479,9 +486,9 @@ public class ManagerGui extends java.awt.Frame {
      * @param evt
      */
     private void logoutButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_logoutButtonActionPerformed
-        dispose();
-        logIn logOut = new logIn();
-        logOut.setVisible(true);
+	dispose();
+	logIn logOut = new logIn();
+	logOut.setVisible(true);
     }//GEN-LAST:event_logoutButtonActionPerformed
     /**
      * Make a PDF with the data
@@ -489,8 +496,8 @@ public class ManagerGui extends java.awt.Frame {
      * @param evt
      */
     private void PDFActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_PDFActionPerformed
-        makePDF();
-        pdf.save("Corendon_Overview_" + date);
+	makePDF();
+	pdf.save("Corendon_Overview_" + date);
     }//GEN-LAST:event_PDFActionPerformed
     /**
      * Show only the data between the selected dates
@@ -498,35 +505,35 @@ public class ManagerGui extends java.awt.Frame {
      * @param evt
      */
     private void selectButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_selectButtonActionPerformed
-        try {
-            datum1 = firstDateChooser.getDate();
-            dateString = String.format("%1$tY-%1$tm-%1$td", datum1);
-            datum2 = secondDateChooser.getDate();
-            dateString2 = String.format("%1$tY-%1$tm-%1$td", datum2);
+	try {
+	    datum1 = firstDateChooser.getDate();
+	    dateString = String.format("%1$tY-%1$tm-%1$td", datum1);
+	    datum2 = secondDateChooser.getDate();
+	    dateString2 = String.format("%1$tY-%1$tm-%1$td", datum2);
 
-            Debug.println(dateString);
+	    Debug.println(dateString);
 
-            if (!dateString.equals(dateString2)) {
+	    if (!dateString.equals(dateString2)) {
 
-                if (dateString.compareTo(dateString2) < 0) {
-                    list = dbCase.readAllByDate(dateString, dateString2);
-                    fillTable(list);
-                } else {
-                    JOptionPane.showMessageDialog(null, datum1 + " " + bundle.getString("furtherInPast") + " " + datum2);
-                }
-            } else if (dateString.equals(dateString2)) {
-                list = dbCase.readAllByDate(dateString, dateString2);
-                fillTable(list);
+		if (dateString.compareTo(dateString2) < 0) {
+		    list = dbCase.readAllByDate(dateString, dateString2);
+		    fillTable(list);
+		} else {
+		    JOptionPane.showMessageDialog(null, datum1 + " " + bundle.getString("furtherInPast") + " " + datum2);
+		}
+	    } else if (dateString.equals(dateString2)) {
+		list = dbCase.readAllByDate(dateString, dateString2);
+		fillTable(list);
 
-            } else {
-                JOptionPane.showMessageDialog(null, datum1 + " " + bundle.getString("furtherInPast") + " " + datum2);
-            }
+	    } else {
+		JOptionPane.showMessageDialog(null, datum1 + " " + bundle.getString("furtherInPast") + " " + datum2);
+	    }
 
-        } catch (HeadlessException e) {
-            Debug.printError(e.toString());
-        } catch (SQLException e) {
-            Debug.printError(e.toString());
-        }
+	} catch (HeadlessException e) {
+	    Debug.printError(e.toString());
+	} catch (SQLException e) {
+	    Debug.printError(e.toString());
+	}
 
 
     }//GEN-LAST:event_selectButtonActionPerformed
@@ -536,35 +543,35 @@ public class ManagerGui extends java.awt.Frame {
      * @param evt
      */
     private void foundManagerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_foundManagerActionPerformed
-        try {
-            datum1 = firstDateChooser.getDate();
-            dateString = String.format("%1$tY-%1$tm-%1$td", datum1);
-            datum2 = secondDateChooser.getDate();
-            dateString2 = String.format("%1$tY-%1$tm-%1$td", datum2);
+	try {
+	    datum1 = firstDateChooser.getDate();
+	    dateString = String.format("%1$tY-%1$tm-%1$td", datum1);
+	    datum2 = secondDateChooser.getDate();
+	    dateString2 = String.format("%1$tY-%1$tm-%1$td", datum2);
 
-            if (firstDateChooser.getDate() == null || secondDateChooser.getDate() == null) {
-                list = dbCase.readAllResolved();
-                fillTable(list);
-            } else {
-                if (!dateString.equals(dateString2)) {
-                    if (dateString.compareTo(dateString2) < 0) {
-                        list = dbCase.readAllResolvedByDate(dateString, dateString2);
-                        fillTable(list);
-                    } else {
-                        JOptionPane.showMessageDialog(null, datum1 + " " + bundle.getString("furtherInPast") + " " + datum2);
-                    }
-                } else if (dateString.equals(dateString2)) {
-                    list = dbCase.readAllResolvedByDate(dateString, dateString2);
-                    fillTable(list);
-                } else {
-                    JOptionPane.showMessageDialog(null, datum1 + " " + bundle.getString("needsToBeGreater") + " " + datum2);
-                }
-            }
-        } catch (HeadlessException e) {
-            Debug.printError(e.toString());
-        } catch (SQLException e) {
-            Debug.printError(e.toString());
-        }
+	    if (firstDateChooser.getDate() == null || secondDateChooser.getDate() == null) {
+		list = dbCase.readAllResolved();
+		fillTable(list);
+	    } else {
+		if (!dateString.equals(dateString2)) {
+		    if (dateString.compareTo(dateString2) < 0) {
+			list = dbCase.readAllResolvedByDate(dateString, dateString2);
+			fillTable(list);
+		    } else {
+			JOptionPane.showMessageDialog(null, datum1 + " " + bundle.getString("furtherInPast") + " " + datum2);
+		    }
+		} else if (dateString.equals(dateString2)) {
+		    list = dbCase.readAllResolvedByDate(dateString, dateString2);
+		    fillTable(list);
+		} else {
+		    JOptionPane.showMessageDialog(null, datum1 + " " + bundle.getString("needsToBeGreater") + " " + datum2);
+		}
+	    }
+	} catch (HeadlessException e) {
+	    Debug.printError(e.toString());
+	} catch (SQLException e) {
+	    Debug.printError(e.toString());
+	}
 
     }//GEN-LAST:event_foundManagerActionPerformed
 
@@ -574,14 +581,14 @@ public class ManagerGui extends java.awt.Frame {
      * @param evt
      */
     private void clearButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_clearButtonActionPerformed
-        try {
-            firstDateChooser.setDate(null);
-            secondDateChooser.setDate(null);
-            list = dbCase.readAll();
-            fillTable(list);
-        } catch (SQLException e) {
-            Debug.printError(e.toString());
-        }
+	try {
+	    firstDateChooser.setDate(null);
+	    secondDateChooser.setDate(null);
+	    list = dbCase.readAll();
+	    fillTable(list);
+	} catch (SQLException e) {
+	    Debug.printError(e.toString());
+	}
     }//GEN-LAST:event_clearButtonActionPerformed
     /**
      * Generate a graph
@@ -627,50 +634,68 @@ public class ManagerGui extends java.awt.Frame {
     private com.toedter.calendar.JDateChooser secondDateChooser;
     private javax.swing.JButton selectButton;
     // End of variables declaration//GEN-END:variables
-    
+
     /**
      * Fill the table with data from the list
      *
      * @param list with database data
      */
     private void fillTable(List<Case> list) {
-        for (int i = 0; i < 50; i++) {
-            jTable1.getModel().setValueAt("", i, 0);
-            jTable1.getModel().setValueAt("", i, 1);
-            jTable1.getModel().setValueAt("", i, 2);
-        }
-        for (int i = 0; i < list.size(); i++) {
-            int count = i + 1;
-            jTable1.getModel().setValueAt(count, i, 0);
-            jTable1.getModel().setValueAt(list.get(i).getLabel(), i, 1);
-            jTable1.getModel().setValueAt(list.get(i).getAddDate(), i, 2);
-        }
+	for (int i = 0; i < 50; i++) {
+	    jTable1.getModel().setValueAt("", i, 0);
+	    jTable1.getModel().setValueAt("", i, 1);
+	    jTable1.getModel().setValueAt("", i, 2);
+	}
+	for (int i = 0; i < list.size(); i++) {
+	    int count = i + 1;
+	    jTable1.getModel().setValueAt(count, i, 0);
+	    jTable1.getModel().setValueAt(list.get(i).getLabel(), i, 1);
+	    jTable1.getModel().setValueAt(list.get(i).getAddDate(), i, 2);
+	}
     }
 
     /**
      * Make a PDF object
      */
     private void makePDF() {
-        List<Case> dateTotal = null;
-        List<Case> dateResolved = null;
-        List<Case> datePending = null;
-        try {
-            list = dbCase.readAll();
-            listPending = dbCase.readAllPending();
-            listResolved = dbCase.readAllResolved();
-            datePending = dbCase.readAllPendingByDate(dateString, dateString2);
-            dateResolved = dbCase.readAllResolvedByDate(dateString, dateString2);
-            dateTotal = dbCase.readAllTotalByDate(dateString, dateString2);
-        } catch (SQLException e) {
-            Debug.printError(e.toString());
-        }
-        String pending = Integer.toString(listPending.size());          //----Shows totalPending in PDF--------
-        String resolved = Integer.toString(listResolved.size());        //----Shows totalResolved in PDF-------
-        String total = Integer.toString(list.size());                   //----Shows total----------------------
-        String pendingByDate = Integer.toString(datePending.size());    //----pending by date------------------
-        String resolvedByDate = Integer.toString(dateResolved.size());  //----resolvedByDate-------------------
-        String totalByDate = Integer.toString(dateTotal.size());        //----totalByDate----------------------
-        pdf = new PDFGenerator();
-        pdf.generate(pending, resolved, total, dateString, dateString2, pendingByDate, resolvedByDate, totalByDate);
+	List<Case> dateTotal = null;
+	List<Case> dateResolved = null;
+	List<Case> datePending = null;
+	try {
+	    list = dbCase.readAll();
+	    listPending = dbCase.readAllPending();
+	    listResolved = dbCase.readAllResolved();
+	    datePending = dbCase.readAllPendingByDate(dateString, dateString2);
+	    dateResolved = dbCase.readAllResolvedByDate(dateString, dateString2);
+	    dateTotal = dbCase.readAllTotalByDate(dateString, dateString2);
+	} catch (SQLException e) {
+	    Debug.printError(e.toString());
+	}
+	String pending = Integer.toString(listPending.size());          //----Shows totalPending in PDF--------
+	String resolved = Integer.toString(listResolved.size());        //----Shows totalResolved in PDF-------
+	String total = Integer.toString(list.size());                   //----Shows total----------------------
+	String pendingByDate = Integer.toString(datePending.size());    //----pending by date------------------
+	String resolvedByDate = Integer.toString(dateResolved.size());  //----resolvedByDate-------------------
+	String totalByDate = Integer.toString(dateTotal.size());        //----totalByDate----------------------
+	graph = (firstDateChooser.getDate() == null
+		|| secondDateChooser.getDate() == null)
+		? new ManagerGraph(total, beheer)
+		: new ManagerGraph(total, beheer, firstDateChooser.getDate(), secondDateChooser.getDate());
+	pdf = new PDFGenerator();
+	BufferedImage img = graph.imageStream();
+	pdf.setChart(img);
+	pdf.generate(pending, resolved, total, dateString, dateString2, pendingByDate, resolvedByDate, totalByDate);
+    }
+
+    public static void copyStream(InputStream input, OutputStream output) {
+	try {
+	    byte[] buffer = new byte[1024]; // Adjust if you want
+	    int bytesRead;
+	    while ((bytesRead = input.read(buffer)) != -1) {
+		output.write(buffer, 0, bytesRead);
+	    }
+	} catch (IOException e) {
+	    Debug.printError(e.toString());
+	}
     }
 }

@@ -4,6 +4,9 @@ import DBUtil.ConnectionMySQL;
 import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.event.WindowEvent;
+import java.awt.image.BufferedImage;
+import static java.awt.image.ImageObserver.WIDTH;
+import java.io.InputStream;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -15,6 +18,7 @@ import models.Check;
 import models.Debug;
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartPanel;
+import org.jfree.chart.ChartUtilities;
 import org.jfree.chart.JFreeChart;
 import org.jfree.chart.axis.NumberAxis;
 import org.jfree.chart.plot.CategoryPlot;
@@ -39,6 +43,7 @@ public class ManagerGraph extends ApplicationFrame {
     private Date firstDate;
     private Date lastDate;
     private String graphTitle;
+    private  JFreeChart chart = null;
 
     /**
      * Constructor
@@ -55,7 +60,7 @@ public class ManagerGraph extends ApplicationFrame {
 	} else {
 
 	    final CategoryDataset dataset = createDefaultDataset();
-	    final JFreeChart chart = createChart(dataset);
+	    chart = createChart(dataset);
 	    final ChartPanel chartPanel = new ChartPanel(chart);
 	    //chartPanel.setPreferredSize(new Dimension(1366, 768));
 	    setContentPane(chartPanel);
@@ -80,7 +85,7 @@ public class ManagerGraph extends ApplicationFrame {
 	    Runtime.getRuntime().exit(1);
 	} else {
 	    final CategoryDataset dataset = createDataset();
-	    final JFreeChart chart = createChart(dataset);
+	    chart = createChart(dataset);
 	    final ChartPanel chartPanel = new ChartPanel(chart);
 	    //chartPanel.setPreferredSize(new Dimension(1366, 768));
 	    setContentPane(chartPanel);
@@ -315,5 +320,9 @@ public class ManagerGraph extends ApplicationFrame {
 	    dispose();
 
 	}
+    }
+
+    BufferedImage imageStream() {
+	return chart.createBufferedImage(500, 500);
     }
 }

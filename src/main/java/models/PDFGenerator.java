@@ -1,17 +1,19 @@
 package models;
 
+import java.awt.image.BufferedImage;
 import java.awt.print.PrinterException;
 import java.awt.print.PrinterJob;
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.OutputStream;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
-import org.apache.pdfbox.exceptions.COSVisitorException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import org.apache.pdfbox.pdmodel.PDDocument;
 import org.apache.pdfbox.pdmodel.PDPage;
 import org.apache.pdfbox.pdmodel.edit.PDPageContentStream;
@@ -29,24 +31,25 @@ public class PDFGenerator {
 
     /**
      * Find the width of the string
+     *
      * @param s
      * @param font
      * @param fontSize
-     * @return 
+     * @return
      */
     public static int stringWidth(String s, PDFont font, double fontSize) {
 	try {
 	    return (int) (font.getStringWidth(s) * fontSize / 1000) + 1;
 	} catch (IOException e) {
-            Debug.printError(e.toString());
+	    Debug.printError(e.toString());
 	    return 0;
 	}
     }
     DateFormat df = new SimpleDateFormat("MM/dd/yyyy HH:mm:ss");
     Date today = Calendar.getInstance().getTime();
     String date = df.format(today);
-    PDXObjectImage test;
-    PDXObjectImage hallo;
+    PDXObjectImage correndonLogo;
+    PDXObjectImage banner;
     PDXObjectImage grafiek;
     PDDocument document;
     PDPageContentStream contentStream;
@@ -63,8 +66,8 @@ public class PDFGenerator {
 
 	    this.document.addPage(page);
 	    //   this.hoi.addPage(page);
-	    test = new PDJpeg(document, getClass().getResourceAsStream("/img/hoi4.jpg"));
-	    hallo = new PDJpeg(document, getClass().getResourceAsStream("/img/help.jpg"));
+	    correndonLogo = new PDJpeg(document, getClass().getResourceAsStream("/img/logo.jpg"));
+	    banner = new PDJpeg(document, getClass().getResourceAsStream("/img/help.jpg"));
 
 	    // Start a new content stream which will "hold" the to be created content
 	    this.contentStream = new PDPageContentStream(document, page);
@@ -74,8 +77,17 @@ public class PDFGenerator {
 	}
     }
 
+    public void setChart(BufferedImage chart) {
+	try {
+	    grafiek = new PDJpeg(document, chart);
+	} catch (IOException ex) {
+	    Logger.getLogger(PDFGenerator.class.getName()).log(Level.SEVERE, null, ex);
+	}
+    }
+
     /**
      * User - Generate a PDF with the following information
+     *
      * @param label
      * @param color
      * @param shape
@@ -90,7 +102,7 @@ public class PDFGenerator {
      * @param details
      * @param handlerId
      * @param phoneNr
-     * @param email 
+     * @param email
      */
     public void generate(String label, String color, String shape, String name, String surname, String adres, String postalCode, String city, String residentAdres, String residentPostalCode, String residentCity, String details, int handlerId, String phoneNr, String email) {
 	try {
@@ -161,6 +173,7 @@ public class PDFGenerator {
 
     /**
      * Manager - Generate a PDF with the following information
+     *
      * @param pending
      * @param resolved
      * @param total
@@ -168,7 +181,7 @@ public class PDFGenerator {
      * @param dateString2
      * @param pendingByDate
      * @param resolvedByDate
-     * @param totalByDate 
+     * @param totalByDate
      */
     public void generate(String pending, String resolved, String total, String dateString, String dateString2, String pendingByDate, String resolvedByDate, String totalByDate) {
 	try {
@@ -178,8 +191,8 @@ public class PDFGenerator {
 	    // TODO: generate the pdf
 	    // contentStream.addRect(20f, 20f, 20f, 20f);
 
-	    contentStream.drawImage(hallo, 0, 360);
-	    contentStream.drawImage(test, 20, 50);
+	    contentStream.drawImage(banner, 0, 360);
+	    contentStream.drawImage(correndonLogo, 20, 50);
 	    contentStream.beginText();
 	    contentStream.setFont(font, 12);
 	    contentStream.moveTextPositionByAmount(100, 700);
@@ -210,6 +223,8 @@ public class PDFGenerator {
 	    contentStream.drawString("Amount processed: ");
 	    contentStream.drawString(totalByDate);
 
+	    contentStream.drawImage(grafiek, 0, -20);
+
 
 	    contentStream.endText();
 	    contentStream.close();
@@ -223,27 +238,22 @@ public class PDFGenerator {
 
     /**
      * Save the PDF to a file with the specified filename
-     * @param filename 
+     *
+     * @param filename
      */
     public void save(String filename) {
 	String location = System.getProperty("user.home") + File.separator + "Documents" + File.separator + filename + ".pdf";
 	OutputStream output = null;
-	try {
-	    output = new FileOutputStream(location);
-	} catch (FileNotFoundException e) {
-	    Debug.printError(e.toString());
-	}
 	System.out.println(location);
 	try {
+	    output = new FileOutputStream(location);
 	    // Make sure that the content stream is closed:
 	    this.contentStream.close();
 	    // Save the results and ensure that the document is properly closed:
 	    this.document.save(output);
 	    this.document.close();
-            output.close();
-	} catch (IOException e) {
-	    Debug.printError(e.toString());
-	} catch (COSVisitorException e) {
+	    output.close();
+	} catch (Exception e) {
 	    Debug.printError(e.toString());
 	}
     }
