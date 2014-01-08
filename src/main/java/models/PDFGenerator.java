@@ -1,11 +1,18 @@
 package models;
 
+import java.awt.color.ColorSpace;
+import static java.awt.color.ColorSpace.CS_sRGB;
 import java.awt.image.BufferedImage;
+import java.awt.image.ColorModel;
+import java.awt.image.Raster;
+import java.awt.image.WritableRaster;
 import java.awt.print.PrinterException;
 import java.awt.print.PrinterJob;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.OutputStream;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -13,15 +20,18 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.imageio.ImageIO;
+import javax.imageio.stream.ImageInputStream;
+import org.apache.pdfbox.exceptions.COSVisitorException;
 import org.apache.pdfbox.pdmodel.PDDocument;
 import org.apache.pdfbox.pdmodel.PDPage;
 import org.apache.pdfbox.pdmodel.edit.PDPageContentStream;
 import org.apache.pdfbox.pdmodel.font.PDFont;
 import org.apache.pdfbox.pdmodel.font.PDType1Font;
+import org.apache.pdfbox.pdmodel.graphics.color.PDColorSpace;
 //import org.apache.pdfbox.pdfparser;
-import org.apache.pdfbox.pdmodel.graphics.xobject.PDJpeg;
-import org.apache.pdfbox.pdmodel.graphics.xobject.PDPixelMap;
-import org.apache.pdfbox.pdmodel.graphics.xobject.PDXObjectImage;
+import org.apache.pdfbox.pdmodel.graphics.xobject.*;
+import sun.awt.image.IntegerInterleavedRaster;
 
 /**
  *
@@ -37,7 +47,7 @@ public class PDFGenerator {
     private PDXObjectImage grafiek;
     private PDDocument document;
     private PDPageContentStream contentStream;
-    private PDFont font = PDType1Font.HELVETICA_BOLD;
+    private final PDFont font = PDType1Font.HELVETICA_BOLD;
 
     /**
      * Start a new PDF Generator object
@@ -47,9 +57,8 @@ public class PDFGenerator {
 	    // Create a document and add a page to it
 	    this.document = new PDDocument();
 	    PDPage page = new PDPage();
-
 	    this.document.addPage(page);
-	    //   this.hoi.addPage(page);
+            
 	    correndonLogo = new PDJpeg(document, getClass().getResourceAsStream("/img/logo.jpg"));
 	    banner = new PDJpeg(document, getClass().getResourceAsStream("/img/help.jpg"));
 	    grafiek = new PDJpeg(document, getClass().getResourceAsStream("/img/graph.jpg"));
@@ -79,9 +88,11 @@ public class PDFGenerator {
 	}
     }
 
-    public void setChart(BufferedImage chart) {
+    public void setChart(File chart) {
 	try {
-	    grafiek = new PDJpeg(document, chart);
+            BufferedImage img = ImageIO.read(chart);
+            ColorModel imgModel = img.getColorModel();
+	    grafiek = new PDJpeg(document, img);
 	} catch (IOException ex) {
 	    Logger.getLogger(PDFGenerator.class.getName()).log(Level.SEVERE, null, ex);
 	}
@@ -243,7 +254,7 @@ public class PDFGenerator {
      */
     public void save(String filename) {
 	String location = System.getProperty("user.home") + File.separator + "Documents" + File.separator + filename + ".pdf";
-	OutputStream output = null;
+	OutputStream output;
 	System.out.println(location);
 	try {
 	    output = new FileOutputStream(location);
@@ -253,9 +264,11 @@ public class PDFGenerator {
 	    this.document.save(output);
 	    this.document.close();
 	    output.close();
-	} catch (Exception e) {
+	} catch (IOException e) {
 	    Debug.printError(e.toString());
-	}
+	} catch (COSVisitorException e) {
+            Debug.printError(e.toString());
+        }
     }
 
     /**

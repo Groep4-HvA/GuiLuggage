@@ -5,8 +5,8 @@ import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.event.WindowEvent;
 import java.awt.image.BufferedImage;
-import static java.awt.image.ImageObserver.WIDTH;
-import java.io.InputStream;
+import java.io.File;
+import java.io.IOException;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -14,11 +14,12 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import models.Check;
 import models.Debug;
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartPanel;
-import org.jfree.chart.ChartRenderingInfo;
 import org.jfree.chart.ChartUtilities;
 import org.jfree.chart.JFreeChart;
 import org.jfree.chart.axis.NumberAxis;
@@ -37,7 +38,7 @@ public class ManagerGraph extends ApplicationFrame {
 
     ConnectionMySQL conn = new ConnectionMySQL();
     private final DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-    private java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("Bundle"); // NOI18N
+    private final java.util.ResourceBundle BUNDLE = java.util.ResourceBundle.getBundle("Bundle"); // NOI18N
     private final Date date = new Date();
     private final String dateString = dateFormat.format(date);
     private PreparedStatement prdstmt = null;
@@ -51,7 +52,6 @@ public class ManagerGraph extends ApplicationFrame {
      *
      * @param title
      * @param beheer
-     * @throws SQLException
      */
     public ManagerGraph(final String title, boolean beheer) {
 
@@ -76,7 +76,6 @@ public class ManagerGraph extends ApplicationFrame {
      * @param beheer
      * @param firstDate
      * @param lastDate
-     * @throws SQLException
      */
     public ManagerGraph(String title, boolean beheer, Date firstDate, Date lastDate) {
 	super(title);
@@ -151,18 +150,18 @@ public class ManagerGraph extends ApplicationFrame {
 	int day = cal.get(Calendar.DAY_OF_MONTH);
 	int year = cal.get(Calendar.YEAR);
 
-	String[] months = {bundle.getString("jan"),
-	    bundle.getString("feb"),
-	    bundle.getString("march"),
-	    bundle.getString("april"),
-	    bundle.getString("may"),
-	    bundle.getString("juni"),
-	    bundle.getString("juli"),
-	    bundle.getString("aug"),
-	    bundle.getString("sept"),
-	    bundle.getString("okt"),
-	    bundle.getString("nov"),
-	    bundle.getString("dec")};
+	String[] months = {BUNDLE.getString("jan"),
+	    BUNDLE.getString("feb"),
+	    BUNDLE.getString("march"),
+	    BUNDLE.getString("april"),
+	    BUNDLE.getString("may"),
+	    BUNDLE.getString("juni"),
+	    BUNDLE.getString("juli"),
+	    BUNDLE.getString("aug"),
+	    BUNDLE.getString("sept"),
+	    BUNDLE.getString("okt"),
+	    BUNDLE.getString("nov"),
+	    BUNDLE.getString("dec")};
 
 	graphTitle = months[month - 1];
 	// create the dataset...
@@ -193,20 +192,20 @@ public class ManagerGraph extends ApplicationFrame {
 	int secondMonth = secondCal.get(Calendar.MONTH);
 	secondMonth++;
 	String[] months = {
-	    bundle.getString("jan"),
-	    bundle.getString("feb"),
-	    bundle.getString("march"),
-	    bundle.getString("april"),
-	    bundle.getString("may"),
-	    bundle.getString("juni"),
-	    bundle.getString("juli"),
-	    bundle.getString("aug"),
-	    bundle.getString("sept"),
-	    bundle.getString("okt"),
-	    bundle.getString("nov"),
-	    bundle.getString("dec")};
+	    BUNDLE.getString("jan"),
+	    BUNDLE.getString("feb"),
+	    BUNDLE.getString("march"),
+	    BUNDLE.getString("april"),
+	    BUNDLE.getString("may"),
+	    BUNDLE.getString("juni"),
+	    BUNDLE.getString("juli"),
+	    BUNDLE.getString("aug"),
+	    BUNDLE.getString("sept"),
+	    BUNDLE.getString("okt"),
+	    BUNDLE.getString("nov"),
+	    BUNDLE.getString("dec")};
 	if (firstMonth != secondMonth) {
-	    graphTitle = months[firstMonth - 1] + " " + bundle.getString("till") + " " + months[secondMonth - 1];
+	    graphTitle = months[firstMonth - 1] + " " + BUNDLE.getString("till") + " " + months[secondMonth - 1];
 	} else {
 	    graphTitle = months[firstMonth - 1];
 	}
@@ -215,7 +214,7 @@ public class ManagerGraph extends ApplicationFrame {
 	String firstMY;
 	String lastMY;
 	if (Check.dateDiff(firstDate, lastDate) <= 31) {
-	    graphTitle += " (" + bundle.getString("days") + ")";
+	    graphTitle += " (" + BUNDLE.getString("days") + ")";
 	    while (!firstCal.after(secondCal)) {
 		int year = firstCal.get(Calendar.YEAR);
 		int month = firstCal.get(Calendar.MONTH) + 1;
@@ -228,7 +227,7 @@ public class ManagerGraph extends ApplicationFrame {
 		firstCal.add(Calendar.DATE, 1);
 	    }
 	} else if (Check.dateDiff(firstDate, lastDate) > 31 && Check.dateDiff(firstDate, lastDate) <= 123) {
-	    graphTitle += " (" + bundle.getString("weeks") + ")";
+	    graphTitle += " (" + BUNDLE.getString("weeks") + ")";
 	    while (!firstCal.after(secondCal)) {
 		int year = firstCal.get(Calendar.YEAR);
 		int month = firstCal.get(Calendar.MONTH) + 1;
@@ -241,7 +240,7 @@ public class ManagerGraph extends ApplicationFrame {
 		firstCal.add(Calendar.DATE, 7);
 	    }
 	} else {
-	    graphTitle += " (" + bundle.getString("months") + ")";
+	    graphTitle += " (" + BUNDLE.getString("months") + ")";
 	    while (!firstCal.after(secondCal)) {
 		int year = firstCal.get(Calendar.YEAR);
 		int month = firstCal.get(Calendar.MONTH) +1;
@@ -267,7 +266,7 @@ public class ManagerGraph extends ApplicationFrame {
     private JFreeChart createChart(final CategoryDataset dataset) {
 
 	// create the chart...
-	final JFreeChart chart = ChartFactory.createLineChart(
+	chart = ChartFactory.createLineChart(
 		"Luggage Statistics", // chart title
 		graphTitle, // domain axis label
 		"#", // range axis label
@@ -277,8 +276,6 @@ public class ManagerGraph extends ApplicationFrame {
 		true, // tooltips
 		false // urls
 		);
-
-	chart.setBackgroundPaint(Color.white);
 
 	final CategoryPlot plot = (CategoryPlot) chart.getPlot();
 	plot.setBackgroundPaint(Color.lightGray);
@@ -323,7 +320,14 @@ public class ManagerGraph extends ApplicationFrame {
 	}
     }
 
-    BufferedImage imageStream() {
-	return chart.createBufferedImage(500, 300);
+    File imageStream() {
+        try {
+            File temp = File.createTempFile("tempfile", ".tmp");
+            ChartUtilities.saveChartAsJPEG(temp, chart, 500, 300);
+            return temp;
+        } catch (IOException e) {
+            Debug.printError(e.toString());
+            return null;
+        }
     }
 }
