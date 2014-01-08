@@ -682,20 +682,8 @@ public class ManagerGui extends java.awt.Frame {
 		? new ManagerGraph(total, beheer)
 		: new ManagerGraph(total, beheer, firstDateChooser.getDate(), secondDateChooser.getDate());
 	pdf = new PDFGenerator();
-	BufferedImage img = graph.imageStream();
-	pdf.setChart(img);
+	pdf.setChart(graph.imageStream());
 	pdf.generate(pending, resolved, total, dateString, dateString2, pendingByDate, resolvedByDate, totalByDate);
     }
 
-    public static void copyStream(InputStream input, OutputStream output) {
-	try {
-	    byte[] buffer = new byte[1024]; // Adjust if you want
-	    int bytesRead;
-	    while ((bytesRead = input.read(buffer)) != -1) {
-		output.write(buffer, 0, bytesRead);
-	    }
-	} catch (IOException e) {
-	    Debug.printError(e.toString());
-	}
-    }
 }

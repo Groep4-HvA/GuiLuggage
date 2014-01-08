@@ -6,7 +6,6 @@ import java.awt.print.PrinterJob;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.InputStream;
 import java.io.OutputStream;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -21,6 +20,7 @@ import org.apache.pdfbox.pdmodel.font.PDFont;
 import org.apache.pdfbox.pdmodel.font.PDType1Font;
 //import org.apache.pdfbox.pdfparser;
 import org.apache.pdfbox.pdmodel.graphics.xobject.PDJpeg;
+import org.apache.pdfbox.pdmodel.graphics.xobject.PDPixelMap;
 import org.apache.pdfbox.pdmodel.graphics.xobject.PDXObjectImage;
 
 /**
@@ -28,6 +28,39 @@ import org.apache.pdfbox.pdmodel.graphics.xobject.PDXObjectImage;
  * @author breud
  */
 public class PDFGenerator {
+
+    private DateFormat df = new SimpleDateFormat("MM/dd/yyyy HH:mm:ss");
+    private Date today = Calendar.getInstance().getTime();
+    private String date = df.format(today);
+    private PDXObjectImage correndonLogo;
+    private PDXObjectImage banner;
+    private PDXObjectImage grafiek;
+    private PDDocument document;
+    private PDPageContentStream contentStream;
+    private PDFont font = PDType1Font.HELVETICA_BOLD;
+
+    /**
+     * Start a new PDF Generator object
+     */
+    public PDFGenerator() {
+	try {
+	    // Create a document and add a page to it
+	    this.document = new PDDocument();
+	    PDPage page = new PDPage();
+
+	    this.document.addPage(page);
+	    //   this.hoi.addPage(page);
+	    correndonLogo = new PDJpeg(document, getClass().getResourceAsStream("/img/logo.jpg"));
+	    banner = new PDJpeg(document, getClass().getResourceAsStream("/img/help.jpg"));
+	    grafiek = new PDJpeg(document, getClass().getResourceAsStream("/img/graph.jpg"));
+
+	    // Start a new content stream which will "hold" the to be created content
+	    this.contentStream = new PDPageContentStream(document, page);
+
+	} catch (IOException e) {
+	    Debug.printError(e.toString());
+	}
+    }
 
     /**
      * Find the width of the string
@@ -43,37 +76,6 @@ public class PDFGenerator {
 	} catch (IOException e) {
 	    Debug.printError(e.toString());
 	    return 0;
-	}
-    }
-    DateFormat df = new SimpleDateFormat("MM/dd/yyyy HH:mm:ss");
-    Date today = Calendar.getInstance().getTime();
-    String date = df.format(today);
-    PDXObjectImage correndonLogo;
-    PDXObjectImage banner;
-    PDXObjectImage grafiek;
-    PDDocument document;
-    PDPageContentStream contentStream;
-    PDFont font = PDType1Font.HELVETICA_BOLD;
-
-    /**
-     * Start a new PDF Generator object
-     */
-    public PDFGenerator() {
-	try {
-	    // Create a document and add a page to it
-	    this.document = new PDDocument();
-	    PDPage page = new PDPage();
-
-	    this.document.addPage(page);
-	    //   this.hoi.addPage(page);
-	    correndonLogo = new PDJpeg(document, getClass().getResourceAsStream("/img/logo.jpg"));
-	    banner = new PDJpeg(document, getClass().getResourceAsStream("/img/help.jpg"));
-
-	    // Start a new content stream which will "hold" the to be created content
-	    this.contentStream = new PDPageContentStream(document, page);
-
-	} catch (IOException e) {
-	    Debug.printError(e.toString());
 	}
     }
 
@@ -193,6 +195,7 @@ public class PDFGenerator {
 
 	    contentStream.drawImage(banner, 0, 360);
 	    contentStream.drawImage(correndonLogo, 20, 50);
+	    contentStream.drawImage(grafiek, 0, 0);
 	    contentStream.beginText();
 	    contentStream.setFont(font, 12);
 	    contentStream.moveTextPositionByAmount(100, 700);
@@ -222,9 +225,6 @@ public class PDFGenerator {
 	    contentStream.moveTextPositionByAmount(0, -20);
 	    contentStream.drawString("Amount processed: ");
 	    contentStream.drawString(totalByDate);
-
-	    contentStream.drawImage(grafiek, 0, -20);
-
 
 	    contentStream.endText();
 	    contentStream.close();

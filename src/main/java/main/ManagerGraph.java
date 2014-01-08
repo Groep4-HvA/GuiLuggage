@@ -18,6 +18,7 @@ import models.Check;
 import models.Debug;
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartPanel;
+import org.jfree.chart.ChartRenderingInfo;
 import org.jfree.chart.ChartUtilities;
 import org.jfree.chart.JFreeChart;
 import org.jfree.chart.axis.NumberAxis;
@@ -323,6 +324,6 @@ public class ManagerGraph extends ApplicationFrame {
     }
 
     BufferedImage imageStream() {
-	return chart.createBufferedImage(500, 500);
+	return chart.createBufferedImage(500, 300);
     }
 }
