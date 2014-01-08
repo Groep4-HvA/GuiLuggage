@@ -147,7 +147,7 @@ public class CaseDao {
         ResultSet rs;
         PreparedStatement prdstmt;
 
-        String query = "SELECT * FROM `cases` LIMIT 50";
+        String query = "SELECT * FROM `cases` ORDER BY AddDate DESC LIMIT 50";
 
         conn.startConnection();
 
@@ -249,7 +249,7 @@ public class CaseDao {
     }
 
     public int update(Case currentCase) throws SQLException {
-        DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+        DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         String queryResolve, queryLabel, queryName, querySurName, queryColor, queryShape, queryRAddress, queryRPostalCode, queryRCity, queryHAddress, queryHPostalCode, queryHCity, queryAditional, queryLocation;
         queryLabel = currentCase.getLabel();
         querySurName = currentCase.getSurName();

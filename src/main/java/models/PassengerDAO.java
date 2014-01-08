@@ -10,6 +10,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -30,8 +31,8 @@ public class PassengerDAO {
         List<Passenger> list = new LinkedList<Passenger>();
         ResultSet rs;
         PreparedStatement prdstmt;
-        java.util.Date today = new java.util.Date();
-        DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+        Date today = new Date();
+        DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         String query = "SELECT `name`, `surname`, `homeAddress`, `homePostalCode`, `homeCity`,`residentAddress`,`residentPostalCode`, `residentCity`, `color`, `shape`, `additionalDetails`, `labelNumber`, `emailAdress` FROM `passengers` LIMIT 50";
 
         conn.startConnection();
@@ -117,8 +118,9 @@ public class PassengerDAO {
     public int create(Passenger passenger, int handlerId) throws SQLException {
         PreparedStatement prdstmt;
         String query = "INSERT INTO `cases`  ( `name`, `surname`, `homeAddress`, `homePostalCode`, `homeCity`,`residentAddress`,`residentPostalCode`, `residentCity`, `color`, `shape`, `aditionalDetails`, `LuggageNumber`,`HandlerID`,`PhoneNr`,`addDate`, `emailAdress`) VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?);";
-        java.util.Date today = new java.util.Date();
-        java.sql.Date sqlToday = new java.sql.Date(today.getTime());
+        Date today = new Date();
+        DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+	String sqlToday = dateFormat.format(today);
         conn.startConnection();
 
         prdstmt = conn.getConnection().prepareStatement(query);
@@ -137,7 +139,7 @@ public class PassengerDAO {
         prdstmt.setString(12, passenger.getLabel());
         prdstmt.setInt(13, handlerId);
         prdstmt.setString(14, passenger.getPhoneNr());
-        prdstmt.setDate(15, sqlToday);
+        prdstmt.setString(15, sqlToday);
         prdstmt.setString(16, passenger.getEmailAdress());
         prdstmt.executeUpdate();
 
