@@ -12,8 +12,6 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.Date;
 import java.util.Properties;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 
 /**
@@ -134,8 +132,8 @@ public class Check {
                 JOptionPane.showMessageDialog(null, BUNDLE.getString("error.db.notconnected"), BUNDLE.getString("error.db.notconnected.title"), JOptionPane.ERROR_MESSAGE);
             }
             connect.closeConnection();
-        } catch (SQLException ex) {
-            Logger.getLogger(Check.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SQLException e) {
+            Debug.printError(e.toString());
         }
     }
 
