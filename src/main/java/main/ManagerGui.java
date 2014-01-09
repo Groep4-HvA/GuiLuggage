@@ -66,9 +66,9 @@ public class ManagerGui extends java.awt.Frame {
 	    listPending = dbCase.readAllPending();
 	    listResolved = dbCase.readAllResolved();
 
-	    jLabel1.setText(bundle.getString("Manager.jLabel1.text") + "" + listPending.size());
-	    jLabel2.setText(bundle.getString("Manager.jLabel2.text") + "" + listResolved.size());
-	    jLabel3.setText(bundle.getString("Manager.jLabel3.text") + "" + list.size());
+	    jLabel1.setText(bundle.getString("ManagerGui.jLabel1.text") + "" + listPending.size());
+	    jLabel2.setText(bundle.getString("ManagerGui.jLabel2.text") + "" + listResolved.size());
+	    jLabel3.setText(bundle.getString("ManagerGui.jLabel3.text") + "" + list.size());
 	    jTable1.getColumnModel().getColumn(0).setHeaderValue("#");
 	    jTable1.getColumnModel().getColumn(1).setHeaderValue(bundle.getString("table.LuggageNumber"));
 	    jTable1.getColumnModel().getColumn(2).setHeaderValue(bundle.getString("table.AddDate"));
@@ -113,71 +113,71 @@ public class ManagerGui extends java.awt.Frame {
         });
 
         java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("Bundle"); // NOI18N
-        myAccountButton.setText(bundle.getString("Manager.myAccountButton.text")); // NOI18N
+        myAccountButton.setText(bundle.getString("ManagerGui.myAccountButton.text")); // NOI18N
         myAccountButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 myAccountButtonActionPerformed(evt);
             }
         });
 
-        moreButton.setText(bundle.getString("Manager.moreButton.text")); // NOI18N
+        moreButton.setText(bundle.getString("ManagerGui.moreButton.text")); // NOI18N
         moreButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 moreButtonActionPerformed(evt);
             }
         });
 
-        logoutButton.setText(bundle.getString("Manager.logoutButton.text")); // NOI18N
+        logoutButton.setText(bundle.getString("ManagerGui.logoutButton.text")); // NOI18N
         logoutButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 logoutButtonActionPerformed(evt);
             }
         });
 
-        missingManager.setText(bundle.getString("Manager.missingManager.text")); // NOI18N
+        missingManager.setText(bundle.getString("ManagerGui.missingManagerGui.text")); // NOI18N
         missingManager.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 missingManagerActionPerformed(evt);
             }
         });
 
-        foundManager.setText(bundle.getString("Manager.foundManager.text")); // NOI18N
+        foundManager.setText(bundle.getString("ManagerGui.foundManagerGui.text")); // NOI18N
         foundManager.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 foundManagerActionPerformed(evt);
             }
         });
 
-        processedManager.setText(bundle.getString("Manager.processedManager.text")); // NOI18N
+        processedManager.setText(bundle.getString("ManagerGui.processedManagerGui.text")); // NOI18N
         processedManager.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 processedManagerActionPerformed(evt);
             }
         });
 
-        graphManager.setText(bundle.getString("Manager.graphManager.text")); // NOI18N
+        graphManager.setText(bundle.getString("ManagerGui.graphManagerGui.text")); // NOI18N
         graphManager.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 graphManagerActionPerformed(evt);
             }
         });
 
-        jLabel1.setText(bundle.getString("Manager.jLabel1.text")); // NOI18N
+        jLabel1.setText(bundle.getString("ManagerGui.jLabel1.text")); // NOI18N
 
-        jLabel2.setText(bundle.getString("Manager.jLabel2.text")); // NOI18N
+        jLabel2.setText(bundle.getString("ManagerGui.jLabel2.text")); // NOI18N
 
-        jLabel3.setText(bundle.getString("Manager.jLabel3.text")); // NOI18N
+        jLabel3.setText(bundle.getString("ManagerGui.jLabel3.text")); // NOI18N
 
-        printButton.setText(bundle.getString("Manager.printButton.text")); // NOI18N
+        printButton.setText(bundle.getString("ManagerGui.printButton.text")); // NOI18N
         printButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 printButtonActionPerformed(evt);
             }
         });
 
-        jLabel4.setText(bundle.getString("Manager.jLabel4.text")); // NOI18N
+        jLabel4.setText(bundle.getString("ManagerGui.jLabel4.text")); // NOI18N
 
-        selectButton.setText(bundle.getString("Manager.jButton2.text")); // NOI18N
+        selectButton.setText(bundle.getString("ManagerGui.jButton2.text")); // NOI18N
         selectButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 selectButtonActionPerformed(evt);

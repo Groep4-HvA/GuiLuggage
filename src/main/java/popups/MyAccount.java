@@ -26,9 +26,9 @@ public class MyAccount extends javax.swing.JDialog {
 
     private final Color red = new Color(163, 0, 15);
     private Medewerker tempMedewerker = null;
-    private MedewerkerDAO medewerkerTijdelijk = new MedewerkerDAO();
+    private final MedewerkerDAO medewerkerTijdelijk = new MedewerkerDAO();
     private int medewerkerID;
-    private int lang;
+    private final int lang;
 
     /**
      * Creates new form PasswordConfirm
