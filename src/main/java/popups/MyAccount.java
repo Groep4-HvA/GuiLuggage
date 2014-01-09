@@ -10,8 +10,6 @@ import java.awt.event.WindowEvent;
 import java.sql.SQLException;
 import java.util.Arrays;
 import java.util.Locale;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.BorderFactory;
 import javax.swing.JOptionPane;
 import models.Check;
@@ -214,8 +212,8 @@ public class MyAccount extends javax.swing.JDialog {
             Debug.println(password.getPassword().toString());
             try {
                 tempMedewerker = medewerkerTijdelijk.readByID(medewerkerID);
-            } catch (SQLException ex) {
-                Logger.getLogger(MyAccount.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (SQLException e) {
+                Debug.printError(e.toString());
             }
             if (tempMedewerker.getPassword().equals(DigestUtils.sha256Hex(String.valueOf(passwordOld.getPassword())))) {
 

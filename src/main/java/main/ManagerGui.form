@@ -119,7 +119,7 @@
                       <Component id="secondDateChooser" alignment="1" min="-2" max="-2" attributes="0"/>
                       <Component id="firstDateChooser" alignment="1" min="-2" max="-2" attributes="0"/>
                   </Group>
-                  <EmptySpace pref="44" max="32767" attributes="0"/>
+                  <EmptySpace pref="30" max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
