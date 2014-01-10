@@ -18,7 +18,7 @@ public class GuiLuggage {
      */
     public static void main(String[] args) {
 	Check.checkConfigFile();
-        //Check.checkConnection();
+        Check.checkConnection();
 
 	Locale english, dutch, current;
 	english = new Locale("en", "US");
