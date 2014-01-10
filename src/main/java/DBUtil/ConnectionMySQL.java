@@ -16,7 +16,7 @@ import models.Debug;
  */
 public class ConnectionMySQL {
     
-    private java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("Bundle");
+    private final java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("Bundle");
     
     public static String DRIVER = "com.mysql.jdbc.Driver";
     public static String DBURL;
