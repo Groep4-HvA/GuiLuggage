@@ -7,14 +7,10 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.io.UnsupportedEncodingException;
-import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.Date;
-import java.util.LinkedList;
-import java.util.List;
 import java.util.Properties;
 import javax.swing.JOptionPane;
 
@@ -116,34 +112,85 @@ public class Check {
      * Checks the connection to the database
      */
     public static void checkConnection() {
-        boolean result = false;
+        boolean noResult = true;
         try {
             ConnectionMySQL conn = new ConnectionMySQL();
-            List<Case> list = new LinkedList<Case>();
-            ResultSet rs;
-            PreparedStatement prdstmt;
+            ResultSet rs, rs2;
+            PreparedStatement prdstmt, prdstmt2;
 
-            String query = "show tables";
+            String query2 = "show tables like 'cases'";
+            String query = "show tables like 'Users'";
             conn.startConnection();
 
             prdstmt = conn.getConnection().prepareStatement(query);
             rs = conn.performSelect(prdstmt);
+            if (rs.next()) {
+                noResult = false;
+            } else {
+                String queryCreate = "CREATE TABLE `Users` (\n"
+                        + "  `userId` int(11) NOT NULL AUTO_INCREMENT,\n"
+                        + "  `userName` varchar(255) NOT NULL,\n"
+                        + "  `userRealName` varchar(255) NOT NULL,\n"
+                        + "  `userPass` varchar(255) NOT NULL DEFAULT '',\n"
+                        + "  `userManager` tinyint(1) DEFAULT NULL,\n"
+                        + "  `userBeheer` tinyint(1) NOT NULL,\n"
+                        + "  `userLang` varchar(2) DEFAULT NULL,\n"
+                        + "  `passDate` date NOT NULL,\n"
+                        + "  PRIMARY KEY (`userId`),\n"
+                        + "  UNIQUE KEY `userId_UNIQUE` (`userId`),\n"
+                        + "  UNIQUE KEY `userName_UNIQUE` (`userName`)\n"
+                        + ") ENGINE=InnoDB AUTO_INCREMENT=66 DEFAULT CHARSET=latin1;";
+                prdstmt = conn.getConnection().prepareStatement(queryCreate);
+                int ans = conn.performUpdate(prdstmt);
 
-            while (rs.next()) {
-                result = true;
+                String makeAdmin = "INSERT INTO `Users` (`userName`, `userRealName`, `userPass`, `userManager`, `userBeheer`, `userLang`, `passDate`) VALUES('admin', 'admin', '8c6976e5b5410415bde908bd4dee15dfb167a9c873fc4bb8a81f6f2ab448a918', 0, 1, 'EN', NOW());";
+                prdstmt = conn.getConnection().prepareStatement(makeAdmin);
+                int ans2 = conn.performUpdate(prdstmt);
+                
+
+                prdstmt2 = conn.getConnection().prepareStatement(query2);
+                rs2 = conn.performSelect(prdstmt2);
+                if (!rs2.next()) {
+                    String queryCreate2 = "CREATE TABLE `cases` ( `LuggageNumber` varchar(255) NOT NULL,"
+                            + "`Name` varchar(255) DEFAULT NULL,"
+                            + "`Surname` varchar(255) DEFAULT NULL,"
+                            + "`homeAddress` varchar(255) DEFAULT NULL,"
+                            + "`homePostalCode` varchar(10) DEFAULT NULL,"
+                            + "`homeCity` varchar(255) DEFAULT NULL,"
+                            + "`residentAddress` varchar(255) DEFAULT NULL,"
+                            + "`residentPostalCode` varchar(10) DEFAULT NULL,"
+                            + "`residentCity` varchar(255) DEFAULT NULL,"
+                            + "`PhoneNr` varchar(15) NOT NULL,"
+                            + "`Color` varchar(255) DEFAULT NULL,"
+                            + "`Shape` varchar(255) DEFAULT NULL,"
+                            + "`AditionalDetails` varchar(255) DEFAULT NULL,"
+                            + "`StorageLocation` varchar(255) DEFAULT NULL,"
+                            + "`HandlerID` int(11) NOT NULL,"
+                            + "`AddDate` datetime NOT NULL,"
+                            + "`ResolveDate` datetime DEFAULT NULL,"
+                            + "`EmailAdress` varchar(255) DEFAULT NULL,"
+                            + "PRIMARY KEY(`LuggageNumber`),"
+                            + "UNIQUE KEY `LuggageNumber_UNIQUE` (`LuggageNumber`)"
+                            + ") ENGINE = InnoDB DEFAULT CHARSET = latin1;";
+                    prdstmt = conn.getConnection().prepareStatement(queryCreate2);
+                    int ans3 = conn.performUpdate(prdstmt);
+                }
+
             }
             if (conn != null) {
                 conn.closeConnection();
             }
-        } catch (Exception e) {
+        } catch (SQLException e) {
+            Debug.printError(e.toString());
+            JOptionPane.showMessageDialog(null, BUNDLE.getString("error.db.notconnected"), BUNDLE.getString("error.db.notconnected.title"), JOptionPane.ERROR_MESSAGE);
+            System.exit(1);
+        } catch (NullPointerException e) {
             Debug.printError(e.toString());
             JOptionPane.showMessageDialog(null, BUNDLE.getString("error.db.notconnected"), BUNDLE.getString("error.db.notconnected.title"), JOptionPane.ERROR_MESSAGE);
             System.exit(1);
         }
-        if (result) {
-            Debug.println("SQL command was executed sucessfully");
-        } else {
-            JOptionPane.showMessageDialog(null, BUNDLE.getString("error.db.notconnected"), BUNDLE.getString("error.db.notconnected.title"), JOptionPane.ERROR_MESSAGE);
+        if (noResult) {
+            JOptionPane.showMessageDialog(null, BUNDLE.getString("error.db.initialized"), BUNDLE.getString("error.db.initialized.title"), JOptionPane.INFORMATION_MESSAGE);
         }
     }
 
