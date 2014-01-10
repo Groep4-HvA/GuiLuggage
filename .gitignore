@@ -9,5 +9,3 @@ target/*
 *log.txt
 *.iml
 Config.properties
-
-*log.txt
