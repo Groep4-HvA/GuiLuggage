@@ -59,8 +59,9 @@ public class Popupappmedewerker extends javax.swing.JFrame {
         confirmPasswordField = new javax.swing.JPasswordField();
         isAppManager = new javax.swing.JCheckBox();
         isManager = new javax.swing.JCheckBox();
+        delete = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("Bundle"); // NOI18N
         jLabel1.setText(bundle.getString("Popupappmedewerker.jLabel1.text")); // NOI18N
@@ -90,8 +91,15 @@ public class Popupappmedewerker extends javax.swing.JFrame {
         isAppManager.setToolTipText(bundle.getString("Popupappmedewerker.isAppManager.toolTipText")); // NOI18N
 
         isManager.setText(bundle.getString("Popupappmedewerker.isManager.text")); // NOI18N
-        java.util.ResourceBundle bundle1 = java.util.ResourceBundle.getBundle("Bundle"); // NOI18N
-        isManager.setToolTipText(bundle1.getString("Popupappmedewerker.isManager.toolTipText")); // NOI18N
+        isManager.setToolTipText(bundle.getString("Popupappmedewerker.isManager.toolTipText")); // NOI18N
+
+        java.util.ResourceBundle bundle1 = java.util.ResourceBundle.getBundle("popups/Bundle"); // NOI18N
+        delete.setText(bundle1.getString("Popupappmedewerker.delete.text")); // NOI18N
+        delete.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                deleteActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -107,8 +115,10 @@ public class Popupappmedewerker extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(saveButton)
+                        .addComponent(delete)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(saveButton)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(cancelButton))
                     .addComponent(nameField)
                     .addComponent(userNameField)
@@ -146,7 +156,8 @@ public class Popupappmedewerker extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(cancelButton)
-                    .addComponent(saveButton))
+                    .addComponent(saveButton)
+                    .addComponent(delete))
                 .addContainerGap(22, Short.MAX_VALUE))
         );
 
@@ -185,9 +196,25 @@ public class Popupappmedewerker extends javax.swing.JFrame {
     private void cancelButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelButtonActionPerformed
 	dispose();
     }//GEN-LAST:event_cancelButtonActionPerformed
+
+    private void deleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteActionPerformed
+          
+        ConfirmPopup confirmPopup = new ConfirmPopup(userNameField.getText());
+	confirmPopup.pack();
+	confirmPopup.setVisible(true);
+	confirmPopup.setLocationRelativeTo(null);
+        
+        medewerker.setUsername(userNameField.getText());
+
+        
+        dispose();
+     
+    }//GEN-LAST:event_deleteActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton cancelButton;
     private javax.swing.JPasswordField confirmPasswordField;
+    private javax.swing.JButton delete;
     private javax.swing.JPasswordField firstPasswordField;
     private javax.swing.JCheckBox isAppManager;
     private javax.swing.JCheckBox isManager;

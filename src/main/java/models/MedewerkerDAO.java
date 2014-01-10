@@ -217,12 +217,21 @@ public class MedewerkerDAO {
         return -1;
     }
 
-    public int delete(Medewerker cust) throws SQLException {
-        PreparedStatement prdstmt = null;
-        String query = "DELETE  FROM CUSTOMER WHERE ID=?";
+    public int delete(Medewerker medewerker) throws SQLException {
+
+        PreparedStatement prdstmt;
+        String query = "DELETE FROM Users WHERE userName =?";
+
+        String queryUserName;
+
+        queryUserName = medewerker.getUsername();
 
         conn.startConnection();
-        // some code needs to be writing
+
+        prdstmt = conn.getConnection().prepareStatement(query);
+        prdstmt.setString(1, queryUserName);
+
+
 
         prdstmt.executeUpdate();
 
@@ -231,6 +240,7 @@ public class MedewerkerDAO {
         }
         return -1;
     }
+
 
     public Medewerker getMedewerkerById(int handlerID) throws SQLException {
         Medewerker result = new Medewerker();
