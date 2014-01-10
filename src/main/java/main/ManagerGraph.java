@@ -189,20 +189,20 @@ public class ManagerGraph extends ApplicationFrame {
         int secondMonth = secondCal.get(Calendar.MONTH);
         secondMonth++;
         String[] months = {
-            bundle.getString("jan"),
-            bundle.getString("feb"),
-            bundle.getString("march"),
-            bundle.getString("april"),
-            bundle.getString("may"),
-            bundle.getString("juni"),
-            bundle.getString("juli"),
-            bundle.getString("aug"),
-            bundle.getString("sept"),
-            bundle.getString("okt"),
-            bundle.getString("nov"),
-            bundle.getString("dec")};
+            BUNDLE.getString("jan"),
+            BUNDLE.getString("feb"),
+            BUNDLE.getString("march"),
+            BUNDLE.getString("april"),
+            BUNDLE.getString("may"),
+            BUNDLE.getString("juni"),
+            BUNDLE.getString("juli"),
+            BUNDLE.getString("aug"),
+            BUNDLE.getString("sept"),
+            BUNDLE.getString("okt"),
+            BUNDLE.getString("nov"),
+            BUNDLE.getString("dec")};
         if (firstMonth != secondMonth) {
-            graphTitle = months[firstMonth - 1] + " " + bundle.getString("till") + " " + months[secondMonth - 1];
+            graphTitle = months[firstMonth - 1] + " " + BUNDLE.getString("till") + " " + months[secondMonth - 1];
         } else {
             graphTitle = months[firstMonth - 1];
         }
@@ -211,7 +211,7 @@ public class ManagerGraph extends ApplicationFrame {
         String firstMY;
         String lastMY;
         if (Check.dateDiff(firstDate, lastDate) <= 31) {
-            graphTitle += " (" + bundle.getString("days") + ")";
+            graphTitle += " (" + BUNDLE.getString("days") + ")";
             while (!firstCal.after(secondCal)) {
                 int year = firstCal.get(Calendar.YEAR);
                 int month = firstCal.get(Calendar.MONTH) + 1;
@@ -224,7 +224,7 @@ public class ManagerGraph extends ApplicationFrame {
                 firstCal.add(Calendar.DATE, 1);
             }
         } else if (Check.dateDiff(firstDate, lastDate) > 31 && Check.dateDiff(firstDate, lastDate) <= 123) {
-            graphTitle += " (" + bundle.getString("weeks") + ")";
+            graphTitle += " (" + BUNDLE.getString("weeks") + ")";
             while (!firstCal.after(secondCal)) {
                 int year = firstCal.get(Calendar.YEAR);
                 int month = firstCal.get(Calendar.MONTH) + 1;
@@ -238,7 +238,7 @@ public class ManagerGraph extends ApplicationFrame {
             }
         } else {
             int i = 0;
-            graphTitle += " (" + bundle.getString("months") + ")";
+            graphTitle += " (" + BUNDLE.getString("months") + ")";
             while (!firstCal.after(secondCal)) {
                 int day;
                 if (i > 0) {
