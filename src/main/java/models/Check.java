@@ -148,7 +148,7 @@ public class Check {
 	} else {
 	    Properties prop = new Properties();
 	    try {
-		prop.load(new FileInputStream(System.getProperty("user.dir") + "/Config.sample.properties"));
+		prop.load(Check.class.getClassLoader().getResourceAsStream("Config.sample.properties"));
 	    } catch (IOException e) {
 		Debug.printError(e.toString());
 	    }
