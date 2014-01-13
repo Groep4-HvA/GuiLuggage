@@ -6,6 +6,7 @@ package popups;
 
 import java.sql.SQLException;
 import java.util.Arrays;
+import javax.swing.JOptionPane;
 import models.Check;
 import models.Debug;
 import models.Medewerker;
@@ -23,24 +24,25 @@ public class AddMedewerker extends javax.swing.JFrame {
     private static boolean manager;
     private char[] password;
     private char[] confirmPassword;
-    private final java.util.ResourceBundle resBundle = java.util.ResourceBundle.getBundle("Bundle");
+    private final java.util.ResourceBundle BUNDLE = java.util.ResourceBundle.getBundle("Bundle");
 
     /**
      * Creates new form AddMedewerker
+     *
      * @param manager
      */
     public AddMedewerker(boolean manager) {
-	if (!Check.verifyLogin()) {
-	    Runtime.getRuntime().exit(1);
-	} else {
-	    AddMedewerker.manager = manager;
-	    initComponents();
-	    this.setLocationRelativeTo(null);
-	}
+        if (!Check.verifyLogin()) {
+            Runtime.getRuntime().exit(1);
+        } else {
+            AddMedewerker.manager = manager;
+            initComponents();
+            this.setLocationRelativeTo(null);
+        }
     }
 
     /**
-     *  something something...Magic... I really have ni idea, it's generated
+     * something something...Magic... I really have ni idea, it's generated
      */
     public static AddMedewerker form = new AddMedewerker(manager);
 
@@ -170,40 +172,53 @@ public class AddMedewerker extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void cancelButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelButtonActionPerformed
-	dispose();
+        dispose();
     }//GEN-LAST:event_cancelButtonActionPerformed
 
     private void saveButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saveButtonActionPerformed
-	Medewerker nieuweMedewerker;
-	name = nameTextField.getText();
-	username = usernameTextField.getText();
-	password = firstPasswordField.getPassword();
-	confirmPassword = confirmPasswordField.getPassword();
-	appManager = appManagerCheckBox.isSelected();
-
-	if (Arrays.equals(confirmPassword, password)) {
-	    errorText.setText("");
-	    nieuweMedewerker = new Medewerker(username, password, name, "EN", manager, appManager);
-	    MedewerkerDAO test = new MedewerkerDAO();
-	    try {
-		test.create(nieuweMedewerker);
-		String success = resBundle.getString("addSuccess").replaceAll("%&", "medewerker");
-		errorText.setText(success);
-		dispose();
-	    } catch (SQLException e) {
-		Debug.printError(e.toString());
-		String dbFailure = resBundle.getString("dbFailure").replaceAll("%&", "medewerker");
-		Debug.println(dbFailure);
-		errorText.setText(dbFailure);
-	    }
-	} else {
-	    errorText.setText(resBundle.getString("errorPassNotEqual"));
-	}
+        Medewerker nieuweMedewerker;
+        name = nameTextField.getText();
+        username = usernameTextField.getText();
+        password = firstPasswordField.getPassword();
+        confirmPassword = confirmPasswordField.getPassword();
+        appManager = appManagerCheckBox.isSelected();
+        String footer = String.format(BUNDLE.getString("ConfirmFooter"), BUNDLE.getString("Medewerker")).toLowerCase();
+        String message = BUNDLE.getString("ConfirmHead")+ "\n"
+                + BUNDLE.getString("AddMedewerker.jLabel2.text") + " = " + username + "\n"
+                + BUNDLE.getString("AddMedewerker.jLabel1.text") + " = " + name + "\n"
+                + BUNDLE.getString("AddMedewerker.appManagerCheckBox.text") + " = " + appManager + "\n"
+                + BUNDLE.getString("Popupappmedewerker.isManager.text") + " = " + manager + "\n\n"
+                + footer;
+        int selectedOption = JOptionPane.showConfirmDialog(null,
+                message,
+                BUNDLE.getString("Confirm"),
+                JOptionPane.YES_NO_OPTION);
+        if (Arrays.equals(confirmPassword, password)) {
+            if (selectedOption == JOptionPane.YES_OPTION) {
+                errorText.setText("");
+                nieuweMedewerker = new Medewerker(username, password, name, "EN", manager, appManager);
+                MedewerkerDAO test = new MedewerkerDAO();
+                try {
+                    test.create(nieuweMedewerker);
+                    String success = BUNDLE.getString("addSuccess").replaceAll("%s", "medewerker");
+                    errorText.setText(success);
+                    dispose();
+                } catch (SQLException e) {
+                    Debug.printError(e.toString());
+                    String dbFailure = BUNDLE.getString("dbFailure").replaceAll("%s", "medewerker");
+                    Debug.println(dbFailure);
+                    errorText.setText(dbFailure);
+                }
+            } else {
+                errorText.setText(BUNDLE.getString("notConfirmed"));
+            }
+            errorText.setText(BUNDLE.getString("errorPassNotEqual"));
+        }
     }//GEN-LAST:event_saveButtonActionPerformed
 
     @Override
     public String toString() {
-	return "AddMedewerker{" + "name=" + name + ", username=" + username + ", appManager=" + appManager + ", password=" + password + ", confirmPassword=" + confirmPassword + '}';
+        return "AddMedewerker{" + "name=" + name + ", username=" + username + ", appManager=" + appManager + ", password=" + password + ", confirmPassword=" + confirmPassword + '}';
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JCheckBox appManagerCheckBox;
