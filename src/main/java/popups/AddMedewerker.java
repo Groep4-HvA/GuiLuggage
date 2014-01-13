@@ -42,7 +42,7 @@ public class AddMedewerker extends javax.swing.JFrame {
     }
 
     /**
-     * something something...Magic... I really have ni idea, it's generated
+     * something something...Magic... I really have no idea, it's generated
      */
     public static AddMedewerker form = new AddMedewerker(manager);
 
@@ -200,12 +200,12 @@ public class AddMedewerker extends javax.swing.JFrame {
                 MedewerkerDAO test = new MedewerkerDAO();
                 try {
                     test.create(nieuweMedewerker);
-                    String success = BUNDLE.getString("addSuccess").replaceAll("%s", "medewerker");
+                    String success = BUNDLE.getString("addSuccess").replaceAll("%s", BUNDLE.getString("Medewerker"));
                     errorText.setText(success);
                     dispose();
                 } catch (SQLException e) {
                     Debug.printError(e.toString());
-                    String dbFailure = BUNDLE.getString("dbFailure").replaceAll("%s", "medewerker");
+                    String dbFailure = BUNDLE.getString("dbFailure").replaceAll("%s", BUNDLE.getString("Medewerker"));
                     Debug.println(dbFailure);
                     errorText.setText(dbFailure);
                 }
