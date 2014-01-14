@@ -11,16 +11,20 @@ import java.awt.event.AdjustmentListener;
 import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
 import java.awt.event.KeyEvent;
+import java.io.File;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Locale;
+import java.util.Locale;
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.TableCellRenderer;
 import models.*;
+import org.apache.pdfbox.PDFReader;
 import popups.*;
 
 /**
@@ -497,7 +501,7 @@ public class MainGuiFrame extends java.awt.Frame {
             gui.dispose();
             gui.setUndecorated(true);
             for (float i = 0.0f; i < 1.0f; i += 0.004f) {
-		//gui2.setOpacity(i);
+                //gui2.setOpacity(i);
                 //  System.out.println(i);
                 gui.setVisible(true);
             }
@@ -506,7 +510,7 @@ public class MainGuiFrame extends java.awt.Frame {
             gui.dispose();
             gui.setUndecorated(true);
             for (float i = 0.0f; i < 1.0f; i += 0.005f) {
-		//gui3.setOpacity(i);
+                //gui3.setOpacity(i);
                 //System.out.println(i);
                 gui.setVisible(true);
             }
@@ -724,8 +728,14 @@ public class MainGuiFrame extends java.awt.Frame {
 
         @Override
         public void actionPerformed(ActionEvent e) {
-            HelpDialog dialog = new HelpDialog();
-            dialog.setVisible(true);
+            File manual;
+            if ("nl_NL".equals(Locale.getDefault().toString())) {
+                manual = new File(MainGuiFrame.class.getResource("/manual/NL.pdf").getPath());
+            } else {
+                manual = new File(MainGuiFrame.class.getResource("/manual/EN.pdf").getPath());
+            }
+            PDFViewer manualViewer = new PDFViewer(manual);
+            manualViewer.setVisible(true);
         }
     }
 
