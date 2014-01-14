@@ -92,6 +92,36 @@ public class MedewerkerDAO {
 
         return list;
     }
+    
+        public List<Medewerker> readAllMore() throws SQLException {
+        List<Medewerker> list = new LinkedList<Medewerker>();
+        ResultSet rs;
+        PreparedStatement prdstmt;
+
+        String query = "SELECT  * FROM `Users` LIMIT 99";
+
+        conn.startConnection();
+
+        prdstmt = conn.getConnection().prepareStatement(query);
+        rs = conn.performSelect(prdstmt);
+
+        while (rs.next()) {
+            Medewerker tempMedewerker = new Medewerker();
+            tempMedewerker.setId(rs.getInt("userId"));
+            tempMedewerker.setName(rs.getString("userRealName"));
+            tempMedewerker.setUsername(rs.getString("userName"));
+            tempMedewerker.setPassword(rs.getString("userPass"));
+            tempMedewerker.setAppManager(rs.getBoolean("userBeheer"));
+            tempMedewerker.setManager(rs.getBoolean("userManager"));
+            list.add(tempMedewerker);
+        }
+
+        if (conn != null) {
+            conn.closeConnection();
+        }
+
+        return list;
+    }
 
     public Medewerker readByID(int medewerkerId) throws SQLException {
         ResultSet rs;

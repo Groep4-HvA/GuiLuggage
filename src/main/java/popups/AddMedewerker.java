@@ -71,6 +71,13 @@ public class AddMedewerker extends javax.swing.JFrame {
         requiredFields = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        addWindowFocusListener(new java.awt.event.WindowFocusListener() {
+            public void windowGainedFocus(java.awt.event.WindowEvent evt) {
+            }
+            public void windowLostFocus(java.awt.event.WindowEvent evt) {
+                formWindowLostFocus(evt);
+            }
+        });
 
         java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("Bundle"); // NOI18N
         saveButton.setText(bundle.getString("AddMedewerker.saveButton.text")); // NOI18N
@@ -223,6 +230,10 @@ public class AddMedewerker extends javax.swing.JFrame {
             errorText.setText(BUNDLE.getString("errorPassNotEqual"));
         }
     }//GEN-LAST:event_saveButtonActionPerformed
+
+    private void formWindowLostFocus(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowLostFocus
+        this.dispose();
+    }//GEN-LAST:event_formWindowLostFocus
 
     @Override
     public String toString() {

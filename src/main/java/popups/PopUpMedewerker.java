@@ -121,6 +121,13 @@ public class PopUpMedewerker extends javax.swing.JFrame {
         emailAdressField = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        addWindowFocusListener(new java.awt.event.WindowFocusListener() {
+            public void windowGainedFocus(java.awt.event.WindowEvent evt) {
+            }
+            public void windowLostFocus(java.awt.event.WindowEvent evt) {
+                formWindowLostFocus(evt);
+            }
+        });
 
         java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("Bundle"); // NOI18N
         labelLabel.setText(bundle.getString("PopUpMedewerker.labelLabel.text")); // NOI18N
@@ -192,10 +199,9 @@ public class PopUpMedewerker extends javax.swing.JFrame {
 
         phoneNrField.setText(bundle.getString("PopUpMedewerker.phoneNrField.text")); // NOI18N
 
-        java.util.ResourceBundle bundle1 = java.util.ResourceBundle.getBundle("Bundle"); // NOI18N
-        emailAdressLabel.setText(bundle1.getString("PopUpMedewerker.emailAdressLabel.text")); // NOI18N
+        emailAdressLabel.setText(bundle.getString("PopUpMedewerker.emailAdressLabel.text")); // NOI18N
 
-        emailAdressField.setText(bundle1.getString("PopUpMedewerker.emailAdressField.text")); // NOI18N
+        emailAdressField.setText(bundle.getString("PopUpMedewerker.emailAdressField.text")); // NOI18N
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -362,7 +368,7 @@ public class PopUpMedewerker extends javax.swing.JFrame {
                     .addComponent(printButton)
                     .addComponent(saveButton)
                     .addComponent(cancelButton))
-                .addContainerGap(8, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
@@ -419,6 +425,11 @@ public class PopUpMedewerker extends javax.swing.JFrame {
 	pdf.generate(label, color, shape, name, surname, adres, postalCode, city, residentAdres, residentPostalCode, residentCity, details, handlerId, phoneNr, email);
 	pdf.print();
     }//GEN-LAST:event_printButtonActionPerformed
+
+    private void formWindowLostFocus(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowLostFocus
+        this.dispose();
+    }//GEN-LAST:event_formWindowLostFocus
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton cancelButton;
     private javax.swing.JLabel colorLabel;
