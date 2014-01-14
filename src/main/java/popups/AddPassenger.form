@@ -37,16 +37,17 @@
                       </Group>
                   </Group>
                   <Group type="102" alignment="1" attributes="0">
-                      <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                          <Component id="addressHLabel" alignment="0" pref="114" max="32767" attributes="0"/>
-                          <Component id="aditionalDetailsLabel" alignment="0" pref="114" max="32767" attributes="0"/>
-                          <Group type="103" alignment="0" groupAlignment="1" max="-2" attributes="0">
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                              <Component id="addressHLabel" alignment="0" pref="114" max="32767" attributes="0"/>
+                              <Component id="aditionalDetailsLabel" alignment="0" pref="114" max="32767" attributes="0"/>
                               <Component id="postalCodeRLabel" alignment="0" max="32767" attributes="0"/>
-                              <Component id="addressRLabel" alignment="0" pref="108" max="32767" attributes="0"/>
+                              <Component id="addressRLabel" alignment="0" pref="114" max="32767" attributes="0"/>
+                              <Component id="postalCodeHLabel" alignment="0" max="32767" attributes="0"/>
                           </Group>
-                          <Component id="postalCodeHLabel" alignment="0" max="32767" attributes="0"/>
+                          <Component id="requiredFields" alignment="0" min="-2" max="-2" attributes="0"/>
                       </Group>
-                      <EmptySpace pref="22" max="32767" attributes="0"/>
+                      <EmptySpace max="32767" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Component id="detailsTextfield" max="32767" attributes="0"/>
                           <Component id="adresTextfield" alignment="1" max="32767" attributes="0"/>
@@ -59,7 +60,7 @@
                                   <Group type="102" alignment="0" attributes="0">
                                       <Component id="cityHLabel" min="-2" max="-2" attributes="0"/>
                                       <EmptySpace type="separate" max="-2" attributes="0"/>
-                                      <Component id="cityTextfield" pref="402" max="32767" attributes="0"/>
+                                      <Component id="cityTextfield" pref="417" max="32767" attributes="0"/>
                                   </Group>
                               </Group>
                           </Group>
@@ -76,12 +77,10 @@
                               <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                           </Group>
                           <Group type="102" alignment="0" attributes="0">
-                              <Component id="requiredFields" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace pref="155" max="32767" attributes="0"/>
                               <Component id="printButton" min="-2" pref="91" max="-2" attributes="0"/>
-                              <EmptySpace type="separate" max="-2" attributes="0"/>
+                              <EmptySpace type="unrelated" max="-2" attributes="0"/>
                               <Component id="pdfButton" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace min="-2" pref="17" max="-2" attributes="0"/>
+                              <EmptySpace max="32767" attributes="0"/>
                               <Component id="saveButton" min="-2" pref="73" max="-2" attributes="0"/>
                               <EmptySpace type="separate" max="-2" attributes="0"/>
                               <Component id="cancelButton" min="-2" pref="80" max="-2" attributes="0"/>
@@ -90,10 +89,10 @@
                   </Group>
                   <Group type="102" attributes="0">
                       <Group type="103" groupAlignment="1" attributes="0">
-                          <Component id="colorLabel" alignment="0" pref="114" max="32767" attributes="0"/>
-                          <Component id="lLabelLabel" alignment="0" pref="114" max="32767" attributes="0"/>
-                          <Component id="shapeLabel" alignment="0" pref="114" max="32767" attributes="0"/>
-                          <Component id="nameLabel" alignment="0" pref="114" max="32767" attributes="0"/>
+                          <Component id="colorLabel" alignment="0" pref="112" max="32767" attributes="0"/>
+                          <Component id="lLabelLabel" alignment="0" pref="112" max="32767" attributes="0"/>
+                          <Component id="shapeLabel" alignment="0" pref="112" max="32767" attributes="0"/>
+                          <Component id="nameLabel" alignment="0" pref="112" max="32767" attributes="0"/>
                           <Component id="phoneNrLabel" alignment="0" max="32767" attributes="0"/>
                           <Component id="emailAdressLabel" max="32767" attributes="0"/>
                       </Group>
@@ -107,7 +106,7 @@
                               <EmptySpace type="separate" max="-2" attributes="0"/>
                               <Component id="surNameLabel" min="-2" max="-2" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
-                              <Component id="surnameTextfield" pref="393" max="32767" attributes="0"/>
+                              <Component id="surnameTextfield" pref="391" max="32767" attributes="0"/>
                           </Group>
                           <Component id="phoneNrText" alignment="0" max="32767" attributes="0"/>
                           <Component id="emailAdress" alignment="0" max="32767" attributes="0"/>
@@ -126,12 +125,12 @@
                   <Component id="labelTextfield" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="lLabelLabel" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="0" attributes="0">
-                  <Component id="colorLabel" min="-2" max="-2" attributes="0"/>
-                  <Component id="colorTextfield" min="-2" max="-2" attributes="0"/>
+              <EmptySpace type="unrelated" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="3" attributes="0">
+                  <Component id="colorTextfield" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="colorLabel" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace max="-2" attributes="0"/>
+              <EmptySpace type="unrelated" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="shapeTextfield" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="shapeLabel" alignment="3" min="-2" pref="16" max="-2" attributes="0"/>
@@ -153,11 +152,11 @@
                   <Component id="emailAdressLabel" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="emailAdress" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace max="32767" attributes="0"/>
+              <EmptySpace type="separate" max="32767" attributes="0"/>
               <Component id="hAddressLabel" min="-2" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
               <Component id="homeSeparator" min="-2" max="-2" attributes="0"/>
-              <EmptySpace min="-2" max="-2" attributes="0"/>
+              <EmptySpace type="unrelated" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="adresTextfield" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="addressHLabel" alignment="3" max="32767" attributes="0"/>
@@ -169,11 +168,11 @@
                   <Component id="cityTextfield" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="postalCodeHLabel" alignment="3" min="-2" pref="14" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace min="-2" pref="2" max="-2" attributes="0"/>
+              <EmptySpace type="separate" max="32767" attributes="0"/>
               <Component id="residentAddressLabel" min="-2" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
               <Component id="residentSeparator" min="-2" max="-2" attributes="0"/>
-              <EmptySpace min="-2" max="-2" attributes="0"/>
+              <EmptySpace type="unrelated" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="residentAdresTextfield" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="addressRLabel" alignment="3" min="-2" pref="20" max="-2" attributes="0"/>
@@ -193,14 +192,16 @@
                       <Component id="aditionalDetailsLabel" min="-2" pref="14" max="-2" attributes="0"/>
                   </Group>
               </Group>
-              <EmptySpace max="-2" attributes="0"/>
+              <EmptySpace type="separate" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Component id="printButton" alignment="0" min="-2" max="-2" attributes="0"/>
+                  <Group type="103" alignment="0" groupAlignment="3" attributes="0">
+                      <Component id="printButton" alignment="0" min="-2" max="-2" attributes="0"/>
+                      <Component id="requiredFields" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="pdfButton" alignment="3" min="-2" max="-2" attributes="0"/>
+                  </Group>
                   <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="cancelButton" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="saveButton" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="pdfButton" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="requiredFields" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
@@ -394,9 +395,6 @@
           <ResourceString bundle="Bundle.properties" key="AddPassenger.phoneNrText.toolTipText" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
         </Property>
       </Properties>
-      <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="phoneNrTextActionPerformed"/>
-      </Events>
     </Component>
     <Component class="javax.swing.JButton" name="pdfButton">
       <Properties>
@@ -421,9 +419,6 @@
           <ResourceString bundle="Bundle.properties" key="AddPassenger.emailAdress.text" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
         </Property>
       </Properties>
-      <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="emailAdressActionPerformed"/>
-      </Events>
     </Component>
     <Component class="javax.swing.JLabel" name="requiredFields">
       <Properties>

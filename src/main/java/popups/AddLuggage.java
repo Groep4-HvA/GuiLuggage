@@ -7,9 +7,7 @@ package popups;
 import java.sql.SQLException;
 import java.util.List;
 import javax.swing.JOptionPane;
-import main.MainGuiFrame;
 import models.Case;
-import models.CaseDao;
 import models.Check;
 import models.Debug;
 import models.Luggage;
@@ -32,6 +30,7 @@ public class AddLuggage extends javax.swing.JFrame {
     private String phoneNr;
     private Medewerker tempMedewerker = null;
     private MedewerkerDAO medewerkerTijdelijk = new MedewerkerDAO();
+    private final java.util.ResourceBundle BUNDLE = java.util.ResourceBundle.getBundle("Bundle");
     private int medewerkerID;
     private List<Case> caseList = null;
 
@@ -133,14 +132,13 @@ public class AddLuggage extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(adDetailsLabel)
-                    .addComponent(labelLabel)
-                    .addComponent(colorLabel)
-                    .addComponent(shapeLabel)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                        .addComponent(phoneNrLabel, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(storageLocationLabel, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(phoneNrLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(storageLocationLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(labelLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(colorLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(shapeLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(adDetailsLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
@@ -212,7 +210,20 @@ public class AddLuggage extends javax.swing.JFrame {
         location = locationTextField.getText();
         details = detailsTextField.getText();
         phoneNr = phoneNrText.getText();
-        if (Check.verifyLuggage(label, color, shape, location, details, phoneNr)) {
+        String footer = String.format(BUNDLE.getString("ConfirmFooter"), BUNDLE.getString("Luggage")).toLowerCase();
+        String message = BUNDLE.getString("ConfirmHead") + "\n"
+                + BUNDLE.getString("AddLuggage.labelLabel.text") + " = " + label + "\n"
+                + BUNDLE.getString("AddLuggage.colorLabel.text") + " = " + color + "\n"
+                + BUNDLE.getString("AddLuggage.shapeLabel.text") + " = " + shape + "\n"
+                + BUNDLE.getString("AddLuggage.phoneNrLabel.text") + " = " + location + "\n"
+                + BUNDLE.getString("AddLuggage.storageLocationLabel.text") + " = " + details + "\n"
+                + BUNDLE.getString("AddLuggage.adDetailsLabel.text") + " = " + phoneNr + "\n\n"
+                + footer;
+        int selectedOption = JOptionPane.showConfirmDialog(null,
+                message,
+                BUNDLE.getString("Confirm"),
+                JOptionPane.YES_NO_OPTION);
+        if (Check.verifyLuggage(label, color, shape, location, details, phoneNr)&&selectedOption == JOptionPane.YES_OPTION) {
             Debug.println(Check.cleanPhone(phoneNr));
             newLuggage = new Luggage(label, color, shape, location, details, phoneNr);
             saveData(newLuggage);
@@ -236,11 +247,11 @@ public class AddLuggage extends javax.swing.JFrame {
             Debug.printError(e.toString());
             Debug.printError(e.getSQLState());
         }
-        
+
         try {
             tempMedewerker = medewerkerTijdelijk.readByID(medewerkerID);
             /*MainGuiFrame f = new MainGuiFrame(tempMedewerker.isAppManager(), medewerkerID);
-            f.fillTableMore();*/
+             f.fillTableMore();*/
         } catch (SQLException e) {
             Debug.printError(e.toString());
         }

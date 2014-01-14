@@ -31,15 +31,13 @@
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" attributes="0">
               <EmptySpace max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="0" attributes="0">
-                  <Component id="adDetailsLabel" min="-2" max="-2" attributes="0"/>
-                  <Component id="labelLabel" min="-2" max="-2" attributes="0"/>
-                  <Component id="colorLabel" alignment="0" min="-2" max="-2" attributes="0"/>
-                  <Component id="shapeLabel" alignment="0" min="-2" max="-2" attributes="0"/>
-                  <Group type="103" alignment="0" groupAlignment="1" max="-2" attributes="0">
-                      <Component id="phoneNrLabel" alignment="0" max="32767" attributes="0"/>
-                      <Component id="storageLocationLabel" alignment="0" max="32767" attributes="0"/>
-                  </Group>
+              <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                  <Component id="phoneNrLabel" alignment="0" max="32767" attributes="0"/>
+                  <Component id="storageLocationLabel" alignment="0" max="32767" attributes="0"/>
+                  <Component id="labelLabel" alignment="0" max="32767" attributes="0"/>
+                  <Component id="colorLabel" alignment="0" max="32767" attributes="0"/>
+                  <Component id="shapeLabel" alignment="0" max="32767" attributes="0"/>
+                  <Component id="adDetailsLabel" alignment="0" max="32767" attributes="0"/>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
