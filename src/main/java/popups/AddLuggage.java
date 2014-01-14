@@ -234,14 +234,15 @@ public class AddLuggage extends javax.swing.JFrame {
             test.create(item, handlerId);
         } catch (SQLException e) {
             Debug.printError(e.toString());
+            Debug.printError(e.getSQLState());
         }
         
         try {
             tempMedewerker = medewerkerTijdelijk.readByID(medewerkerID);
-            MainGuiFrame f = new MainGuiFrame(tempMedewerker.isAppManager(), medewerkerID);
-            f.fillTableMore();
+            /*MainGuiFrame f = new MainGuiFrame(tempMedewerker.isAppManager(), medewerkerID);
+            f.fillTableMore();*/
         } catch (SQLException e) {
-            e.printStackTrace();
+            Debug.printError(e.toString());
         }
 
         dispose();

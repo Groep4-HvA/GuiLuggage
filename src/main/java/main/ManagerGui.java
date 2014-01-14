@@ -67,9 +67,9 @@ public class ManagerGui extends java.awt.Frame {
             listPending = dbCase.readAllPending();
             listResolved = dbCase.readAllResolved();
 
-            jLabel1.setText(bundle.getString("ManagerGui.jLabel1.text") + "" + listPending.size());
-            jLabel2.setText(bundle.getString("ManagerGui.jLabel2.text") + "" + listResolved.size());
-            jLabel3.setText(bundle.getString("ManagerGui.jLabel3.text") + "" + list.size());
+            pendingLabel.setText(bundle.getString("ManagerGui.jLabel1.text") + "" + listPending.size());
+            resolvLabel.setText(bundle.getString("ManagerGui.jLabel2.text") + "" + listResolved.size());
+            totalLabel.setText(bundle.getString("ManagerGui.jLabel3.text") + "" + list.size());
             jTable1.getColumnModel().getColumn(0).setHeaderValue("#");
             jTable1.getColumnModel().getColumn(1).setHeaderValue(bundle.getString("table.LuggageNumber"));
             jTable1.getColumnModel().getColumn(2).setHeaderValue(bundle.getString("table.AddDate"));
@@ -97,11 +97,11 @@ public class ManagerGui extends java.awt.Frame {
         foundManager = new javax.swing.JButton();
         processedManager = new javax.swing.JButton();
         graphManager = new javax.swing.JButton();
-        jLabel1 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
+        pendingLabel = new javax.swing.JLabel();
+        resolvLabel = new javax.swing.JLabel();
+        totalLabel = new javax.swing.JLabel();
         printButton = new javax.swing.JButton();
-        jLabel4 = new javax.swing.JLabel();
+        tillLabel = new javax.swing.JLabel();
         selectButton = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
@@ -173,11 +173,11 @@ public class ManagerGui extends java.awt.Frame {
             }
         });
 
-        jLabel1.setText(bundle.getString("ManagerGui.jLabel1.text")); // NOI18N
+        pendingLabel.setText(bundle.getString("ManagerGui.pendingLabel.text")); // NOI18N
 
-        jLabel2.setText(bundle.getString("ManagerGui.jLabel2.text")); // NOI18N
+        resolvLabel.setText(bundle.getString("ManagerGui.resolvLabel.text")); // NOI18N
 
-        jLabel3.setText(bundle.getString("ManagerGui.jLabel3.text")); // NOI18N
+        totalLabel.setText(bundle.getString("ManagerGui.totalLabel.text")); // NOI18N
 
         printButton.setText(bundle.getString("ManagerGui.printButton.text")); // NOI18N
         printButton.addActionListener(new java.awt.event.ActionListener() {
@@ -186,7 +186,7 @@ public class ManagerGui extends java.awt.Frame {
             }
         });
 
-        jLabel4.setText(bundle.getString("ManagerGui.jLabel4.text")); // NOI18N
+        tillLabel.setText(bundle.getString("ManagerGui.tillLabel.text")); // NOI18N
 
         selectButton.setText(bundle.getString("ManagerGui.jButton2.text")); // NOI18N
         selectButton.addActionListener(new java.awt.event.ActionListener() {
@@ -302,9 +302,11 @@ public class ManagerGui extends java.awt.Frame {
             }
         ));
         jScrollPane1.setViewportView(jTable1);
-        jTable1.getColumnModel().getColumn(0).setHeaderValue(bundle.getString("ManagerGui.jTable1.columnModel.title0")); // NOI18N
-        jTable1.getColumnModel().getColumn(1).setHeaderValue(bundle.getString("ManagerGui.jTable1.columnModel.title1")); // NOI18N
-        jTable1.getColumnModel().getColumn(2).setHeaderValue(bundle.getString("ManagerGui.jTable1.columnModel.title2")); // NOI18N
+        if (jTable1.getColumnModel().getColumnCount() > 0) {
+            jTable1.getColumnModel().getColumn(0).setHeaderValue(bundle.getString("ManagerGui.jTable1.columnModel.title0")); // NOI18N
+            jTable1.getColumnModel().getColumn(1).setHeaderValue(bundle.getString("ManagerGui.jTable1.columnModel.title1")); // NOI18N
+            jTable1.getColumnModel().getColumn(2).setHeaderValue(bundle.getString("ManagerGui.jTable1.columnModel.title2")); // NOI18N
+        }
 
         PDF.setText(bundle.getString("ManagerGui.PDF.text")); // NOI18N
         PDF.addActionListener(new java.awt.event.ActionListener() {
@@ -343,11 +345,11 @@ public class ManagerGui extends java.awt.Frame {
                                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
                                 .add(processedManager)
                                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, 171, Short.MAX_VALUE)
-                                .add(jLabel1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 93, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                                .add(pendingLabel, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 93, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
-                                .add(jLabel2, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 104, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                                .add(resolvLabel, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 104, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
-                                .add(jLabel3, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 90, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                                .add(totalLabel, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 90, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, 172, Short.MAX_VALUE)
                                 .add(graphManager))
                             .add(jPanel2Layout.createSequentialGroup()
@@ -357,7 +359,7 @@ public class ManagerGui extends java.awt.Frame {
                                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, 69, Short.MAX_VALUE)
                                 .add(firstDateChooser, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                                .add(jLabel4)
+                                .add(tillLabel)
                                 .add(18, 18, 18)
                                 .add(secondDateChooser, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
@@ -386,20 +388,20 @@ public class ManagerGui extends java.awt.Frame {
                     .add(missingManager)
                     .add(processedManager)
                     .add(graphManager)
-                    .add(jLabel1)
-                    .add(jLabel2)
-                    .add(jLabel3)
+                    .add(pendingLabel)
+                    .add(resolvLabel)
+                    .add(totalLabel)
                     .add(foundManager))
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
                 .add(jScrollPane1, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 450, Short.MAX_VALUE)
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                 .add(jPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING, false)
-                    .add(jPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
+                    .add(clearButton, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .add(org.jdesktop.layout.GroupLayout.LEADING, jPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
                         .add(moreButton)
-                        .add(selectButton)
-                        .add(clearButton, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .add(selectButton))
                     .add(jPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
-                        .add(jLabel4)
+                        .add(tillLabel)
                         .add(PDF)
                         .add(printButton))
                     .add(secondDateChooser, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
@@ -671,20 +673,20 @@ public class ManagerGui extends java.awt.Frame {
     private com.toedter.calendar.JDateChooser firstDateChooser;
     private javax.swing.JButton foundManager;
     private javax.swing.JButton graphManager;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTable1;
     private javax.swing.JButton logoutButton;
     private javax.swing.JButton missingManager;
     private javax.swing.JButton myAccountButton;
+    private javax.swing.JLabel pendingLabel;
     private javax.swing.JButton printButton;
     private javax.swing.JButton processedManager;
+    private javax.swing.JLabel resolvLabel;
     private com.toedter.calendar.JDateChooser secondDateChooser;
     private javax.swing.JButton selectButton;
+    private javax.swing.JLabel tillLabel;
+    private javax.swing.JLabel totalLabel;
     // End of variables declaration//GEN-END:variables
 
     /**
