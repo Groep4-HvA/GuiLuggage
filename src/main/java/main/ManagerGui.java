@@ -74,7 +74,10 @@ public class ManagerGui extends java.awt.Frame {
             jTable1.getColumnModel().getColumn(1).setHeaderValue(bundle.getString("table.LuggageNumber"));
             jTable1.getColumnModel().getColumn(2).setHeaderValue(bundle.getString("table.AddDate"));
             fillTable(list);
-            processedManager.setBackground(Color.red);
+            processedManager.setForeground(Color.red);
+	    processedManager.setOpaque(true);
+	    missingManager.setOpaque(true);
+	    foundManager.setOpaque(true);
         }
     }
 
@@ -243,11 +246,9 @@ public class ManagerGui extends java.awt.Frame {
             }
         ));
         jScrollPane1.setViewportView(jTable1);
-        if (jTable1.getColumnModel().getColumnCount() > 0) {
-            jTable1.getColumnModel().getColumn(0).setHeaderValue(bundle.getString("ManagerGui.jTable1.columnModel.title0")); // NOI18N
-            jTable1.getColumnModel().getColumn(1).setHeaderValue(bundle.getString("ManagerGui.jTable1.columnModel.title1")); // NOI18N
-            jTable1.getColumnModel().getColumn(2).setHeaderValue(bundle.getString("ManagerGui.jTable1.columnModel.title2")); // NOI18N
-        }
+        jTable1.getColumnModel().getColumn(0).setHeaderValue(bundle.getString("ManagerGui.jTable1.columnModel.title0")); // NOI18N
+        jTable1.getColumnModel().getColumn(1).setHeaderValue(bundle.getString("ManagerGui.jTable1.columnModel.title1")); // NOI18N
+        jTable1.getColumnModel().getColumn(2).setHeaderValue(bundle.getString("ManagerGui.jTable1.columnModel.title2")); // NOI18N
 
         PDF.setText(bundle.getString("ManagerGui.PDF.text")); // NOI18N
         PDF.addActionListener(new java.awt.event.ActionListener() {
@@ -297,7 +298,7 @@ public class ManagerGui extends java.awt.Frame {
                                 .add(printButton)
                                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
                                 .add(PDF)
-                                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, 130, Short.MAX_VALUE)
+                                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, 69, Short.MAX_VALUE)
                                 .add(firstDateChooser, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                                 .add(jLabel4)
@@ -307,7 +308,7 @@ public class ManagerGui extends java.awt.Frame {
                                 .add(selectButton)
                                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
                                 .add(clearButton, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 71, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, 228, Short.MAX_VALUE)
+                                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, 167, Short.MAX_VALUE)
                                 .add(moreButton)))
                         .addContainerGap())
                     .add(jPanel2Layout.createSequentialGroup()
@@ -334,13 +335,13 @@ public class ManagerGui extends java.awt.Frame {
                     .add(jLabel3)
                     .add(foundManager))
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
-                .add(jScrollPane1, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 447, Short.MAX_VALUE)
+                .add(jScrollPane1, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 450, Short.MAX_VALUE)
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                .add(jPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING)
+                .add(jPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING, false)
                     .add(jPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
                         .add(moreButton)
-                        .add(clearButton, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                        .add(selectButton))
+                        .add(selectButton)
+                        .add(clearButton, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .add(jPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
                         .add(jLabel4)
                         .add(PDF)
@@ -390,9 +391,9 @@ public class ManagerGui extends java.awt.Frame {
         dateString = String.format("%1$tY-%1$tm-%1$td", datum1);
         datum2 = secondDateChooser.getDate();
         dateString2 = String.format("%1$tY-%1$tm-%1$td", datum2);
-        missingManager.setBackground(Color.red);
-        processedManager.setBackground(Color.white);
-        foundManager.setBackground(Color.white);
+        missingManager.setForeground(Color.red);
+        processedManager.setForeground(Color.black);
+        foundManager.setForeground(Color.black);
         try {
             if (firstDateChooser.getDate() == null || secondDateChooser.getDate() == null) {
                 list = dbCase.readAllPending();
@@ -430,9 +431,9 @@ public class ManagerGui extends java.awt.Frame {
             dateString = String.format("%1$tY-%1$tm-%1$td", datum1);
             datum2 = secondDateChooser.getDate();
             dateString2 = String.format("%1$tY-%1$tm-%1$td", datum2);
-            missingManager.setBackground(Color.white);
-            processedManager.setBackground(Color.red);
-            foundManager.setBackground(Color.white);
+            missingManager.setForeground(Color.black);
+            processedManager.setForeground(Color.red);
+            foundManager.setForeground(Color.black);
             if (firstDateChooser.getDate() == null || secondDateChooser.getDate() == null) {
                 list = dbCase.readAll();
                 fillTable(list);
@@ -537,9 +538,9 @@ public class ManagerGui extends java.awt.Frame {
             dateString = String.format("%1$tY-%1$tm-%1$td", datum1);
             datum2 = secondDateChooser.getDate();
             dateString2 = String.format("%1$tY-%1$tm-%1$td", datum2);
-            missingManager.setBackground(Color.white);
-            processedManager.setBackground(Color.white);
-            foundManager.setBackground(Color.red);
+            missingManager.setForeground(Color.black);
+            processedManager.setForeground(Color.black);
+            foundManager.setForeground(Color.red);
             if (firstDateChooser.getDate() == null || secondDateChooser.getDate() == null) {
                 list = dbCase.readAllResolved();
                 fillTable(list);
