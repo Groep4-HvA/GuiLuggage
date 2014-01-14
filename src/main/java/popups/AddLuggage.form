@@ -42,15 +42,17 @@
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" attributes="0">
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Group type="102" attributes="0">
+                          <Group type="102" alignment="0" attributes="0">
+                              <Component id="requiredFields" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace max="32767" attributes="0"/>
                               <Component id="Save" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace pref="409" max="32767" attributes="0"/>
+                              <EmptySpace min="-2" pref="124" max="-2" attributes="0"/>
                               <Component id="cancel" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <Component id="labelTextField" alignment="1" max="32767" attributes="0"/>
                           <Component id="colorTextField" alignment="1" max="32767" attributes="0"/>
                           <Component id="shapeTextField" alignment="1" max="32767" attributes="0"/>
-                          <Component id="jScrollPane1" alignment="1" max="32767" attributes="0"/>
+                          <Component id="jScrollPane1" alignment="1" pref="529" max="32767" attributes="0"/>
                           <Component id="jScrollPane2" alignment="0" max="32767" attributes="0"/>
                       </Group>
                       <EmptySpace min="-2" pref="3" max="-2" attributes="0"/>
@@ -98,8 +100,11 @@
               </Group>
               <EmptySpace type="unrelated" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Component id="cancel" min="-2" max="-2" attributes="0"/>
-                  <Component id="Save" alignment="0" min="-2" max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="3" attributes="0">
+                      <Component id="cancel" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="Save" alignment="3" min="-2" max="-2" attributes="0"/>
+                  </Group>
+                  <Component id="requiredFields" alignment="0" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace max="32767" attributes="0"/>
           </Group>
@@ -209,6 +214,13 @@
       <Properties>
         <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
           <ResourceString bundle="Bundle.properties" key="AddLuggage.phoneNrText.text" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
+        </Property>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JLabel" name="requiredFields">
+      <Properties>
+        <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
+          <ResourceString bundle="popups/Bundle.properties" key="AddLuggage.requiredFields.text" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
         </Property>
       </Properties>
     </Component>

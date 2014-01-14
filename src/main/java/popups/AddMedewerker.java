@@ -68,6 +68,7 @@ public class AddMedewerker extends javax.swing.JFrame {
         firstPasswordField = new javax.swing.JPasswordField();
         confirmPasswordField = new javax.swing.JPasswordField();
         errorText = new javax.swing.JLabel();
+        requiredFields = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -98,6 +99,9 @@ public class AddMedewerker extends javax.swing.JFrame {
 
         errorText.setText(bundle.getString("AddMedewerker.errorText.text")); // NOI18N
 
+        java.util.ResourceBundle bundle1 = java.util.ResourceBundle.getBundle("popups/Bundle"); // NOI18N
+        requiredFields.setText(bundle1.getString("AddMedewerker.requiredFields.text")); // NOI18N
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -120,19 +124,22 @@ public class AddMedewerker extends javax.swing.JFrame {
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(confirmPasswordField)
                                     .addGroup(layout.createSequentialGroup()
-                                        .addComponent(saveButton, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED, 181, Short.MAX_VALUE)
-                                        .addComponent(cancelButton, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addGroup(layout.createSequentialGroup()
                                         .addComponent(appManagerCheckBox)
-                                        .addGap(0, 0, Short.MAX_VALUE))))))
+                                        .addGap(0, 226, Short.MAX_VALUE))))))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                             .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, 114, Short.MAX_VALUE))
                         .addGap(18, 18, 18)
                         .addComponent(nameTextField))
-                    .addComponent(errorText, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(errorText, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(85, 85, 85)
+                        .addComponent(requiredFields)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(saveButton, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(cancelButton, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -164,7 +171,8 @@ public class AddMedewerker extends javax.swing.JFrame {
                 .addGap(13, 13, 13)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(saveButton)
-                    .addComponent(cancelButton))
+                    .addComponent(cancelButton)
+                    .addComponent(requiredFields))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -232,6 +240,7 @@ public class AddMedewerker extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JTextField nameTextField;
+    private javax.swing.JLabel requiredFields;
     private javax.swing.JButton saveButton;
     private javax.swing.JTextField usernameTextField;
     // End of variables declaration//GEN-END:variables
