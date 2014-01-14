@@ -96,6 +96,13 @@ public class AddPassenger extends javax.swing.JFrame {
         emailAdress = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        addWindowFocusListener(new java.awt.event.WindowFocusListener() {
+            public void windowGainedFocus(java.awt.event.WindowEvent evt) {
+            }
+            public void windowLostFocus(java.awt.event.WindowEvent evt) {
+                formWindowLostFocus(evt);
+            }
+        });
 
         java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("Bundle"); // NOI18N
         saveButton.setText(bundle.getString("AddPassenger.saveButton.text")); // NOI18N
@@ -169,10 +176,9 @@ public class AddPassenger extends javax.swing.JFrame {
             }
         });
 
-        java.util.ResourceBundle bundle1 = java.util.ResourceBundle.getBundle("Bundle"); // NOI18N
-        emailAdressLabel.setText(bundle1.getString("AddPassenger.emailAdressLabel.text")); // NOI18N
+        emailAdressLabel.setText(bundle.getString("AddPassenger.emailAdressLabel.text")); // NOI18N
 
-        emailAdress.setText(bundle1.getString("AddPassenger.emailAdress.text")); // NOI18N
+        emailAdress.setText(bundle.getString("AddPassenger.emailAdress.text")); // NOI18N
         emailAdress.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 emailAdressActionPerformed(evt);
@@ -414,6 +420,10 @@ public class AddPassenger extends javax.swing.JFrame {
     private void phoneNrTextActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_phoneNrTextActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_phoneNrTextActionPerformed
+
+    private void formWindowLostFocus(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowLostFocus
+        this.dispose();
+    }//GEN-LAST:event_formWindowLostFocus
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel addressHLabel;
