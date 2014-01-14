@@ -414,7 +414,11 @@ public class MainGuiFrame extends java.awt.Frame {
      * TODO: How-Fei will do this
      */
     private void moreButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_moreButtonActionPerformed
-        fillTableMore();
+        if (inBeheer) {
+                fillTableMedewerkersMore();
+            } else {
+                fillTableCasesMore();
+            }
     }//GEN-LAST:event_moreButtonActionPerformed
 
     /*
@@ -564,7 +568,7 @@ public class MainGuiFrame extends java.awt.Frame {
     private void searchInputActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_searchInputActionPerformed
         searchButtonActionPerformed(evt);
     }//GEN-LAST:event_searchInputActionPerformed
-    public void fillTableMore() {
+    public void fillTableCasesMore() {
         CaseDao dbcase = new CaseDao();
         try {
             caseList = dbcase.ReadAllMore();
@@ -596,6 +600,16 @@ public class MainGuiFrame extends java.awt.Frame {
         MedewerkerDAO dbMedewerker = new MedewerkerDAO();
         try {
             medList = dbMedewerker.readAll();
+        } catch (SQLException e) {
+            Debug.printError(e.toString());
+        }
+        populateTableMedewerker(medList);
+    }
+    
+        public void fillTableMedewerkersMore() {
+        MedewerkerDAO dbMedewerker = new MedewerkerDAO();
+        try {
+            medList = dbMedewerker.readAllMore();
         } catch (SQLException e) {
             Debug.printError(e.toString());
         }
