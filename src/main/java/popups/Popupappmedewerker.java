@@ -8,6 +8,7 @@ import java.awt.Color;
 import java.sql.SQLException;
 import java.util.Arrays;
 import javax.swing.BorderFactory;
+import javax.swing.JOptionPane;
 import models.Check;
 import models.Debug;
 import models.Medewerker;
@@ -188,8 +189,12 @@ public class Popupappmedewerker extends javax.swing.JFrame {
         MedewerkerDAO dbMedewerker;
         dbMedewerker = new MedewerkerDAO();
 
-        if (Arrays.equals(firstPasswordField.getPassword(), confirmPasswordField.getPassword())) {
+        if (Arrays.equals(firstPasswordField.getPassword(), confirmPasswordField.getPassword()) && firstPasswordField.getPassword().length >5 ) {
             medewerker.setPassword(firstPasswordField.getPassword());
+        }else {JOptionPane.showMessageDialog(null,
+                    "Your input was invalid. Password and confirm password should have the same value and they have to be longer then 6 characters.",
+                    "Input error - empty",
+                    JOptionPane.ERROR_MESSAGE);
         }
         try {
             dbMedewerker.update(medewerker);
@@ -198,6 +203,8 @@ public class Popupappmedewerker extends javax.swing.JFrame {
         }
         Debug.println(medewerker.toString());
         dispose();
+        
+        
     }//GEN-LAST:event_saveButtonActionPerformed
 
     private void cancelButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelButtonActionPerformed
