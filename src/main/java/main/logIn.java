@@ -1,5 +1,6 @@
 package main;
 
+import java.awt.Cursor;
 import java.sql.SQLException;
 import java.util.List;
 import models.Check;
@@ -8,23 +9,29 @@ import models.Medewerker;
 import models.MedewerkerDAO;
 import org.apache.commons.codec.digest.DigestUtils;
 
+
 /**
  *
  * @author ChrisvanderHeijden
  */
 public class logIn extends javax.swing.JFrame {
+
     private final java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("Bundle");
     private int handlerId;
+    private Cursor waitCursor = new Cursor(Cursor.WAIT_CURSOR);
+    private Cursor defaultCursor = new Cursor(Cursor.DEFAULT_CURSOR);
 
     /**
      * Creates new form logIn
      */
     public logIn() {
-	Check.resetMedew(null);
+        logIn.super.setCursor(waitCursor);
+        Check.resetMedew(null);
         initComponents();
         this.setLocationRelativeTo(null);
         userName.requestFocusInWindow();
         getRootPane().setDefaultButton(LogIn);
+        logIn.super.setCursor(defaultCursor);
     }
 
     /**
@@ -113,43 +120,53 @@ public class logIn extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
     /**
      * Log in as soon as the button is pressed
-     * @param evt 
+     *
+     * @param evt
      */
     private void LogInActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_LogInActionPerformed
-        try{
-        String username = userName.getText();
-        String password = DigestUtils.sha256Hex(String.valueOf(passWord.getPassword()));
-        
-        MedewerkerDAO dbMedewerker = new MedewerkerDAO();
-        List<Medewerker> list = null;
+        Cursor waiting = new Cursor(Cursor.WAIT_CURSOR);
+//        RootPaneContainer root = (RootPaneContainer) logIn.super.get();
+        logIn.super.getGlassPane().setCursor(waiting);
+        logIn.super.getGlassPane().setVisible(true);
+
+//        logIn.super.setCursor(waiting);
+//        rootPane.setCursor(waiting);
+
+
         try {
-            list = dbMedewerker.readLogIn(username, password);
+            String username = userName.getText();
+            String password = DigestUtils.sha256Hex(String.valueOf(passWord.getPassword()));
+
+            MedewerkerDAO dbMedewerker = new MedewerkerDAO();
+            List<Medewerker> list = null;
+            try {
+                list = dbMedewerker.readLogIn(username, password);
+            } catch (SQLException e) {
+                Debug.printError(e.toString());
+            }
+            if (list.size() == 1) {
+                Medewerker medew = list.get(0);
+                //Debug.printout(medew.toString());
+                Check.setMedew(medew);
+                if (medew.isManager()) {
+                    ManagerGui main = new ManagerGui(medew.isAppManager(), medew.getId());
+                    main.setVisible(true);
+                } else {
+
+                    MainGuiFrame main = new MainGuiFrame(medew.isAppManager(), medew.getId());
+                    main.setVisible(true);
+                }
+                dispose();
+            } else {
+                errorLabel.setText(bundle.getString("noLogin"));
+            }
         } catch (SQLException e) {
             Debug.printError(e.toString());
         }
-        if(list.size()==1){
-            Medewerker medew = list.get(0);
-            //Debug.printout(medew.toString());
-	    Check.setMedew(medew);
-            if(medew.isManager()){
-                ManagerGui main = new ManagerGui(medew.isAppManager(), medew.getId());
-                main.setVisible(true);
-            }else{
-                
-                MainGuiFrame main = new MainGuiFrame(medew.isAppManager(), medew.getId() );
-                main.setVisible(true);
-            }
-            dispose();
-        }else {
-            errorLabel.setText(bundle.getString("noLogin"));
-        }
-        }catch(SQLException e){
-            Debug.printError(e.toString());
-        }
     }//GEN-LAST:event_LogInActionPerformed
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton LogIn;
     private javax.swing.JLabel errorLabel;
