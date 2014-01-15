@@ -205,7 +205,7 @@ public class AddMedewerker extends javax.swing.JFrame {
                 BUNDLE.getString("Confirm"),
                 JOptionPane.YES_NO_OPTION);
         if (Arrays.equals(confirmPassword, password)) {
-            if (selectedOption == JOptionPane.YES_OPTION) {
+            if (Check.verifyUser(name, username, password) && selectedOption == JOptionPane.YES_OPTION) {
                 errorText.setText("");
                 nieuweMedewerker = new Medewerker(username, password, name, "EN", manager, appManager);
                 MedewerkerDAO test = new MedewerkerDAO();
@@ -221,6 +221,11 @@ public class AddMedewerker extends javax.swing.JFrame {
                     errorText.setText(dbFailure);
                 }
             } else {
+                
+                JOptionPane.showMessageDialog(null,
+                    "Your input was invalid. The name, username, password and confirmpassword can not be empty",
+                    "Input error - empty",
+                    JOptionPane.ERROR_MESSAGE);
                 errorText.setText(BUNDLE.getString("notConfirmed"));
             }
             errorText.setText(BUNDLE.getString("errorPassNotEqual"));
