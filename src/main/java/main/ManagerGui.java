@@ -5,6 +5,7 @@
 package main;
 
 import java.awt.Color;
+import java.awt.Cursor;
 import java.awt.Dimension;
 import java.awt.HeadlessException;
 import java.awt.Toolkit;
@@ -49,6 +50,8 @@ public class ManagerGui extends java.awt.Frame {
     private final DateFormat df = new SimpleDateFormat("dd-MM-yyyy");
     private final Date today = Calendar.getInstance().getTime();
     private final String date = df.format(today);
+    private Cursor waiting = new Cursor(Cursor.WAIT_CURSOR);
+    private Cursor defaultCursor = new Cursor(Cursor.DEFAULT_CURSOR);
 
     /**
      * Shows the GUI for the manager
@@ -58,6 +61,7 @@ public class ManagerGui extends java.awt.Frame {
      * @throws SQLException
      */
     public ManagerGui(boolean beheer, int handlerId) throws SQLException {
+        setCursor(waiting);
         if (!Check.verifyLogin()) {
             Runtime.getRuntime().exit(1);
         } else {
@@ -81,6 +85,7 @@ public class ManagerGui extends java.awt.Frame {
 	    missingManager.setOpaque(true);
 	    foundManager.setOpaque(true);
         }
+        setCursor(defaultCursor);
     }
 
     /**
@@ -450,6 +455,7 @@ public class ManagerGui extends java.awt.Frame {
      * @param evt
      */
     private void missingManagerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_missingManagerActionPerformed
+        setCursor(waiting);
         datum1 = firstDateChooser.getDate();
         dateString = String.format("%1$tY-%1$tm-%1$td", datum1);
         datum2 = secondDateChooser.getDate();
@@ -481,6 +487,7 @@ public class ManagerGui extends java.awt.Frame {
         } catch (HeadlessException e) {
             Debug.printError(e.toString());
         }
+        setCursor(defaultCursor);
     }//GEN-LAST:event_missingManagerActionPerformed
     /**
      * Show only the processed entries
@@ -488,6 +495,7 @@ public class ManagerGui extends java.awt.Frame {
      * @param evt
      */
     private void processedManagerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_processedManagerActionPerformed
+        setCursor(waiting);
         try {
 
             datum1 = firstDateChooser.getDate();
@@ -523,6 +531,7 @@ public class ManagerGui extends java.awt.Frame {
         } catch (HeadlessException e) {
             Debug.printError(e.toString());
         }
+        setCursor(defaultCursor);
     }//GEN-LAST:event_processedManagerActionPerformed
     /**
      * Print a page with the PDF
@@ -549,8 +558,10 @@ public class ManagerGui extends java.awt.Frame {
      * @param evt
      */
     private void PDFActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_PDFActionPerformed
+        setCursor(waiting);
         makePDF();
         pdf.save("Corendon_Overview_" + date);
+        setCursor(defaultCursor);
     }//GEN-LAST:event_PDFActionPerformed
     /**
      * Show only the data between the selected dates
@@ -558,6 +569,7 @@ public class ManagerGui extends java.awt.Frame {
      * @param evt
      */
     private void selectButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_selectButtonActionPerformed
+        setCursor(waiting);
         try {
             datum1 = firstDateChooser.getDate();
             dateString = String.format("%1$tY-%1$tm-%1$td", datum1);
@@ -587,7 +599,7 @@ public class ManagerGui extends java.awt.Frame {
         } catch (SQLException e) {
             Debug.printError(e.toString());
         }
-
+        setCursor(defaultCursor);
 
     }//GEN-LAST:event_selectButtonActionPerformed
     /**
@@ -596,6 +608,7 @@ public class ManagerGui extends java.awt.Frame {
      * @param evt
      */
     private void foundManagerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_foundManagerActionPerformed
+        setCursor(waiting);
         try {
             datum1 = firstDateChooser.getDate();
             dateString = String.format("%1$tY-%1$tm-%1$td", datum1);
@@ -627,7 +640,7 @@ public class ManagerGui extends java.awt.Frame {
         } catch (SQLException e) {
             Debug.printError(e.toString());
         }
-
+        setCursor(defaultCursor);
     }//GEN-LAST:event_foundManagerActionPerformed
 
     /**
@@ -651,6 +664,7 @@ public class ManagerGui extends java.awt.Frame {
      * @param evt
      */
     private void graphManagerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_graphManagerActionPerformed
+        setCursor(waiting);
         //jPanel1.setVisible(false);
         if (secondDateChooser.getDate() == null || firstDateChooser.getDate() == null) {
             graph = new ManagerGraph("Manager graph", true);
@@ -666,6 +680,7 @@ public class ManagerGui extends java.awt.Frame {
         } catch (HeadlessException e) {
             Debug.printError(e.toString());
         }
+        setCursor(defaultCursor);
     }//GEN-LAST:event_graphManagerActionPerformed
 
     private void formWindowGainedFocus(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowGainedFocus

@@ -3,6 +3,7 @@ package main;
 import DBUtil.ConnectionMySQL;
 import java.awt.BasicStroke;
 import java.awt.Color;
+import java.awt.Cursor;
 import java.awt.event.WindowEvent;
 import java.io.File;
 import java.io.IOException;
@@ -43,6 +44,8 @@ public class ManagerGraph extends ApplicationFrame {
     private Date lastDate;
     private String graphTitle;
     private  JFreeChart chart = null;
+    private Cursor waiting = new Cursor(Cursor.WAIT_CURSOR);
+    private Cursor defaultCursor = new Cursor(Cursor.DEFAULT_CURSOR);
 
     /**
      * Constructor

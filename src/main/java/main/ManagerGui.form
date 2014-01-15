@@ -62,7 +62,7 @@
                                   <Component id="printButton" min="-2" max="-2" attributes="0"/>
                                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
                                   <Component id="PDF" min="-2" max="-2" attributes="0"/>
-                                  <EmptySpace pref="69" max="32767" attributes="0"/>
+                                  <EmptySpace pref="73" max="32767" attributes="0"/>
                                   <Component id="firstDateChooser" min="-2" max="-2" attributes="0"/>
                                   <EmptySpace max="-2" attributes="0"/>
                                   <Component id="tillLabel" min="-2" max="-2" attributes="0"/>
@@ -72,7 +72,7 @@
                                   <Component id="selectButton" min="-2" max="-2" attributes="0"/>
                                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
                                   <Component id="clearButton" min="-2" pref="71" max="-2" attributes="0"/>
-                                  <EmptySpace pref="167" max="32767" attributes="0"/>
+                                  <EmptySpace pref="171" max="32767" attributes="0"/>
                                   <Component id="moreButton" min="-2" max="-2" attributes="0"/>
                               </Group>
                           </Group>

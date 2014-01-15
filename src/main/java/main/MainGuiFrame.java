@@ -48,6 +48,8 @@ public class MainGuiFrame extends java.awt.Frame {
     private boolean inBeheer = false;
     boolean notify = false; //set to true to enable annoying as hell notifications
     private Image bg;
+    private Cursor waiting = new Cursor(Cursor.WAIT_CURSOR);
+    private Cursor defaultCursor = new Cursor(Cursor.DEFAULT_CURSOR);
 
     /**
      * Constructor for the common user and App Manager screen
@@ -59,6 +61,12 @@ public class MainGuiFrame extends java.awt.Frame {
         if (!Check.verifyLogin()) {
             Runtime.getRuntime().exit(1);
         } else {
+            //wait
+            setCursor(waiting);
+            
+            //MainGuiFrame.get.setCursor(waiting);
+            
+            //logIn.super.getGlassPane().setVisible(true);
             menuBeheer();
             //pre init configuration of Strings
             Debug.println("Configuring variables");
@@ -83,6 +91,8 @@ public class MainGuiFrame extends java.awt.Frame {
             appManagementButton.setVisible(beheer);
             moreButton.setVisible(false);
             fadeMore();
+            //default
+            setCursor(defaultCursor);
         }
     }
 
@@ -430,6 +440,8 @@ public class MainGuiFrame extends java.awt.Frame {
      * TODO: Clean this up (Make a menu method, )
      */
     private void appManagementButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_appManagementButtonActionPerformed
+        setCursor(waiting);
+        
         if (beheer) {
             if (inBeheer) {
                 addNewButton1.setText(bundle.getString("MainGuiFrame.addNew") + button1);
@@ -452,6 +464,7 @@ public class MainGuiFrame extends java.awt.Frame {
         } else {
             Debug.println(bundle.getString("notAuthorized"));
         }
+        setCursor(defaultCursor);
     }//GEN-LAST:event_appManagementButtonActionPerformed
 
     /*
@@ -482,6 +495,7 @@ public class MainGuiFrame extends java.awt.Frame {
     }//GEN-LAST:event_tableResultsMouseClicked
 
     private void addNewButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addNewButton1ActionPerformed
+        
         if (inBeheer) {
             AddMedewerker gui = new AddMedewerker(true);
             gui.dispose();
@@ -501,9 +515,11 @@ public class MainGuiFrame extends java.awt.Frame {
                 gui.setVisible(true);
             }
         }
+       
     }//GEN-LAST:event_addNewButton1ActionPerformed
 
     private void addNewButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addNewButton2ActionPerformed
+      
         if (inBeheer) {
             AddMedewerker gui = new AddMedewerker(false);
             gui.dispose();
@@ -523,9 +539,11 @@ public class MainGuiFrame extends java.awt.Frame {
                 gui.setVisible(true);
             }
         }
+      
     }//GEN-LAST:event_addNewButton2ActionPerformed
 
     private void searchButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_searchButtonActionPerformed
+      setCursor(waiting);
         if ("play tetris".equals(searchInput.getText().toLowerCase())) {
             Tetris.startApplication();
         } else {
@@ -567,12 +585,14 @@ public class MainGuiFrame extends java.awt.Frame {
 
             }
         }
+        setCursor(defaultCursor);
     }//GEN-LAST:event_searchButtonActionPerformed
 
     private void searchInputActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_searchInputActionPerformed
         searchButtonActionPerformed(evt);
     }//GEN-LAST:event_searchInputActionPerformed
     public void fillTableCasesMore() {
+        setCursor(waiting);
         CaseDao dbcase = new CaseDao();
         try {
             caseList = dbcase.readAllMore();
@@ -580,9 +600,11 @@ public class MainGuiFrame extends java.awt.Frame {
             Debug.printError(e.toString());
         }
         populateTableCase(caseList);
+        setCursor(defaultCursor);
     }
 
     private void fillTableCases(boolean start) {
+        setCursor(waiting);
         CaseDao dbCase = new CaseDao();
         try {
             caseList = dbCase.readAll();
@@ -598,6 +620,7 @@ public class MainGuiFrame extends java.awt.Frame {
                         JOptionPane.WARNING_MESSAGE);
             }
         }
+        setCursor(defaultCursor);
     }
 
     public void fillTableMedewerkers() {
@@ -652,6 +675,7 @@ public class MainGuiFrame extends java.awt.Frame {
     }
 
     public void populateTableCase(final List<Case> list) {
+        setCursor(waiting);
         tableResults.getColumnModel().getColumn(0).setMaxWidth(35);
         final ArrayList<Integer> resolveList = new ArrayList<Integer>();
         final ArrayList<Integer> passengerList = new ArrayList<Integer>();
@@ -681,6 +705,7 @@ public class MainGuiFrame extends java.awt.Frame {
             } else {
                 luggageList.add(i);
             }
+            
         }
         tableResults.setDefaultRenderer(Object.class, new TableCellRenderer() {
             private final DefaultTableCellRenderer DEFAULT_RENDERER = new DefaultTableCellRenderer();
@@ -706,6 +731,7 @@ public class MainGuiFrame extends java.awt.Frame {
         tableResults.getColumnModel().getColumn(1).setHeaderValue(bundle.getString("table.LuggageNumber"));
         tableResults.getColumnModel().getColumn(2).setHeaderValue(bundle.getString("table.AddDate"));
         tableResults.getColumnModel().getColumn(3).setHeaderValue(bundle.getString("table.HandlerName"));
+        setCursor(defaultCursor);
     }
 
     public void focusSearch() {

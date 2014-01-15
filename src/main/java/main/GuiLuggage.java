@@ -1,5 +1,6 @@
 package main;
 
+import java.awt.Cursor;
 import java.util.Locale;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
@@ -20,6 +21,7 @@ public class GuiLuggage {
 	Check.checkConfigFile();
         Check.checkConnection();
 
+        Cursor waiting = new Cursor(Cursor.WAIT_CURSOR);
 	Locale english, dutch, current;
 	english = new Locale("en", "US");
 	dutch = new Locale("nl", "NL");
@@ -30,6 +32,7 @@ public class GuiLuggage {
 	logIn login = new logIn();
 	login.setVisible(true);
 	login.setLocationRelativeTo(null);
+      //  login.setCursor(waiting);
 	Debug.println("Current language: " + current.toString());
 	try {
 	    UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
