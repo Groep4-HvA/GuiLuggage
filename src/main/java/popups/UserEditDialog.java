@@ -21,6 +21,7 @@ import models.UserDAO;
 public class UserEditDialog extends javax.swing.JFrame {
 
     private final Color red = new Color(163, 0, 15);
+    private final java.util.ResourceBundle BUNDLE = java.util.ResourceBundle.getBundle("Bundle");
     private User medewerker = new User();
 
     /**
@@ -184,26 +185,36 @@ public class UserEditDialog extends javax.swing.JFrame {
         medewerker.setName(nameField.getText());
         medewerker.setAppManager(isAppManager.isSelected());
         medewerker.setManager(isManager.isSelected());
-
+        String footer = String.format(BUNDLE.getString("ConfirmFooter"), BUNDLE.getString("Medewerker")).toLowerCase();
+        String message = BUNDLE.getString("ConfirmHead") + "\n"
+                + BUNDLE.getString("AddMedewerker.jLabel2.text") + " = " + medewerker.getUsername() + "\n"
+                + BUNDLE.getString("AddMedewerker.jLabel1.text") + " = " + nameField.getText() + "\n"
+                + BUNDLE.getString("AddMedewerker.appManagerCheckBox.text") + " = " + isAppManager.isSelected() + "\n"
+                + BUNDLE.getString("Popupappmedewerker.isManager.text") + " = " + isManager.isSelected() + "\n\n"
+                + footer;
+        int selectedOption = JOptionPane.showConfirmDialog(null,
+                message,
+                BUNDLE.getString("Confirm"),
+                JOptionPane.YES_NO_OPTION);
         UserDAO dbMedewerker;
         dbMedewerker = new UserDAO();
-
-        if (Arrays.equals(firstPasswordField.getPassword(), confirmPasswordField.getPassword()) && firstPasswordField.getPassword().length >5 ) {
-            medewerker.setPassword(firstPasswordField.getPassword());
-        }else {JOptionPane.showMessageDialog(null,
-                    "Your input was invalid. Password and confirm password should have the same value and they have to be longer then 6 characters.",
-                    "Input error - empty",
-                    JOptionPane.ERROR_MESSAGE);
+        if (selectedOption == JOptionPane.YES_OPTION) {
+            if (Arrays.equals(firstPasswordField.getPassword(), confirmPasswordField.getPassword()) && firstPasswordField.getPassword().length > 5) {
+                medewerker.setPassword(firstPasswordField.getPassword());
+            } else {
+                JOptionPane.showMessageDialog(null,
+                        "Your input was invalid. Password and confirm password should have the same value and they have to be longer then 6 characters.",
+                        "Input error - empty",
+                        JOptionPane.ERROR_MESSAGE);
+            }
+            try {
+                dbMedewerker.update(medewerker);
+            } catch (SQLException e) {
+                Debug.printError(e.toString());
+            }
+            Debug.println(medewerker.toString());
+            dispose();
         }
-        try {
-            dbMedewerker.update(medewerker);
-        } catch (SQLException e) {
-            Debug.printError(e.toString());
-        }
-        Debug.println(medewerker.toString());
-        dispose();
-        
-        
     }//GEN-LAST:event_saveButtonActionPerformed
 
     private void cancelButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelButtonActionPerformed
