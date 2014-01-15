@@ -230,7 +230,7 @@ public class AddLuggage extends javax.swing.JFrame {
 
         } else {
             JOptionPane.showMessageDialog(null,
-                    "Your input was invalid. The label, color and phone number can not be empty",
+                    "Your input was invalid. The label, storage location and phone number can not be empty",
                     "Input error - empty",
                     JOptionPane.ERROR_MESSAGE);
         }

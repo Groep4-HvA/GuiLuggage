@@ -94,11 +94,40 @@ public class Check {
     static public boolean verifyLuggage(String label, String color, String shape, String location, String details, String phoneNr) {
         boolean verified = true;
 
-        if (label == null || color == null || phoneNr == null) {
+        if (label == null || phoneNr == null || location == null) {
             verified = false;
-        } else if (label.equals("") || color.equals("") || phoneNr.equals("")) {
+        } else if (label.equals("") || phoneNr.equals("") || location.equals("")) {
             verified = false;
         } else {
+            verified = true;
+        }
+        return verified;
+    }
+
+    static public boolean verifyPassenger(String label, String color, String shape, String name, String surname, String adres, String postalCode, String city, String residentAdres, String residentPostalCode, String residentCity, String details, String phoneNr, String email) {
+        boolean verified = true;
+
+        if (label == null || name == null || surname == null || phoneNr == null || adres == null || postalCode == null || city == null || phoneNr == null) {
+            verified = false;
+        } else if (label.equals("") || name.equals("") || surname.equals("") || adres.equals("") || postalCode.equals("") || city.equals("") || phoneNr.equals("")) {
+            verified = false;
+        } else {
+            verified = true;
+        }
+        return verified;
+    }
+
+    static public boolean verifyUser(String name, String username, char[] password) {
+        boolean verified = true;
+
+        if (name == null || username == null) {
+            verified = false;
+        } else if (name.equals("") || username.equals("")) {
+            verified = false;
+
+        } else if (password.length < 6) {
+            verified = false;
+        }else {
             verified = true;
         }
         return verified;

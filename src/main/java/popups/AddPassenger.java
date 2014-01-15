@@ -379,7 +379,7 @@ public class AddPassenger extends javax.swing.JFrame {
                 message,
                 BUNDLE.getString("Confirm"),
                 JOptionPane.YES_NO_OPTION);
-        if (selectedOption == JOptionPane.YES_OPTION) {
+        if (Check.verifyPassenger(label, color, shape, name, surname, adres, postalCode, city, residentAdres, residentPostalCode, residentCity, details, phoneNr, email)&&selectedOption == JOptionPane.YES_OPTION) {
             newPassenger = new Passenger(label, color, shape, name, surname, adres, postalCode, city, residentAdres, residentPostalCode, residentCity, details, phoneNr, email);
             PassengerDAO test = new PassengerDAO();
             try {
@@ -388,7 +388,11 @@ public class AddPassenger extends javax.swing.JFrame {
                 Debug.printError(e.toString());
             }
             dispose();
-        }
+        } else {
+            JOptionPane.showMessageDialog(null,
+                    "Your input was invalid. The label, name, surname, adres, postalcode, city and phone number can not be empty",
+                    "Input error - empty",
+                    JOptionPane.ERROR_MESSAGE);}
     }//GEN-LAST:event_saveButtonActionPerformed
 
     private void cancelButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelButtonActionPerformed
