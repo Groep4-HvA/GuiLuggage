@@ -248,27 +248,25 @@ public class MyAccount extends javax.swing.JDialog {
                 } else {
                     JOptionPane.showMessageDialog(null, "Passwords do not match");
                 }
-
-
-                Debug.println(change + "");
-                if (change) {
-                    Debug.println(tempMedewerker.toString());
-                    try {
-                        medewerkerTijdelijk.update(tempMedewerker);
-                    } catch (SQLException e) {
-                        Debug.printError(e.toString());
-                    }
-                }
             }
-             else {
-                            JOptionPane.showMessageDialog(null,
-                                    "Your input was invalid. Old password is not correct.",
-                                    "Input error - not correct",
-                                    JOptionPane.ERROR_MESSAGE);
+        } else {
+            JOptionPane.showMessageDialog(null,
+                    "Your input was invalid. Old password is not correct.",
+                    "Input error - not correct",
+                    JOptionPane.ERROR_MESSAGE);
 //                            dispose();
-                        }
         }
-        dispose();
+
+        Debug.println(change + "");
+        if (change) {
+            Debug.println(tempMedewerker.toString());
+            try {
+                medewerkerTijdelijk.update(tempMedewerker);
+                dispose();
+            } catch (SQLException e) {
+                Debug.printError(e.toString());
+            }
+        }
     }//GEN-LAST:event_saveButActionPerformed
 
     private void dropDownActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_dropDownActionPerformed
