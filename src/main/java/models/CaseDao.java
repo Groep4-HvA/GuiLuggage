@@ -26,7 +26,7 @@ public class CaseDao {
         ResultSet rs;
         PreparedStatement prdstmt;
 
-        String query = "SELECT * FROM cases WHERE `ResolveDate` is null";
+        String query = "SELECT LuggageNumber, AddDate FROM cases WHERE `ResolveDate` is null";
         conn.startConnection();
 
         prdstmt = conn.getConnection().prepareStatement(query);
@@ -51,7 +51,7 @@ public class CaseDao {
         ResultSet rs;
         PreparedStatement prdstmt;
 
-        String query = "SELECT * FROM cases WHERE `ResolveDate` is not null";
+        String query = "SELECT LuggageNumber, AddDate FROM cases WHERE `ResolveDate` is not null";
         conn.startConnection();
 
         prdstmt = conn.getConnection().prepareStatement(query);
@@ -158,6 +158,7 @@ public class CaseDao {
             tempcase.setLabel(rs.getString("LuggageNumber"));
             tempcase.setName(rs.getString("Name"));
             tempcase.setSurName(rs.getString("Surname"));
+            tempcase.setPhoneNumber(rs.getString("PhoneNr"));
             tempcase.setEmailAdress(rs.getString("emailAdress"));
 
             tempcase.setHomeAddress(rs.getString("homeAddress"));
@@ -177,14 +178,12 @@ public class CaseDao {
             tempcase.setAddDate(rs.getDate("AddDate"));
             tempcase.setResolveDate(rs.getDate("ResolveDate"));
             list.add(tempcase);
-            
-            
-                
+
         }
 
         if (conn != null) {
             conn.closeConnection();
-        }               
+        }
 
         return list;
     }
@@ -214,30 +213,32 @@ public class CaseDao {
         prdstmt.setString(12, "%" + searchInput + "%");
 
         rs = conn.performSelect(prdstmt);
-        
+
         while (rs.next()) {
-            Case tempCase = new Case();
-            tempCase.setLabel(rs.getString("LuggageNumber"));
-            tempCase.setName(rs.getString("Name"));
-            tempCase.setSurName(rs.getString("Surname"));
+            Case tempcase = new Case();
+            tempcase.setLabel(rs.getString("LuggageNumber"));
+            tempcase.setName(rs.getString("Name"));
+            tempcase.setSurName(rs.getString("Surname"));
+            tempcase.setPhoneNumber(rs.getString("PhoneNr"));
+            tempcase.setEmailAdress(rs.getString("emailAdress"));
 
-            tempCase.setHomeAddress(rs.getString("homeAddress"));
-            tempCase.setHomePostalCode(rs.getString("homePostalCode"));
-            tempCase.setHomeCity(rs.getString("homeCity"));
+            tempcase.setHomeAddress(rs.getString("homeAddress"));
+            tempcase.setHomePostalCode(rs.getString("homePostalCode"));
+            tempcase.setHomeCity(rs.getString("homeCity"));
 
-            tempCase.setResidentAddress(rs.getString("residentAddress"));
-            tempCase.setResidentPostalCode(rs.getString("residentPostalCode"));
-            tempCase.setResidentCity(rs.getString("residentCity"));
+            tempcase.setResidentAddress(rs.getString("residentAddress"));
+            tempcase.setResidentPostalCode(rs.getString("residentPostalCode"));
+            tempcase.setResidentCity(rs.getString("residentCity"));
 
-            tempCase.setColor(rs.getString("Color"));
-            tempCase.setShape(rs.getString("Shape"));
-            tempCase.setAditionalDetails(rs.getString("AditionalDetails"));
-            tempCase.setStorageLocation(rs.getString("StorageLocation"));
-            tempCase.setHandler(rs.getInt("HandlerID"));
+            tempcase.setColor(rs.getString("Color"));
+            tempcase.setShape(rs.getString("Shape"));
+            tempcase.setAditionalDetails(rs.getString("AditionalDetails"));
+            tempcase.setStorageLocation(rs.getString("StorageLocation"));
+            tempcase.setHandler(rs.getInt("HandlerID"));
 
-            tempCase.setAddDate(rs.getDate("AddDate"));
-            tempCase.setResolveDate(rs.getDate("ResolveDate"));
-            list.add(tempCase);
+            tempcase.setAddDate(rs.getDate("AddDate"));
+            tempcase.setResolveDate(rs.getDate("ResolveDate"));
+            list.add(tempcase);
         }
 
         if (conn != null) {
@@ -249,24 +250,34 @@ public class CaseDao {
 
     public int update(Case currentCase) throws SQLException {
         DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-        String queryResolve, queryLabel, queryName, querySurName, queryColor, queryShape, queryRAddress, queryRPostalCode, queryRCity, queryHAddress, queryHPostalCode, queryHCity, queryAditional, queryLocation;
+        String queryResolve, queryLabel, queryName, querySurName, queryColor, queryShape, queryEmail, queryPhone,  queryRAddress, queryRPostalCode, queryRCity, queryHAddress, queryHPostalCode, queryHCity, queryAditional, queryLocation;
+
+
         queryLabel = currentCase.getLabel();
-        querySurName = currentCase.getSurName();
         queryName = currentCase.getName();
+        querySurName = currentCase.getSurName();
+        queryEmail = currentCase.getEmailAdress();
+        queryPhone = currentCase.getPhoneNumber();
+        
         queryColor = currentCase.getColor();
         queryShape = currentCase.getShape();
+        
+        
         queryRAddress = currentCase.getResidentAddress();
         queryRPostalCode = currentCase.getResidentPostalCode();
         queryRCity = currentCase.getResidentCity();
+        
         queryHAddress = currentCase.getHomeAddress();
         queryHPostalCode = currentCase.getHomePostalCode();
         queryHCity = currentCase.getHomeCity();
+        
         queryAditional = currentCase.getAditionalDetails();
         queryLocation = currentCase.getStorageLocation();
+        
         queryResolve = (currentCase.getResolveDate() == null) ? null : dateFormat.format(currentCase.getResolveDate());
 
         PreparedStatement prdstmt;
-        String query = "UPDATE `cases` SET `Name`=?, `Surname`=?, `homeAddress`=?, `homePostalCode`=?, `homeCity`=?, `residentAddress`=?, `residentPostalCode`=?, `residentCity`=?, `Color`=?, `Shape`=?, `AditionalDetails`=?, `StorageLocation`=?, `ResolveDate`=? WHERE `LuggageNumber`=?;";
+        String query = "UPDATE `cases` SET `Name`=?, `Surname`=?, `homeAddress`=?, `homePostalCode`=?, `homeCity`=?, `residentAddress`=?, `residentPostalCode`=?, `residentCity`=?, `Color`=?, `Shape`=?, `AditionalDetails`=?, `StorageLocation`=?, `ResolveDate`=?, `PhoneNr`=?, `EmailAdress`=?  WHERE `LuggageNumber`=?;";
         conn.startConnection();
         //  conn = (ConnectionMySQL) DriverManager.getConnection(url, user, pw);
         prdstmt = conn.getConnection().prepareStatement(query);
@@ -285,8 +296,10 @@ public class CaseDao {
         prdstmt.setString(11, queryAditional);
         prdstmt.setString(12, queryLocation);
         prdstmt.setString(13, queryResolve);
+        prdstmt.setString(14, queryPhone);
+        prdstmt.setString(15, queryEmail);
         //Selecter
-        prdstmt.setString(14, queryLabel);
+        prdstmt.setString(16, queryLabel);
         prdstmt.executeUpdate();
 
         if (conn != null) {
