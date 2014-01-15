@@ -5,6 +5,7 @@ import java.awt.image.ColorModel;
 import java.awt.print.PrinterException;
 import java.awt.print.PrinterJob;
 import java.io.File;
+import java.nio.file.*;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
@@ -13,6 +14,7 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import javax.imageio.ImageIO;
+import javax.swing.JOptionPane;
 import org.apache.pdfbox.exceptions.COSVisitorException;
 import org.apache.pdfbox.pdmodel.PDDocument;
 import org.apache.pdfbox.pdmodel.PDPage;
@@ -20,6 +22,8 @@ import org.apache.pdfbox.pdmodel.edit.PDPageContentStream;
 import org.apache.pdfbox.pdmodel.font.PDFont;
 import org.apache.pdfbox.pdmodel.font.PDType1Font;
 import org.apache.pdfbox.pdmodel.graphics.xobject.*;
+import models.*;
+import popups.OverwritePDF;
 
 /**
  *
@@ -243,20 +247,40 @@ public class PDFGenerator {
     public void save(String filename) {
         String location = System.getProperty("user.home") + File.separator + "Documents" + File.separator + filename + ".pdf";
         OutputStream output;
+
         System.out.println(location);
-        try {
-            output = new FileOutputStream(location);
-            // Make sure that the content stream is closed:
-            this.contentStream.close();
-            // Save the results and ensure that the document is properly closed:
-            this.document.save(output);
-            this.document.close();
-            output.close();
-        } catch (IOException e) {
-            Debug.printError(e.toString());
-        } catch (COSVisitorException e) {
-            Debug.printError(e.toString());
-        }
+
+        Path path = Paths.get(location);
+
+        if (Files.exists(path)) {
+            System.out.println("Dit bestand bestaat al");
+
+            String s;
+            s = (String) JOptionPane.showInputDialog("Voer hier nieuwe naam in, laat leeg om te overschrijven");
+            
+            
+//If a string was returned, say so.
+            if ((s != null) && (s.length() > 0)) {
+                Debug.printError(s);
+                location = System.getProperty("user.home") + File.separator + "Documents" + File.separator + s + ".pdf";
+            } 
+        } 
+          try {
+                output = new FileOutputStream(location);
+
+                // Make sure that the content stream is closed:
+                this.contentStream.close();
+
+                // Save the results and ensure that the document is properly closed:
+                this.document.save(output);
+                this.document.close();
+                output.close();
+            } catch (IOException e) {
+                Debug.printError(e.toString());
+            } catch (COSVisitorException e) {
+                Debug.printError(e.toString());
+            }
+        
     }
 
     /**
