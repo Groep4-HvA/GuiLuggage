@@ -14,6 +14,8 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import models.Case;
 import models.CaseDao;
@@ -302,11 +304,9 @@ public class ManagerGui extends java.awt.Frame {
             }
         ));
         jScrollPane1.setViewportView(jTable1);
-        if (jTable1.getColumnModel().getColumnCount() > 0) {
-            jTable1.getColumnModel().getColumn(0).setHeaderValue(bundle.getString("ManagerGui.jTable1.columnModel.title0")); // NOI18N
-            jTable1.getColumnModel().getColumn(1).setHeaderValue(bundle.getString("ManagerGui.jTable1.columnModel.title1")); // NOI18N
-            jTable1.getColumnModel().getColumn(2).setHeaderValue(bundle.getString("ManagerGui.jTable1.columnModel.title2")); // NOI18N
-        }
+        jTable1.getColumnModel().getColumn(0).setHeaderValue(bundle.getString("ManagerGui.jTable1.columnModel.title0")); // NOI18N
+        jTable1.getColumnModel().getColumn(1).setHeaderValue(bundle.getString("ManagerGui.jTable1.columnModel.title1")); // NOI18N
+        jTable1.getColumnModel().getColumn(2).setHeaderValue(bundle.getString("ManagerGui.jTable1.columnModel.title2")); // NOI18N
 
         PDF.setText(bundle.getString("ManagerGui.PDF.text")); // NOI18N
         PDF.addActionListener(new java.awt.event.ActionListener() {
@@ -393,7 +393,7 @@ public class ManagerGui extends java.awt.Frame {
                     .add(totalLabel)
                     .add(foundManager))
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
-                .add(jScrollPane1, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 450, Short.MAX_VALUE)
+                .add(jScrollPane1, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 464, Short.MAX_VALUE)
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                 .add(jPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING, false)
                     .add(clearButton, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -426,7 +426,12 @@ public class ManagerGui extends java.awt.Frame {
      * @param evt
      */
     private void moreButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_moreButtonActionPerformed
-        // TODO How-Fei does this
+        try {
+            list = dbCase.readAllMore();
+        } catch (SQLException ex) {
+            Logger.getLogger(ManagerGui.class.getName()).log(Level.SEVERE, null, ex);
+        }
+       fillTableMore(list);
     }//GEN-LAST:event_moreButtonActionPerformed
     /**
      * Show My Account
@@ -696,6 +701,20 @@ public class ManagerGui extends java.awt.Frame {
      */
     private void fillTable(List<Case> list) {
         for (int i = 0; i < 50; i++) {
+            jTable1.getModel().setValueAt("", i, 0);
+            jTable1.getModel().setValueAt("", i, 1);
+            jTable1.getModel().setValueAt("", i, 2);
+        }
+        for (int i = 0; i < list.size(); i++) {
+            int count = i + 1;
+            jTable1.getModel().setValueAt(count, i, 0);
+            jTable1.getModel().setValueAt(list.get(i).getLabel(), i, 1);
+            jTable1.getModel().setValueAt(list.get(i).getAddDate(), i, 2);
+        }
+    }
+    
+        private void fillTableMore(List<Case> list) {
+        for (int i = 0; i < 99; i++) {
             jTable1.getModel().setValueAt("", i, 0);
             jTable1.getModel().setValueAt("", i, 1);
             jTable1.getModel().setValueAt("", i, 2);

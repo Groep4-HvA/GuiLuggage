@@ -575,7 +575,7 @@ public class MainGuiFrame extends java.awt.Frame {
     public void fillTableCasesMore() {
         CaseDao dbcase = new CaseDao();
         try {
-            caseList = dbcase.ReadAllMore();
+            caseList = dbcase.readAllMore();
         } catch (SQLException e) {
             Debug.printError(e.toString());
         }
