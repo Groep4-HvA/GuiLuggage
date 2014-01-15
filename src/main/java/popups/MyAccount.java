@@ -218,7 +218,7 @@ public class MyAccount extends javax.swing.JDialog {
             change = true;
         }
         Debug.println(change + "");
-        if (password.getPassword().length > 0) {
+        if (password.getPassword().length > 5) {
             Debug.println(password.getPassword().toString());
             try {
                 tempMedewerker = medewerkerTijdelijk.readByID(medewerkerID);
@@ -234,7 +234,11 @@ public class MyAccount extends javax.swing.JDialog {
                             tempMedewerker.setPassword(password.getPassword());
                             change = true;
                         } else {
-                            dispose();
+                            JOptionPane.showMessageDialog(null,
+                                    "Your input was invalid. Password and confirm password should have the same value.",
+                                    "Input error - empty",
+                                    JOptionPane.ERROR_MESSAGE);
+//                            dispose();
                         }
                         Debug.println(tempMedewerker.toString());
 
@@ -256,6 +260,13 @@ public class MyAccount extends javax.swing.JDialog {
                     }
                 }
             }
+             else {
+                            JOptionPane.showMessageDialog(null,
+                                    "Your input was invalid. Old password is not correct.",
+                                    "Input error - not correct",
+                                    JOptionPane.ERROR_MESSAGE);
+//                            dispose();
+                        }
         }
         dispose();
     }//GEN-LAST:event_saveButActionPerformed
