@@ -95,12 +95,13 @@ public class CaseDao {
         return list;
     }
 
-    public List<Case> ReadAllMore() throws SQLException {
+    public List<Case> readAllMore() throws SQLException {
+
         List<Case> list = new LinkedList<Case>();
         ResultSet rs;
         PreparedStatement prdstmt;
 
-        String query = "SELECT * FROM `cases` LIMIT 99";
+        String query = "SELECT * FROM `cases` ORDER BY AddDate DESC LIMIT 99";
 
         conn.startConnection();
 
@@ -112,11 +113,12 @@ public class CaseDao {
             tempcase.setLabel(rs.getString("LuggageNumber"));
             tempcase.setName(rs.getString("Name"));
             tempcase.setSurName(rs.getString("Surname"));
+            tempcase.setPhoneNumber(rs.getString("PhoneNr"));
+            tempcase.setEmailAdress(rs.getString("emailAdress"));
 
             tempcase.setHomeAddress(rs.getString("homeAddress"));
             tempcase.setHomePostalCode(rs.getString("homePostalCode"));
             tempcase.setHomeCity(rs.getString("homeCity"));
-            tempcase.setEmailAdress(rs.getString("emailAdress"));
 
             tempcase.setResidentAddress(rs.getString("residentAddress"));
             tempcase.setResidentPostalCode(rs.getString("residentPostalCode"));
@@ -131,6 +133,7 @@ public class CaseDao {
             tempcase.setAddDate(rs.getDate("AddDate"));
             tempcase.setResolveDate(rs.getDate("ResolveDate"));
             list.add(tempcase);
+
         }
 
         if (conn != null) {
