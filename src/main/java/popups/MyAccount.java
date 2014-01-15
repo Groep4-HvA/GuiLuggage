@@ -221,19 +221,12 @@ public class MyAccount extends javax.swing.JDialog {
         if (password.getPassword().length > 5) {
             Debug.println(password.getPassword().toString());
             if (tempMedewerker.getPassword().equals(DigestUtils.sha256Hex(String.valueOf(passwordOld.getPassword())))) {
-
                 if (Arrays.equals(password.getPassword(), passwordConfirm.getPassword())) {
-                    try {
-                        tempMedewerker = medewerkerTijdelijk.readByID(medewerkerID);
-                        if (!tempMedewerker.getPassword().equals(DigestUtils.sha256Hex(String.valueOf(password.getPassword())))) {
-                            tempMedewerker.setPassword(password.getPassword());
-                            change = true;
-                        } 
-                        Debug.println(tempMedewerker.toString());
-
-                    } catch (SQLException e) {
-                        Debug.printError(e.toString());
+                    if (!tempMedewerker.getPassword().equals(DigestUtils.sha256Hex(String.valueOf(password.getPassword())))) {
+                        tempMedewerker.setPassword(password.getPassword());
+                        change = true;
                     }
+                    Debug.println(tempMedewerker.toString());
                 } else {
                     JOptionPane.showMessageDialog(null, "Passwords do not match");
                 }
@@ -245,10 +238,11 @@ public class MyAccount extends javax.swing.JDialog {
                         JOptionPane.ERROR_MESSAGE);
 //                            dispose();
             }
-        } else {JOptionPane.showMessageDialog(null,
-                        "Your input was invalid. Passwords must be atleast 6 characters.",
-                        "Input error - not correct",
-                        JOptionPane.ERROR_MESSAGE);
+        } else {
+            JOptionPane.showMessageDialog(null,
+                    "Your input was invalid. Passwords must be atleast 6 characters.",
+                    "Input error - not correct",
+                    JOptionPane.ERROR_MESSAGE);
         }
 
         Debug.println(change + "");
