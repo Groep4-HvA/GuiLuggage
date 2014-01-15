@@ -8,6 +8,7 @@ import java.awt.Color;
 import java.sql.SQLException;
 import java.util.Date;
 import javax.swing.BorderFactory;
+import javax.swing.JOptionPane;
 import models.Case;
 import models.CaseDao;
 import models.Check;
@@ -20,6 +21,7 @@ import models.PDFGenerator;
  */
 public class PopUpMedewerker extends javax.swing.JFrame {
 
+    private final java.util.ResourceBundle BUNDLE = java.util.ResourceBundle.getBundle("Bundle");
     private final Color red = new Color(163, 0, 15);
     private Case currentCase = null;
     private boolean resolved = false;
@@ -34,37 +36,37 @@ public class PopUpMedewerker extends javax.swing.JFrame {
      * @param handlerId
      */
     public PopUpMedewerker(Case currentcase, int handlerId) {
-	if (!Check.verifyLogin()) {
-	    Runtime.getRuntime().exit(1);
-	} else {
-	    this.handlerId = handlerId;
-	    this.currentCase = currentcase;
-	    this.setUndecorated(true);
-	    getRootPane().setBorder(BorderFactory.createLineBorder(red));
-	    initComponents();
-	    this.setLocationRelativeTo(null);
-	    setValues();
-	}
+        if (!Check.verifyLogin()) {
+            Runtime.getRuntime().exit(1);
+        } else {
+            this.handlerId = handlerId;
+            this.currentCase = currentcase;
+            this.setUndecorated(true);
+            getRootPane().setBorder(BorderFactory.createLineBorder(red));
+            initComponents();
+            this.setLocationRelativeTo(null);
+            setValues();
+        }
     }
 
     public final void setValues() {
-	if (currentCase.getResolveDate() != null) {
-	    resolved = true;
-	    statusDropDown.setSelectedIndex(1);
-	}
-	labelTextField.setText(currentCase.getLabel());
-	lastNameTextField.setText(currentCase.getSurName());
-	nameTextField.setText(currentCase.getName());
-	colorTextField.setText(currentCase.getColor());
-	shapeTextField.setText(currentCase.getShape());
-	rAdressTextField.setText(currentCase.getResidentAddress());
-	rPostalCodeField.setText(currentCase.getResidentPostalCode());
-	rCityField.setText(currentCase.getResidentCity());
-	hAddressTextField.setText(currentCase.getHomeAddress());
-	hPostalCodeField.setText(currentCase.getHomePostalCode());
-	hCityField.setText(currentCase.getHomeCity());
-	jTextArea1.setText(currentCase.getAditionalDetails());
-	jTextArea2.setText(currentCase.getStorageLocation());
+        if (currentCase.getResolveDate() != null) {
+            resolved = true;
+            statusDropDown.setSelectedIndex(1);
+        }
+        labelTextField.setText(currentCase.getLabel());
+        lastNameTextField.setText(currentCase.getSurName());
+        nameTextField.setText(currentCase.getName());
+        colorTextField.setText(currentCase.getColor());
+        shapeTextField.setText(currentCase.getShape());
+        rAdressTextField.setText(currentCase.getResidentAddress());
+        rPostalCodeField.setText(currentCase.getResidentPostalCode());
+        rCityField.setText(currentCase.getResidentCity());
+        hAddressTextField.setText(currentCase.getHomeAddress());
+        hPostalCodeField.setText(currentCase.getHomePostalCode());
+        hCityField.setText(currentCase.getHomeCity());
+        jTextArea1.setText(currentCase.getAditionalDetails());
+        jTextArea2.setText(currentCase.getStorageLocation());
         emailAdressField.setText(currentCase.getEmailAdress());
     }
 
@@ -375,55 +377,96 @@ public class PopUpMedewerker extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void cancelButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelButtonActionPerformed
-	dispose();
+        dispose();
     }//GEN-LAST:event_cancelButtonActionPerformed
 
     private void saveButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saveButtonActionPerformed
-	if (statusDropDown.getSelectedIndex() == 1 && !resolved) {
-	    currentCase.setResolveDate(now);
-	}
-	currentCase.setLabel(labelTextField.getText());
-	currentCase.setSurName(lastNameTextField.getText());
-	currentCase.setName(nameTextField.getText());
-	currentCase.setColor(colorTextField.getText());
-	currentCase.setShape(shapeTextField.getText());
-	currentCase.setResidentAddress(rAdressTextField.getText());
-	currentCase.setResidentPostalCode(rPostalCodeField.getText());
-	currentCase.setResidentCity(rCityField.getText());
-	currentCase.setHomeAddress(hAddressTextField.getText());
-	currentCase.setHomePostalCode(hPostalCodeField.getText());
-	currentCase.setHomeCity(hCityField.getText());
-	currentCase.setAditionalDetails(jTextArea1.getText());
-	currentCase.setStorageLocation(jTextArea2.getText());
-        currentCase.setEmailAdress(emailAdressField.getText());
-	Debug.println(currentCase.toString());
-	CaseDao dbCase = new CaseDao();
-	try {
-	    dbCase.update(currentCase);
-	} catch (SQLException e) {
-	    Debug.printError(e.toString());
-	}
-	dispose();
+        String label = labelTextField.getText();
+        String color = colorTextField.getText();
+        String shape = shapeTextField.getText();
+        String surname = lastNameTextField.getText();
+        String name = nameTextField.getText();
+        String adres = hAddressTextField.getText();
+        String postalCode = hPostalCodeField.getText();
+        String city = hCityField.getText();
+        String residentAdres = rAdressTextField.getText();
+        String residentPostalCode = rPostalCodeField.getText();
+        String residentCity = rCityField.getText();
+        String phoneNr = phoneNrField.getText();
+        String email = emailAdressField.getText();
+        String details = jTextArea1.getText();
+        String storage = jTextArea2.getText();
+
+        String footer = String.format(BUNDLE.getString("ConfirmFooter"), BUNDLE.getString("Passenger")).toLowerCase();
+        String message = BUNDLE.getString("ConfirmHead") + "\n"
+                + BUNDLE.getString("AddPassenger.lLabelLabel.text") + " = " + label + "\n"
+                + BUNDLE.getString("AddPassenger.colorLabel.text") + " = " + color + "\n"
+                + BUNDLE.getString("AddPassenger.shapeLabel.text") + " = " + shape + "\n"
+                + BUNDLE.getString("AddPassenger.nameLabel.text") + " = " + name + "\n"
+                + BUNDLE.getString("AddPassenger.surNameLabel.text") + " = " + surname + "\n"
+                + BUNDLE.getString("AddPassenger.addressHLabel.text") + " = " + adres + "\n"
+                + BUNDLE.getString("AddPassenger.postalCodeHLabel.text") + " = " + postalCode + "\n"
+                + BUNDLE.getString("AddPassenger.cityHLabel.text") + " = " + city + "\n"
+                + BUNDLE.getString("AddPassenger.addressRLabel.text") + " = " + residentAdres + "\n"
+                + BUNDLE.getString("AddPassenger.postalCodeRLabel.text") + " = " + residentPostalCode + "\n"
+                + BUNDLE.getString("AddPassenger.cityRLabel.text") + " = " + residentCity + "\n"
+                + BUNDLE.getString("AddPassenger.phoneNrLabel.text") + " = " + phoneNr + "\n"
+                + BUNDLE.getString("AddPassenger.emailAdressLabel.text") + " = " + email + "\n"
+                + BUNDLE.getString("PopUpMedewerker.jLabel11.text=Storage location") + " = " + storage + "\n"
+                + BUNDLE.getString("AddPassenger.aditionalDetailsLabel.text") + " = " + details + "\n\n"
+                + footer;
+        int selectedOption = JOptionPane.showConfirmDialog(null,
+                message,
+                BUNDLE.getString("Confirm"),
+                JOptionPane.YES_NO_OPTION);
+        if (JOptionPane.YES_OPTION == selectedOption) {
+            if (statusDropDown.getSelectedIndex() == 1 && !resolved) {
+                currentCase.setResolveDate(now);
+            }
+            currentCase.setLabel(label);
+            currentCase.setSurName(surname);
+            currentCase.setName(name);
+            currentCase.setColor(color);
+            currentCase.setShape(shape);
+            currentCase.setHomeAddress(adres);
+            currentCase.setHomePostalCode(postalCode);
+            currentCase.setHomeCity(city);
+            currentCase.setResidentAddress(residentAdres);
+            currentCase.setResidentPostalCode(residentPostalCode);
+            currentCase.setResidentCity(residentCity);
+            currentCase.setAditionalDetails(details);
+            currentCase.setPhoneNumber(phoneNr);
+            currentCase.setStorageLocation(storage);
+            currentCase.setEmailAdress(email);
+            Debug.println(currentCase.toString());
+            CaseDao dbCase = new CaseDao();
+            try {
+                dbCase.update(currentCase);
+            } catch (SQLException e) {
+                Debug.printError(e.toString());
+            }
+            dispose();
+        }
     }//GEN-LAST:event_saveButtonActionPerformed
 
     private void printButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_printButtonActionPerformed
-	String label = labelTextField.getText();
-	String surname = lastNameTextField.getText();
-	String name = nameTextField.getText();
-	String color = colorTextField.getText();
-	String shape = shapeTextField.getText();
-	String residentAdres = rAdressTextField.getText();
-	String residentPostalCode = rPostalCodeField.getText();
-	String residentCity = rCityField.getText();
-	String adres = hAddressTextField.getText();
-	String postalCode = hPostalCodeField.getText();
-	String city = hCityField.getText();
-	String details = jTextArea1.getText();
-	String phoneNr = phoneNrField.getText();
+        String label = labelTextField.getText();
+        String surname = lastNameTextField.getText();
+        String name = nameTextField.getText();
+        String color = colorTextField.getText();
+        String shape = shapeTextField.getText();
+        String residentAdres = rAdressTextField.getText();
+        String residentPostalCode = rPostalCodeField.getText();
+        String residentCity = rCityField.getText();
+        String adres = hAddressTextField.getText();
+        String postalCode = hPostalCodeField.getText();
+        String city = hCityField.getText();
+        String details = jTextArea1.getText();
+        String phoneNr = phoneNrField.getText();
         String email = emailAdressField.getText();
-	pdf = new PDFGenerator();
-	pdf.generate(label, color, shape, name, surname, adres, postalCode, city, residentAdres, residentPostalCode, residentCity, details, handlerId, phoneNr, email);
-	pdf.print();
+        pdf = new PDFGenerator();
+        pdf.generate(label, color, shape, name, surname, adres, postalCode, city, residentAdres, residentPostalCode, residentCity, details, handlerId, phoneNr, email);
+        pdf.print();
     }//GEN-LAST:event_printButtonActionPerformed
 
     private void formWindowLostFocus(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowLostFocus

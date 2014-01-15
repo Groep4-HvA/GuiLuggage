@@ -194,8 +194,8 @@
               </Group>
               <EmptySpace type="separate" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Group type="103" alignment="0" groupAlignment="3" attributes="0">
-                      <Component id="printButton" alignment="0" min="-2" max="-2" attributes="0"/>
+                  <Component id="printButton" alignment="0" min="-2" max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="requiredFields" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="pdfButton" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>

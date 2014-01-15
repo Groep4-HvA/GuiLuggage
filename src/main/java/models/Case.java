@@ -3,51 +3,55 @@ package models;
 import java.awt.Color;
 import java.sql.SQLException;
 import java.util.Date;
-import java.util.List;
 
 /**
  *
  * @author sean
  */
 public class Case {
+
     private String status;
-    
+
     private String label;
     private String name;
     private String surName;
     private String emailAdress;
-    
+    private String phoneNumber;
+
     private String homeAddress;
     private String homePostalCode;
     private String homeCity;
-    
+
     private String residentAddress;
     private String residentPostalCode;
     private String residentCity;
-    
+
     private String color;
     private String shape;
     private String aditionalDetails;
     private String storageLocation;
-    
-    
+
     private String handler;
     private Date addDate;
     private Date resolveDate;
 
     public Case() {
     }
+
     /**
      * Get the status
+     *
      * @return the status of the case
      */
-    public Color getStatus(){
-        if(this.getName()==null){}
+    public Color getStatus() {
+        if (this.getName() == null) {
+        }
         return Color.RED;
     }
-    
+
     /**
      * Get the label
+     *
      * @return the label of the case
      */
     public String getLabel() {
@@ -56,7 +60,8 @@ public class Case {
 
     /**
      * Set the label of the case
-     * @param label 
+     *
+     * @param label
      */
     public void setLabel(String label) {
         this.label = label;
@@ -64,14 +69,17 @@ public class Case {
 
     /**
      * Get the name
+     *
      * @return name set in the case
      */
     public String getName() {
         return name;
     }
+
     /**
      * Set the name associated with the case
-     * @param name 
+     *
+     * @param name
      */
     public void setName(String name) {
         this.name = name;
@@ -79,7 +87,8 @@ public class Case {
 
     /**
      * get the surname of the client
-     * @return 
+     *
+     * @return
      */
     public String getSurName() {
         return surName;
@@ -87,7 +96,8 @@ public class Case {
 
     /**
      * Set the surname
-     * @param surName 
+     *
+     * @param surName
      */
     public void setSurName(String surName) {
         this.surName = surName;
@@ -95,7 +105,8 @@ public class Case {
 
     /**
      * Get the home address
-     * @return 
+     *
+     * @return
      */
     public String getHomeAddress() {
         return homeAddress;
@@ -103,7 +114,8 @@ public class Case {
 
     /**
      * Set the home address
-     * @param homeAddress 
+     *
+     * @param homeAddress
      */
     public void setHomeAddress(String homeAddress) {
         this.homeAddress = homeAddress;
@@ -111,7 +123,8 @@ public class Case {
 
     /**
      * get the postal code of the home address
-     * @return 
+     *
+     * @return
      */
     public String getHomePostalCode() {
         return homePostalCode;
@@ -119,7 +132,8 @@ public class Case {
 
     /**
      * Set the postal code of the home address
-     * @param homePostalCode 
+     *
+     * @param homePostalCode
      */
     public void setHomePostalCode(String homePostalCode) {
         this.homePostalCode = homePostalCode;
@@ -127,7 +141,8 @@ public class Case {
 
     /**
      * Get the city of the home
-     * @return 
+     *
+     * @return
      */
     public String getHomeCity() {
         return homeCity;
@@ -135,7 +150,8 @@ public class Case {
 
     /**
      * Set the city of the home
-     * @param homeCity 
+     *
+     * @param homeCity
      */
     public void setHomeCity(String homeCity) {
         this.homeCity = homeCity;
@@ -143,7 +159,8 @@ public class Case {
 
     /**
      * Get address at the destination
-     * @return 
+     *
+     * @return
      */
     public String getResidentAddress() {
         return residentAddress;
@@ -151,7 +168,8 @@ public class Case {
 
     /**
      * Set the address at the destination
-     * @param residentAddress 
+     *
+     * @param residentAddress
      */
     public void setResidentAddress(String residentAddress) {
         this.residentAddress = residentAddress;
@@ -159,7 +177,8 @@ public class Case {
 
     /**
      * Get the postal code at the destination
-     * @return 
+     *
+     * @return
      */
     public String getResidentPostalCode() {
         return residentPostalCode;
@@ -167,7 +186,8 @@ public class Case {
 
     /**
      * Set the postal code at the destination
-     * @param residentPostalCode 
+     *
+     * @param residentPostalCode
      */
     public void setResidentPostalCode(String residentPostalCode) {
         this.residentPostalCode = residentPostalCode;
@@ -175,7 +195,8 @@ public class Case {
 
     /**
      * Get the city of the destination
-     * @return 
+     *
+     * @return
      */
     public String getResidentCity() {
         return residentCity;
@@ -183,7 +204,8 @@ public class Case {
 
     /**
      * Set the city of the destination
-     * @param residentCity 
+     *
+     * @param residentCity
      */
     public void setResidentCity(String residentCity) {
         this.residentCity = residentCity;
@@ -191,7 +213,8 @@ public class Case {
 
     /**
      * Get the shape of the luggage
-     * @return 
+     *
+     * @return
      */
     public String getShape() {
         return shape;
@@ -199,7 +222,8 @@ public class Case {
 
     /**
      * Set the shape of the luggage
-     * @param shape 
+     *
+     * @param shape
      */
     public void setShape(String shape) {
         this.shape = shape;
@@ -207,7 +231,8 @@ public class Case {
 
     /**
      * Get the additional details
-     * @return 
+     *
+     * @return
      */
     public String getAditionalDetails() {
         return aditionalDetails;
@@ -215,7 +240,8 @@ public class Case {
 
     /**
      * Set the additional details
-     * @param aditionalDetails 
+     *
+     * @param aditionalDetails
      */
     public void setAditionalDetails(String aditionalDetails) {
         this.aditionalDetails = aditionalDetails;
@@ -223,7 +249,8 @@ public class Case {
 
     /**
      * Get the storage location
-     * @return 
+     *
+     * @return
      */
     public String getStorageLocation() {
         return storageLocation;
@@ -231,7 +258,8 @@ public class Case {
 
     /**
      * Set the storage Location
-     * @param storageLocation 
+     *
+     * @param storageLocation
      */
     public void setStorageLocation(String storageLocation) {
         this.storageLocation = storageLocation;
@@ -239,7 +267,8 @@ public class Case {
 
     /**
      * Get the handler of the luggage
-     * @return 
+     *
+     * @return
      */
     public String getHandler() {
         return handler;
@@ -247,7 +276,8 @@ public class Case {
 
     /**
      * Set the handler of the luggage
-     * @param handlerID 
+     *
+     * @param handlerID
      */
     public void setHandler(int handlerID) {
         MedewerkerDAO dbMedewerker = new MedewerkerDAO();
@@ -262,7 +292,8 @@ public class Case {
 
     /**
      * Get the add-date
-     * @return 
+     *
+     * @return
      */
     public Date getAddDate() {
         return addDate;
@@ -270,7 +301,8 @@ public class Case {
 
     /**
      * Set the add-date
-     * @param addDate 
+     *
+     * @param addDate
      */
     public void setAddDate(Date addDate) {
         this.addDate = addDate;
@@ -278,7 +310,8 @@ public class Case {
 
     /**
      * Get the resolve date
-     * @return 
+     *
+     * @return
      */
     public Date getResolveDate() {
         return resolveDate;
@@ -286,7 +319,8 @@ public class Case {
 
     /**
      * Set the resolve date
-     * @param resolveDate 
+     *
+     * @param resolveDate
      */
     public void setResolveDate(Date resolveDate) {
         this.resolveDate = resolveDate;
@@ -294,7 +328,8 @@ public class Case {
 
     /**
      * Get the email address
-     * @return 
+     *
+     * @return
      */
     public String getEmailAdress() {
         return emailAdress;
@@ -302,7 +337,8 @@ public class Case {
 
     /**
      * Set the email address
-     * @param emailAdress 
+     *
+     * @param emailAdress
      */
     public void setEmailAdress(String emailAdress) {
         this.emailAdress = emailAdress;
@@ -310,7 +346,8 @@ public class Case {
 
     /**
      * get the color of the case
-     * @return 
+     *
+     * @return
      */
     public String getColor() {
         return color;
@@ -318,21 +355,39 @@ public class Case {
 
     /**
      * Set the color of the case
-     * @param color 
+     *
+     * @param color
      */
     public void setColor(String color) {
         this.color = color;
     }
-    
-    
 
     /**
+     * Set the phone number to a value
+     * @param phoneNr 
+     */
+    public void setPhoneNumber(String phoneNr) {
+        this.phoneNumber = phoneNr;
+    }
+    
+    /**
+     * Get the phone number
+     * @return phone number
+     */
+    public String getPhoneNumber() {
+        return phoneNumber;
+    }
+    
+    
+    
+    /**
      * parse the object to a string
-     * @return 
+     *
+     * @return
      */
     @Override
     public String toString() {
         return "Case{" + "status=" + status + ", label=" + label + ", name=" + name + ", surName=" + surName + ", homeAddress=" + homeAddress + ", homePostalCode=" + homePostalCode + ", homeCity=" + homeCity + ", residentAddress=" + residentAddress + ", residentPostalCode=" + residentPostalCode + ", residentCity=" + residentCity + ", color=" + color + ", shape=" + shape + ", aditionalDetails=" + aditionalDetails + ", storageLocation=" + storageLocation + ", handler=" + handler + ", addDate=" + addDate + ", resolveDate=" + resolveDate + '}';
     }
-    
+
 }
