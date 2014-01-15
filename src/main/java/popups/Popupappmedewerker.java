@@ -6,6 +6,7 @@ package popups;
 
 import java.awt.Color;
 import java.sql.SQLException;
+import java.util.Arrays;
 import javax.swing.BorderFactory;
 import models.Check;
 import models.Debug;
@@ -186,7 +187,7 @@ public class Popupappmedewerker extends javax.swing.JFrame {
 	MedewerkerDAO dbMedewerker;
 	dbMedewerker = new MedewerkerDAO();
 
-	if ((firstPasswordField != null) && (firstPasswordField == confirmPasswordField)) {
+	if ((Arrays.equals(firstPasswordField.getPassword(), confirmPasswordField.getPassword()))) {
 	    medewerker.setPassword(DigestUtils.sha256Hex(String.valueOf(firstPasswordField)));
 	} else {
 	    medewerker.setPassword(firstPasswordField.getPassword());
