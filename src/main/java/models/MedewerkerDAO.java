@@ -197,7 +197,7 @@ public class MedewerkerDAO {
         // some code needs to be writing
         //ps = conn.prepareStatement(query);
 
-        prdstmt.setString(1, medewerker.getUsername());
+        prdstmt.setString(1, medewerker.getUsername().toLowerCase());
         prdstmt.setString(2, medewerker.getName());
         prdstmt.setString(3, medewerker.getPassword());
         prdstmt.setBoolean(4, medewerker.isManager());
