@@ -218,46 +218,43 @@ public class MyAccount extends javax.swing.JDialog {
             change = true;
         }
         Debug.println(change + "");
-        if (password.getPassword().length > 0) {
+        if (password.getPassword().length > 5) {
             Debug.println(password.getPassword().toString());
-            try {
-                tempMedewerker = medewerkerTijdelijk.readByID(medewerkerID);
-            } catch (SQLException e) {
-                Debug.printError(e.toString());
-            }
             if (tempMedewerker.getPassword().equals(DigestUtils.sha256Hex(String.valueOf(passwordOld.getPassword())))) {
-
                 if (Arrays.equals(password.getPassword(), passwordConfirm.getPassword())) {
-                    try {
-                        tempMedewerker = medewerkerTijdelijk.readByID(medewerkerID);
-                        if (!tempMedewerker.getPassword().equals(DigestUtils.sha256Hex(String.valueOf(password.getPassword())))) {
-                            tempMedewerker.setPassword(password.getPassword());
-                            change = true;
-                        } else {
-                            dispose();
-                        }
-                        Debug.println(tempMedewerker.toString());
-
-                    } catch (SQLException e) {
-                        Debug.printError(e.toString());
+                    if (!tempMedewerker.getPassword().equals(DigestUtils.sha256Hex(String.valueOf(password.getPassword())))) {
+                        tempMedewerker.setPassword(password.getPassword());
+                        change = true;
                     }
+                    Debug.println(tempMedewerker.toString());
                 } else {
                     JOptionPane.showMessageDialog(null, "Passwords do not match");
                 }
 
+            } else {
+                JOptionPane.showMessageDialog(null,
+                        "Your input was invalid. Old password is not correct.",
+                        "Input error - not correct",
+                        JOptionPane.ERROR_MESSAGE);
+//                            dispose();
+            }
+        } else {
+            JOptionPane.showMessageDialog(null,
+                    "Your input was invalid. Passwords must be atleast 6 characters.",
+                    "Input error - not correct",
+                    JOptionPane.ERROR_MESSAGE);
+        }
 
-                Debug.println(change + "");
-                if (change) {
-                    Debug.println(tempMedewerker.toString());
-                    try {
-                        medewerkerTijdelijk.update(tempMedewerker);
-                    } catch (SQLException e) {
-                        Debug.printError(e.toString());
-                    }
-                }
+        Debug.println(change + "");
+        if (change) {
+            Debug.println(tempMedewerker.toString());
+            try {
+                medewerkerTijdelijk.update(tempMedewerker);
+                dispose();
+            } catch (SQLException e) {
+                Debug.printError(e.toString());
             }
         }
-        dispose();
     }//GEN-LAST:event_saveButActionPerformed
 
     private void dropDownActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_dropDownActionPerformed
