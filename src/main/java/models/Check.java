@@ -54,8 +54,8 @@ public class Check {
      * @param label
      * @return
      */
-    static public String cleanLabel(String label) {
-        label = label.replaceAll("\\s+", "");
+    static public String cleanAlphaNumeriek(String label) {
+        label = label.replaceAll("[^0-9A-Za-z]", "");
         return label;
     }
 
@@ -68,6 +68,16 @@ public class Check {
     static public String cleanPhone(String number) {
         number = number.replaceAll("[^0-9()+]", "");
         return number;
+    }
+
+    static public String cleanSearch(String query) {
+        query = query.replaceAll("[^\\p{L}\\p{Nd},\\s0-9]", "");
+        return query;
+    }
+
+    static public String cleanAlpha(String kleur) {
+        kleur = kleur.replaceAll("[^A-Za-z]", "");
+        return kleur;
     }
 
     /**
@@ -146,7 +156,7 @@ public class Check {
                 String makeAdmin = "INSERT INTO `Users` (`userName`, `userRealName`, `userPass`, `userManager`, `userBeheer`, `userLang`, `passDate`) VALUES('admin', 'admin', '8c6976e5b5410415bde908bd4dee15dfb167a9c873fc4bb8a81f6f2ab448a918', 0, 1, 'EN', NOW());";
                 prdstmt = conn.getConnection().prepareStatement(makeAdmin);
                 int ans2 = conn.performUpdate(prdstmt);
-                
+
 
                 prdstmt2 = conn.getConnection().prepareStatement(query2);
                 rs2 = conn.performSelect(prdstmt2);

@@ -204,7 +204,7 @@ public class AddLuggage extends javax.swing.JFrame {
 
     private void SaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SaveActionPerformed
         Luggage newLuggage;
-        label = Check.cleanLabel(labelTextField.getText());
+        label = Check.cleanAlphaNumeriek(labelTextField.getText());
         color = colorTextField.getText();
         shape = shapeTextField.getText();
         location = locationTextField.getText();
