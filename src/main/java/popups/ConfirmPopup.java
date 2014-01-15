@@ -17,6 +17,7 @@ public class ConfirmPopup extends javax.swing.JFrame {
     private User medewerker = new User();
     /**
      * Creates new form ConfirmPopup
+     * @param userName
      */
     public ConfirmPopup(String userName) {
         this.userName = userName;
@@ -87,10 +88,7 @@ public class ConfirmPopup extends javax.swing.JFrame {
     private void YesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_YesActionPerformed
         UserDAO dbMedewerker;
         dbMedewerker = new UserDAO();
-
-        
         medewerker.setUsername(userName);
-
         try {
             dbMedewerker.delete(medewerker);
         } catch (SQLException e) {

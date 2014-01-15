@@ -83,14 +83,14 @@ public class CaseEditDialog extends javax.swing.JFrame {
         colorLabel = new javax.swing.JLabel();
         shapeLabel = new javax.swing.JLabel();
         nameLabel = new javax.swing.JLabel();
-        jLabel5 = new javax.swing.JLabel();
+        hAddressLabel = new javax.swing.JLabel();
         statusLabel = new javax.swing.JLabel();
         lastNameLabel = new javax.swing.JLabel();
-        jLabel8 = new javax.swing.JLabel();
-        jLabel9 = new javax.swing.JLabel();
-        jLabel11 = new javax.swing.JLabel();
-        jLabel13 = new javax.swing.JLabel();
-        jLabel10 = new javax.swing.JLabel();
+        rPostalCodeLabel = new javax.swing.JLabel();
+        rCityLabel = new javax.swing.JLabel();
+        storageLabel = new javax.swing.JLabel();
+        addDetailsLabel = new javax.swing.JLabel();
+        rHeaderLabel = new javax.swing.JLabel();
         labelTextField = new javax.swing.JTextField();
         colorTextField = new javax.swing.JTextField();
         shapeTextField = new javax.swing.JTextField();
@@ -109,13 +109,13 @@ public class CaseEditDialog extends javax.swing.JFrame {
         saveButton = new javax.swing.JButton();
         cancelButton = new javax.swing.JButton();
         jSeparator1 = new javax.swing.JSeparator();
-        jLabel12 = new javax.swing.JLabel();
+        rAddressLabel = new javax.swing.JLabel();
         jSeparator2 = new javax.swing.JSeparator();
-        jLabel14 = new javax.swing.JLabel();
-        jLabel15 = new javax.swing.JLabel();
+        hHeaderLabel = new javax.swing.JLabel();
+        hPostalCodeLabel = new javax.swing.JLabel();
         hPostalCodeField = new javax.swing.JTextField();
         hCityField = new javax.swing.JTextField();
-        jLabel16 = new javax.swing.JLabel();
+        hCityLabel = new javax.swing.JLabel();
         jSeparator3 = new javax.swing.JSeparator();
         phoneLabel = new javax.swing.JLabel();
         phoneNrField = new javax.swing.JTextField();
@@ -140,21 +140,21 @@ public class CaseEditDialog extends javax.swing.JFrame {
 
         nameLabel.setText(bundle.getString("CaseEditDialog.nameLabel.text")); // NOI18N
 
-        jLabel5.setText(bundle.getString("CaseEditDialog.jLabel5.text")); // NOI18N
+        hAddressLabel.setText(bundle.getString("CaseEditDialog.hAddressLabel.text")); // NOI18N
 
         statusLabel.setText(bundle.getString("CaseEditDialog.statusLabel.text")); // NOI18N
 
         lastNameLabel.setText(bundle.getString("CaseEditDialog.lastNameLabel.text")); // NOI18N
 
-        jLabel8.setText(bundle.getString("CaseEditDialog.jLabel8.text")); // NOI18N
+        rPostalCodeLabel.setText(bundle.getString("CaseEditDialog.rPostalCodeLabel.text")); // NOI18N
 
-        jLabel9.setText(bundle.getString("CaseEditDialog.jLabel9.text")); // NOI18N
+        rCityLabel.setText(bundle.getString("CaseEditDialog.rCityLabel.text")); // NOI18N
 
-        jLabel11.setText(bundle.getString("CaseEditDialog.jLabel11.text")); // NOI18N
+        storageLabel.setText(bundle.getString("CaseEditDialog.storageLabel.text")); // NOI18N
 
-        jLabel13.setText(bundle.getString("CaseEditDialog.jLabel13.text")); // NOI18N
+        addDetailsLabel.setText(bundle.getString("CaseEditDialog.addDetailsLabel.text")); // NOI18N
 
-        jLabel10.setText(bundle.getString("CaseEditDialog.jLabel10.text")); // NOI18N
+        rHeaderLabel.setText(bundle.getString("CaseEditDialog.rHeaderLabel.text")); // NOI18N
 
         labelTextField.setEditable(false);
 
@@ -189,13 +189,13 @@ public class CaseEditDialog extends javax.swing.JFrame {
             }
         });
 
-        jLabel12.setText(bundle.getString("CaseEditDialog.jLabel12.text")); // NOI18N
+        rAddressLabel.setText(bundle.getString("CaseEditDialog.rAddressLabel.text")); // NOI18N
 
-        jLabel14.setText(bundle.getString("CaseEditDialog.jLabel14.text")); // NOI18N
+        hHeaderLabel.setText(bundle.getString("CaseEditDialog.hHeaderLabel.text")); // NOI18N
 
-        jLabel15.setText(bundle.getString("CaseEditDialog.jLabel15.text")); // NOI18N
+        hPostalCodeLabel.setText(bundle.getString("CaseEditDialog.hPostalCodeLabel.text")); // NOI18N
 
-        jLabel16.setText(bundle.getString("CaseEditDialog.jLabel16.text")); // NOI18N
+        hCityLabel.setText(bundle.getString("CaseEditDialog.hCityLabel.text")); // NOI18N
 
         phoneLabel.setText(bundle.getString("CaseEditDialog.phoneLabel.text")); // NOI18N
 
@@ -211,17 +211,17 @@ public class CaseEditDialog extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jLabel10)
+                .addComponent(rHeaderLabel)
                 .addGap(249, 249, 249))
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jLabel12, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jLabel8, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jLabel11, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jLabel13, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addComponent(rAddressLabel, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(rPostalCodeLabel, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(storageLabel, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(addDetailsLabel, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
                                 .addGap(12, 12, 12)
@@ -238,21 +238,21 @@ public class CaseEditDialog extends javax.swing.JFrame {
                                     .addGroup(layout.createSequentialGroup()
                                         .addComponent(rPostalCodeField, javax.swing.GroupLayout.PREFERRED_SIZE, 233, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addComponent(rCityLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE))
                                     .addComponent(rCityField, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 231, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(rAdressTextField, javax.swing.GroupLayout.Alignment.TRAILING)
                                     .addComponent(jSeparator1, javax.swing.GroupLayout.Alignment.TRAILING)
                                     .addComponent(jSeparator3, javax.swing.GroupLayout.Alignment.TRAILING)))))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jLabel15, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jLabel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addComponent(hPostalCodeLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(hAddressLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                                 .addComponent(hPostalCodeField, javax.swing.GroupLayout.PREFERRED_SIZE, 225, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(18, 18, 18)
-                                .addComponent(jLabel16, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(hCityLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(hCityField, javax.swing.GroupLayout.PREFERRED_SIZE, 233, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
@@ -263,7 +263,7 @@ public class CaseEditDialog extends javax.swing.JFrame {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(jLabel14)
+                                .addComponent(hHeaderLabel)
                                 .addGap(260, 260, 260))
                             .addGroup(layout.createSequentialGroup()
                                 .addGap(34, 34, 34)
@@ -328,43 +328,43 @@ public class CaseEditDialog extends javax.swing.JFrame {
                     .addComponent(emailAdressLabel)
                     .addComponent(emailAdressField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, Short.MAX_VALUE)
-                .addComponent(jLabel14)
+                .addComponent(hHeaderLabel)
                 .addGap(6, 6, 6)
                 .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel5)
+                    .addComponent(hAddressLabel)
                     .addComponent(hAddressTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(hPostalCodeField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel15)
-                    .addComponent(jLabel16)
+                    .addComponent(hPostalCodeLabel)
+                    .addComponent(hCityLabel)
                     .addComponent(hCityField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, Short.MAX_VALUE)
-                .addComponent(jLabel10)
+                .addComponent(rHeaderLabel)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(rAdressTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel12))
+                    .addComponent(rAddressLabel))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(rPostalCodeField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel8)
-                    .addComponent(jLabel9)
+                    .addComponent(rPostalCodeLabel)
+                    .addComponent(rCityLabel)
                     .addComponent(rCityField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(18, 18, Short.MAX_VALUE)
                 .addComponent(jSeparator3, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel11, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(storageLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel13))
+                    .addComponent(addDetailsLabel))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(printButton)
@@ -474,24 +474,19 @@ public class CaseEditDialog extends javax.swing.JFrame {
     }//GEN-LAST:event_formWindowLostFocus
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel addDetailsLabel;
     private javax.swing.JButton cancelButton;
     private javax.swing.JLabel colorLabel;
     private javax.swing.JTextField colorTextField;
     private javax.swing.JTextField emailAdressField;
     private javax.swing.JLabel emailAdressLabel;
+    private javax.swing.JLabel hAddressLabel;
     private javax.swing.JTextField hAddressTextField;
     private javax.swing.JTextField hCityField;
+    private javax.swing.JLabel hCityLabel;
+    private javax.swing.JLabel hHeaderLabel;
     private javax.swing.JTextField hPostalCodeField;
-    private javax.swing.JLabel jLabel10;
-    private javax.swing.JLabel jLabel11;
-    private javax.swing.JLabel jLabel12;
-    private javax.swing.JLabel jLabel13;
-    private javax.swing.JLabel jLabel14;
-    private javax.swing.JLabel jLabel15;
-    private javax.swing.JLabel jLabel16;
-    private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel8;
-    private javax.swing.JLabel jLabel9;
+    private javax.swing.JLabel hPostalCodeLabel;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JSeparator jSeparator1;
@@ -508,13 +503,18 @@ public class CaseEditDialog extends javax.swing.JFrame {
     private javax.swing.JLabel phoneLabel;
     private javax.swing.JTextField phoneNrField;
     private javax.swing.JButton printButton;
+    private javax.swing.JLabel rAddressLabel;
     private javax.swing.JTextField rAdressTextField;
     private javax.swing.JTextField rCityField;
+    private javax.swing.JLabel rCityLabel;
+    private javax.swing.JLabel rHeaderLabel;
     private javax.swing.JTextField rPostalCodeField;
+    private javax.swing.JLabel rPostalCodeLabel;
     private javax.swing.JButton saveButton;
     private javax.swing.JLabel shapeLabel;
     private javax.swing.JTextField shapeTextField;
     private javax.swing.JComboBox statusDropDown;
     private javax.swing.JLabel statusLabel;
+    private javax.swing.JLabel storageLabel;
     // End of variables declaration//GEN-END:variables
 }

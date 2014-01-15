@@ -103,8 +103,8 @@ public class UserEditDialog extends javax.swing.JFrame {
         isManager.setText(bundle.getString("UserEditDialog.isManager.text")); // NOI18N
         isManager.setToolTipText(bundle.getString("UserEditDialog.isManager.toolTipText")); // NOI18N
 
-        java.util.ResourceBundle bundle1 = java.util.ResourceBundle.getBundle("popups/Bundle"); // NOI18N
-        delete.setText(bundle1.getString("UserEditDialog.delete.text")); // NOI18N
+        delete.setText(bundle.getString("UserEditDialog.delete.text")); // NOI18N
+        delete.setActionCommand(bundle.getString("UserEditDialog.delete.text")); // NOI18N
         delete.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 deleteActionPerformed(evt);
