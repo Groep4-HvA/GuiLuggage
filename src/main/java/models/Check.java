@@ -54,8 +54,8 @@ public class Check {
      * @param label
      * @return
      */
-    static public String cleanLabel(String label) {
-        label = label.replaceAll("\\s+", "");
+    static public String cleanAlphaNumeriek(String label) {
+        label = label.replaceAll("[^0-9A-Za-z]", "");
         return label;
     }
 
@@ -68,6 +68,16 @@ public class Check {
     static public String cleanPhone(String number) {
         number = number.replaceAll("[^0-9()+]", "");
         return number;
+    }
+
+    static public String cleanSearch(String query) {
+        query = query.replaceAll("[^\\p{L}\\p{Nd},\\s0-9]", "");
+        return query;
+    }
+
+    static public String cleanAlpha(String kleur) {
+        kleur = kleur.replaceAll("[^A-Za-z]", "");
+        return kleur;
     }
 
     /**
