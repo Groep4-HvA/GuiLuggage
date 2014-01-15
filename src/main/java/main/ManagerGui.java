@@ -67,9 +67,9 @@ public class ManagerGui extends java.awt.Frame {
             listPending = dbCase.readAllPending();
             listResolved = dbCase.readAllResolved();
 
-            pendingLabel.setText(bundle.getString("ManagerGui.jLabel1.text") + "" + listPending.size());
-            resolvLabel.setText(bundle.getString("ManagerGui.jLabel2.text") + "" + listResolved.size());
-            totalLabel.setText(bundle.getString("ManagerGui.jLabel3.text") + "" + list.size());
+            pendingLabel.setText(bundle.getString("ManagerGui.pendingLabel.text") + "" + listPending.size());
+            resolvLabel.setText(bundle.getString("ManagerGui.resolvLabel.text") + "" + listResolved.size());
+            totalLabel.setText(bundle.getString("ManagerGui.totalLabel.text") + "" + list.size());
             jTable1.getColumnModel().getColumn(0).setHeaderValue("#");
             jTable1.getColumnModel().getColumn(1).setHeaderValue(bundle.getString("table.LuggageNumber"));
             jTable1.getColumnModel().getColumn(2).setHeaderValue(bundle.getString("table.AddDate"));
