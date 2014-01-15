@@ -25,19 +25,20 @@ public class Popupappmedewerker extends javax.swing.JFrame {
 
     /**
      * Creates new form Popupappmedewerker
+     *
      * @param medewerker
      */
     public Popupappmedewerker(Medewerker medewerker) {
-	if (!Check.verifyLogin()) {
-	    Runtime.getRuntime().exit(1);
-	} else {
-	    this.medewerker = medewerker;
-	    this.setUndecorated(true);
-	    getRootPane().setBorder(BorderFactory.createLineBorder(red));
-	    initComponents();
-	    this.setLocationRelativeTo(null);
-	    fillData();
-	}
+        if (!Check.verifyLogin()) {
+            Runtime.getRuntime().exit(1);
+        } else {
+            this.medewerker = medewerker;
+            this.setUndecorated(true);
+            getRootPane().setBorder(BorderFactory.createLineBorder(red));
+            initComponents();
+            this.setLocationRelativeTo(null);
+            fillData();
+        }
     }
 
     /**
@@ -174,50 +175,46 @@ public class Popupappmedewerker extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void fillData() {
-	nameField.setText(medewerker.getName());
-	userNameField.setText(medewerker.getUsername());
-	isAppManager.setSelected(medewerker.isAppManager());
-	isManager.setSelected(medewerker.isManager());
+        nameField.setText(medewerker.getName());
+        userNameField.setText(medewerker.getUsername());
+        isAppManager.setSelected(medewerker.isAppManager());
+        isManager.setSelected(medewerker.isManager());
     }
     private void saveButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saveButtonActionPerformed
-	medewerker.setName(nameField.getText());
-	medewerker.setAppManager(isAppManager.isSelected());
-	medewerker.setManager(isManager.isSelected());
+        medewerker.setName(nameField.getText());
+        medewerker.setAppManager(isAppManager.isSelected());
+        medewerker.setManager(isManager.isSelected());
 
-	MedewerkerDAO dbMedewerker;
-	dbMedewerker = new MedewerkerDAO();
+        MedewerkerDAO dbMedewerker;
+        dbMedewerker = new MedewerkerDAO();
 
-	if ((Arrays.equals(firstPasswordField.getPassword(), confirmPasswordField.getPassword()))) {
-	    medewerker.setPassword(DigestUtils.sha256Hex(String.valueOf(firstPasswordField)));
-	} else {
-	    medewerker.setPassword(firstPasswordField.getPassword());
-	    // Debug.println(medewerker.toString());
-	    try {
-		dbMedewerker.update(medewerker);
-	    } catch (SQLException e) {
-		Debug.printError(e.toString());
-	    }
-	}
-	Debug.println(medewerker.toString());
-	dispose();
+        if (Arrays.equals(firstPasswordField.getPassword(), confirmPasswordField.getPassword())) {
+            medewerker.setPassword(firstPasswordField.getPassword());
+        }
+        try {
+            dbMedewerker.update(medewerker);
+        } catch (SQLException e) {
+            Debug.printError(e.toString());
+        }
+        Debug.println(medewerker.toString());
+        dispose();
     }//GEN-LAST:event_saveButtonActionPerformed
 
     private void cancelButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelButtonActionPerformed
-	dispose();
+        dispose();
     }//GEN-LAST:event_cancelButtonActionPerformed
 
     private void deleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteActionPerformed
-          
+
         ConfirmPopup confirmPopup = new ConfirmPopup(userNameField.getText());
-	confirmPopup.pack();
-	confirmPopup.setVisible(true);
-	confirmPopup.setLocationRelativeTo(null);
-        
+        confirmPopup.pack();
+        confirmPopup.setVisible(true);
+        confirmPopup.setLocationRelativeTo(null);
+
         medewerker.setUsername(userNameField.getText());
 
-        
         dispose();
-     
+
     }//GEN-LAST:event_deleteActionPerformed
 
     private void formWindowLostFocus(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowLostFocus

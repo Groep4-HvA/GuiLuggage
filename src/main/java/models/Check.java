@@ -124,7 +124,6 @@ public class Check {
             verified = false;
         } else if (name.equals("") || username.equals("")) {
             verified = false;
-
         } else if (password.length < 6) {
             verified = false;
         }else {
