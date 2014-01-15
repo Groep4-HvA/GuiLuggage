@@ -15,9 +15,7 @@ import models.Debug;
  * @author ahmed
  */
 public class ConnectionMySQL {
-    
-    private final java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("Bundle");
-    
+
     public static String DRIVER = "com.mysql.jdbc.Driver";
     public static String DBURL;
     public static String DBUSER;
@@ -47,7 +45,7 @@ public class ConnectionMySQL {
             DriverManager.setLoginTimeout(5);
             conn = DriverManager.getConnection(DBURL, DBUSER, DBPASS);
         } catch (ClassNotFoundException e) {
-            Debug.printError(e.toString()); 
+            Debug.printError(e.toString());
         } catch (SQLException e) {
             Debug.printError(e.toString());
         }

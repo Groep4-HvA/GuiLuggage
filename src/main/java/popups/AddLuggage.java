@@ -12,8 +12,8 @@ import models.Check;
 import models.Debug;
 import models.Luggage;
 import models.LuggageDAO;
-import models.Medewerker;
-import models.MedewerkerDAO;
+import models.User;
+import models.UserDAO;
 
 /**
  *
@@ -28,11 +28,7 @@ public class AddLuggage extends javax.swing.JFrame {
     private String details;
     private int handlerId;
     private String phoneNr;
-    private Medewerker tempMedewerker = null;
-    private MedewerkerDAO medewerkerTijdelijk = new MedewerkerDAO();
     private final java.util.ResourceBundle BUNDLE = java.util.ResourceBundle.getBundle("Bundle");
-    private int medewerkerID;
-    private List<Case> caseList = null;
 
     /**
      * Creates new form guiPopupDesign
@@ -199,7 +195,7 @@ public class AddLuggage extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void cancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelActionPerformed
-        this.dispose();
+        dispose();
     }//GEN-LAST:event_cancelActionPerformed
 
     private void SaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SaveActionPerformed
@@ -247,15 +243,6 @@ public class AddLuggage extends javax.swing.JFrame {
             Debug.printError(e.toString());
             Debug.printError(e.getSQLState());
         }
-
-        try {
-            tempMedewerker = medewerkerTijdelijk.readByID(medewerkerID);
-            /*MainGuiFrame f = new MainGuiFrame(tempMedewerker.isAppManager(), medewerkerID);
-             f.fillTableMore();*/
-        } catch (SQLException e) {
-            Debug.printError(e.toString());
-        }
-
         dispose();
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables

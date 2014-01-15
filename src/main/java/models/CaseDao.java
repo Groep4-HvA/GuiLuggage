@@ -77,7 +77,7 @@ public class CaseDao {
         ResultSet rs;
         PreparedStatement prdstmt;
 
-        String query = "SELECT LuggageNumber, AddDate, LEFT(AddDate, 10) FROM cases WHERE `AddDate` BETWEEN ? AND ? LIMIT 50;";
+        String query = "SELECT LuggageNumber, AddDate, LEFT(AddDate, 10) FROM cases WHERE `AddDate` BETWEEN ? AND ? LIMIT 51;";
         conn.startConnection(); //2013-12-09
 
         prdstmt = conn.getConnection().prepareStatement(query);
@@ -101,7 +101,7 @@ public class CaseDao {
         ResultSet rs;
         PreparedStatement prdstmt;
 
-        String query = "SELECT * FROM `cases` ORDER BY AddDate DESC LIMIT 99";
+        String query = "SELECT * FROM `cases` ORDER BY AddDate DESC LIMIT 100";
 
         conn.startConnection();
 
@@ -149,7 +149,7 @@ public class CaseDao {
         ResultSet rs;
         PreparedStatement prdstmt;
 
-        String query = "SELECT * FROM `cases` ORDER BY AddDate DESC LIMIT 50";
+        String query = "SELECT * FROM `cases` ORDER BY AddDate DESC LIMIT 51";
 
         conn.startConnection();
 
@@ -253,30 +253,28 @@ public class CaseDao {
 
     public int update(Case currentCase) throws SQLException {
         DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-        String queryResolve, queryLabel, queryName, querySurName, queryColor, queryShape, queryEmail, queryPhone,  queryRAddress, queryRPostalCode, queryRCity, queryHAddress, queryHPostalCode, queryHCity, queryAditional, queryLocation;
-
+        String queryResolve, queryLabel, queryName, querySurName, queryColor, queryShape, queryEmail, queryPhone, queryRAddress, queryRPostalCode, queryRCity, queryHAddress, queryHPostalCode, queryHCity, queryAditional, queryLocation;
 
         queryLabel = currentCase.getLabel();
         queryName = currentCase.getName();
         querySurName = currentCase.getSurName();
         queryEmail = currentCase.getEmailAdress();
         queryPhone = currentCase.getPhoneNumber();
-        
+
         queryColor = currentCase.getColor();
         queryShape = currentCase.getShape();
-        
-        
+
         queryRAddress = currentCase.getResidentAddress();
         queryRPostalCode = currentCase.getResidentPostalCode();
         queryRCity = currentCase.getResidentCity();
-        
+
         queryHAddress = currentCase.getHomeAddress();
         queryHPostalCode = currentCase.getHomePostalCode();
         queryHCity = currentCase.getHomeCity();
-        
+
         queryAditional = currentCase.getAditionalDetails();
         queryLocation = currentCase.getStorageLocation();
-        
+
         queryResolve = (currentCase.getResolveDate() == null) ? null : dateFormat.format(currentCase.getResolveDate());
 
         PreparedStatement prdstmt;

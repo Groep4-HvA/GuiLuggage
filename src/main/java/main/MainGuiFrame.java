@@ -18,13 +18,11 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
-import java.util.Locale;
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.TableCellRenderer;
 import models.*;
-import org.apache.pdfbox.PDFReader;
 import popups.*;
 
 /**
@@ -35,10 +33,10 @@ import popups.*;
 public class MainGuiFrame extends java.awt.Frame {
 
     //Java resources
-    private List<Medewerker> medList = null;
+    private List<User> medList = null;
     private List<Case> caseList = null;
     private List<Integer> messageRows = new ArrayList();
-    private final java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("Bundle"); // NOI18N
+    private final java.util.ResourceBundle BUNDLE = java.util.ResourceBundle.getBundle("Bundle"); // NOI18N
     //Strings for add buttons
     private String button1 = null;
     private String button2 = null;
@@ -48,8 +46,8 @@ public class MainGuiFrame extends java.awt.Frame {
     private boolean inBeheer = false;
     boolean notify = false; //set to true to enable annoying as hell notifications
     private Image bg;
-    private Cursor waiting = new Cursor(Cursor.WAIT_CURSOR);
-    private Cursor defaultCursor = new Cursor(Cursor.DEFAULT_CURSOR);
+    private final Cursor waiting = new Cursor(Cursor.WAIT_CURSOR);
+    private final Cursor defaultCursor = new Cursor(Cursor.DEFAULT_CURSOR);
 
     /**
      * Constructor for the common user and App Manager screen
@@ -61,19 +59,14 @@ public class MainGuiFrame extends java.awt.Frame {
         if (!Check.verifyLogin()) {
             Runtime.getRuntime().exit(1);
         } else {
-            //wait
             setCursor(waiting);
-            
-            //MainGuiFrame.get.setCursor(waiting);
-            
-            //logIn.super.getGlassPane().setVisible(true);
             menuBeheer();
             //pre init configuration of Strings
             Debug.println("Configuring variables");
             this.handlerId = handlerId;
             this.beheer = beheer;
-            button1 = (inBeheer) ? bundle.getString("Medewerker") : bundle.getString("Luggage");
-            button2 = (inBeheer) ? bundle.getString("Manager") : bundle.getString("Passenger");
+            button1 = (inBeheer) ? BUNDLE.getString("Medewerker") : BUNDLE.getString("Luggage");
+            button2 = (inBeheer) ? BUNDLE.getString("Manager") : BUNDLE.getString("Passenger");
 
             //initializing the screen and centering it
             try {
@@ -97,7 +90,11 @@ public class MainGuiFrame extends java.awt.Frame {
     }
 
     private void formWindowGainedFocus(java.awt.event.WindowEvent evt) {
-      System.out.println("sasss");
+        if (inBeheer) {
+            fillTableMedewerkers();
+        } else {
+            fillTableCases(notify);
+        }
     }
 
     /**
@@ -400,13 +397,13 @@ public class MainGuiFrame extends java.awt.Frame {
     private void menuBeheer() {
         //Menu settings
         MenuBar menuBar = new MenuBar();
-        Menu menu = new Menu(bundle.getString("menu"));
+        Menu menu = new Menu(BUNDLE.getString("menu"));
 
         MenuShortcut dbSC = new MenuShortcut(KeyEvent.VK_D);
         MenuShortcut helpSC = new MenuShortcut(KeyEvent.VK_F1);
 
-        MenuItem db = new MenuItem(bundle.getString("menu.db"), dbSC);
-        MenuItem help = new MenuItem(bundle.getString("menu.help"), helpSC);
+        MenuItem db = new MenuItem(BUNDLE.getString("menu.db"), dbSC);
+        MenuItem help = new MenuItem(BUNDLE.getString("menu.help"), helpSC);
 
         DBListener actionDb = new DBListener();
         HelpListener actionHelp = new HelpListener();
@@ -429,10 +426,10 @@ public class MainGuiFrame extends java.awt.Frame {
      */
     private void moreButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_moreButtonActionPerformed
         if (inBeheer) {
-                fillTableMedewerkersMore();
-            } else {
-                fillTableCasesMore();
-            }
+            fillTableMedewerkersMore();
+        } else {
+            fillTableCasesMore();
+        }
     }//GEN-LAST:event_moreButtonActionPerformed
 
     /*
@@ -441,35 +438,34 @@ public class MainGuiFrame extends java.awt.Frame {
      */
     private void appManagementButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_appManagementButtonActionPerformed
         setCursor(waiting);
-        
+
         if (beheer) {
             if (inBeheer) {
-                addNewButton1.setText(bundle.getString("MainGuiFrame.addNew") + button1);
-                addNewButton2.setText(bundle.getString("MainGuiFrame.addNew") + button2);
-                appManagementButton.setText(bundle.getString("MainGuiFrame.beheerButtonOn"));
-                LabelDescription.setText(bundle.getString("Search") + ":");
+                addNewButton1.setText(BUNDLE.getString("MainGuiFrame.addNew") + button1);
+                addNewButton2.setText(BUNDLE.getString("MainGuiFrame.addNew") + button2);
+                appManagementButton.setText(BUNDLE.getString("MainGuiFrame.beheerButtonOn"));
+                LabelDescription.setText(BUNDLE.getString("Search") + ":");
                 //TODO: readAll should be from the Cases, not Dao
                 fillTableCases(notify);
                 inBeheer = false;
                 menuBeheer();
             } else {
-                addNewButton1.setText(bundle.getString("MainGuiFrame.addNew") + bundle.getString("Manager"));
-                addNewButton2.setText(bundle.getString("MainGuiFrame.addNew") + bundle.getString("Medewerker"));
-                appManagementButton.setText(bundle.getString("MainGuiFrame.beheerButtonOff"));
-                LabelDescription.setText(bundle.getString("Search") + ":");
+                addNewButton1.setText(BUNDLE.getString("MainGuiFrame.addNew") + BUNDLE.getString("Manager"));
+                addNewButton2.setText(BUNDLE.getString("MainGuiFrame.addNew") + BUNDLE.getString("Medewerker"));
+                appManagementButton.setText(BUNDLE.getString("MainGuiFrame.beheerButtonOff"));
+                LabelDescription.setText(BUNDLE.getString("Search") + ":");
                 fillTableMedewerkers();
                 inBeheer = true;
                 menuBeheer();
             }
         } else {
-            Debug.println(bundle.getString("notAuthorized"));
+            Debug.println(BUNDLE.getString("notAuthorized"));
         }
         setCursor(defaultCursor);
     }//GEN-LAST:event_appManagementButtonActionPerformed
 
     /*
      * Open "My Account" allowing you to edit your password and language
-     * TODO: Preset the language of the user
      */
     private void myAccountButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_myAccountButtonActionPerformed
         MyAccount myAccount = new MyAccount(new javax.swing.JFrame(), true, handlerId);
@@ -486,18 +482,18 @@ public class MainGuiFrame extends java.awt.Frame {
 
     private void tableResultsMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tableResultsMouseClicked
         if (inBeheer) {
-            Popupappmedewerker popup1 = new Popupappmedewerker(medList.get(tableResults.getSelectedRow()));
+            UserEditDialog popup1 = new UserEditDialog(medList.get(tableResults.getSelectedRow()));
             popup1.setVisible(true);
         } else {
-            PopUpMedewerker popup = new PopUpMedewerker(caseList.get(tableResults.getSelectedRow()), handlerId);
+            CaseEditDialog popup = new CaseEditDialog(caseList.get(tableResults.getSelectedRow()), handlerId);
             popup.setVisible(true);
         }
     }//GEN-LAST:event_tableResultsMouseClicked
 
     private void addNewButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addNewButton1ActionPerformed
-        
+
         if (inBeheer) {
-            AddMedewerker gui = new AddMedewerker(true);
+            AddUser gui = new AddUser(true);
             gui.dispose();
             gui.setUndecorated(true);
             for (float i = 0.0f; i < 1.0f; i += 0.005f) {
@@ -515,13 +511,13 @@ public class MainGuiFrame extends java.awt.Frame {
                 gui.setVisible(true);
             }
         }
-       
+
     }//GEN-LAST:event_addNewButton1ActionPerformed
 
     private void addNewButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addNewButton2ActionPerformed
-      
+
         if (inBeheer) {
-            AddMedewerker gui = new AddMedewerker(false);
+            AddUser gui = new AddUser(false);
             gui.dispose();
             gui.setUndecorated(true);
             for (float i = 0.0f; i < 1.0f; i += 0.004f) {
@@ -539,11 +535,11 @@ public class MainGuiFrame extends java.awt.Frame {
                 gui.setVisible(true);
             }
         }
-      
+
     }//GEN-LAST:event_addNewButton2ActionPerformed
 
     private void searchButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_searchButtonActionPerformed
-      setCursor(waiting);
+        setCursor(waiting);
         if ("play tetris".equals(searchInput.getText().toLowerCase())) {
             Tetris.startApplication();
         } else {
@@ -573,7 +569,7 @@ public class MainGuiFrame extends java.awt.Frame {
                 }
             } else {
                 try {
-                    MedewerkerDAO dbMedewerker = new MedewerkerDAO();
+                    UserDAO dbMedewerker = new UserDAO();
                     medList = dbMedewerker.search(searchInput.getText());
                     populateTableMedewerker(medList);
                     if (medList.isEmpty()) {
@@ -615,8 +611,8 @@ public class MainGuiFrame extends java.awt.Frame {
         if (start) {
             for (int i = 0; i < messageRows.size(); i++) {
                 JOptionPane.showMessageDialog(null,
-                        bundle.getString("warning.longStay").replaceAll("%lbln", caseList.get(messageRows.get(i)).getLabel()),
-                        bundle.getString("warning.longStay.title"),
+                        BUNDLE.getString("warning.longStay").replaceAll("%lbln", caseList.get(messageRows.get(i)).getLabel()),
+                        BUNDLE.getString("warning.longStay.title"),
                         JOptionPane.WARNING_MESSAGE);
             }
         }
@@ -624,7 +620,7 @@ public class MainGuiFrame extends java.awt.Frame {
     }
 
     public void fillTableMedewerkers() {
-        MedewerkerDAO dbMedewerker = new MedewerkerDAO();
+        UserDAO dbMedewerker = new UserDAO();
         try {
             medList = dbMedewerker.readAll();
         } catch (SQLException e) {
@@ -632,9 +628,9 @@ public class MainGuiFrame extends java.awt.Frame {
         }
         populateTableMedewerker(medList);
     }
-    
-        public void fillTableMedewerkersMore() {
-        MedewerkerDAO dbMedewerker = new MedewerkerDAO();
+
+    public void fillTableMedewerkersMore() {
+        UserDAO dbMedewerker = new UserDAO();
         try {
             medList = dbMedewerker.readAllMore();
         } catch (SQLException e) {
@@ -643,7 +639,7 @@ public class MainGuiFrame extends java.awt.Frame {
         populateTableMedewerker(medList);
     }
 
-    public void populateTableMedewerker(List<Medewerker> list) {
+    public void populateTableMedewerker(List<User> list) {
         tableResults.getColumnModel().getColumn(0).setMaxWidth(350);
         tableResults.getColumnModel().getColumn(0).setPreferredWidth(250);
         for (int i = 0; i < 50; i++) {
@@ -668,10 +664,10 @@ public class MainGuiFrame extends java.awt.Frame {
                 return c;
             }
         });
-        tableResults.getColumnModel().getColumn(0).setHeaderValue(bundle.getString("table.Name"));
-        tableResults.getColumnModel().getColumn(1).setHeaderValue(bundle.getString("table.Username"));
-        tableResults.getColumnModel().getColumn(2).setHeaderValue(bundle.getString("table.Appmanager"));
-        tableResults.getColumnModel().getColumn(3).setHeaderValue(bundle.getString("table.Manager"));
+        tableResults.getColumnModel().getColumn(0).setHeaderValue(BUNDLE.getString("table.Name"));
+        tableResults.getColumnModel().getColumn(1).setHeaderValue(BUNDLE.getString("table.Username"));
+        tableResults.getColumnModel().getColumn(2).setHeaderValue(BUNDLE.getString("table.Appmanager"));
+        tableResults.getColumnModel().getColumn(3).setHeaderValue(BUNDLE.getString("table.Manager"));
     }
 
     public void populateTableCase(final List<Case> list) {
@@ -705,7 +701,7 @@ public class MainGuiFrame extends java.awt.Frame {
             } else {
                 luggageList.add(i);
             }
-            
+
         }
         tableResults.setDefaultRenderer(Object.class, new TableCellRenderer() {
             private final DefaultTableCellRenderer DEFAULT_RENDERER = new DefaultTableCellRenderer();
@@ -728,9 +724,9 @@ public class MainGuiFrame extends java.awt.Frame {
             }
         });
         tableResults.getColumnModel().getColumn(0).setHeaderValue("#");
-        tableResults.getColumnModel().getColumn(1).setHeaderValue(bundle.getString("table.LuggageNumber"));
-        tableResults.getColumnModel().getColumn(2).setHeaderValue(bundle.getString("table.AddDate"));
-        tableResults.getColumnModel().getColumn(3).setHeaderValue(bundle.getString("table.HandlerName"));
+        tableResults.getColumnModel().getColumn(1).setHeaderValue(BUNDLE.getString("table.LuggageNumber"));
+        tableResults.getColumnModel().getColumn(2).setHeaderValue(BUNDLE.getString("table.AddDate"));
+        tableResults.getColumnModel().getColumn(3).setHeaderValue(BUNDLE.getString("table.HandlerName"));
         setCursor(defaultCursor);
     }
 
@@ -796,9 +792,7 @@ public class MainGuiFrame extends java.awt.Frame {
     }
 
     private abstract class MainFocus implements FocusListener {
-        
-        
-        
+
         @Override
         public void focusGained(FocusEvent e) {
             Debug.println("Focus gained");

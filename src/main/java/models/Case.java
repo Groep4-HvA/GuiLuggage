@@ -280,14 +280,15 @@ public class Case {
      * @param handlerID
      */
     public void setHandler(int handlerID) {
-        MedewerkerDAO dbMedewerker = new MedewerkerDAO();
-        Medewerker dBhandler = null;
+        UserDAO dbMedewerker = new UserDAO();
+        User dBhandler;
         try {
             dBhandler = dbMedewerker.getMedewerkerById(handlerID);
+            this.handler = dBhandler.getName();
         } catch (SQLException e) {
+            this.handler = "John Doe (No name found)";
             Debug.printError(e.toString());
         }
-        this.handler = dBhandler.getName();
     }
 
     /**
@@ -364,22 +365,22 @@ public class Case {
 
     /**
      * Set the phone number to a value
-     * @param phoneNr 
+     *
+     * @param phoneNr
      */
     public void setPhoneNumber(String phoneNr) {
         this.phoneNumber = phoneNr;
     }
-    
+
     /**
      * Get the phone number
+     *
      * @return phone number
      */
     public String getPhoneNumber() {
         return phoneNumber;
     }
-    
-    
-    
+
     /**
      * parse the object to a string
      *

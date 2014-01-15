@@ -19,7 +19,7 @@ import models.PDFGenerator;
  *
  * @author Jeroen
  */
-public class PopUpMedewerker extends javax.swing.JFrame {
+public class CaseEditDialog extends javax.swing.JFrame {
 
     private final java.util.ResourceBundle BUNDLE = java.util.ResourceBundle.getBundle("Bundle");
     private final Color red = new Color(163, 0, 15);
@@ -35,7 +35,7 @@ public class PopUpMedewerker extends javax.swing.JFrame {
      * @param currentcase
      * @param handlerId
      */
-    public PopUpMedewerker(Case currentcase, int handlerId) {
+    public CaseEditDialog(Case currentcase, int handlerId) {
         if (!Check.verifyLogin()) {
             Runtime.getRuntime().exit(1);
         } else {
@@ -132,29 +132,29 @@ public class PopUpMedewerker extends javax.swing.JFrame {
         });
 
         java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("Bundle"); // NOI18N
-        labelLabel.setText(bundle.getString("PopUpMedewerker.labelLabel.text")); // NOI18N
+        labelLabel.setText(bundle.getString("CaseEditDialog.labelLabel.text")); // NOI18N
 
-        colorLabel.setText(bundle.getString("PopUpMedewerker.colorLabel.text")); // NOI18N
+        colorLabel.setText(bundle.getString("CaseEditDialog.colorLabel.text")); // NOI18N
 
-        shapeLabel.setText(bundle.getString("PopUpMedewerker.shapeLabel.text")); // NOI18N
+        shapeLabel.setText(bundle.getString("CaseEditDialog.shapeLabel.text")); // NOI18N
 
-        nameLabel.setText(bundle.getString("PopUpMedewerker.nameLabel.text")); // NOI18N
+        nameLabel.setText(bundle.getString("CaseEditDialog.nameLabel.text")); // NOI18N
 
-        jLabel5.setText(bundle.getString("PopUpMedewerker.jLabel5.text")); // NOI18N
+        jLabel5.setText(bundle.getString("CaseEditDialog.jLabel5.text")); // NOI18N
 
-        statusLabel.setText(bundle.getString("PopUpMedewerker.statusLabel.text")); // NOI18N
+        statusLabel.setText(bundle.getString("CaseEditDialog.statusLabel.text")); // NOI18N
 
-        lastNameLabel.setText(bundle.getString("PopUpMedewerker.lastNameLabel.text")); // NOI18N
+        lastNameLabel.setText(bundle.getString("CaseEditDialog.lastNameLabel.text")); // NOI18N
 
-        jLabel8.setText(bundle.getString("PopUpMedewerker.jLabel8.text")); // NOI18N
+        jLabel8.setText(bundle.getString("CaseEditDialog.jLabel8.text")); // NOI18N
 
-        jLabel9.setText(bundle.getString("PopUpMedewerker.jLabel9.text")); // NOI18N
+        jLabel9.setText(bundle.getString("CaseEditDialog.jLabel9.text")); // NOI18N
 
-        jLabel11.setText(bundle.getString("PopUpMedewerker.jLabel11.text")); // NOI18N
+        jLabel11.setText(bundle.getString("CaseEditDialog.jLabel11.text")); // NOI18N
 
-        jLabel13.setText(bundle.getString("PopUpMedewerker.jLabel13.text")); // NOI18N
+        jLabel13.setText(bundle.getString("CaseEditDialog.jLabel13.text")); // NOI18N
 
-        jLabel10.setText(bundle.getString("PopUpMedewerker.jLabel10.text")); // NOI18N
+        jLabel10.setText(bundle.getString("CaseEditDialog.jLabel10.text")); // NOI18N
 
         labelTextField.setEditable(false);
 
@@ -168,42 +168,42 @@ public class PopUpMedewerker extends javax.swing.JFrame {
 
         statusDropDown.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Pending", "Resolved" }));
 
-        printButton.setText(bundle.getString("PopUpMedewerker.printButton.text")); // NOI18N
+        printButton.setText(bundle.getString("CaseEditDialog.printButton.text")); // NOI18N
         printButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 printButtonActionPerformed(evt);
             }
         });
 
-        saveButton.setText(bundle.getString("PopUpMedewerker.saveButton.text")); // NOI18N
+        saveButton.setText(bundle.getString("CaseEditDialog.saveButton.text")); // NOI18N
         saveButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 saveButtonActionPerformed(evt);
             }
         });
 
-        cancelButton.setText(bundle.getString("PopUpMedewerker.cancelButton.text")); // NOI18N
+        cancelButton.setText(bundle.getString("CaseEditDialog.cancelButton.text")); // NOI18N
         cancelButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cancelButtonActionPerformed(evt);
             }
         });
 
-        jLabel12.setText(bundle.getString("PopUpMedewerker.jLabel12.text")); // NOI18N
+        jLabel12.setText(bundle.getString("CaseEditDialog.jLabel12.text")); // NOI18N
 
-        jLabel14.setText(bundle.getString("PopUpMedewerker.jLabel14.text")); // NOI18N
+        jLabel14.setText(bundle.getString("CaseEditDialog.jLabel14.text")); // NOI18N
 
-        jLabel15.setText(bundle.getString("PopUpMedewerker.jLabel15.text")); // NOI18N
+        jLabel15.setText(bundle.getString("CaseEditDialog.jLabel15.text")); // NOI18N
 
-        jLabel16.setText(bundle.getString("PopUpMedewerker.jLabel16.text")); // NOI18N
+        jLabel16.setText(bundle.getString("CaseEditDialog.jLabel16.text")); // NOI18N
 
-        phoneLabel.setText(bundle.getString("PopUpMedewerker.phoneLabel.text")); // NOI18N
+        phoneLabel.setText(bundle.getString("CaseEditDialog.phoneLabel.text")); // NOI18N
 
-        phoneNrField.setText(bundle.getString("PopUpMedewerker.phoneNrField.text")); // NOI18N
+        phoneNrField.setText(bundle.getString("CaseEditDialog.phoneNrField.text")); // NOI18N
 
-        emailAdressLabel.setText(bundle.getString("PopUpMedewerker.emailAdressLabel.text")); // NOI18N
+        emailAdressLabel.setText(bundle.getString("CaseEditDialog.emailAdressLabel.text")); // NOI18N
 
-        emailAdressField.setText(bundle.getString("PopUpMedewerker.emailAdressField.text")); // NOI18N
+        emailAdressField.setText(bundle.getString("CaseEditDialog.emailAdressField.text")); // NOI18N
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);

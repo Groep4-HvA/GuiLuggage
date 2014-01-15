@@ -14,8 +14,8 @@ import javax.swing.BorderFactory;
 import javax.swing.JOptionPane;
 import models.Check;
 import models.Debug;
-import models.Medewerker;
-import models.MedewerkerDAO;
+import models.User;
+import models.UserDAO;
 import org.apache.commons.codec.digest.DigestUtils;
 
 /**
@@ -25,10 +25,9 @@ import org.apache.commons.codec.digest.DigestUtils;
 public class MyAccount extends javax.swing.JDialog {
 
     private final Color red = new Color(163, 0, 15);
-    private Medewerker tempMedewerker = null;
-    private final MedewerkerDAO medewerkerTijdelijk = new MedewerkerDAO();
-    private int medewerkerID;
-    private final int lang;
+    private User tempMedewerker = null;
+    private final UserDAO medewerkerTijdelijk = new UserDAO();
+    private int lang = 0;
 
     /**
      * Creates new form PasswordConfirm
@@ -46,21 +45,20 @@ public class MyAccount extends javax.swing.JDialog {
             getRootPane().setBorder(BorderFactory.createLineBorder(red));
             initComponents();
             this.setLocationRelativeTo(null);
-            this.medewerkerID = medewerkerID;
-        }
-        try {
-            tempMedewerker = medewerkerTijdelijk.readByID(medewerkerID);
-        } catch (SQLException e) {
-            Debug.printError(e.toString());
-        }
-        if (tempMedewerker.getUserLang().equals("EN")) {
-            dropDown.setSelectedIndex(0);
-            Debug.println("EN");
-            lang = 0;
-        } else {
-            dropDown.setSelectedIndex(1);
-            Debug.println("NL");
-            lang = 1;
+            try {
+                tempMedewerker = medewerkerTijdelijk.readByID(medewerkerID);
+            } catch (SQLException e) {
+                Debug.printError(e.toString());
+            }
+            if (tempMedewerker.getUserLang().equals("EN")) {
+                dropDown.setSelectedIndex(0);
+                Debug.println("EN");
+                lang = 0;
+            } else {
+                dropDown.setSelectedIndex(1);
+                Debug.println("NL");
+                lang = 1;
+            }
         }
     }
 
@@ -73,32 +71,25 @@ public class MyAccount extends javax.swing.JDialog {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jLabel1 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
+        languageLabel = new javax.swing.JLabel();
+        passLabel = new javax.swing.JLabel();
+        confirmPassLabel = new javax.swing.JLabel();
         password = new javax.swing.JPasswordField();
         passwordConfirm = new javax.swing.JPasswordField();
         dropDown = new javax.swing.JComboBox();
         saveBut = new javax.swing.JButton();
         cancelBut = new javax.swing.JButton();
-        jLabel4 = new javax.swing.JLabel();
+        oldPassLabel = new javax.swing.JLabel();
         passwordOld = new javax.swing.JPasswordField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        addWindowFocusListener(new java.awt.event.WindowFocusListener() {
-            public void windowGainedFocus(java.awt.event.WindowEvent evt) {
-            }
-            public void windowLostFocus(java.awt.event.WindowEvent evt) {
-                formWindowLostFocus(evt);
-            }
-        });
 
         java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("Bundle"); // NOI18N
-        jLabel1.setText(bundle.getString("MyAcc.langLabel")); // NOI18N
+        languageLabel.setText(bundle.getString("MyAcc.langLabel")); // NOI18N
 
-        jLabel2.setText(bundle.getString("MyAcc.passLabel")); // NOI18N
+        passLabel.setText(bundle.getString("MyAcc.passLabel")); // NOI18N
 
-        jLabel3.setText(bundle.getString("MyAcc.confPassLabel")); // NOI18N
+        confirmPassLabel.setText(bundle.getString("MyAcc.confPassLabel")); // NOI18N
 
         password.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -127,7 +118,7 @@ public class MyAccount extends javax.swing.JDialog {
             }
         });
 
-        jLabel4.setText(bundle.getString("MyAcc.oldPassLabel")); // NOI18N
+        oldPassLabel.setText(bundle.getString("MyAcc.oldPassLabel")); // NOI18N
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -142,8 +133,8 @@ public class MyAccount extends javax.swing.JDialog {
                         .addComponent(cancelBut))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addComponent(passLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(confirmPassLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
                                 .addGap(12, 12, 12)
@@ -153,8 +144,8 @@ public class MyAccount extends javax.swing.JDialog {
                                 .addComponent(password))))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, 128, Short.MAX_VALUE)
-                            .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addComponent(oldPassLabel, javax.swing.GroupLayout.DEFAULT_SIZE, 128, Short.MAX_VALUE)
+                            .addComponent(languageLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addGap(12, 12, 12)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(passwordOld)
@@ -166,19 +157,19 @@ public class MyAccount extends javax.swing.JDialog {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel1)
+                    .addComponent(languageLabel)
                     .addComponent(dropDown, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel4)
-                    .addComponent(passwordOld, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(passwordOld, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(oldPassLabel))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(password, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel2))
+                    .addComponent(passLabel))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel3)
+                    .addComponent(confirmPassLabel)
                     .addComponent(passwordConfirm, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -191,7 +182,7 @@ public class MyAccount extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void cancelButActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelButActionPerformed
-        close();
+        dispose();
     }//GEN-LAST:event_cancelButActionPerformed
 
     private void passwordActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_passwordActionPerformed
@@ -260,22 +251,13 @@ public class MyAccount extends javax.swing.JDialog {
     private void dropDownActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_dropDownActionPerformed
     }//GEN-LAST:event_dropDownActionPerformed
 
-    private void formWindowLostFocus(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowLostFocus
-        this.dispose();
-    }//GEN-LAST:event_formWindowLostFocus
-
-    public void close() {
-        WindowEvent winClosingEvent = new WindowEvent(this, WindowEvent.WINDOW_CLOSING);
-        Toolkit.getDefaultToolkit().getSystemEventQueue().postEvent(winClosingEvent);
-        dispose();
-    }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     public javax.swing.JButton cancelBut;
+    public javax.swing.JLabel confirmPassLabel;
     public javax.swing.JComboBox dropDown;
-    public javax.swing.JLabel jLabel1;
-    public javax.swing.JLabel jLabel2;
-    public javax.swing.JLabel jLabel3;
-    public javax.swing.JLabel jLabel4;
+    public javax.swing.JLabel languageLabel;
+    public javax.swing.JLabel oldPassLabel;
+    public javax.swing.JLabel passLabel;
     public javax.swing.JPasswordField password;
     public javax.swing.JPasswordField passwordConfirm;
     public javax.swing.JPasswordField passwordOld;

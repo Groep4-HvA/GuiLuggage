@@ -35,17 +35,15 @@ import org.jfree.ui.ApplicationFrame;
 public class ManagerGraph extends ApplicationFrame {
 
     ConnectionMySQL conn = new ConnectionMySQL();
-    private final DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
     private final java.util.ResourceBundle BUNDLE = java.util.ResourceBundle.getBundle("Bundle"); // NOI18N
     private final Date date = new Date();
-    private final String dateString = dateFormat.format(date);
     private PreparedStatement prdstmt = null;
     private Date firstDate;
     private Date lastDate;
     private String graphTitle;
-    private  JFreeChart chart = null;
-    private Cursor waiting = new Cursor(Cursor.WAIT_CURSOR);
-    private Cursor defaultCursor = new Cursor(Cursor.DEFAULT_CURSOR);
+    private JFreeChart chart = null;
+    private final Cursor waiting = new Cursor(Cursor.WAIT_CURSOR);
+    private final Cursor defaultCursor = new Cursor(Cursor.DEFAULT_CURSOR);
 
     /**
      * Constructor
@@ -54,19 +52,20 @@ public class ManagerGraph extends ApplicationFrame {
      * @param beheer
      */
     public ManagerGraph(final String title, boolean beheer) {
-
         super(title);
+        setCursor(waiting);
         if (!Check.verifyLogin()) {
             Runtime.getRuntime().exit(1);
         } else {
 
-	    final CategoryDataset dataset = createDefaultDataset();
-	    chart = createChart(dataset);
-	    final ChartPanel chartPanel = new ChartPanel(chart);
-	    //chartPanel.setPreferredSize(new Dimension(1366, 768));
-	    setContentPane(chartPanel);
-	    chartPanel.setLocation(getRootPane().getWidth() / 2, getRootPane().getHeight() / 2);
-	}
+            final CategoryDataset dataset = createDefaultDataset();
+            chart = createChart(dataset);
+            final ChartPanel chartPanel = new ChartPanel(chart);
+            //chartPanel.setPreferredSize(new Dimension(1366, 768));
+            setContentPane(chartPanel);
+            chartPanel.setLocation(getRootPane().getWidth() / 2, getRootPane().getHeight() / 2);
+        }
+        setCursor(defaultCursor);
     }
 
     /**
@@ -78,19 +77,21 @@ public class ManagerGraph extends ApplicationFrame {
      * @param lastDate
      */
     public ManagerGraph(String title, boolean beheer, Date firstDate, Date lastDate) {
-	super(title);
-	this.firstDate = firstDate;
-	this.lastDate = lastDate;
-	if (!Check.verifyLogin()) {
-	    Runtime.getRuntime().exit(1);
-	} else {
-	    final CategoryDataset dataset = createDataset();
-	    chart = createChart(dataset);
-	    final ChartPanel chartPanel = new ChartPanel(chart);
-	    //chartPanel.setPreferredSize(new Dimension(1366, 768));
-	    setContentPane(chartPanel);
-	    chartPanel.setLocation(getRootPane().getWidth() / 2, getRootPane().getHeight() / 2);
-	}
+        super(title);
+        setCursor(waiting);
+        this.firstDate = firstDate;
+        this.lastDate = lastDate;
+        if (!Check.verifyLogin()) {
+            Runtime.getRuntime().exit(1);
+        } else {
+            final CategoryDataset dataset = createDataset();
+            chart = createChart(dataset);
+            final ChartPanel chartPanel = new ChartPanel(chart);
+            //chartPanel.setPreferredSize(new Dimension(1366, 768));
+            setContentPane(chartPanel);
+            chartPanel.setLocation(getRootPane().getWidth() / 2, getRootPane().getHeight() / 2);
+        }
+        setCursor(defaultCursor);
     }
 
     /**
@@ -139,9 +140,9 @@ public class ManagerGraph extends ApplicationFrame {
     private CategoryDataset createDefaultDataset() {
 
         // row keys...
-        final String lost = "Pending";
-        final String found = "Resolved";
-        final String total = "Total";
+        final String lost = BUNDLE.getString("ManagerGui.missingManagerGui.text");
+        final String found = BUNDLE.getString("ManagerGui.foundManagerGui.text");
+        final String total = BUNDLE.getString("ManagerGui.processedManagerGui.text");
 
         Calendar cal = Calendar.getInstance();
         cal.setTime(date);
@@ -150,18 +151,18 @@ public class ManagerGraph extends ApplicationFrame {
         int day = cal.get(Calendar.DAY_OF_MONTH);
         int year = cal.get(Calendar.YEAR);
 
-	String[] months = {BUNDLE.getString("jan"),
-	    BUNDLE.getString("feb"),
-	    BUNDLE.getString("march"),
-	    BUNDLE.getString("april"),
-	    BUNDLE.getString("may"),
-	    BUNDLE.getString("juni"),
-	    BUNDLE.getString("juli"),
-	    BUNDLE.getString("aug"),
-	    BUNDLE.getString("sept"),
-	    BUNDLE.getString("okt"),
-	    BUNDLE.getString("nov"),
-	    BUNDLE.getString("dec")};
+        String[] months = {BUNDLE.getString("jan"),
+            BUNDLE.getString("feb"),
+            BUNDLE.getString("march"),
+            BUNDLE.getString("april"),
+            BUNDLE.getString("may"),
+            BUNDLE.getString("juni"),
+            BUNDLE.getString("juli"),
+            BUNDLE.getString("aug"),
+            BUNDLE.getString("sept"),
+            BUNDLE.getString("okt"),
+            BUNDLE.getString("nov"),
+            BUNDLE.getString("dec")};
 
         graphTitle = months[month - 1];
         // create the dataset...
@@ -246,12 +247,12 @@ public class ManagerGraph extends ApplicationFrame {
                 int day;
                 if (i > 0) {
                     day = 1;
-                }else {
-                day = firstCal.get(Calendar.DAY_OF_MONTH);
+                } else {
+                    day = firstCal.get(Calendar.DAY_OF_MONTH);
                 }
                 int year = firstCal.get(Calendar.YEAR);
                 int month = firstCal.get(Calendar.MONTH) + 1;
-                
+
                 firstMY = String.format("%d-%d-%d\n", year, month, day);
                 lastMY = String.format("%d-%d-%d\n", year, month, firstCal.getActualMaximum(Calendar.DAY_OF_MONTH));
                 dataset.addValue(getMonthCount(firstMY, lastMY, "pending"), lost, months[month - 1]);
@@ -274,17 +275,17 @@ public class ManagerGraph extends ApplicationFrame {
      */
     private JFreeChart createChart(final CategoryDataset dataset) {
 
-	// create the chart...
-	chart = ChartFactory.createLineChart(
-		"Luggage Statistics", // chart title
-		graphTitle, // domain axis label
-		"#", // range axis label
-		dataset, // data
-		PlotOrientation.VERTICAL, // orientation
-		true, // include legend
-		true, // tooltips
-		false // urls
-		);
+        // create the chart...
+        chart = ChartFactory.createLineChart(
+                "Luggage Statistics", // chart title
+                graphTitle, // domain axis label
+                "#", // range axis label
+                dataset, // data
+                PlotOrientation.VERTICAL, // orientation
+                true, // include legend
+                true, // tooltips
+                false // urls
+        );
 
         final CategoryPlot plot = (CategoryPlot) chart.getPlot();
         plot.setBackgroundPaint(Color.lightGray);
@@ -301,16 +302,16 @@ public class ManagerGraph extends ApplicationFrame {
 
         renderer.setSeriesStroke(
                 0, new BasicStroke(
-                2.0f, BasicStroke.CAP_ROUND, BasicStroke.JOIN_ROUND,
-                1.0f, new float[]{1.0f, 0.0f}, 0.0f));
+                        2.0f, BasicStroke.CAP_ROUND, BasicStroke.JOIN_ROUND,
+                        1.0f, new float[]{1.0f, 0.0f}, 0.0f));
         renderer.setSeriesStroke(
                 1, new BasicStroke(
-                2.0f, BasicStroke.CAP_ROUND, BasicStroke.JOIN_ROUND,
-                1.0f, new float[]{1.0f, 0.0f}, 0.0f));
+                        2.0f, BasicStroke.CAP_ROUND, BasicStroke.JOIN_ROUND,
+                        1.0f, new float[]{1.0f, 0.0f}, 0.0f));
         renderer.setSeriesStroke(
                 2, new BasicStroke(
-                2.0f, BasicStroke.CAP_ROUND, BasicStroke.JOIN_ROUND,
-                1.0f, new float[]{1.0f, 0.0f}, 0.0f));
+                        2.0f, BasicStroke.CAP_ROUND, BasicStroke.JOIN_ROUND,
+                        1.0f, new float[]{1.0f, 0.0f}, 0.0f));
         // OPTIONAL CUSTOMISATION COMPLETED.
 
         return chart;

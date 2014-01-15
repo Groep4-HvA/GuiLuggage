@@ -9,6 +9,7 @@ package models;
  * @author ChrisvanderHeijden
  */
 public class Passenger {
+
     private String label;
     private String color;
     private String shape;
@@ -52,7 +53,6 @@ public class Passenger {
         this.phoneNr = phoneNr;
     }
 
-    
     public String getLabel() {
         return label;
     }
@@ -156,12 +156,10 @@ public class Passenger {
     public void setEmailAdress(String emailAdress) {
         this.emailAdress = emailAdress;
     }
-    
-    
-    
+
     @Override
     public String toString() {
         return "Passenger{" + "label=" + label + ", color=" + color + ", shape=" + shape + ", name=" + name + ", surname=" + surname + ", adres=" + adres + ", postalCode=" + postalCode + ", city=" + city + ", residentAdres=" + residentAdres + ", residentPostalCode=" + residentPostalCode + ", residentCity=" + residentCity + ", details=" + details + ", phoneNr=" + phoneNr + '}';
-    }    
-    
+    }
+
 }

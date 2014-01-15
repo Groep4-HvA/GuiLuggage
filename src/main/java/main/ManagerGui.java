@@ -31,7 +31,7 @@ import popups.MyAccount;
  */
 public class ManagerGui extends java.awt.Frame {
 
-    private final java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("Bundle"); // NOI18N
+    private final java.util.ResourceBundle BUNDLE = java.util.ResourceBundle.getBundle("Bundle"); // NOI18N
     /**
      * Creates new form MainGuiFrame
      */
@@ -50,8 +50,8 @@ public class ManagerGui extends java.awt.Frame {
     private final DateFormat df = new SimpleDateFormat("dd-MM-yyyy");
     private final Date today = Calendar.getInstance().getTime();
     private final String date = df.format(today);
-    private Cursor waiting = new Cursor(Cursor.WAIT_CURSOR);
-    private Cursor defaultCursor = new Cursor(Cursor.DEFAULT_CURSOR);
+    private final Cursor waiting = new Cursor(Cursor.WAIT_CURSOR);
+    private final Cursor defaultCursor = new Cursor(Cursor.DEFAULT_CURSOR);
 
     /**
      * Shows the GUI for the manager
@@ -73,17 +73,17 @@ public class ManagerGui extends java.awt.Frame {
             listPending = dbCase.readAllPending();
             listResolved = dbCase.readAllResolved();
 
-            pendingLabel.setText(bundle.getString("ManagerGui.pendingLabel.text") + "" + listPending.size());
-            resolvLabel.setText(bundle.getString("ManagerGui.resolvLabel.text") + "" + listResolved.size());
-            totalLabel.setText(bundle.getString("ManagerGui.totalLabel.text") + "" + list.size());
+            pendingLabel.setText(BUNDLE.getString("ManagerGui.pendingLabel.text") + "" + listPending.size());
+            resolvLabel.setText(BUNDLE.getString("ManagerGui.resolvLabel.text") + "" + listResolved.size());
+            totalLabel.setText(BUNDLE.getString("ManagerGui.totalLabel.text") + "" + list.size());
             jTable1.getColumnModel().getColumn(0).setHeaderValue("#");
-            jTable1.getColumnModel().getColumn(1).setHeaderValue(bundle.getString("table.LuggageNumber"));
-            jTable1.getColumnModel().getColumn(2).setHeaderValue(bundle.getString("table.AddDate"));
+            jTable1.getColumnModel().getColumn(1).setHeaderValue(BUNDLE.getString("table.LuggageNumber"));
+            jTable1.getColumnModel().getColumn(2).setHeaderValue(BUNDLE.getString("table.AddDate"));
             fillTable(list);
             processedManager.setForeground(Color.red);
-	    processedManager.setOpaque(true);
-	    missingManager.setOpaque(true);
-	    foundManager.setOpaque(true);
+            processedManager.setOpaque(true);
+            missingManager.setOpaque(true);
+            foundManager.setOpaque(true);
         }
         setCursor(defaultCursor);
     }
@@ -436,7 +436,7 @@ public class ManagerGui extends java.awt.Frame {
         } catch (SQLException ex) {
             Logger.getLogger(ManagerGui.class.getName()).log(Level.SEVERE, null, ex);
         }
-       fillTableMore(list);
+        fillTableMore(list);
     }//GEN-LAST:event_moreButtonActionPerformed
     /**
      * Show My Account
@@ -473,13 +473,13 @@ public class ManagerGui extends java.awt.Frame {
                         list = dbCase.readAllPendingByDate(dateString, dateString2);
                         fillTable(list);
                     } else {
-                        JOptionPane.showMessageDialog(null, datum1 + " " + bundle.getString("furtherInPast") + " " + datum2);
+                        JOptionPane.showMessageDialog(null, datum1 + " " + BUNDLE.getString("furtherInPast") + " " + datum2);
                     }
                 } else if (dateString.equals(dateString2)) {
                     list = dbCase.readAllPendingByDate(dateString, dateString2);
                     fillTable(list);
                 } else {
-                    JOptionPane.showMessageDialog(null, datum1 + " " + bundle.getString("needsToBeGreater") + " " + datum2);
+                    JOptionPane.showMessageDialog(null, datum1 + " " + BUNDLE.getString("needsToBeGreater") + " " + datum2);
                 }
             }
         } catch (SQLException e) {
@@ -516,14 +516,14 @@ public class ManagerGui extends java.awt.Frame {
                         list = dbCase.readAllTotalByDate(dateString, dateString2);
                         fillTable(list);
                     } else {
-                        JOptionPane.showMessageDialog(null, datum1 + " " + bundle.getString("furtherInPast") + " " + datum2);
+                        JOptionPane.showMessageDialog(null, datum1 + " " + BUNDLE.getString("furtherInPast") + " " + datum2);
                     }
                 } else if (dateString.equals(dateString2)) {
                     list = dbCase.readAllTotalByDate(dateString, dateString2);
                     fillTable(list);
 
                 } else {
-                    JOptionPane.showMessageDialog(null, datum1 + " " + bundle.getString("needsToBeGreater") + " " + datum2);
+                    JOptionPane.showMessageDialog(null, datum1 + " " + BUNDLE.getString("needsToBeGreater") + " " + datum2);
                 }
             }
         } catch (SQLException e) {
@@ -584,14 +584,14 @@ public class ManagerGui extends java.awt.Frame {
                     list = dbCase.readAllByDate(dateString, dateString2);
                     fillTable(list);
                 } else {
-                    JOptionPane.showMessageDialog(null, datum1 + " " + bundle.getString("furtherInPast") + " " + datum2);
+                    JOptionPane.showMessageDialog(null, datum1 + " " + BUNDLE.getString("furtherInPast") + " " + datum2);
                 }
             } else if (dateString.equals(dateString2)) {
                 list = dbCase.readAllByDate(dateString, dateString2);
                 fillTable(list);
 
             } else {
-                JOptionPane.showMessageDialog(null, datum1 + " " + bundle.getString("furtherInPast") + " " + datum2);
+                JOptionPane.showMessageDialog(null, datum1 + " " + BUNDLE.getString("furtherInPast") + " " + datum2);
             }
 
         } catch (HeadlessException e) {
@@ -626,13 +626,13 @@ public class ManagerGui extends java.awt.Frame {
                         list = dbCase.readAllResolvedByDate(dateString, dateString2);
                         fillTable(list);
                     } else {
-                        JOptionPane.showMessageDialog(null, datum1 + " " + bundle.getString("furtherInPast") + " " + datum2);
+                        JOptionPane.showMessageDialog(null, datum1 + " " + BUNDLE.getString("furtherInPast") + " " + datum2);
                     }
                 } else if (dateString.equals(dateString2)) {
                     list = dbCase.readAllResolvedByDate(dateString, dateString2);
                     fillTable(list);
                 } else {
-                    JOptionPane.showMessageDialog(null, datum1 + " " + bundle.getString("needsToBeGreater") + " " + datum2);
+                    JOptionPane.showMessageDialog(null, datum1 + " " + BUNDLE.getString("needsToBeGreater") + " " + datum2);
                 }
             }
         } catch (HeadlessException e) {
@@ -684,7 +684,7 @@ public class ManagerGui extends java.awt.Frame {
     }//GEN-LAST:event_graphManagerActionPerformed
 
     private void formWindowGainedFocus(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowGainedFocus
-              //fillTable(list);
+        //fillTable(list);
     }//GEN-LAST:event_formWindowGainedFocus
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -727,8 +727,8 @@ public class ManagerGui extends java.awt.Frame {
             jTable1.getModel().setValueAt(list.get(i).getAddDate(), i, 2);
         }
     }
-    
-        private void fillTableMore(List<Case> list) {
+
+    private void fillTableMore(List<Case> list) {
         for (int i = 0; i < 99; i++) {
             jTable1.getModel().setValueAt("", i, 0);
             jTable1.getModel().setValueAt("", i, 1);

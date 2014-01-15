@@ -18,20 +18,20 @@ import java.util.List;
  *
  * @author ChrisvanderHeijden
  */
-public class MedewerkerDAO {
+public class UserDAO {
 
     ConnectionMySQL conn = new ConnectionMySQL();
     private final DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
     private final Date date = new Date();
     private final String dateString = dateFormat.format(date);
 
-    public MedewerkerDAO() {
+    public UserDAO() {
         // initialization 
     }
 
-    public List<Medewerker> search(String searchInput) throws SQLException {
+    public List<User> search(String searchInput) throws SQLException {
 
-        List<Medewerker> list = new LinkedList<Medewerker>();
+        List<User> list = new LinkedList<User>();
         ResultSet rs;
         PreparedStatement prdstmt;
 
@@ -48,7 +48,7 @@ public class MedewerkerDAO {
         rs = conn.performSelect(prdstmt);
 
         while (rs.next()) {
-            Medewerker tempMedewerker = new Medewerker();
+            User tempMedewerker = new User();
             tempMedewerker.setName(rs.getString("userRealName"));
             tempMedewerker.setUsername(rs.getString("userName"));
             tempMedewerker.setPassword(rs.getString("userPass"));
@@ -63,12 +63,12 @@ public class MedewerkerDAO {
         return list;
     }
 
-    public List<Medewerker> readAll() throws SQLException {
-        List<Medewerker> list = new LinkedList<Medewerker>();
+    public List<User> readAll() throws SQLException {
+        List<User> list = new LinkedList<User>();
         ResultSet rs;
         PreparedStatement prdstmt;
 
-        String query = "SELECT  * FROM `Users` LIMIT 50";
+        String query = "SELECT  * FROM `Users` LIMIT 51";
 
         conn.startConnection();
 
@@ -76,37 +76,7 @@ public class MedewerkerDAO {
         rs = conn.performSelect(prdstmt);
 
         while (rs.next()) {
-            Medewerker tempMedewerker = new Medewerker();
-            tempMedewerker.setId(rs.getInt("userId"));
-            tempMedewerker.setName(rs.getString("userRealName"));
-            tempMedewerker.setUsername(rs.getString("userName"));
-            tempMedewerker.setPassword(rs.getString("userPass"));
-            tempMedewerker.setAppManager(rs.getBoolean("userBeheer"));
-            tempMedewerker.setManager(rs.getBoolean("userManager"));
-            list.add(tempMedewerker);
-        }
-
-        if (conn != null) {
-            conn.closeConnection();
-        }
-
-        return list;
-    }
-    
-        public List<Medewerker> readAllMore() throws SQLException {
-        List<Medewerker> list = new LinkedList<Medewerker>();
-        ResultSet rs;
-        PreparedStatement prdstmt;
-
-        String query = "SELECT  * FROM `Users` LIMIT 99";
-
-        conn.startConnection();
-
-        prdstmt = conn.getConnection().prepareStatement(query);
-        rs = conn.performSelect(prdstmt);
-
-        while (rs.next()) {
-            Medewerker tempMedewerker = new Medewerker();
+            User tempMedewerker = new User();
             tempMedewerker.setId(rs.getInt("userId"));
             tempMedewerker.setName(rs.getString("userRealName"));
             tempMedewerker.setUsername(rs.getString("userName"));
@@ -123,10 +93,40 @@ public class MedewerkerDAO {
         return list;
     }
 
-    public Medewerker readByID(int medewerkerId) throws SQLException {
+    public List<User> readAllMore() throws SQLException {
+        List<User> list = new LinkedList<User>();
         ResultSet rs;
         PreparedStatement prdstmt;
-        Medewerker tempMedewerker = new Medewerker();
+
+        String query = "SELECT  * FROM `Users` LIMIT 100";
+
+        conn.startConnection();
+
+        prdstmt = conn.getConnection().prepareStatement(query);
+        rs = conn.performSelect(prdstmt);
+
+        while (rs.next()) {
+            User tempMedewerker = new User();
+            tempMedewerker.setId(rs.getInt("userId"));
+            tempMedewerker.setName(rs.getString("userRealName"));
+            tempMedewerker.setUsername(rs.getString("userName"));
+            tempMedewerker.setPassword(rs.getString("userPass"));
+            tempMedewerker.setAppManager(rs.getBoolean("userBeheer"));
+            tempMedewerker.setManager(rs.getBoolean("userManager"));
+            list.add(tempMedewerker);
+        }
+
+        if (conn != null) {
+            conn.closeConnection();
+        }
+
+        return list;
+    }
+
+    public User readByID(int medewerkerId) throws SQLException {
+        ResultSet rs;
+        PreparedStatement prdstmt;
+        User tempMedewerker = new User();
 
         String query = "SELECT * FROM `Users` WHERE userId=?;";
 
@@ -154,8 +154,8 @@ public class MedewerkerDAO {
         return tempMedewerker;
     }
 
-    public List<Medewerker> readLogIn(String user, String pass) throws SQLException {
-        List<Medewerker> list = new LinkedList<Medewerker>();
+    public List<User> readLogIn(String user, String pass) throws SQLException {
+        List<User> list = new LinkedList<User>();
         ResultSet rs;
         PreparedStatement prdstmt;
 
@@ -169,7 +169,7 @@ public class MedewerkerDAO {
         rs = conn.performSelect(prdstmt);
 
         while (rs.next()) {
-            Medewerker tempMedewerker = new Medewerker();
+            User tempMedewerker = new User();
             tempMedewerker.setId(rs.getInt("userId"));
             tempMedewerker.setUsername(rs.getString("userName"));
             tempMedewerker.setPassword(rs.getString("userPass"));
@@ -187,7 +187,7 @@ public class MedewerkerDAO {
         return list;
     }
 
-    public int create(Medewerker medewerker) throws SQLException {
+    public int create(User medewerker) throws SQLException {
         PreparedStatement prdstmt;
         String query = "INSERT INTO `Users` (`userName`, `userRealName`, `userPass`, `userManager`, `userBeheer`, `userLang`, `passDate`) VALUES(?, ?, ?, ?, ?, ?, ?);";
 
@@ -212,7 +212,7 @@ public class MedewerkerDAO {
         return -1;
     }
 
-    public int update(Medewerker medewerker) throws SQLException {
+    public int update(User medewerker) throws SQLException {
         PreparedStatement prdstmt;
         String query = "UPDATE `Users` SET `userName`=?, `userRealName`=?, `userPass`=?, `userManager`=?, `userBeheer`=?, `userLang`=?, `passDate`=? WHERE `userId`=?;";
 
@@ -238,7 +238,7 @@ public class MedewerkerDAO {
         prdstmt.setString(6, queryUserLang);
         prdstmt.setString(7, dateString);
         prdstmt.setInt(8, medewerker.getId());
-        
+
         prdstmt.executeUpdate();
 
         if (conn != null) {
@@ -247,7 +247,7 @@ public class MedewerkerDAO {
         return -1;
     }
 
-    public int delete(Medewerker medewerker) throws SQLException {
+    public int delete(User medewerker) throws SQLException {
 
         PreparedStatement prdstmt;
         String query = "DELETE FROM Users WHERE userName =?";
@@ -261,8 +261,6 @@ public class MedewerkerDAO {
         prdstmt = conn.getConnection().prepareStatement(query);
         prdstmt.setString(1, queryUserName);
 
-
-
         prdstmt.executeUpdate();
 
         if (conn != null) {
@@ -271,9 +269,8 @@ public class MedewerkerDAO {
         return -1;
     }
 
-
-    public Medewerker getMedewerkerById(int handlerID) throws SQLException {
-        Medewerker result = new Medewerker();
+    public User getMedewerkerById(int handlerID) throws SQLException {
+        User result = new User();
         ResultSet rs;
         PreparedStatement prdstmt;
 

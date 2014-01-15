@@ -14,7 +14,7 @@ import models.*;
 public class ConfirmPopup extends javax.swing.JFrame {
     
     private String userName;
-    private Medewerker medewerker = new Medewerker();
+    private User medewerker = new User();
     /**
      * Creates new form ConfirmPopup
      */
@@ -32,14 +32,14 @@ public class ConfirmPopup extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jLabel1 = new javax.swing.JLabel();
+        explanationLabel = new javax.swing.JLabel();
         Yes = new javax.swing.JButton();
         No = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("Bundle"); // NOI18N
-        jLabel1.setText(bundle.getString("confirmDelete")); // NOI18N
+        explanationLabel.setText(bundle.getString("confirmDelete")); // NOI18N
 
         Yes.setText(bundle.getString("yes")); // NOI18N
         Yes.addActionListener(new java.awt.event.ActionListener() {
@@ -61,20 +61,19 @@ public class ConfirmPopup extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jLabel1)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(Yes)
-                .addGap(300, 300, 300)
-                .addComponent(No)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(explanationLabel)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(Yes)
+                        .addGap(300, 300, 300)
+                        .addComponent(No)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(explanationLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(Yes)
@@ -86,8 +85,8 @@ public class ConfirmPopup extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void YesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_YesActionPerformed
-        MedewerkerDAO dbMedewerker;
-        dbMedewerker = new MedewerkerDAO();
+        UserDAO dbMedewerker;
+        dbMedewerker = new UserDAO();
 
         
         medewerker.setUsername(userName);
@@ -107,6 +106,6 @@ public class ConfirmPopup extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton No;
     private javax.swing.JButton Yes;
-    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel explanationLabel;
     // End of variables declaration//GEN-END:variables
 }

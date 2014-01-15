@@ -22,8 +22,6 @@ import org.apache.pdfbox.pdmodel.edit.PDPageContentStream;
 import org.apache.pdfbox.pdmodel.font.PDFont;
 import org.apache.pdfbox.pdmodel.font.PDType1Font;
 import org.apache.pdfbox.pdmodel.graphics.xobject.*;
-import models.*;
-import popups.OverwritePDF;
 
 /**
  *
@@ -31,9 +29,9 @@ import popups.OverwritePDF;
  */
 public class PDFGenerator {
 
-    private DateFormat df = new SimpleDateFormat("MM/dd/yyyy HH:mm:ss");
-    private Date today = Calendar.getInstance().getTime();
-    private String date = df.format(today);
+    private final DateFormat df = new SimpleDateFormat("MM/dd/yyyy HH:mm:ss");
+    private final Date today = Calendar.getInstance().getTime();
+    private final String date = df.format(today);
     private PDXObjectImage correndonLogo;
     private PDXObjectImage banner;
     private PDXObjectImage grafiek;
@@ -257,30 +255,29 @@ public class PDFGenerator {
 
             String s;
             s = (String) JOptionPane.showInputDialog("Voer hier nieuwe naam in, laat leeg om te overschrijven");
-            
-            
-//If a string was returned, say so.
+
+            //If a string was returned, say so.
             if ((s != null) && (s.length() > 0)) {
                 Debug.printError(s);
                 location = System.getProperty("user.home") + File.separator + "Documents" + File.separator + s + ".pdf";
-            } 
-        } 
-          try {
-                output = new FileOutputStream(location);
-
-                // Make sure that the content stream is closed:
-                this.contentStream.close();
-
-                // Save the results and ensure that the document is properly closed:
-                this.document.save(output);
-                this.document.close();
-                output.close();
-            } catch (IOException e) {
-                Debug.printError(e.toString());
-            } catch (COSVisitorException e) {
-                Debug.printError(e.toString());
             }
-        
+        }
+        try {
+            output = new FileOutputStream(location);
+
+            // Make sure that the content stream is closed:
+            this.contentStream.close();
+
+            // Save the results and ensure that the document is properly closed:
+            this.document.save(output);
+            this.document.close();
+            output.close();
+        } catch (IOException e) {
+            Debug.printError(e.toString());
+        } catch (COSVisitorException e) {
+            Debug.printError(e.toString());
+        }
+
     }
 
     /**

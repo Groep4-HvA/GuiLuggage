@@ -28,14 +28,14 @@ public class Check {
     private static String orig_debug;
     private static String orig_airfield;
     private static final java.util.ResourceBundle BUNDLE = java.util.ResourceBundle.getBundle("Bundle");
-    private static Medewerker medew;
+    private static User medew;
 
     /**
      * log in (set the variable)
      *
      * @param medew
      */
-    public static void setMedew(Medewerker medew) {
+    public static void setMedew(User medew) {
         Check.medew = medew;
     }
 
@@ -44,7 +44,7 @@ public class Check {
      *
      * @param medew
      */
-    public static void resetMedew(Medewerker medew) {
+    public static void resetMedew(User medew) {
         Check.medew = null;
     }
 
@@ -126,7 +126,7 @@ public class Check {
             verified = false;
         } else if (password.length < 6) {
             verified = false;
-        }else {
+        } else {
             verified = true;
         }
         return verified;
@@ -184,7 +184,6 @@ public class Check {
                 String makeAdmin = "INSERT INTO `Users` (`userName`, `userRealName`, `userPass`, `userManager`, `userBeheer`, `userLang`, `passDate`) VALUES('admin', 'admin', '8c6976e5b5410415bde908bd4dee15dfb167a9c873fc4bb8a81f6f2ab448a918', 0, 1, 'EN', NOW());";
                 prdstmt = conn.getConnection().prepareStatement(makeAdmin);
                 int ans2 = conn.performUpdate(prdstmt);
-
 
                 prdstmt2 = conn.getConnection().prepareStatement(query2);
                 rs2 = conn.performSelect(prdstmt2);

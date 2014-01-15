@@ -9,14 +9,14 @@ import java.util.Arrays;
 import javax.swing.JOptionPane;
 import models.Check;
 import models.Debug;
-import models.Medewerker;
-import models.MedewerkerDAO;
+import models.User;
+import models.UserDAO;
 
 /**
  *
  * @author Yorick
  */
-public class AddMedewerker extends javax.swing.JFrame {
+public class AddUser extends javax.swing.JFrame {
 
     private String name;
     private String username;
@@ -27,15 +27,15 @@ public class AddMedewerker extends javax.swing.JFrame {
     private final java.util.ResourceBundle BUNDLE = java.util.ResourceBundle.getBundle("Bundle");
 
     /**
-     * Creates new form AddMedewerker
+     * Creates new form AddUser
      *
      * @param manager
      */
-    public AddMedewerker(boolean manager) {
+    public AddUser(boolean manager) {
         if (!Check.verifyLogin()) {
             Runtime.getRuntime().exit(1);
         } else {
-            AddMedewerker.manager = manager;
+            AddUser.manager = manager;
             initComponents();
             this.setLocationRelativeTo(null);
         }
@@ -44,7 +44,7 @@ public class AddMedewerker extends javax.swing.JFrame {
     /**
      * something something...Magic... I really have no idea, it's generated
      */
-    public static AddMedewerker form = new AddMedewerker(manager);
+    public static AddUser form = new AddUser(manager);
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -61,10 +61,10 @@ public class AddMedewerker extends javax.swing.JFrame {
         saveButton = new javax.swing.JButton();
         cancelButton = new javax.swing.JButton();
         appManagerCheckBox = new javax.swing.JCheckBox();
-        jLabel1 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
-        jLabel4 = new javax.swing.JLabel();
+        nameLabel = new javax.swing.JLabel();
+        usernameLabel = new javax.swing.JLabel();
+        passLabel = new javax.swing.JLabel();
+        confirmPassLabel = new javax.swing.JLabel();
         firstPasswordField = new javax.swing.JPasswordField();
         confirmPasswordField = new javax.swing.JPasswordField();
         errorText = new javax.swing.JLabel();
@@ -80,34 +80,34 @@ public class AddMedewerker extends javax.swing.JFrame {
         });
 
         java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("Bundle"); // NOI18N
-        saveButton.setText(bundle.getString("AddMedewerker.saveButton.text")); // NOI18N
+        saveButton.setText(bundle.getString("AddUser.saveButton.text")); // NOI18N
         saveButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 saveButtonActionPerformed(evt);
             }
         });
 
-        cancelButton.setText(bundle.getString("AddMedewerker.cancelButton.text")); // NOI18N
+        cancelButton.setText(bundle.getString("AddUser.cancelButton.text")); // NOI18N
         cancelButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cancelButtonActionPerformed(evt);
             }
         });
 
-        appManagerCheckBox.setText(bundle.getString("AddMedewerker.appManagerCheckBox.text")); // NOI18N
+        appManagerCheckBox.setText(bundle.getString("AddUser.appManagerCheckBox.text")); // NOI18N
 
-        jLabel1.setText(bundle.getString("AddMedewerker.jLabel1.text")); // NOI18N
+        nameLabel.setText(bundle.getString("AddUser.nameLabel.text")); // NOI18N
 
-        jLabel2.setText(bundle.getString("AddMedewerker.jLabel2.text")); // NOI18N
+        usernameLabel.setText(bundle.getString("AddUser.usernameLabel.text")); // NOI18N
 
-        jLabel3.setText(bundle.getString("AddMedewerker.jLabel3.text")); // NOI18N
+        passLabel.setText(bundle.getString("AddUser.passLabel.text")); // NOI18N
 
-        jLabel4.setText(bundle.getString("AddMedewerker.jLabel4.text")); // NOI18N
+        confirmPassLabel.setText(bundle.getString("AddUser.confirmPassLabel.text")); // NOI18N
 
-        errorText.setText(bundle.getString("AddMedewerker.errorText.text")); // NOI18N
+        errorText.setText(bundle.getString("AddUser.errorText.text")); // NOI18N
 
         java.util.ResourceBundle bundle1 = java.util.ResourceBundle.getBundle("popups/Bundle"); // NOI18N
-        requiredFields.setText(bundle1.getString("AddMedewerker.requiredFields.text")); // NOI18N
+        requiredFields.setText(bundle1.getString("AddUser.requiredFields.text")); // NOI18N
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -118,9 +118,6 @@ public class AddMedewerker extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(errorText, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                        .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 136, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
                         .addGap(148, 148, 148)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(confirmPasswordField, javax.swing.GroupLayout.Alignment.TRAILING)
@@ -128,21 +125,25 @@ public class AddMedewerker extends javax.swing.JFrame {
                                 .addComponent(appManagerCheckBox)
                                 .addGap(226, 226, 226))))
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                        .addComponent(requiredFields)
-                        .addGap(90, 90, 90)
-                        .addComponent(saveButton, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(cancelButton, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, 136, Short.MAX_VALUE))
+                            .addComponent(nameLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(passLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(usernameLabel, javax.swing.GroupLayout.DEFAULT_SIZE, 136, Short.MAX_VALUE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(firstPasswordField)
                             .addComponent(nameTextField)
-                            .addComponent(usernameTextField))))
+                            .addComponent(usernameTextField)))
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(confirmPassLabel, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 136, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                                .addComponent(requiredFields)
+                                .addGap(90, 90, 90)
+                                .addComponent(saveButton, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(cancelButton, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -151,18 +152,18 @@ public class AddMedewerker extends javax.swing.JFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(nameTextField, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(nameLabel, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel2)
+                    .addComponent(usernameLabel)
                     .addComponent(usernameTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(passLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(firstPasswordField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel4)
+                    .addComponent(confirmPassLabel)
                     .addComponent(confirmPasswordField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
@@ -187,7 +188,7 @@ public class AddMedewerker extends javax.swing.JFrame {
     }//GEN-LAST:event_cancelButtonActionPerformed
 
     private void saveButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saveButtonActionPerformed
-        Medewerker nieuweMedewerker;
+        User nieuweMedewerker;
         name = nameTextField.getText();
         username = usernameTextField.getText();
         password = firstPasswordField.getPassword();
@@ -207,8 +208,8 @@ public class AddMedewerker extends javax.swing.JFrame {
         if (Arrays.equals(confirmPassword, password)) {
             if (Check.verifyUser(name, username, password) && selectedOption == JOptionPane.YES_OPTION) {
                 errorText.setText("");
-                nieuweMedewerker = new Medewerker(username, password, name, "EN", manager, appManager);
-                MedewerkerDAO test = new MedewerkerDAO();
+                nieuweMedewerker = new User(username, password, name, "EN", manager, appManager);
+                UserDAO test = new UserDAO();
                 try {
                     test.create(nieuweMedewerker);
                     String success = BUNDLE.getString("addSuccess").replaceAll("%s", BUNDLE.getString("Medewerker"));
@@ -244,16 +245,16 @@ public class AddMedewerker extends javax.swing.JFrame {
     private javax.swing.JCheckBox appManagerCheckBox;
     private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.JButton cancelButton;
+    private javax.swing.JLabel confirmPassLabel;
     private javax.swing.JPasswordField confirmPasswordField;
     private javax.swing.JLabel errorText;
     private javax.swing.JPasswordField firstPasswordField;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel nameLabel;
     private javax.swing.JTextField nameTextField;
+    private javax.swing.JLabel passLabel;
     private javax.swing.JLabel requiredFields;
     private javax.swing.JButton saveButton;
+    private javax.swing.JLabel usernameLabel;
     private javax.swing.JTextField usernameTextField;
     // End of variables declaration//GEN-END:variables
 }

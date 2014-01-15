@@ -11,25 +11,24 @@ import javax.swing.BorderFactory;
 import javax.swing.JOptionPane;
 import models.Check;
 import models.Debug;
-import models.Medewerker;
-import models.MedewerkerDAO;
-import org.apache.commons.codec.digest.DigestUtils;
+import models.User;
+import models.UserDAO;
 
 /**
  *
  * @author Jeroen
  */
-public class Popupappmedewerker extends javax.swing.JFrame {
+public class UserEditDialog extends javax.swing.JFrame {
 
     private final Color red = new Color(163, 0, 15);
-    private Medewerker medewerker = new Medewerker();
+    private User medewerker = new User();
 
     /**
-     * Creates new form Popupappmedewerker
+     * Creates new form UserEditDialog
      *
      * @param medewerker
      */
-    public Popupappmedewerker(Medewerker medewerker) {
+    public UserEditDialog(User medewerker) {
         if (!Check.verifyLogin()) {
             Runtime.getRuntime().exit(1);
         } else {
@@ -75,37 +74,37 @@ public class Popupappmedewerker extends javax.swing.JFrame {
         });
 
         java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("Bundle"); // NOI18N
-        nameLabel.setText(bundle.getString("Popupappmedewerker.nameLabel.text")); // NOI18N
-        nameLabel.setToolTipText(bundle.getString("Popupappmedewerker.nameLabel.toolTipText")); // NOI18N
+        nameLabel.setText(bundle.getString("UserEditDialog.nameLabel.text")); // NOI18N
+        nameLabel.setToolTipText(bundle.getString("UserEditDialog.nameLabel.toolTipText")); // NOI18N
 
-        usernameLabel.setText(bundle.getString("Popupappmedewerker.usernameLabel.text")); // NOI18N
+        usernameLabel.setText(bundle.getString("UserEditDialog.usernameLabel.text")); // NOI18N
 
-        passLabel.setText(bundle.getString("Popupappmedewerker.passLabel.text")); // NOI18N
+        passLabel.setText(bundle.getString("UserEditDialog.passLabel.text")); // NOI18N
 
-        confirmPassLabel.setText(bundle.getString("Popupappmedewerker.confirmPassLabel.text")); // NOI18N
+        confirmPassLabel.setText(bundle.getString("UserEditDialog.confirmPassLabel.text")); // NOI18N
 
-        saveButton.setText(bundle.getString("Popupappmedewerker.saveButton.text")); // NOI18N
+        saveButton.setText(bundle.getString("UserEditDialog.saveButton.text")); // NOI18N
         saveButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 saveButtonActionPerformed(evt);
             }
         });
 
-        cancelButton.setText(bundle.getString("Popupappmedewerker.cancelButton.text")); // NOI18N
+        cancelButton.setText(bundle.getString("UserEditDialog.cancelButton.text")); // NOI18N
         cancelButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cancelButtonActionPerformed(evt);
             }
         });
 
-        isAppManager.setText(bundle.getString("Popupappmedewerker.isAppManager.text")); // NOI18N
-        isAppManager.setToolTipText(bundle.getString("Popupappmedewerker.isAppManager.toolTipText")); // NOI18N
+        isAppManager.setText(bundle.getString("UserEditDialog.isAppManager.text")); // NOI18N
+        isAppManager.setToolTipText(bundle.getString("UserEditDialog.isAppManager.toolTipText")); // NOI18N
 
-        isManager.setText(bundle.getString("Popupappmedewerker.isManager.text")); // NOI18N
-        isManager.setToolTipText(bundle.getString("Popupappmedewerker.isManager.toolTipText")); // NOI18N
+        isManager.setText(bundle.getString("UserEditDialog.isManager.text")); // NOI18N
+        isManager.setToolTipText(bundle.getString("UserEditDialog.isManager.toolTipText")); // NOI18N
 
         java.util.ResourceBundle bundle1 = java.util.ResourceBundle.getBundle("popups/Bundle"); // NOI18N
-        delete.setText(bundle1.getString("Popupappmedewerker.delete.text")); // NOI18N
+        delete.setText(bundle1.getString("UserEditDialog.delete.text")); // NOI18N
         delete.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 deleteActionPerformed(evt);
@@ -186,8 +185,8 @@ public class Popupappmedewerker extends javax.swing.JFrame {
         medewerker.setAppManager(isAppManager.isSelected());
         medewerker.setManager(isManager.isSelected());
 
-        MedewerkerDAO dbMedewerker;
-        dbMedewerker = new MedewerkerDAO();
+        UserDAO dbMedewerker;
+        dbMedewerker = new UserDAO();
 
         if (Arrays.equals(firstPasswordField.getPassword(), confirmPasswordField.getPassword()) && firstPasswordField.getPassword().length >5 ) {
             medewerker.setPassword(firstPasswordField.getPassword());

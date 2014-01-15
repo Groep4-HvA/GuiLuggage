@@ -5,10 +5,9 @@ import java.sql.SQLException;
 import java.util.List;
 import models.Check;
 import models.Debug;
-import models.Medewerker;
-import models.MedewerkerDAO;
+import models.User;
+import models.UserDAO;
 import org.apache.commons.codec.digest.DigestUtils;
-
 
 /**
  *
@@ -16,8 +15,7 @@ import org.apache.commons.codec.digest.DigestUtils;
  */
 public class logIn extends javax.swing.JFrame {
 
-    private final java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("Bundle");
-    private int handlerId;
+    private final java.util.ResourceBundle BUNDLE = java.util.ResourceBundle.getBundle("Bundle");
     private Cursor waitCursor = new Cursor(Cursor.WAIT_CURSOR);
     private Cursor defaultCursor = new Cursor(Cursor.DEFAULT_CURSOR);
 
@@ -128,28 +126,21 @@ public class logIn extends javax.swing.JFrame {
      */
     private void LogInActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_LogInActionPerformed
         Cursor waiting = new Cursor(Cursor.WAIT_CURSOR);
-//        RootPaneContainer root = (RootPaneContainer) logIn.super.get();
         logIn.super.getGlassPane().setCursor(waiting);
         logIn.super.getGlassPane().setVisible(true);
-
-//        logIn.super.setCursor(waiting);
-//        rootPane.setCursor(waiting);
-
-
         try {
             String username = userName.getText();
             String password = DigestUtils.sha256Hex(String.valueOf(passWord.getPassword()));
 
-            MedewerkerDAO dbMedewerker = new MedewerkerDAO();
-            List<Medewerker> list = null;
+            UserDAO dbMedewerker = new UserDAO();
+            List<User> list = null;
             try {
                 list = dbMedewerker.readLogIn(username, password);
             } catch (SQLException e) {
                 Debug.printError(e.toString());
             }
             if (list.size() == 1) {
-                Medewerker medew = list.get(0);
-                //Debug.printout(medew.toString());
+                User medew = list.get(0);
                 Check.setMedew(medew);
                 if (medew.isManager()) {
                     ManagerGui main = new ManagerGui(medew.isAppManager(), medew.getId());
@@ -161,7 +152,7 @@ public class logIn extends javax.swing.JFrame {
                 }
                 dispose();
             } else {
-                errorLabel.setText(bundle.getString("noLogin"));
+                errorLabel.setText(BUNDLE.getString("noLogin"));
             }
         } catch (SQLException e) {
             Debug.printError(e.toString());

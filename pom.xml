@@ -4,7 +4,7 @@
 
     <groupId>nl.hva</groupId>
     <artifactId>GuiLuggage</artifactId>
-    <version>1.3-PRE-RELEASE</version>
+    <version>1.4-PRE-RELEASE</version>
     <packaging>jar</packaging>
 
     <name>Correndon Luggage System</name>

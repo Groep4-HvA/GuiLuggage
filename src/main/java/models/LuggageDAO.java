@@ -31,20 +31,20 @@ public class LuggageDAO {
         String query = "INSERT INTO `cases`  ( `LuggageNumber`, `color`, `shape`, `storageLocation`, `aditionalDetails`,`addDate`,`HandlerID`,`PhoneNr`) VALUES(?,?,?,?,?,?,?,?);";
         Date today = new Date();
         DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-	String sqlToday = dateFormat.format(today);
+        String sqlToday = dateFormat.format(today);
 
         conn.startConnection();
 
         prdstmt = conn.getConnection().prepareStatement(query);
 
-        prdstmt.setString(1,    luggage.getLabel());
-        prdstmt.setString(2,    luggage.getColor());
-        prdstmt.setString(3,    luggage.getShape());
-        prdstmt.setString(4,    luggage.getLocation());
-        prdstmt.setString(5,    luggage.getDetails());
-        prdstmt.setString(6,      sqlToday);
-        prdstmt.setInt(7,       handlerId);
-        prdstmt.setString(8,    luggage.getPhoneNr());
+        prdstmt.setString(1, luggage.getLabel());
+        prdstmt.setString(2, luggage.getColor());
+        prdstmt.setString(3, luggage.getShape());
+        prdstmt.setString(4, luggage.getLocation());
+        prdstmt.setString(5, luggage.getDetails());
+        prdstmt.setString(6, sqlToday);
+        prdstmt.setInt(7, handlerId);
+        prdstmt.setString(8, luggage.getPhoneNr());
 
         prdstmt.executeUpdate();
         Debug.println("INSERT INTO DB");

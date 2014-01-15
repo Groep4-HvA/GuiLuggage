@@ -20,19 +20,19 @@ import java.util.List;
  */
 public class PassengerDAO {
 
-    ConnectionMySQL conn = new ConnectionMySQL();
+    private final ConnectionMySQL conn = new ConnectionMySQL();
+    private final Date today = new Date();
+    private final DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 
     public PassengerDAO() {
         // initialization 
     }
-   
+
     public List<Passenger> readAll() throws SQLException {
 
         List<Passenger> list = new LinkedList<Passenger>();
         ResultSet rs;
         PreparedStatement prdstmt;
-        Date today = new Date();
-        DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         String query = "SELECT `name`, `surname`, `homeAddress`, `homePostalCode`, `homeCity`,`residentAddress`,`residentPostalCode`, `residentCity`, `color`, `shape`, `additionalDetails`, `labelNumber`, `emailAdress` FROM `passengers` LIMIT 50";
 
         conn.startConnection();
@@ -75,7 +75,7 @@ public class PassengerDAO {
         conn.startConnection();
 
         prdstmt = conn.getConnection().prepareStatement(query);
-        
+
         prdstmt.setString(1, "%" + searchInput + "%");
         prdstmt.setString(2, "%" + searchInput + "%");
         prdstmt.setString(3, "%" + searchInput + "%");
@@ -117,10 +117,8 @@ public class PassengerDAO {
 
     public int create(Passenger passenger, int handlerId) throws SQLException {
         PreparedStatement prdstmt;
+        String sqlToday = dateFormat.format(today);
         String query = "INSERT INTO `cases`  ( `name`, `surname`, `homeAddress`, `homePostalCode`, `homeCity`,`residentAddress`,`residentPostalCode`, `residentCity`, `color`, `shape`, `aditionalDetails`, `LuggageNumber`,`HandlerID`,`PhoneNr`,`addDate`, `emailAdress`) VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?);";
-        Date today = new Date();
-        DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-	String sqlToday = dateFormat.format(today);
         conn.startConnection();
 
         prdstmt = conn.getConnection().prepareStatement(query);
