@@ -67,6 +67,7 @@ public class CaseEditDialog extends javax.swing.JFrame {
         hCityField.setText(currentCase.getHomeCity());
         jTextArea1.setText(currentCase.getAditionalDetails());
         jTextArea2.setText(currentCase.getStorageLocation());
+        phoneNrField.setText(currentCase.getPhoneNumber());
         emailAdressField.setText(currentCase.getEmailAdress());
     }
 

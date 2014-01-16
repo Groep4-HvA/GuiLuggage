@@ -106,8 +106,7 @@ public class AddUser extends javax.swing.JFrame {
 
         errorText.setText(bundle.getString("AddUser.errorText.text")); // NOI18N
 
-        java.util.ResourceBundle bundle1 = java.util.ResourceBundle.getBundle("popups/Bundle"); // NOI18N
-        requiredFields.setText(bundle1.getString("AddUser.requiredFields.text")); // NOI18N
+        requiredFields.setText(bundle.getString("AddUser.requiredFields.text")); // NOI18N
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);

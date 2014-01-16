@@ -52,12 +52,12 @@ public class MainGuiFrame extends java.awt.Frame {
     private final Cursor defaultCursor = new Cursor(Cursor.DEFAULT_CURSOR);
 
     private static Image bg;
-    private final Color appManagerColor = new Color(0xBB20A545, true);
-    private final Color managerColor	= new Color(0xBBF09517, true);
-    private final Color userColor	= new Color(0xBB2584C1, true);
-    private final Color resolvedColor	= new Color(0xBB20A545, true);
-    private final Color passengerColor	= new Color(0xBBF09517, true);
-    private final Color luggageColor	= new Color(0xBB2584C1, true);
+    private final Color appManagerColor = new Color(0xFF20A545, true);
+    private final Color managerColor	= new Color(0xFFF09517, true);
+    private final Color userColor	= new Color(0xFF2584C1, true);
+    private final Color resolvedColor	= new Color(0xFF20A545, true);
+    private final Color passengerColor	= new Color(0xFFF09517, true);
+    private final Color luggageColor	= new Color(0xFF2584C1, true);
     private final Color offWhite	= new Color(237, 237, 237);
 
     /**
@@ -148,14 +148,14 @@ public class MainGuiFrame extends java.awt.Frame {
             }
         });
 
-        addNewButton1.setText("Add new: " + button1);
+        addNewButton1.setText(BUNDLE.getString("MainGuiFrame.addNew") +" " + button1);
         addNewButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 addNewButton1ActionPerformed(evt);
             }
         });
 
-        addNewButton2.setText("Add new: "+ button2);
+        addNewButton2.setText(BUNDLE.getString("MainGuiFrame.addNew") +" " + button2);
         addNewButton2.setToolTipText(bundle.getString("MainGuiFrame.addNewButton2.toolTipText")); // NOI18N
         addNewButton2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {

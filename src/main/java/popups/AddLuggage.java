@@ -206,9 +206,9 @@ public class AddLuggage extends javax.swing.JFrame {
                 + BUNDLE.getString("AddLuggage.labelLabel.text") + " = " + label + "\n"
                 + BUNDLE.getString("AddLuggage.colorLabel.text") + " = " + color + "\n"
                 + BUNDLE.getString("AddLuggage.shapeLabel.text") + " = " + brand + "\n"
-                + BUNDLE.getString("AddLuggage.phoneNrLabel.text") + " = " + location + "\n"
+                + BUNDLE.getString("AddLuggage.phoneNrLabel.text") + " = " + phoneNr + "\n"
                 + BUNDLE.getString("AddLuggage.storageLocationLabel.text") + " = " + details + "\n"
-                + BUNDLE.getString("AddLuggage.adDetailsLabel.text") + " = " + phoneNr + "\n\n"
+                + BUNDLE.getString("AddLuggage.adDetailsLabel.text") + " = " + location + "\n\n"
                 + footer;
         int selectedOption = JOptionPane.showConfirmDialog(null,
                 message,
