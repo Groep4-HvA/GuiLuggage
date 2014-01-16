@@ -87,9 +87,6 @@ public class MainGuiFrame extends java.awt.Frame {
             }
             initComponents();
             this.setLocationRelativeTo(null);
-            searchInput.requestFocusInWindow();
-            /*searchInput.addFocusListener(new MainFocus() {
-             });*/
             tableResults.getColumnModel().getColumn(0).setHeaderValue("#");
             tableResults.getColumnModel().getColumn(1).setHeaderValue(BUNDLE.getString("table.LuggageNumber"));
             tableResults.getColumnModel().getColumn(2).setHeaderValue(BUNDLE.getString("table.AddDate"));
@@ -497,16 +494,16 @@ public class MainGuiFrame extends java.awt.Frame {
 
     private void tableResultsMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tableResultsMouseClicked
 
-            if (inBeheer&&tableResults.getSelectedRow() < medList.size()) {
-                UserEditDialog popup1 = new UserEditDialog(medList.get(tableResults.getSelectedRow()));
-                popup1.setVisible(true);
-            } else if(tableResults.getSelectedRow() < caseList.size()&&!inBeheer) {
-                CaseEditDialog popup = new CaseEditDialog(caseList.get(tableResults.getSelectedRow()), handlerId);
-                popup.setVisible(true);
-            }else{
-                Debug.println("Wrong row clicked");
-            }
-        
+        if (inBeheer && tableResults.getSelectedRow() < medList.size()) {
+            UserEditDialog popup1 = new UserEditDialog(medList.get(tableResults.getSelectedRow()));
+            popup1.setVisible(true);
+        } else if (tableResults.getSelectedRow() < caseList.size() && !inBeheer) {
+            CaseEditDialog popup = new CaseEditDialog(caseList.get(tableResults.getSelectedRow()), handlerId);
+            popup.setVisible(true);
+        } else {
+            Debug.println("Wrong row clicked");
+        }
+
     }//GEN-LAST:event_tableResultsMouseClicked
 
     private void addNewButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addNewButton1ActionPerformed
@@ -608,12 +605,14 @@ public class MainGuiFrame extends java.awt.Frame {
     }//GEN-LAST:event_searchInputActionPerformed
 
     private void formWindowGainedFocus(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowGainedFocus
+        setCursor(waiting);
         if (inBeheer) {
             fillTableMedewerkers();
         } else {
             fillTableCases(notify);
         }
         Debug.println("Refreshing");
+        setCursor(defaultCursor);
     }//GEN-LAST:event_formWindowGainedFocus
 
     public void fillTableCasesMore() {

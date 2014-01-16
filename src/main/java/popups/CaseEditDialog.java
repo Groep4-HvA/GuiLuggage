@@ -413,7 +413,7 @@ public class CaseEditDialog extends javax.swing.JFrame {
                 + BUNDLE.getString("AddPassenger.cityRLabel.text") + " = " + residentCity + "\n"
                 + BUNDLE.getString("AddPassenger.phoneNrLabel.text") + " = " + phoneNr + "\n"
                 + BUNDLE.getString("AddPassenger.emailAdressLabel.text") + " = " + email + "\n"
-                + BUNDLE.getString("PopUpMedewerker.jLabel11.text") + " = " + storage + "\n"
+                + BUNDLE.getString("AddLuggage.storageLocationLabel.text") + " = " + storage + "\n"
                 + BUNDLE.getString("AddPassenger.aditionalDetailsLabel.text") + " = " + details + "\n\n"
                 + footer;
         int selectedOption = JOptionPane.showConfirmDialog(null,

@@ -5,8 +5,6 @@
 package popups;
 
 import java.awt.Color;
-import java.awt.Toolkit;
-import java.awt.event.WindowEvent;
 import java.sql.SQLException;
 import java.util.Arrays;
 import java.util.Locale;
@@ -190,20 +188,15 @@ public class MyAccount extends javax.swing.JDialog {
     }//GEN-LAST:event_passwordActionPerformed
 
     private void saveButActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saveButActionPerformed
-        Locale english, dutch, current;
-
-        english = new Locale("en", "US");
-        dutch = new Locale("nl", "NL");
-        Locale.setDefault(english);
         boolean change = false;
 
         if (dropDown.getSelectedIndex() != lang) {
             if (dropDown.getSelectedIndex() == 0) {
-                Locale.setDefault(english);
+                Locale.setDefault(new Locale("en", "US"));
                 tempMedewerker.setUserLang("EN");
             }
             if (dropDown.getSelectedIndex() == 1) {
-                Locale.setDefault(dutch);
+                Locale.setDefault(new Locale("nl", "NL"));
                 tempMedewerker.setUserLang("NL");
             }
             change = true;
@@ -238,16 +231,15 @@ public class MyAccount extends javax.swing.JDialog {
                         "Input error - not correct",
                         JOptionPane.ERROR_MESSAGE);
             }
-
-            Debug.println(change + "");
-            if (change) {
-                Debug.println(tempMedewerker.toString());
-                try {
-                    medewerkerTijdelijk.update(tempMedewerker);
-                    dispose();
-                } catch (SQLException e) {
-                    Debug.printError(e.toString());
-                }
+        }
+        Debug.println(change + "");
+        if (change) {
+            Debug.println(tempMedewerker.toString());
+            try {
+                medewerkerTijdelijk.update(tempMedewerker);
+                dispose();
+            } catch (SQLException e) {
+                Debug.printError(e.toString());
             }
         }
     }//GEN-LAST:event_saveButActionPerformed
