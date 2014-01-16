@@ -35,18 +35,30 @@ public class MainGuiFrame extends java.awt.Frame {
     private List<User> medList = null;
     private List<Case> caseList = null;
     private List<Integer> messageRows = new ArrayList();
+    
     private final java.util.ResourceBundle BUNDLE = java.util.ResourceBundle.getBundle("Bundle"); // NOI18N
+    
     //Strings for add buttons
     private String button1 = null;
     private String button2 = null;
+    
     //Access Management
     private boolean beheer;
     private int handlerId;
     private boolean inBeheer = false;
     boolean notify = false; //set to true to enable annoying as hell notifications
-    private static Image bg;
+    
     private final Cursor waiting = new Cursor(Cursor.WAIT_CURSOR);
     private final Cursor defaultCursor = new Cursor(Cursor.DEFAULT_CURSOR);
+
+    private static Image bg;
+    private final Color appManagerColor = new Color(0xBB20A545);
+    private final Color managerColor = new Color(0xBBF09517);
+    private final Color userColor = new Color(0xBB2584C1);
+    private final Color resolvedColor = new Color(0xBB20A545);
+    private final Color passengerColor = new Color(0xBBF09517);
+    private final Color luggageColor = new Color(0xBB2584C1);
+    private final Color offWhite = new Color(237, 237, 237);
 
     /**
      * Constructor for the common user and App Manager screen
@@ -77,7 +89,7 @@ public class MainGuiFrame extends java.awt.Frame {
             this.setLocationRelativeTo(null);
             searchInput.requestFocusInWindow();
             /*searchInput.addFocusListener(new MainFocus() {
-            });*/
+             });*/
             tableResults.getColumnModel().getColumn(0).setHeaderValue("#");
             tableResults.getColumnModel().getColumn(1).setHeaderValue(BUNDLE.getString("table.LuggageNumber"));
             tableResults.getColumnModel().getColumn(2).setHeaderValue(BUNDLE.getString("table.AddDate"));
@@ -91,7 +103,6 @@ public class MainGuiFrame extends java.awt.Frame {
             setCursor(defaultCursor);
         }
     }
-
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -600,7 +611,7 @@ public class MainGuiFrame extends java.awt.Frame {
         }
         Debug.println("Refreshing");
     }//GEN-LAST:event_formWindowGainedFocus
-    
+
     public void fillTableCasesMore() {
         setCursor(waiting);
         CaseDao dbcase = new CaseDao();
@@ -685,14 +696,14 @@ public class MainGuiFrame extends java.awt.Frame {
             public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
                 Component c = DEFAULT_RENDERER.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
                 if (appManagerList.contains(row)) {
-                    c.setBackground(new Color(32, 165, 69));
+                    c.setBackground(appManagerColor);
                 } else {
                     if (managerList.contains(row)) {
-                        c.setBackground(new Color(240, 149, 23));
+                        c.setBackground(managerColor);
                     } else if (userList.contains(row)) {
-                        c.setBackground(new Color(37, 132, 193));
+                        c.setBackground(userColor);
                     } else {
-                        c.setBackground(new Color(240, 240, 240));
+                        c.setBackground(offWhite);
                     }
                 }
                 return c;
@@ -744,14 +755,14 @@ public class MainGuiFrame extends java.awt.Frame {
             public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
                 Component c = DEFAULT_RENDERER.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
                 if (resolveList.contains(row)) {
-                    c.setBackground(new Color(32, 165, 69));
+                    c.setBackground(resolvedColor);
                 } else {
                     if (passengerList.contains(row)) {
-                        c.setBackground(new Color(240, 149, 23));
+                        c.setBackground(passengerColor);
                     } else if (luggageList.contains(row)) {
-                        c.setBackground(new Color(37, 132, 193));
+                        c.setBackground(luggageColor);
                     } else {
-                        c.setBackground(new Color(240, 240, 240));
+                        c.setBackground(offWhite);
                     }
                 }
                 return c;
@@ -828,19 +839,19 @@ public class MainGuiFrame extends java.awt.Frame {
     private abstract class MainFocus implements FocusListener {
 
         /*@Override
-        public void focusGained(FocusEvent e) {
-            Debug.println("Focus gained");
-            if (inBeheer) {
-                fillTableMedewerkers();
-            } else {
-                fillTableCases(notify);
-            }
-        }
+         public void focusGained(FocusEvent e) {
+         Debug.println("Focus gained");
+         if (inBeheer) {
+         fillTableMedewerkers();
+         } else {
+         fillTableCases(notify);
+         }
+         }
 
-        @Override
-        public void focusLost(FocusEvent e) {
-            Debug.println("Focus lost");
-        }*/
+         @Override
+         public void focusLost(FocusEvent e) {
+         Debug.println("Focus lost");
+         }*/
     }
 
     private static class ImagePanel extends JPanel {
