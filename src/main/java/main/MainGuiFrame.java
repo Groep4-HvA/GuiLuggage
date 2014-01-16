@@ -35,30 +35,30 @@ public class MainGuiFrame extends java.awt.Frame {
     private List<User> medList = null;
     private List<Case> caseList = null;
     private List<Integer> messageRows = new ArrayList();
-    
+
     private final java.util.ResourceBundle BUNDLE = java.util.ResourceBundle.getBundle("Bundle"); // NOI18N
-    
+
     //Strings for add buttons
     private String button1 = null;
     private String button2 = null;
-    
+
     //Access Management
     private boolean beheer;
     private int handlerId;
     private boolean inBeheer = false;
     boolean notify = false; //set to true to enable annoying as hell notifications
-    
+
     private final Cursor waiting = new Cursor(Cursor.WAIT_CURSOR);
     private final Cursor defaultCursor = new Cursor(Cursor.DEFAULT_CURSOR);
 
     private static Image bg;
     private final Color appManagerColor = new Color(0xFF20A545, true);
-    private final Color managerColor	= new Color(0xFFF09517, true);
-    private final Color userColor	= new Color(0xFF2584C1, true);
-    private final Color resolvedColor	= new Color(0xFF20A545, true);
-    private final Color passengerColor	= new Color(0xFFF09517, true);
-    private final Color luggageColor	= new Color(0xFF2584C1, true);
-    private final Color offWhite	= new Color(237, 237, 237);
+    private final Color managerColor = new Color(0xFFF09517, true);
+    private final Color userColor = new Color(0xFF2584C1, true);
+    private final Color resolvedColor = new Color(0xFF20A545, true);
+    private final Color passengerColor = new Color(0xFFF09517, true);
+    private final Color luggageColor = new Color(0xFF2584C1, true);
+    private final Color offWhite = new Color(237, 237, 237);
 
     /**
      * Constructor for the common user and App Manager screen
@@ -496,13 +496,17 @@ public class MainGuiFrame extends java.awt.Frame {
     }//GEN-LAST:event_logoutButtonActionPerformed
 
     private void tableResultsMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tableResultsMouseClicked
-        if (inBeheer) {
-            UserEditDialog popup1 = new UserEditDialog(medList.get(tableResults.getSelectedRow()));
-            popup1.setVisible(true);
-        } else {
-            CaseEditDialog popup = new CaseEditDialog(caseList.get(tableResults.getSelectedRow()), handlerId);
-            popup.setVisible(true);
-        }
+
+            if (inBeheer&&tableResults.getSelectedRow() < medList.size()) {
+                UserEditDialog popup1 = new UserEditDialog(medList.get(tableResults.getSelectedRow()));
+                popup1.setVisible(true);
+            } else if(tableResults.getSelectedRow() < caseList.size()&&!inBeheer) {
+                CaseEditDialog popup = new CaseEditDialog(caseList.get(tableResults.getSelectedRow()), handlerId);
+                popup.setVisible(true);
+            }else{
+                Debug.println("Wrong row clicked");
+            }
+        
     }//GEN-LAST:event_tableResultsMouseClicked
 
     private void addNewButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addNewButton1ActionPerformed
@@ -798,7 +802,7 @@ public class MainGuiFrame extends java.awt.Frame {
             @Override
             public void adjustmentValueChanged(AdjustmentEvent ae) {
                 boolean fadable;
-                fadable = (jScrollPane3.getVerticalScrollBar().getValue() > 1500);
+                fadable = (jScrollPane3.getVerticalScrollBar().getValue() > 420);
                 if (fadable) {
                     Debug.println(fadable + "");
                     moreButton.setVisible(true);
