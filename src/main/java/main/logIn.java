@@ -160,6 +160,7 @@ public class logIn extends javax.swing.JFrame {
                 dispose();
             } else {
                 errorLabel.setText(BUNDLE.getString("noLogin"));
+                logIn.super.getGlassPane().setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
             }
         } catch (SQLException e) {
             Debug.printError(e.toString());
