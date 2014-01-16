@@ -37,7 +37,7 @@ public class PDFGenerator {
     private PDXObjectImage grafiek;
     private PDDocument document;
     private PDPageContentStream contentStream;
-    private final PDFont font = PDType1Font.HELVETICA_BOLD;
+    private final PDFont font = PDType1Font.HELVETICA;
     private PDPage page = null;
 
     /**
@@ -112,11 +112,14 @@ public class PDFGenerator {
         try {
             // Start a new content stream which will "hold" the to be created content
             this.contentStream = new PDPageContentStream(document, page);
+            
+            contentStream.drawImage(banner, 0, 360);
+            contentStream.drawImage(correndonLogo, 20, 50);
 
             contentStream.beginText();
 
             contentStream.setFont(font, 12);
-            contentStream.moveTextPositionByAmount(100, 700);
+            contentStream.moveTextPositionByAmount(220, 550);
             contentStream.drawString(date);
             contentStream.moveTextPositionByAmount(0, -40);
 
@@ -127,7 +130,7 @@ public class PDFGenerator {
             contentStream.drawString("Color: ");
             contentStream.drawString(color);
             contentStream.moveTextPositionByAmount(0, -20);
-            contentStream.drawString("Shape: ");
+            contentStream.drawString("Brand: ");
             contentStream.drawString(shape);
             contentStream.moveTextPositionByAmount(0, -20);
             contentStream.drawString("Name: ");
@@ -203,7 +206,7 @@ public class PDFGenerator {
             contentStream.drawImage(grafiek, 12, 10);
             contentStream.beginText();
             contentStream.setFont(font, 12);
-            contentStream.moveTextPositionByAmount(100, 700);
+            contentStream.moveTextPositionByAmount(240, 550);
             contentStream.drawString(date);
 
             contentStream.moveTextPositionByAmount(0, -20);
