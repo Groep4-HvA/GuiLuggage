@@ -381,18 +381,18 @@ public class CaseEditDialog extends javax.swing.JFrame {
     }//GEN-LAST:event_cancelButtonActionPerformed
 
     private void saveButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saveButtonActionPerformed
-        String label = labelTextField.getText();
-        String color = colorTextField.getText();
+        String label = Check.cleanAlphaNumeriek(labelTextField.getText());
+        String color = Check.cleanAlpha(colorTextField.getText());
         String shape = shapeTextField.getText();
-        String surname = lastNameTextField.getText();
-        String name = nameTextField.getText();
-        String adres = hAddressTextField.getText();
-        String postalCode = hPostalCodeField.getText();
-        String city = hCityField.getText();
-        String residentAdres = rAdressTextField.getText();
-        String residentPostalCode = rPostalCodeField.getText();
-        String residentCity = rCityField.getText();
-        String phoneNr = phoneNrField.getText();
+        String surname = Check.cleanAlpha(lastNameTextField.getText());
+        String name = Check.cleanAlpha(nameTextField.getText());
+        String adres = Check.cleanAlphaNumeriek(hAddressTextField.getText());
+        String postalCode = Check.cleanAlphaNumeriek(hPostalCodeField.getText());
+        String city = Check.cleanAlpha(hCityField.getText());
+        String residentAdres = Check.cleanAlphaNumeriek(rAdressTextField.getText());
+        String residentPostalCode = Check.cleanAlphaNumeriek(rPostalCodeField.getText());
+        String residentCity = Check.cleanAlpha(rCityField.getText());
+        String phoneNr = Check.cleanPhone(phoneNrField.getText());
         String email = emailAdressField.getText();
         String details = jTextArea1.getText();
         String storage = jTextArea2.getText();

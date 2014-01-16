@@ -189,8 +189,8 @@ public class AddUser extends javax.swing.JFrame {
 
     private void saveButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saveButtonActionPerformed
         User nieuweMedewerker;
-        name = nameTextField.getText();
-        username = usernameTextField.getText();
+        name = Check.cleanAlpha(nameTextField.getText());
+        username = usernameTextField.getText().toLowerCase();
         password = firstPasswordField.getPassword();
         confirmPassword = confirmPasswordField.getPassword();
         appManager = appManagerCheckBox.isSelected();

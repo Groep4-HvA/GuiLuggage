@@ -5,15 +5,11 @@
 package popups;
 
 import java.sql.SQLException;
-import java.util.List;
 import javax.swing.JOptionPane;
-import models.Case;
 import models.Check;
 import models.Debug;
 import models.Luggage;
 import models.LuggageDAO;
-import models.User;
-import models.UserDAO;
 
 /**
  *
@@ -23,7 +19,7 @@ public class AddLuggage extends javax.swing.JFrame {
 
     private String label;
     private String color;
-    private String shape;
+    private String brand;
     private String location;
     private String details;
     private int handlerId;
@@ -119,8 +115,7 @@ public class AddLuggage extends javax.swing.JFrame {
 
         phoneNrText.setText(bundle.getString("AddLuggage.phoneNrText.text")); // NOI18N
 
-        java.util.ResourceBundle bundle1 = java.util.ResourceBundle.getBundle("popups/Bundle"); // NOI18N
-        requiredFields.setText(bundle1.getString("AddLuggage.requiredFields.text")); // NOI18N
+        requiredFields.setText(bundle.getString("AddLuggage.requiredFields.text")); // NOI18N
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -201,16 +196,16 @@ public class AddLuggage extends javax.swing.JFrame {
     private void SaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SaveActionPerformed
         Luggage newLuggage;
         label = Check.cleanAlphaNumeriek(labelTextField.getText());
-        color = colorTextField.getText();
-        shape = shapeTextField.getText();
+        color = Check.cleanAlpha(colorTextField.getText());
+        brand = shapeTextField.getText();
         location = locationTextField.getText();
         details = detailsTextField.getText();
-        phoneNr = phoneNrText.getText();
+        phoneNr = Check.cleanPhone(phoneNrText.getText());
         String footer = String.format(BUNDLE.getString("ConfirmFooter"), BUNDLE.getString("Luggage")).toLowerCase();
         String message = BUNDLE.getString("ConfirmHead") + "\n"
                 + BUNDLE.getString("AddLuggage.labelLabel.text") + " = " + label + "\n"
                 + BUNDLE.getString("AddLuggage.colorLabel.text") + " = " + color + "\n"
-                + BUNDLE.getString("AddLuggage.shapeLabel.text") + " = " + shape + "\n"
+                + BUNDLE.getString("AddLuggage.shapeLabel.text") + " = " + brand + "\n"
                 + BUNDLE.getString("AddLuggage.phoneNrLabel.text") + " = " + location + "\n"
                 + BUNDLE.getString("AddLuggage.storageLocationLabel.text") + " = " + details + "\n"
                 + BUNDLE.getString("AddLuggage.adDetailsLabel.text") + " = " + phoneNr + "\n\n"
@@ -219,9 +214,9 @@ public class AddLuggage extends javax.swing.JFrame {
                 message,
                 BUNDLE.getString("Confirm"),
                 JOptionPane.YES_NO_OPTION);
-        if (Check.verifyLuggage(label, color, shape, location, details, phoneNr)&&selectedOption == JOptionPane.YES_OPTION) {
+        if (Check.verifyLuggage(label, color, brand, location, details, phoneNr)&&selectedOption == JOptionPane.YES_OPTION) {
             Debug.println(Check.cleanPhone(phoneNr));
-            newLuggage = new Luggage(label, color, shape, location, details, phoneNr);
+            newLuggage = new Luggage(label, color, brand, location, details, phoneNr);
             saveData(newLuggage);
 
         } else {

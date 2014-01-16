@@ -419,6 +419,10 @@ public class MainGuiFrame extends java.awt.Frame {
             menu.add(db);
         }
         setMenuBar(menuBar);
+        tableResults.getColumnModel().getColumn(0).setHeaderValue("#");
+        tableResults.getColumnModel().getColumn(1).setHeaderValue(BUNDLE.getString("table.LuggageNumber"));
+        tableResults.getColumnModel().getColumn(2).setHeaderValue(BUNDLE.getString("table.AddDate"));
+        tableResults.getColumnModel().getColumn(3).setHeaderValue(BUNDLE.getString("table.HandlerName"));
     }
     /*
      * Display more results

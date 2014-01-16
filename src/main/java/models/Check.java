@@ -55,7 +55,7 @@ public class Check {
      * @return
      */
     static public String cleanAlphaNumeriek(String label) {
-        label = label.replaceAll("[^0-9A-Za-z]", "");
+        label = label.replaceAll("[^0-9A-Za-z\\s]", "");
         return label;
     }
 
@@ -70,13 +70,8 @@ public class Check {
         return number;
     }
 
-    static public String cleanSearch(String query) {
-        query = query.replaceAll("[^\\p{L}\\p{Nd},\\s0-9]", "");
-        return query;
-    }
-
     static public String cleanAlpha(String kleur) {
-        kleur = kleur.replaceAll("[^A-Za-z]", "");
+        kleur = kleur.replaceAll("[^A-Za-z\\s]", "");
         return kleur;
     }
 
@@ -125,6 +120,8 @@ public class Check {
         } else if (name.equals("") || username.equals("")) {
             verified = false;
         } else if (password.length < 6) {
+            verified = false;
+        } else if (username.length() < 3) {
             verified = false;
         } else {
             verified = true;

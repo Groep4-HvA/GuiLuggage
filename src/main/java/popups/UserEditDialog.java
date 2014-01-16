@@ -182,13 +182,10 @@ public class UserEditDialog extends javax.swing.JFrame {
         isManager.setSelected(medewerker.isManager());
     }
     private void saveButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saveButtonActionPerformed
-        medewerker.setName(nameField.getText());
-        medewerker.setAppManager(isAppManager.isSelected());
-        medewerker.setManager(isManager.isSelected());
         String footer = String.format(BUNDLE.getString("ConfirmFooter"), BUNDLE.getString("Medewerker")).toLowerCase();
         String message = BUNDLE.getString("ConfirmHead") + "\n"
                 + BUNDLE.getString("AddMedewerker.jLabel2.text") + " = " + medewerker.getUsername() + "\n"
-                + BUNDLE.getString("AddMedewerker.jLabel1.text") + " = " + nameField.getText() + "\n"
+                + BUNDLE.getString("AddMedewerker.jLabel1.text") + " = " + Check.cleanAlpha(nameField.getText()) + "\n"
                 + BUNDLE.getString("AddMedewerker.appManagerCheckBox.text") + " = " + isAppManager.isSelected() + "\n"
                 + BUNDLE.getString("Popupappmedewerker.isManager.text") + " = " + isManager.isSelected() + "\n\n"
                 + footer;
@@ -199,6 +196,9 @@ public class UserEditDialog extends javax.swing.JFrame {
         UserDAO dbMedewerker;
         dbMedewerker = new UserDAO();
         if (selectedOption == JOptionPane.YES_OPTION) {
+            medewerker.setName(Check.cleanAlpha(nameField.getText()));
+            medewerker.setAppManager(isAppManager.isSelected());
+            medewerker.setManager(isManager.isSelected());
             if (Arrays.equals(firstPasswordField.getPassword(), confirmPasswordField.getPassword()) && firstPasswordField.getPassword().length > 5) {
                 medewerker.setPassword(firstPasswordField.getPassword());
             } else {
