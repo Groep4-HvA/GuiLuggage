@@ -93,13 +93,6 @@ public class MainGuiFrame extends java.awt.Frame {
         }
     }
 
-    private void formWindowGainedFocus(java.awt.event.WindowEvent evt) {
-        if (inBeheer) {
-            fillTableMedewerkers();
-        } else {
-            fillTableCases(notify);
-        }
-    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -109,7 +102,7 @@ public class MainGuiFrame extends java.awt.Frame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jPanel2 = new ImagePanel();
+        jPanel2 = new javax.swing.JPanel();
         searchButton = new javax.swing.JButton();
         addNewButton1 = new javax.swing.JButton();
         addNewButton2 = new javax.swing.JButton();
@@ -125,6 +118,13 @@ public class MainGuiFrame extends java.awt.Frame {
         setName("frame"); // NOI18N
         java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("Bundle"); // NOI18N
         setTitle(bundle.getString("medewerkerMain.title")); // NOI18N
+        addWindowFocusListener(new java.awt.event.WindowFocusListener() {
+            public void windowGainedFocus(java.awt.event.WindowEvent evt) {
+                formWindowGainedFocus(evt);
+            }
+            public void windowLostFocus(java.awt.event.WindowEvent evt) {
+            }
+        });
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowClosing(java.awt.event.WindowEvent evt) {
                 exitForm(evt);
@@ -295,12 +295,10 @@ public class MainGuiFrame extends java.awt.Frame {
             }
         });
         jScrollPane3.setViewportView(tableResults);
-        if (tableResults.getColumnModel().getColumnCount() > 0) {
-            tableResults.getColumnModel().getColumn(0).setHeaderValue(bundle.getString("MainGuiFrame.tableResults.columnModel.title0")); // NOI18N
-            tableResults.getColumnModel().getColumn(1).setHeaderValue(bundle.getString("MainGuiFrame.tableResults.columnModel.title1")); // NOI18N
-            tableResults.getColumnModel().getColumn(2).setHeaderValue(bundle.getString("MainGuiFrame.tableResults.columnModel.title2")); // NOI18N
-            tableResults.getColumnModel().getColumn(3).setHeaderValue(bundle.getString("MainGuiFrame.tableResults.columnModel.title3")); // NOI18N
-        }
+        tableResults.getColumnModel().getColumn(0).setHeaderValue(bundle.getString("MainGuiFrame.tableResults.columnModel.title0")); // NOI18N
+        tableResults.getColumnModel().getColumn(1).setHeaderValue(bundle.getString("MainGuiFrame.tableResults.columnModel.title1")); // NOI18N
+        tableResults.getColumnModel().getColumn(2).setHeaderValue(bundle.getString("MainGuiFrame.tableResults.columnModel.title2")); // NOI18N
+        tableResults.getColumnModel().getColumn(3).setHeaderValue(bundle.getString("MainGuiFrame.tableResults.columnModel.title3")); // NOI18N
 
         appManagementButton.setText(bundle.getString("MainGuiFrame.appManagementButton.text")); // NOI18N
         appManagementButton.addActionListener(new java.awt.event.ActionListener() {
@@ -376,7 +374,7 @@ public class MainGuiFrame extends java.awt.Frame {
                 .add(searchInput, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                 .add(searchButton)
-                .add(18, 18, Short.MAX_VALUE)
+                .add(18, 31, Short.MAX_VALUE)
                 .add(jScrollPane3, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 596, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
                 .add(jPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
@@ -384,7 +382,7 @@ public class MainGuiFrame extends java.awt.Frame {
                     .add(jPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
                         .add(moreButton)
                         .add(addNewButton2)))
-                .addContainerGap(org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(25, Short.MAX_VALUE))
         );
 
         add(jPanel2, java.awt.BorderLayout.CENTER);
@@ -592,6 +590,15 @@ public class MainGuiFrame extends java.awt.Frame {
     private void searchInputActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_searchInputActionPerformed
         searchButtonActionPerformed(evt);
     }//GEN-LAST:event_searchInputActionPerformed
+
+    private void formWindowGainedFocus(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowGainedFocus
+        if (inBeheer) {
+            fillTableMedewerkers();
+        } else {
+            fillTableCases(notify);
+        }
+        Debug.println("Refreshing");
+    }//GEN-LAST:event_formWindowGainedFocus
     public void fillTableCasesMore() {
         setCursor(waiting);
         CaseDao dbcase = new CaseDao();
@@ -743,7 +750,7 @@ public class MainGuiFrame extends java.awt.Frame {
     private javax.swing.JButton addNewButton1;
     private javax.swing.JButton addNewButton2;
     private javax.swing.JButton appManagementButton;
-    private ImagePanel jPanel2;
+    private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JButton logoutButton;
     private javax.swing.JButton moreButton;

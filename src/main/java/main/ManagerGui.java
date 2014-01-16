@@ -684,7 +684,8 @@ public class ManagerGui extends java.awt.Frame {
     }//GEN-LAST:event_graphManagerActionPerformed
 
     private void formWindowGainedFocus(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowGainedFocus
-        //fillTable(list);
+        fillTable(list);
+        Debug.println("Refreshing");
     }//GEN-LAST:event_formWindowGainedFocus
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
