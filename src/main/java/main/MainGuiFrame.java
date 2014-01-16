@@ -20,8 +20,8 @@ import java.util.List;
 import java.util.Locale;
 import javax.imageio.ImageIO;
 import javax.swing.*;
-import javax.swing.table.DefaultTableCellRenderer;
-import javax.swing.table.TableCellRenderer;
+import javax.swing.table.*;
+
 import models.*;
 import popups.*;
 
@@ -155,8 +155,8 @@ public class MainGuiFrame extends java.awt.Frame {
                 moreButtonActionPerformed(evt);
             }
         });
-
         tableResults.setAutoCreateRowSorter(true);
+        tableResults.getTableHeader().setReorderingAllowed(false);
         tableResults.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
