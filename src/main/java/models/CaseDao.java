@@ -26,7 +26,7 @@ public class CaseDao {
         ResultSet rs;
         PreparedStatement prdstmt;
 
-        String query = "SELECT LuggageNumber, AddDate FROM cases WHERE `ResolveDate` is null";
+        String query = "SELECT LuggageNumber, AddDate FROM cases WHERE `ResolveDate` is null LIMIT 50";
         conn.startConnection();
 
         prdstmt = conn.getConnection().prepareStatement(query);
@@ -51,7 +51,7 @@ public class CaseDao {
         ResultSet rs;
         PreparedStatement prdstmt;
 
-        String query = "SELECT LuggageNumber, AddDate FROM cases WHERE `ResolveDate` is not null";
+        String query = "SELECT LuggageNumber, AddDate FROM cases WHERE `ResolveDate` is not null LIMIT 50";
         conn.startConnection();
 
         prdstmt = conn.getConnection().prepareStatement(query);
