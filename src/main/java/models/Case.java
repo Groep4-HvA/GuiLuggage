@@ -31,11 +31,32 @@ public class Case {
     private String aditionalDetails;
     private String storageLocation;
 
-    private String handler;
+    private int handlerID;
     private Date addDate;
     private Date resolveDate;
 
     public Case() {
+    }
+
+    public Case(String label, String name, String surName, String emailAdress, String phoneNumber, String homeAddress, String homePostalCode, String homeCity, String residentAddress, String residentPostalCode, String residentCity, String color, String shape, String aditionalDetails, String storageLocation, int handler, Date addDate, Date resolveDate) {
+        this.label = label;
+        this.name = name;
+        this.surName = surName;
+        this.emailAdress = emailAdress;
+        this.phoneNumber = phoneNumber;
+        this.homeAddress = homeAddress;
+        this.homePostalCode = homePostalCode;
+        this.homeCity = homeCity;
+        this.residentAddress = residentAddress;
+        this.residentPostalCode = residentPostalCode;
+        this.residentCity = residentCity;
+        this.color = color;
+        this.shape = shape;
+        this.aditionalDetails = aditionalDetails;
+        this.storageLocation = storageLocation;
+        this.handlerID = handler;
+        this.addDate = addDate;
+        this.resolveDate = resolveDate;
     }
 
     /**
@@ -271,6 +292,16 @@ public class Case {
      * @return
      */
     public String getHandler() {
+        String handler;
+        UserDAO dbMedewerker = new UserDAO();
+        User dBhandler;
+        try {
+            dBhandler = dbMedewerker.getMedewerkerById(this.handlerID);
+            handler = dBhandler.getName();
+        } catch (SQLException e) {
+            handler = "John Doe (No name found)";
+            Debug.printError(e.toString());
+        }
         return handler;
     }
 
@@ -280,15 +311,7 @@ public class Case {
      * @param handlerID
      */
     public void setHandler(int handlerID) {
-        UserDAO dbMedewerker = new UserDAO();
-        User dBhandler;
-        try {
-            dBhandler = dbMedewerker.getMedewerkerById(handlerID);
-            this.handler = dBhandler.getName();
-        } catch (SQLException e) {
-            this.handler = "John Doe (No name found)";
-            Debug.printError(e.toString());
-        }
+        this.handlerID = handlerID;
     }
 
     /**
@@ -388,7 +411,7 @@ public class Case {
      */
     @Override
     public String toString() {
-        return "Case{" + "status=" + status + ", label=" + label + ", name=" + name + ", surName=" + surName + ", homeAddress=" + homeAddress + ", homePostalCode=" + homePostalCode + ", homeCity=" + homeCity + ", residentAddress=" + residentAddress + ", residentPostalCode=" + residentPostalCode + ", residentCity=" + residentCity + ", color=" + color + ", shape=" + shape + ", aditionalDetails=" + aditionalDetails + ", storageLocation=" + storageLocation + ", handler=" + handler + ", addDate=" + addDate + ", resolveDate=" + resolveDate + '}';
+        return "Case{" + "status=" + status + ", label=" + label + ", name=" + name + ", surName=" + surName + ", homeAddress=" + homeAddress + ", homePostalCode=" + homePostalCode + ", homeCity=" + homeCity + ", residentAddress=" + residentAddress + ", residentPostalCode=" + residentPostalCode + ", residentCity=" + residentCity + ", color=" + color + ", shape=" + shape + ", aditionalDetails=" + aditionalDetails + ", storageLocation=" + storageLocation + ", handler=" + getHandler() + ", addDate=" + addDate + ", resolveDate=" + resolveDate + '}';
     }
 
 }

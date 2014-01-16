@@ -109,29 +109,26 @@ public class CaseDao {
         rs = conn.performSelect(prdstmt);
 
         while (rs.next()) {
-            Case tempcase = new Case();
-            tempcase.setLabel(rs.getString("LuggageNumber"));
-            tempcase.setName(rs.getString("Name"));
-            tempcase.setSurName(rs.getString("Surname"));
-            tempcase.setPhoneNumber(rs.getString("PhoneNr"));
-            tempcase.setEmailAdress(rs.getString("emailAdress"));
-
-            tempcase.setHomeAddress(rs.getString("homeAddress"));
-            tempcase.setHomePostalCode(rs.getString("homePostalCode"));
-            tempcase.setHomeCity(rs.getString("homeCity"));
-
-            tempcase.setResidentAddress(rs.getString("residentAddress"));
-            tempcase.setResidentPostalCode(rs.getString("residentPostalCode"));
-            tempcase.setResidentCity(rs.getString("residentCity"));
-
-            tempcase.setColor(rs.getString("Color"));
-            tempcase.setShape(rs.getString("Shape"));
-            tempcase.setAditionalDetails(rs.getString("AditionalDetails"));
-            tempcase.setStorageLocation(rs.getString("StorageLocation"));
-            tempcase.setHandler(rs.getInt("HandlerID"));
-
-            tempcase.setAddDate(rs.getDate("AddDate"));
-            tempcase.setResolveDate(rs.getDate("ResolveDate"));
+            Case tempcase = new Case(
+                    rs.getString("LuggageNumber"),
+                    rs.getString("Name"),
+                    rs.getString("Surname"),
+                    rs.getString("emailAdress"),
+                    rs.getString("PhoneNr"),
+                    rs.getString("homeAddress"),
+                    rs.getString("homePostalCode"),
+                    rs.getString("homeCity"),
+                    rs.getString("residentAddress"),
+                    rs.getString("residentPostalCode"),
+                    rs.getString("residentCity"),
+                    rs.getString("Color"),
+                    rs.getString("Shape"),
+                    rs.getString("AditionalDetails"),
+                    rs.getString("StorageLocation"),
+                    rs.getInt("HandlerID"),
+                    rs.getDate("AddDate"),
+                    rs.getDate("ResolveDate")
+            );
             list.add(tempcase);
 
         }
@@ -157,29 +154,26 @@ public class CaseDao {
         rs = conn.performSelect(prdstmt);
 
         while (rs.next()) {
-            Case tempcase = new Case();
-            tempcase.setLabel(rs.getString("LuggageNumber"));
-            tempcase.setName(rs.getString("Name"));
-            tempcase.setSurName(rs.getString("Surname"));
-            tempcase.setPhoneNumber(rs.getString("PhoneNr"));
-            tempcase.setEmailAdress(rs.getString("emailAdress"));
-
-            tempcase.setHomeAddress(rs.getString("homeAddress"));
-            tempcase.setHomePostalCode(rs.getString("homePostalCode"));
-            tempcase.setHomeCity(rs.getString("homeCity"));
-
-            tempcase.setResidentAddress(rs.getString("residentAddress"));
-            tempcase.setResidentPostalCode(rs.getString("residentPostalCode"));
-            tempcase.setResidentCity(rs.getString("residentCity"));
-
-            tempcase.setColor(rs.getString("Color"));
-            tempcase.setShape(rs.getString("Shape"));
-            tempcase.setAditionalDetails(rs.getString("AditionalDetails"));
-            tempcase.setStorageLocation(rs.getString("StorageLocation"));
-            tempcase.setHandler(rs.getInt("HandlerID"));
-
-            tempcase.setAddDate(rs.getDate("AddDate"));
-            tempcase.setResolveDate(rs.getDate("ResolveDate"));
+            Case tempcase = new Case(
+                    rs.getString("LuggageNumber"),
+                    rs.getString("Name"),
+                    rs.getString("Surname"),
+                    rs.getString("emailAdress"),
+                    rs.getString("PhoneNr"),
+                    rs.getString("homeAddress"),
+                    rs.getString("homePostalCode"),
+                    rs.getString("homeCity"),
+                    rs.getString("residentAddress"),
+                    rs.getString("residentPostalCode"),
+                    rs.getString("residentCity"),
+                    rs.getString("Color"),
+                    rs.getString("Shape"),
+                    rs.getString("AditionalDetails"),
+                    rs.getString("StorageLocation"),
+                    rs.getInt("HandlerID"),
+                    rs.getDate("AddDate"),
+                    rs.getDate("ResolveDate")
+            );
             list.add(tempcase);
 
         }
@@ -218,29 +212,26 @@ public class CaseDao {
         rs = conn.performSelect(prdstmt);
 
         while (rs.next()) {
-            Case tempcase = new Case();
-            tempcase.setLabel(rs.getString("LuggageNumber"));
-            tempcase.setName(rs.getString("Name"));
-            tempcase.setSurName(rs.getString("Surname"));
-            tempcase.setPhoneNumber(rs.getString("PhoneNr"));
-            tempcase.setEmailAdress(rs.getString("emailAdress"));
-
-            tempcase.setHomeAddress(rs.getString("homeAddress"));
-            tempcase.setHomePostalCode(rs.getString("homePostalCode"));
-            tempcase.setHomeCity(rs.getString("homeCity"));
-
-            tempcase.setResidentAddress(rs.getString("residentAddress"));
-            tempcase.setResidentPostalCode(rs.getString("residentPostalCode"));
-            tempcase.setResidentCity(rs.getString("residentCity"));
-
-            tempcase.setColor(rs.getString("Color"));
-            tempcase.setShape(rs.getString("Shape"));
-            tempcase.setAditionalDetails(rs.getString("AditionalDetails"));
-            tempcase.setStorageLocation(rs.getString("StorageLocation"));
-            tempcase.setHandler(rs.getInt("HandlerID"));
-
-            tempcase.setAddDate(rs.getDate("AddDate"));
-            tempcase.setResolveDate(rs.getDate("ResolveDate"));
+            Case tempcase = new Case(
+                    rs.getString("LuggageNumber"),
+                    rs.getString("Name"),
+                    rs.getString("Surname"),
+                    rs.getString("emailAdress"),
+                    rs.getString("PhoneNr"),
+                    rs.getString("homeAddress"),
+                    rs.getString("homePostalCode"),
+                    rs.getString("homeCity"),
+                    rs.getString("residentAddress"),
+                    rs.getString("residentPostalCode"),
+                    rs.getString("residentCity"),
+                    rs.getString("Color"),
+                    rs.getString("Shape"),
+                    rs.getString("AditionalDetails"),
+                    rs.getString("StorageLocation"),
+                    rs.getInt("HandlerID"),
+                    rs.getDate("AddDate"),
+                    rs.getDate("ResolveDate")
+            );
             list.add(tempcase);
         }
 

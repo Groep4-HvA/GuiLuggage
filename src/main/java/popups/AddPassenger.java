@@ -364,7 +364,7 @@ public class AddPassenger extends javax.swing.JFrame {
         surname = Check.cleanAlpha(surnameTextfield.getText());
         postalCode = Check.cleanAlphaNumeriek(postalCodeTextfield.getText());
         adres = Check.cleanAlphaNumeriek(adresTextfield.getText());
-        city = Check.cleanAlpha(rCityTextfield.getText());
+        city = Check.cleanAlpha(cityTextfield.getText());
         residentAdres = Check.cleanAlphaNumeriek(residentAdresTextfield.getText());
         residentPostalCode = Check.cleanAlphaNumeriek(rPostalCodeTextfield.getText());
         residentCity = Check.cleanAlpha(rCityTextfield.getText());

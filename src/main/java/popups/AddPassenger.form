@@ -62,23 +62,14 @@
                           </Group>
                           <Group type="102" alignment="0" attributes="0">
                               <Group type="103" groupAlignment="0" attributes="0">
-                                  <Group type="102" attributes="0">
-                                      <Group type="103" groupAlignment="1" attributes="0">
-                                          <Component id="colorLabel" alignment="0" max="-2" attributes="0"/>
-                                          <Component id="lLabelLabel" alignment="0" max="-2" attributes="0"/>
-                                          <Component id="shapeLabel" alignment="0" max="-2" attributes="0"/>
-                                      </Group>
-                                      <EmptySpace max="-2" attributes="0"/>
-                                  </Group>
-                                  <Group type="102" alignment="1" attributes="0">
-                                      <Group type="103" groupAlignment="1" attributes="0">
-                                          <Component id="nameLabel" alignment="0" max="32767" attributes="0"/>
-                                          <Component id="phoneNrLabel" alignment="0" max="32767" attributes="0"/>
-                                          <Component id="emailAdressLabel" max="32767" attributes="0"/>
-                                      </Group>
-                                      <EmptySpace type="separate" max="-2" attributes="0"/>
-                                  </Group>
+                                  <Component id="colorLabel" alignment="0" max="-2" attributes="0"/>
+                                  <Component id="lLabelLabel" alignment="0" max="-2" attributes="0"/>
+                                  <Component id="shapeLabel" alignment="0" max="-2" attributes="0"/>
+                                  <Component id="nameLabel" alignment="0" max="32767" attributes="0"/>
+                                  <Component id="phoneNrLabel" alignment="0" max="32767" attributes="0"/>
+                                  <Component id="emailAdressLabel" alignment="1" max="32767" attributes="0"/>
                               </Group>
+                              <EmptySpace type="separate" max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="0" attributes="0">
                                   <Component id="colorTextfield" alignment="1" max="32767" attributes="0"/>
                                   <Component id="shapeTextfield" alignment="1" max="32767" attributes="0"/>

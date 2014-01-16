@@ -597,10 +597,10 @@ public class MainGuiFrame extends java.awt.Frame {
         CaseDao dbcase = new CaseDao();
         try {
             caseList = dbcase.readAllMore();
+            populateTableCase(caseList);
         } catch (SQLException e) {
             Debug.printError(e.toString());
         }
-        populateTableCase(caseList);
         setCursor(defaultCursor);
     }
 
@@ -609,17 +609,17 @@ public class MainGuiFrame extends java.awt.Frame {
         CaseDao dbCase = new CaseDao();
         try {
             caseList = dbCase.readAll();
+            populateTableCase(caseList);
+            if (start) {
+                for (int i = 0; i < messageRows.size(); i++) {
+                    JOptionPane.showMessageDialog(null,
+                            BUNDLE.getString("warning.longStay").replaceAll("%lbln", caseList.get(messageRows.get(i)).getLabel()),
+                            BUNDLE.getString("warning.longStay.title"),
+                            JOptionPane.WARNING_MESSAGE);
+                }
+            }
         } catch (SQLException e) {
             Debug.printError(e.toString());
-        }
-        populateTableCase(caseList);
-        if (start) {
-            for (int i = 0; i < messageRows.size(); i++) {
-                JOptionPane.showMessageDialog(null,
-                        BUNDLE.getString("warning.longStay").replaceAll("%lbln", caseList.get(messageRows.get(i)).getLabel()),
-                        BUNDLE.getString("warning.longStay.title"),
-                        JOptionPane.WARNING_MESSAGE);
-            }
         }
         setCursor(defaultCursor);
     }
@@ -645,6 +645,9 @@ public class MainGuiFrame extends java.awt.Frame {
     }
 
     public void populateTableMedewerker(List<User> list) {
+        final ArrayList<Integer> appManagerList = new ArrayList<Integer>();
+        final ArrayList<Integer> managerList = new ArrayList<Integer>();
+        final ArrayList<Integer> userList = new ArrayList<Integer>();
         tableResults.getColumnModel().getColumn(0).setMaxWidth(350);
         tableResults.getColumnModel().getColumn(0).setPreferredWidth(250);
         for (int i = 0; i < 50; i++) {
@@ -653,11 +656,18 @@ public class MainGuiFrame extends java.awt.Frame {
             tableResults.getModel().setValueAt("", i, 2);
             tableResults.getModel().setValueAt("", i, 3);
         }
-        for (int j = 0; j < list.size(); j++) {
-            tableResults.getModel().setValueAt(list.get(j).getName(), j, 0);
-            tableResults.getModel().setValueAt(list.get(j).getUsername(), j, 1);
-            tableResults.getModel().setValueAt(list.get(j).isAppManager(), j, 2);
-            tableResults.getModel().setValueAt(list.get(j).isManager(), j, 3);
+        for (int i = 0; i < list.size(); i++) {
+            tableResults.getModel().setValueAt(list.get(i).getName(), i, 0);
+            tableResults.getModel().setValueAt(list.get(i).getUsername(), i, 1);
+            tableResults.getModel().setValueAt(list.get(i).isAppManager(), i, 2);
+            tableResults.getModel().setValueAt(list.get(i).isManager(), i, 3);
+            if (list.get(i).isAppManager()) {
+                appManagerList.add(i);
+            } else if (list.get(i).isManager()) {
+                managerList.add(i);
+            } else {
+                userList.add(i);
+            }
         }
         tableResults.setDefaultRenderer(Object.class, new TableCellRenderer() {
             private final DefaultTableCellRenderer DEFAULT_RENDERER = new DefaultTableCellRenderer();
@@ -665,7 +675,17 @@ public class MainGuiFrame extends java.awt.Frame {
             @Override
             public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
                 Component c = DEFAULT_RENDERER.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
-                c.setBackground(Color.WHITE);
+                if (appManagerList.contains(row)) {
+                    c.setBackground(new Color(32, 165, 69));
+                } else {
+                    if (managerList.contains(row)) {
+                        c.setBackground(new Color(240, 149, 23));
+                    } else if (userList.contains(row)) {
+                        c.setBackground(new Color(37, 132, 193));
+                    } else {
+                        c.setBackground(new Color(240, 240, 240));
+                    }
+                }
                 return c;
             }
         });
