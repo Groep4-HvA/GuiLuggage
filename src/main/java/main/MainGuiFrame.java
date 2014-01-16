@@ -719,7 +719,6 @@ public class MainGuiFrame extends java.awt.Frame {
     }
 
     public void populateTableCase(final List<Case> list) {
-        setCursor(waiting);
         tableResults.getColumnModel().getColumn(0).setMaxWidth(35);
         final ArrayList<Integer> resolveList = new ArrayList<Integer>();
         final ArrayList<Integer> passengerList = new ArrayList<Integer>();
@@ -775,11 +774,6 @@ public class MainGuiFrame extends java.awt.Frame {
         tableResults.getColumnModel().getColumn(1).setHeaderValue(BUNDLE.getString("table.LuggageNumber"));
         tableResults.getColumnModel().getColumn(2).setHeaderValue(BUNDLE.getString("table.AddDate"));
         tableResults.getColumnModel().getColumn(3).setHeaderValue(BUNDLE.getString("table.HandlerName"));
-        setCursor(defaultCursor);
-    }
-
-    public void focusSearch() {
-        searchInput.requestFocus();
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel LabelDescription;

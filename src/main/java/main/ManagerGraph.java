@@ -277,7 +277,7 @@ public class ManagerGraph extends ApplicationFrame {
 
         // create the chart...
         chart = ChartFactory.createLineChart(
-                "Luggage Statistics", // chart title
+                BUNDLE.getString("chart.title"), // chart title
                 graphTitle, // domain axis label
                 "#", // range axis label
                 dataset, // data

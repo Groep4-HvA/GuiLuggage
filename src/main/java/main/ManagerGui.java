@@ -5,6 +5,7 @@
 package main;
 
 import java.awt.Color;
+import java.awt.Component;
 import java.awt.Cursor;
 import java.awt.Dimension;
 import java.awt.Graphics;
@@ -17,6 +18,7 @@ import java.io.IOException;
 import java.sql.SQLException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
@@ -25,6 +27,9 @@ import java.util.logging.Logger;
 import javax.imageio.ImageIO;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JTable;
+import javax.swing.table.DefaultTableCellRenderer;
+import javax.swing.table.TableCellRenderer;
 import models.Case;
 import models.CaseDao;
 import models.Check;
@@ -60,6 +65,10 @@ public class ManagerGui extends java.awt.Frame {
     private final String date = df.format(today);
     private final Cursor waiting = new Cursor(Cursor.WAIT_CURSOR);
     private final Cursor defaultCursor = new Cursor(Cursor.DEFAULT_CURSOR);
+    private final Color resolvedColor = new Color(0xFF20A545, true);
+    private final Color passengerColor = new Color(0xFFF09517, true);
+    private final Color luggageColor = new Color(0xFF2584C1, true);
+    private final Color offWhite = new Color(237, 237, 237);
 
     /**
      * Shows the GUI for the manager
@@ -449,7 +458,7 @@ public class ManagerGui extends java.awt.Frame {
         } catch (SQLException ex) {
             Logger.getLogger(ManagerGui.class.getName()).log(Level.SEVERE, null, ex);
         }
-        fillTableMore(list);
+        fillTable(list);
     }//GEN-LAST:event_moreButtonActionPerformed
     /**
      * Show My Account
@@ -729,20 +738,9 @@ public class ManagerGui extends java.awt.Frame {
      * @param list with database data
      */
     private void fillTable(List<Case> list) {
-        for (int i = 0; i < 50; i++) {
-            jTable1.getModel().setValueAt("", i, 0);
-            jTable1.getModel().setValueAt("", i, 1);
-            jTable1.getModel().setValueAt("", i, 2);
-        }
-        for (int i = 0; i < list.size(); i++) {
-            int count = i + 1;
-            jTable1.getModel().setValueAt(count, i, 0);
-            jTable1.getModel().setValueAt(list.get(i).getLabel(), i, 1);
-            jTable1.getModel().setValueAt(list.get(i).getAddDate(), i, 2);
-        }
-    }
-
-    private void fillTableMore(List<Case> list) {
+        final ArrayList<Integer> resolveList = new ArrayList<Integer>();
+        final ArrayList<Integer> passengerList = new ArrayList<Integer>();
+        final ArrayList<Integer> luggageList = new ArrayList<Integer>();
         for (int i = 0; i < 99; i++) {
             jTable1.getModel().setValueAt("", i, 0);
             jTable1.getModel().setValueAt("", i, 1);
@@ -753,7 +751,34 @@ public class ManagerGui extends java.awt.Frame {
             jTable1.getModel().setValueAt(count, i, 0);
             jTable1.getModel().setValueAt(list.get(i).getLabel(), i, 1);
             jTable1.getModel().setValueAt(list.get(i).getAddDate(), i, 2);
+            if (list.get(i).getResolveDate() != null) {
+                resolveList.add(i);
+            } else if (list.get(i).getHomeAddress() != null) {
+                passengerList.add(i);
+            } else {
+                luggageList.add(i);
+            }
         }
+        jTable1.setDefaultRenderer(Object.class, new TableCellRenderer() {
+            private final DefaultTableCellRenderer DEFAULT_RENDERER = new DefaultTableCellRenderer();
+
+            @Override
+            public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
+                Component c = DEFAULT_RENDERER.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
+                if (resolveList.contains(row)) {
+                    c.setBackground(resolvedColor);
+                } else {
+                    if (passengerList.contains(row)) {
+                        c.setBackground(passengerColor);
+                    } else if (luggageList.contains(row)) {
+                        c.setBackground(luggageColor);
+                    } else {
+                        c.setBackground(offWhite);
+                    }
+                }
+                return c;
+            }
+        });
     }
 
     /**
