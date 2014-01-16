@@ -3,6 +3,7 @@ package main;
 import java.awt.Cursor;
 import java.sql.SQLException;
 import java.util.List;
+import java.util.Locale;
 import models.Check;
 import models.Debug;
 import models.User;
@@ -16,13 +17,14 @@ import org.apache.commons.codec.digest.DigestUtils;
 public class logIn extends javax.swing.JFrame {
 
     private final java.util.ResourceBundle BUNDLE = java.util.ResourceBundle.getBundle("Bundle");
-    private Cursor waitCursor = new Cursor(Cursor.WAIT_CURSOR);
-    private Cursor defaultCursor = new Cursor(Cursor.DEFAULT_CURSOR);
+    private final Cursor waitCursor = new Cursor(Cursor.WAIT_CURSOR);
+    private final Cursor defaultCursor = new Cursor(Cursor.DEFAULT_CURSOR);
 
     /**
      * Creates new form logIn
      */
     public logIn() {
+        Locale.setDefault(new Locale("en", "US"));
         logIn.super.setCursor(waitCursor);
         Check.resetMedew(null);
         initComponents();
@@ -142,6 +144,11 @@ public class logIn extends javax.swing.JFrame {
             if (list.size() == 1) {
                 User medew = list.get(0);
                 Check.setMedew(medew);
+                if ("NL".equals(medew.getUserLang())) {
+                    Locale.setDefault(new Locale("nl", "NL"));
+                }else{
+                    Locale.setDefault(new Locale("en", "US"));
+                }
                 if (medew.isManager()) {
                     ManagerGui main = new ManagerGui(medew.isAppManager(), medew.getId());
                     main.setVisible(true);
