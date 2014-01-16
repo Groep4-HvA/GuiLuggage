@@ -79,6 +79,10 @@ public class MainGuiFrame extends java.awt.Frame {
             searchInput.requestFocusInWindow();
             searchInput.addFocusListener(new MainFocus() {
             });
+            tableResults.getColumnModel().getColumn(0).setHeaderValue("#");
+            tableResults.getColumnModel().getColumn(1).setHeaderValue(BUNDLE.getString("table.LuggageNumber"));
+            tableResults.getColumnModel().getColumn(2).setHeaderValue(BUNDLE.getString("table.AddDate"));
+            tableResults.getColumnModel().getColumn(3).setHeaderValue(BUNDLE.getString("table.HandlerName"));
 
             //Access management: users can not see the appmanagement screen
             appManagementButton.setVisible(beheer);
@@ -134,14 +138,14 @@ public class MainGuiFrame extends java.awt.Frame {
             }
         });
 
-        addNewButton1.setText(bundle.getString("AddNew")+": " + button1);
+        addNewButton1.setText("Add new: " + button1);
         addNewButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 addNewButton1ActionPerformed(evt);
             }
         });
 
-        addNewButton2.setText(bundle.getString("AddNew")+": " + button2);
+        addNewButton2.setText("Add new: "+ button2);
         addNewButton2.setToolTipText(bundle.getString("MainGuiFrame.addNewButton2.toolTipText")); // NOI18N
         addNewButton2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -155,8 +159,8 @@ public class MainGuiFrame extends java.awt.Frame {
                 moreButtonActionPerformed(evt);
             }
         });
+
         tableResults.setAutoCreateRowSorter(true);
-        tableResults.getTableHeader().setReorderingAllowed(false);
         tableResults.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
@@ -279,19 +283,24 @@ public class MainGuiFrame extends java.awt.Frame {
                 return canEdit [columnIndex];
             }
         });
+        tableResults.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         tableResults.setRowHeight(20);
+        tableResults.setRowSelectionAllowed(false);
         tableResults.setShowVerticalLines(false);
+        tableResults.getTableHeader().setResizingAllowed(false);
+        tableResults.getTableHeader().setReorderingAllowed(false);
         tableResults.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 tableResultsMouseClicked(evt);
             }
         });
         jScrollPane3.setViewportView(tableResults);
-        java.util.ResourceBundle bundle1 = java.util.ResourceBundle.getBundle("Bundle"); // NOI18N
-        tableResults.getColumnModel().getColumn(0).setHeaderValue(bundle1.getString("MainGuiFrame.tableResults.columnModel.title0")); // NOI18N
-        tableResults.getColumnModel().getColumn(1).setHeaderValue(bundle1.getString("MainGuiFrame.tableResults.columnModel.title1")); // NOI18N
-        tableResults.getColumnModel().getColumn(2).setHeaderValue(bundle1.getString("MainGuiFrame.tableResults.columnModel.title2")); // NOI18N
-        tableResults.getColumnModel().getColumn(3).setHeaderValue(bundle1.getString("MainGuiFrame.tableResults.columnModel.title3")); // NOI18N
+        if (tableResults.getColumnModel().getColumnCount() > 0) {
+            tableResults.getColumnModel().getColumn(0).setHeaderValue(bundle.getString("MainGuiFrame.tableResults.columnModel.title0")); // NOI18N
+            tableResults.getColumnModel().getColumn(1).setHeaderValue(bundle.getString("MainGuiFrame.tableResults.columnModel.title1")); // NOI18N
+            tableResults.getColumnModel().getColumn(2).setHeaderValue(bundle.getString("MainGuiFrame.tableResults.columnModel.title2")); // NOI18N
+            tableResults.getColumnModel().getColumn(3).setHeaderValue(bundle.getString("MainGuiFrame.tableResults.columnModel.title3")); // NOI18N
+        }
 
         appManagementButton.setText(bundle.getString("MainGuiFrame.appManagementButton.text")); // NOI18N
         appManagementButton.addActionListener(new java.awt.event.ActionListener() {
@@ -329,57 +338,53 @@ public class MainGuiFrame extends java.awt.Frame {
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
             .add(jPanel2Layout.createSequentialGroup()
-                .addContainerGap(46, Short.MAX_VALUE)
-                .add(jPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                    .add(org.jdesktop.layout.GroupLayout.TRAILING, jPanel2Layout.createSequentialGroup()
-                        .add(appManagementButton)
-                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                        .add(myAccountButton)
-                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                        .add(logoutButton)
-                        .addContainerGap())
+                .addContainerGap(60, Short.MAX_VALUE)
+                .add(jPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING, false)
+                    .add(LabelDescription)
                     .add(jPanel2Layout.createSequentialGroup()
-                        .add(jPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                            .add(LabelDescription)
-                            .add(jPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING)
-                                .add(searchInput, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 931, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                                .add(jPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING, false)
-                                    .add(jPanel2Layout.createSequentialGroup()
-                                        .add(addNewButton1)
-                                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                                        .add(addNewButton2)
-                                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                        .add(moreButton))
-                                    .add(jScrollPane3, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 928, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))))
-                        .addContainerGap(49, Short.MAX_VALUE))))
-            .add(jPanel2Layout.createSequentialGroup()
+                        .add(addNewButton1)
+                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                        .add(addNewButton2)
+                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .add(moreButton))
+                    .add(jScrollPane3, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 1147, Short.MAX_VALUE)
+                    .add(searchInput)
+                    .add(org.jdesktop.layout.GroupLayout.TRAILING, jPanel2Layout.createSequentialGroup()
+                        .add(searchButton)
+                        .add(527, 527, 527)))
+                .addContainerGap(60, Short.MAX_VALUE))
+            .add(org.jdesktop.layout.GroupLayout.TRAILING, jPanel2Layout.createSequentialGroup()
                 .addContainerGap(org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .add(searchButton)
-                .add(0, 0, Short.MAX_VALUE))
+                .add(appManagementButton)
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                .add(myAccountButton)
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                .add(logoutButton)
+                .addContainerGap())
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
             .add(org.jdesktop.layout.GroupLayout.TRAILING, jPanel2Layout.createSequentialGroup()
-                .add(13, 13, 13)
+                .add(20, 20, 20)
                 .add(jPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
                     .add(appManagementButton)
                     .add(myAccountButton)
                     .add(logoutButton))
-                .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED, 16, Short.MAX_VALUE)
+                .add(80, 80, 80)
                 .add(LabelDescription)
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                 .add(searchInput, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                 .add(searchButton)
-                .add(18, 18, 18)
-                .add(jScrollPane3, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                .add(18, 18, Short.MAX_VALUE)
+                .add(jScrollPane3, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 596, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
                 .add(jPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
                     .add(addNewButton1)
                     .add(jPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
                         .add(moreButton)
                         .add(addNewButton2)))
-                .addContainerGap(35, Short.MAX_VALUE))
+                .addContainerGap(org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         add(jPanel2, java.awt.BorderLayout.CENTER);
@@ -419,10 +424,6 @@ public class MainGuiFrame extends java.awt.Frame {
             menu.add(db);
         }
         setMenuBar(menuBar);
-        tableResults.getColumnModel().getColumn(0).setHeaderValue("#");
-        tableResults.getColumnModel().getColumn(1).setHeaderValue(BUNDLE.getString("table.LuggageNumber"));
-        tableResults.getColumnModel().getColumn(2).setHeaderValue(BUNDLE.getString("table.AddDate"));
-        tableResults.getColumnModel().getColumn(3).setHeaderValue(BUNDLE.getString("table.HandlerName"));
     }
     /*
      * Display more results
@@ -745,11 +746,11 @@ public class MainGuiFrame extends java.awt.Frame {
     private ImagePanel jPanel2;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JButton logoutButton;
+    private javax.swing.JButton moreButton;
     private javax.swing.JButton myAccountButton;
     private javax.swing.JButton searchButton;
     private javax.swing.JTextField searchInput;
-    private JTable tableResults;
-    private JButton moreButton;
+    private javax.swing.JTable tableResults;
     // End of variables declaration//GEN-END:variables
 
     private void fadeMore() {
