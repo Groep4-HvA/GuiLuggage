@@ -209,48 +209,51 @@ public class MyAccount extends javax.swing.JDialog {
             change = true;
         }
         Debug.println(change + "");
-        if (password.getPassword().length > 5) {
-            Debug.println(password.getPassword().toString());
-            if (tempMedewerker.getPassword().equals(DigestUtils.sha256Hex(String.valueOf(passwordOld.getPassword())))) {
-                if (Arrays.equals(password.getPassword(), passwordConfirm.getPassword())) {
-                    if (!tempMedewerker.getPassword().equals(DigestUtils.sha256Hex(String.valueOf(password.getPassword())))) {
-                        tempMedewerker.setPassword(password.getPassword());
-                        change = true;
+        if (password.getPassword().length == 0) {
+            dispose();
+        } else {
+            if (password.getPassword().length > 5) {
+                Debug.println(password.getPassword().toString());
+                if (tempMedewerker.getPassword().equals(DigestUtils.sha256Hex(String.valueOf(passwordOld.getPassword())))) {
+                    if (Arrays.equals(password.getPassword(), passwordConfirm.getPassword())) {
+                        if (!tempMedewerker.getPassword().equals(DigestUtils.sha256Hex(String.valueOf(password.getPassword())))) {
+                            tempMedewerker.setPassword(password.getPassword());
+                            change = true;
+                        }
+                        Debug.println(tempMedewerker.toString());
+                    } else {
+                        JOptionPane.showMessageDialog(null, "Passwords do not match");
                     }
-                    Debug.println(tempMedewerker.toString());
-                } else {
-                    JOptionPane.showMessageDialog(null, "Passwords do not match");
-                }
 
+                } else {
+                    JOptionPane.showMessageDialog(null,
+                            "Your input was invalid. Old password is not correct.",
+                            "Input error - not correct",
+                            JOptionPane.ERROR_MESSAGE);
+//                            dispose();
+                }
             } else {
                 JOptionPane.showMessageDialog(null,
-                        "Your input was invalid. Old password is not correct.",
+                        "Your input was invalid. Passwords must be atleast 6 characters.",
                         "Input error - not correct",
                         JOptionPane.ERROR_MESSAGE);
-//                            dispose();
             }
-        } else {
-            JOptionPane.showMessageDialog(null,
-                    "Your input was invalid. Passwords must be atleast 6 characters.",
-                    "Input error - not correct",
-                    JOptionPane.ERROR_MESSAGE);
-        }
 
-        Debug.println(change + "");
-        if (change) {
-            Debug.println(tempMedewerker.toString());
-            try {
-                medewerkerTijdelijk.update(tempMedewerker);
-                dispose();
-            } catch (SQLException e) {
-                Debug.printError(e.toString());
+            Debug.println(change + "");
+            if (change) {
+                Debug.println(tempMedewerker.toString());
+                try {
+                    medewerkerTijdelijk.update(tempMedewerker);
+                    dispose();
+                } catch (SQLException e) {
+                    Debug.printError(e.toString());
+                }
             }
         }
     }//GEN-LAST:event_saveButActionPerformed
 
     private void dropDownActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_dropDownActionPerformed
     }//GEN-LAST:event_dropDownActionPerformed
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
     public javax.swing.JButton cancelBut;
     public javax.swing.JLabel confirmPassLabel;
