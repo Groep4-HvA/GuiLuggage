@@ -52,13 +52,13 @@ public class MainGuiFrame extends java.awt.Frame {
     private final Cursor defaultCursor = new Cursor(Cursor.DEFAULT_CURSOR);
 
     private static Image bg;
-    private final Color appManagerColor = new Color(0xBB20A545);
-    private final Color managerColor = new Color(0xBBF09517);
-    private final Color userColor = new Color(0xBB2584C1);
-    private final Color resolvedColor = new Color(0xBB20A545);
-    private final Color passengerColor = new Color(0xBBF09517);
-    private final Color luggageColor = new Color(0xBB2584C1);
-    private final Color offWhite = new Color(237, 237, 237);
+    private final Color appManagerColor = new Color(0xBB20A545, true);
+    private final Color managerColor	= new Color(0xBBF09517, true);
+    private final Color userColor	= new Color(0xBB2584C1, true);
+    private final Color resolvedColor	= new Color(0xBB20A545, true);
+    private final Color passengerColor	= new Color(0xBBF09517, true);
+    private final Color luggageColor	= new Color(0xBB2584C1, true);
+    private final Color offWhite	= new Color(237, 237, 237);
 
     /**
      * Constructor for the common user and App Manager screen
