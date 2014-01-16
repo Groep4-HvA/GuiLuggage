@@ -8,7 +8,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.AdjustmentEvent;
 import java.awt.event.AdjustmentListener;
-import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
 import java.awt.event.KeyEvent;
 import java.io.File;
@@ -45,7 +44,7 @@ public class MainGuiFrame extends java.awt.Frame {
     private int handlerId;
     private boolean inBeheer = false;
     boolean notify = false; //set to true to enable annoying as hell notifications
-    private Image bg;
+    private static Image bg;
     private final Cursor waiting = new Cursor(Cursor.WAIT_CURSOR);
     private final Cursor defaultCursor = new Cursor(Cursor.DEFAULT_CURSOR);
 
@@ -77,8 +76,8 @@ public class MainGuiFrame extends java.awt.Frame {
             initComponents();
             this.setLocationRelativeTo(null);
             searchInput.requestFocusInWindow();
-            searchInput.addFocusListener(new MainFocus() {
-            });
+            /*searchInput.addFocusListener(new MainFocus() {
+            });*/
             tableResults.getColumnModel().getColumn(0).setHeaderValue("#");
             tableResults.getColumnModel().getColumn(1).setHeaderValue(BUNDLE.getString("table.LuggageNumber"));
             tableResults.getColumnModel().getColumn(2).setHeaderValue(BUNDLE.getString("table.AddDate"));
@@ -102,7 +101,7 @@ public class MainGuiFrame extends java.awt.Frame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jPanel2 = new javax.swing.JPanel();
+        jPanel2 = new ImagePanel();
         searchButton = new javax.swing.JButton();
         addNewButton1 = new javax.swing.JButton();
         addNewButton2 = new javax.swing.JButton();
@@ -295,10 +294,12 @@ public class MainGuiFrame extends java.awt.Frame {
             }
         });
         jScrollPane3.setViewportView(tableResults);
-        tableResults.getColumnModel().getColumn(0).setHeaderValue(bundle.getString("MainGuiFrame.tableResults.columnModel.title0")); // NOI18N
-        tableResults.getColumnModel().getColumn(1).setHeaderValue(bundle.getString("MainGuiFrame.tableResults.columnModel.title1")); // NOI18N
-        tableResults.getColumnModel().getColumn(2).setHeaderValue(bundle.getString("MainGuiFrame.tableResults.columnModel.title2")); // NOI18N
-        tableResults.getColumnModel().getColumn(3).setHeaderValue(bundle.getString("MainGuiFrame.tableResults.columnModel.title3")); // NOI18N
+        if (tableResults.getColumnModel().getColumnCount() > 0) {
+            tableResults.getColumnModel().getColumn(0).setHeaderValue(bundle.getString("MainGuiFrame.tableResults.columnModel.title0")); // NOI18N
+            tableResults.getColumnModel().getColumn(1).setHeaderValue(bundle.getString("MainGuiFrame.tableResults.columnModel.title1")); // NOI18N
+            tableResults.getColumnModel().getColumn(2).setHeaderValue(bundle.getString("MainGuiFrame.tableResults.columnModel.title2")); // NOI18N
+            tableResults.getColumnModel().getColumn(3).setHeaderValue(bundle.getString("MainGuiFrame.tableResults.columnModel.title3")); // NOI18N
+        }
 
         appManagementButton.setText(bundle.getString("MainGuiFrame.appManagementButton.text")); // NOI18N
         appManagementButton.addActionListener(new java.awt.event.ActionListener() {
@@ -336,7 +337,7 @@ public class MainGuiFrame extends java.awt.Frame {
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
             .add(jPanel2Layout.createSequentialGroup()
-                .addContainerGap(60, Short.MAX_VALUE)
+                .addContainerGap(27, Short.MAX_VALUE)
                 .add(jPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING, false)
                     .add(LabelDescription)
                     .add(jPanel2Layout.createSequentialGroup()
@@ -350,7 +351,7 @@ public class MainGuiFrame extends java.awt.Frame {
                     .add(org.jdesktop.layout.GroupLayout.TRAILING, jPanel2Layout.createSequentialGroup()
                         .add(searchButton)
                         .add(527, 527, 527)))
-                .addContainerGap(60, Short.MAX_VALUE))
+                .addContainerGap(26, Short.MAX_VALUE))
             .add(org.jdesktop.layout.GroupLayout.TRAILING, jPanel2Layout.createSequentialGroup()
                 .addContainerGap(org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .add(appManagementButton)
@@ -374,7 +375,7 @@ public class MainGuiFrame extends java.awt.Frame {
                 .add(searchInput, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                 .add(searchButton)
-                .add(18, 31, Short.MAX_VALUE)
+                .add(18, 18, Short.MAX_VALUE)
                 .add(jScrollPane3, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 596, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
                 .add(jPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
@@ -382,7 +383,7 @@ public class MainGuiFrame extends java.awt.Frame {
                     .add(jPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
                         .add(moreButton)
                         .add(addNewButton2)))
-                .addContainerGap(25, Short.MAX_VALUE))
+                .addContainerGap(org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         add(jPanel2, java.awt.BorderLayout.CENTER);
@@ -599,6 +600,7 @@ public class MainGuiFrame extends java.awt.Frame {
         }
         Debug.println("Refreshing");
     }//GEN-LAST:event_formWindowGainedFocus
+    
     public void fillTableCasesMore() {
         setCursor(waiting);
         CaseDao dbcase = new CaseDao();
@@ -770,7 +772,7 @@ public class MainGuiFrame extends java.awt.Frame {
     private javax.swing.JButton addNewButton1;
     private javax.swing.JButton addNewButton2;
     private javax.swing.JButton appManagementButton;
-    private javax.swing.JPanel jPanel2;
+    private ImagePanel jPanel2;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JButton logoutButton;
     private javax.swing.JButton moreButton;
@@ -825,7 +827,7 @@ public class MainGuiFrame extends java.awt.Frame {
 
     private abstract class MainFocus implements FocusListener {
 
-        @Override
+        /*@Override
         public void focusGained(FocusEvent e) {
             Debug.println("Focus gained");
             if (inBeheer) {
@@ -838,10 +840,10 @@ public class MainGuiFrame extends java.awt.Frame {
         @Override
         public void focusLost(FocusEvent e) {
             Debug.println("Focus lost");
-        }
+        }*/
     }
 
-    private class ImagePanel extends JPanel {
+    private static class ImagePanel extends JPanel {
 
         @Override
         protected void paintComponent(Graphics g) {

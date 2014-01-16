@@ -77,7 +77,7 @@ public class CaseDao {
         ResultSet rs;
         PreparedStatement prdstmt;
 
-        String query = "SELECT LuggageNumber, AddDate, LEFT(AddDate, 10) FROM cases WHERE `AddDate` BETWEEN ? AND ? LIMIT 51;";
+        String query = "SELECT LuggageNumber, AddDate, LEFT(AddDate, 10) FROM cases WHERE `AddDate` BETWEEN ? AND ? LIMIT 50;";
         conn.startConnection(); //2013-12-09
 
         prdstmt = conn.getConnection().prepareStatement(query);
@@ -146,7 +146,7 @@ public class CaseDao {
         ResultSet rs;
         PreparedStatement prdstmt;
 
-        String query = "SELECT * FROM `cases` ORDER BY AddDate DESC LIMIT 51";
+        String query = "SELECT * FROM `cases` ORDER BY AddDate DESC LIMIT 50";
 
         conn.startConnection();
 
