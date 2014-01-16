@@ -26,7 +26,7 @@ public class CaseDao {
         ResultSet rs;
         PreparedStatement prdstmt;
 
-        String query = "SELECT LuggageNumber, AddDate FROM cases WHERE `ResolveDate` is null LIMIT 50";
+        String query = "SELECT LuggageNumber, ResolveDate, homeAddress, AddDate FROM cases WHERE `ResolveDate` is null LIMIT 50";
         conn.startConnection();
 
         prdstmt = conn.getConnection().prepareStatement(query);
@@ -35,7 +35,9 @@ public class CaseDao {
         while (rs.next()) {
             Case tempcase = new Case();
             tempcase.setLabel(rs.getString("LuggageNumber"));
+            tempcase.setHomeAddress(rs.getString("homeAddress"));
             tempcase.setAddDate(rs.getDate("AddDate"));
+            tempcase.setAddDate(rs.getDate("ResolveDate"));
             list.add(tempcase);
         }
 
@@ -51,7 +53,7 @@ public class CaseDao {
         ResultSet rs;
         PreparedStatement prdstmt;
 
-        String query = "SELECT LuggageNumber, AddDate FROM cases WHERE `ResolveDate` is not null LIMIT 50";
+        String query = "SELECT LuggageNumber, ResolveDate, homeAddress, AddDate FROM cases WHERE `ResolveDate` is not null LIMIT 50";
         conn.startConnection();
 
         prdstmt = conn.getConnection().prepareStatement(query);
@@ -60,7 +62,9 @@ public class CaseDao {
         while (rs.next()) {
             Case tempcase = new Case();
             tempcase.setLabel(rs.getString("LuggageNumber"));
+            tempcase.setHomeAddress(rs.getString("homeAddress"));
             tempcase.setAddDate(rs.getDate("AddDate"));
+            tempcase.setAddDate(rs.getDate("ResolveDate"));
             list.add(tempcase);
         }
 
@@ -77,7 +81,7 @@ public class CaseDao {
         ResultSet rs;
         PreparedStatement prdstmt;
 
-        String query = "SELECT LuggageNumber, AddDate, LEFT(AddDate, 10) FROM cases WHERE `AddDate` BETWEEN ? AND ? LIMIT 50;";
+        String query = "SELECT LuggageNumber, ResolveDate, homeAddress, AddDate, LEFT(AddDate, 10) FROM cases WHERE `AddDate` BETWEEN ? AND ? LIMIT 50;";
         conn.startConnection(); //2013-12-09
 
         prdstmt = conn.getConnection().prepareStatement(query);
@@ -89,7 +93,9 @@ public class CaseDao {
         while (rs.next()) {
             Case tempcase = new Case();
             tempcase.setLabel(rs.getString("LuggageNumber"));
+            tempcase.setHomeAddress(rs.getString("homeAddress"));
             tempcase.setAddDate(rs.getDate("AddDate"));
+            tempcase.setAddDate(rs.getDate("ResolveDate"));
             list.add(tempcase);
         }
         return list;
@@ -325,7 +331,7 @@ public class CaseDao {
         ResultSet rs;
         PreparedStatement prdstmt;
 
-        String query = "SELECT LuggageNumber, AddDate, LEFT(AddDate, 10) FROM cases WHERE ResolveDate is null AND `AddDate` BETWEEN ? AND ? LIMIT 50;";
+        String query = "SELECT LuggageNumber, ResolveDate, homeAddress, AddDate, LEFT(AddDate, 10) FROM cases WHERE ResolveDate is null AND `AddDate` BETWEEN ? AND ? LIMIT 50;";
         conn.startConnection();
 
         prdstmt = conn.getConnection().prepareStatement(query);
@@ -337,7 +343,9 @@ public class CaseDao {
         while (rs.next()) {
             Case tempcase = new Case();
             tempcase.setLabel(rs.getString("LuggageNumber"));
+            tempcase.setHomeAddress(rs.getString("homeAddress"));
             tempcase.setAddDate(rs.getDate("AddDate"));
+            tempcase.setAddDate(rs.getDate("ResolveDate"));
             list.add(tempcase);
         }
 
@@ -353,7 +361,7 @@ public class CaseDao {
         ResultSet rs;
         PreparedStatement prdstmt;
 
-        String query = "SELECT LuggageNumber, AddDate, LEFT(AddDate, 10) FROM cases WHERE ResolveDate is not null AND `AddDate` BETWEEN ? AND ? LIMIT 50;";
+        String query = "SELECT LuggageNumber, ResolveDate, homeAddress, AddDate, LEFT(AddDate, 10) FROM cases WHERE ResolveDate is not null AND `AddDate` BETWEEN ? AND ? LIMIT 50;";
         conn.startConnection();
 
         prdstmt = conn.getConnection().prepareStatement(query);
@@ -365,7 +373,9 @@ public class CaseDao {
         while (rs.next()) {
             Case tempcase = new Case();
             tempcase.setLabel(rs.getString("LuggageNumber"));
+            tempcase.setHomeAddress(rs.getString("homeAddress"));
             tempcase.setAddDate(rs.getDate("AddDate"));
+            tempcase.setAddDate(rs.getDate("ResolveDate"));
             list.add(tempcase);
         }
 
@@ -381,7 +391,7 @@ public class CaseDao {
         ResultSet rs;
         PreparedStatement prdstmt;
 
-        String query = "SELECT LuggageNumber, AddDate, LEFT(AddDate, 10) FROM cases WHERE `AddDate` BETWEEN ? AND ? LIMIT 50;";
+        String query = "SELECT LuggageNumber, ResolveDate, homeAddress, AddDate, LEFT(AddDate, 10) FROM cases WHERE `AddDate` BETWEEN ? AND ? LIMIT 50;";
         conn.startConnection();
 
         prdstmt = conn.getConnection().prepareStatement(query);
@@ -393,7 +403,9 @@ public class CaseDao {
         while (rs.next()) {
             Case tempcase = new Case();
             tempcase.setLabel(rs.getString("LuggageNumber"));
+            tempcase.setHomeAddress(rs.getString("homeAddress"));
             tempcase.setAddDate(rs.getDate("AddDate"));
+            tempcase.setAddDate(rs.getDate("ResolveDate"));
             list.add(tempcase);
         }
 

@@ -86,7 +86,7 @@ public class ManagerGui extends java.awt.Frame {
             this.beheer = beheer;
             initComponents();
             try {
-                this.bg = ImageIO.read(getClass().getResourceAsStream("/img/bg.png"));
+                ManagerGui.bg = ImageIO.read(getClass().getResourceAsStream("/img/bg.png"));
             } catch (IOException e) {
                 Debug.printError(e.toString());
             }
@@ -488,22 +488,20 @@ public class ManagerGui extends java.awt.Frame {
         try {
             if (firstDateChooser.getDate() == null || secondDateChooser.getDate() == null) {
                 list = dbCase.readAllPending();
-                fillTable(list);
             } else {
                 if (!dateString.equals(dateString2)) {
                     if (dateString.compareTo(dateString2) < 0) {
                         list = dbCase.readAllPendingByDate(dateString, dateString2);
-                        fillTable(list);
                     } else {
                         JOptionPane.showMessageDialog(null, datum1 + " " + BUNDLE.getString("furtherInPast") + " " + datum2);
                     }
                 } else if (dateString.equals(dateString2)) {
                     list = dbCase.readAllPendingByDate(dateString, dateString2);
-                    fillTable(list);
                 } else {
                     JOptionPane.showMessageDialog(null, datum1 + " " + BUNDLE.getString("needsToBeGreater") + " " + datum2);
                 }
             }
+            fillTable(list);
         } catch (SQLException e) {
             Debug.printError(e.toString());
         } catch (HeadlessException e) {
@@ -519,7 +517,6 @@ public class ManagerGui extends java.awt.Frame {
     private void processedManagerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_processedManagerActionPerformed
         setCursor(waiting);
         try {
-
             datum1 = firstDateChooser.getDate();
             dateString = String.format("%1$tY-%1$tm-%1$td", datum1);
             datum2 = secondDateChooser.getDate();
@@ -529,24 +526,19 @@ public class ManagerGui extends java.awt.Frame {
             foundManager.setForeground(Color.black);
             if (firstDateChooser.getDate() == null || secondDateChooser.getDate() == null) {
                 list = dbCase.readAll();
-                fillTable(list);
-
-//          System.out.println(dateString);
             } else {
                 if (!dateString.equals(dateString2)) {
                     if (dateString.compareTo(dateString2) < 0) {
                         list = dbCase.readAllTotalByDate(dateString, dateString2);
-                        fillTable(list);
                     } else {
                         JOptionPane.showMessageDialog(null, datum1 + " " + BUNDLE.getString("furtherInPast") + " " + datum2);
                     }
                 } else if (dateString.equals(dateString2)) {
                     list = dbCase.readAllTotalByDate(dateString, dateString2);
-                    fillTable(list);
-
                 } else {
                     JOptionPane.showMessageDialog(null, datum1 + " " + BUNDLE.getString("needsToBeGreater") + " " + datum2);
                 }
+                fillTable(list);
             }
         } catch (SQLException e) {
             Debug.printError(e.toString());
@@ -641,22 +633,21 @@ public class ManagerGui extends java.awt.Frame {
             foundManager.setForeground(Color.red);
             if (firstDateChooser.getDate() == null || secondDateChooser.getDate() == null) {
                 list = dbCase.readAllResolved();
-                fillTable(list);
             } else {
                 if (!dateString.equals(dateString2)) {
                     if (dateString.compareTo(dateString2) < 0) {
                         list = dbCase.readAllResolvedByDate(dateString, dateString2);
-                        fillTable(list);
                     } else {
                         JOptionPane.showMessageDialog(null, datum1 + " " + BUNDLE.getString("furtherInPast") + " " + datum2);
                     }
                 } else if (dateString.equals(dateString2)) {
                     list = dbCase.readAllResolvedByDate(dateString, dateString2);
-                    fillTable(list);
+
                 } else {
                     JOptionPane.showMessageDialog(null, datum1 + " " + BUNDLE.getString("needsToBeGreater") + " " + datum2);
                 }
             }
+            fillTable(list, "found");
         } catch (HeadlessException e) {
             Debug.printError(e.toString());
         } catch (SQLException e) {
@@ -776,6 +767,39 @@ public class ManagerGui extends java.awt.Frame {
                         c.setBackground(offWhite);
                     }
                 }
+                return c;
+            }
+        });
+    }
+
+    private void fillTable(List<Case> list, final String tab) {
+        final ArrayList<Integer> luggageList = new ArrayList<Integer>();
+        for (int i = 0; i < 99; i++) {
+            jTable1.getModel().setValueAt("", i, 0);
+            jTable1.getModel().setValueAt("", i, 1);
+            jTable1.getModel().setValueAt("", i, 2);
+        }
+        for (int i = 0; i < list.size(); i++) {
+            int count = i + 1;
+            jTable1.getModel().setValueAt(count, i, 0);
+            jTable1.getModel().setValueAt(list.get(i).getLabel(), i, 1);
+            jTable1.getModel().setValueAt(list.get(i).getAddDate(), i, 2);
+            luggageList.add(i);
+        }
+        jTable1.setDefaultRenderer(Object.class, new TableCellRenderer() {
+            private final DefaultTableCellRenderer DEFAULT_RENDERER = new DefaultTableCellRenderer();
+
+            @Override
+            public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
+                Component c = DEFAULT_RENDERER.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
+                if (tab.equals("found") && luggageList.contains(row)) {
+                    c.setBackground(resolvedColor);
+                } else if (tab.equals("missing") && luggageList.contains(row)) {
+                    c.setBackground(luggageColor);
+                } else {
+                    c.setBackground(offWhite);
+                }
+
                 return c;
             }
         });

@@ -246,12 +246,10 @@ public class PDFGenerator {
         String location = System.getProperty("user.home") + File.separator + "Documents" + File.separator + filename + ".pdf";
         OutputStream output;
 
-        System.out.println(location);
-
         Path path = Paths.get(location);
 
         if (Files.exists(path)) {
-            System.out.println("Dit bestand bestaat al");
+            Debug.println("Dit bestand bestaat al");
 
             String s;
             s = (String) JOptionPane.showInputDialog("Voer hier nieuwe naam in, laat leeg om te overschrijven");

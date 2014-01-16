@@ -514,7 +514,6 @@ public class MainGuiFrame extends java.awt.Frame {
             gui.setUndecorated(true);
             for (float i = 0.0f; i < 1.0f; i += 0.005f) {
                 gui.setOpacity(i);
-                //  System.out.println(i);
                 gui.setVisible(true);
             }
         } else {
@@ -523,7 +522,6 @@ public class MainGuiFrame extends java.awt.Frame {
             gui.setUndecorated(true);
             for (float i = 0.0f; i < 1.0f; i += 0.004f) {
                 gui.setOpacity(i);
-                //  System.out.println(i);
                 gui.setVisible(true);
             }
         }
@@ -537,8 +535,7 @@ public class MainGuiFrame extends java.awt.Frame {
             gui.dispose();
             gui.setUndecorated(true);
             for (float i = 0.0f; i < 1.0f; i += 0.004f) {
-                //gui2.setOpacity(i);
-                //  System.out.println(i);
+                gui.setOpacity(i);
                 gui.setVisible(true);
             }
         } else {
@@ -546,8 +543,7 @@ public class MainGuiFrame extends java.awt.Frame {
             gui.dispose();
             gui.setUndecorated(true);
             for (float i = 0.0f; i < 1.0f; i += 0.005f) {
-                //gui3.setOpacity(i);
-                //System.out.println(i);
+                gui.setOpacity(i);
                 gui.setVisible(true);
             }
         }
