@@ -195,10 +195,10 @@ public class AddUser extends javax.swing.JFrame {
         appManager = appManagerCheckBox.isSelected();
         String footer = String.format(BUNDLE.getString("ConfirmFooter"), BUNDLE.getString("Medewerker")).toLowerCase();
         String message = BUNDLE.getString("ConfirmHead")+ "\n"
-                + BUNDLE.getString("AddMedewerker.jLabel2.text") + " = " + username + "\n"
-                + BUNDLE.getString("AddMedewerker.jLabel1.text") + " = " + name + "\n"
-                + BUNDLE.getString("AddMedewerker.appManagerCheckBox.text") + " = " + appManager + "\n"
-                + BUNDLE.getString("Popupappmedewerker.isManager.text") + " = " + manager + "\n\n"
+                + BUNDLE.getString("AddUser.usernameLabel.text") + " = " + username + "\n"
+                + BUNDLE.getString("AddPassenger.nameLabel.text") + " = " + name + "\n"
+                + BUNDLE.getString("AddUser.appManagerCheckBox.text") + " = " + appManager + "\n"
+                + BUNDLE.getString("UserEditDialog.isManager.text") + " = " + manager + "\n\n"
                 + footer;
         int selectedOption = JOptionPane.showConfirmDialog(null,
                 message,
