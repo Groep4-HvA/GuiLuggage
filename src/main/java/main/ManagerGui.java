@@ -91,7 +91,7 @@ public class ManagerGui extends java.awt.Frame {
                 Debug.printError(e.toString());
             }
 
-            list = dbCase.readAll();
+            list = dbCase.readAllMore();
             listPending = dbCase.readAllPending();
             listResolved = dbCase.readAllResolved();
 
@@ -786,7 +786,7 @@ public class ManagerGui extends java.awt.Frame {
             int count = i + 1;
             jTable1.getModel().setValueAt(count, i, 0);
             jTable1.getModel().setValueAt(list.get(i).getLabel(), i, 1);
-            jTable1.getModel().setValueAt(list.get(i).getAddDate(), i, 2);
+            jTable1.getModel().setValueAt(list.get(i).getAddDate().toString(), i, 2);
             luggageList.add(i);
         }
         jTable1.setDefaultRenderer(Object.class, new TableCellRenderer() {
