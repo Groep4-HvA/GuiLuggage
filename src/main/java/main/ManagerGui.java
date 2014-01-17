@@ -530,14 +530,14 @@ public class ManagerGui extends java.awt.Frame {
             } else {
                 if (!dateString.equals(dateString2)) {
                     if (dateString.compareTo(dateString2) < 0) {
-                        list = dbCase.readAllTotalByDate(dateString, dateString2);
+                        list = dbCase.readAllByDate(dateString, dateString2);
                         fillTable(list);
                     } else {
                         JOptionPane.showMessageDialog(null, datum1 + " " + BUNDLE.getString("furtherInPast") + " " + datum2);
                         fillTable(list);
                     }
                 } else if (dateString.equals(dateString2)) {
-                    list = dbCase.readAllTotalByDate(dateString, dateString2);
+                    list = dbCase.readAllByDate(dateString, dateString2);
                     fillTable(list);
                 } else {
                     JOptionPane.showMessageDialog(null, datum1 + " " + BUNDLE.getString("needsToBeGreater") + " " + datum2);
