@@ -118,7 +118,7 @@ public class ManagerGui extends java.awt.Frame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jPanel2 = new ImagePanel();
+        jPanel2 = new javax.swing.JPanel();
         myAccountButton = new javax.swing.JButton();
         javax.swing.JButton moreButton = new javax.swing.JButton();
         logoutButton = new javax.swing.JButton();
@@ -420,7 +420,7 @@ public class ManagerGui extends java.awt.Frame {
                     .add(totalLabel)
                     .add(foundManager))
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
-                .add(jScrollPane1, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 593, Short.MAX_VALUE)
+                .add(jScrollPane1, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 581, Short.MAX_VALUE)
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                 .add(jPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING, false)
                     .add(clearButton, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -530,15 +530,17 @@ public class ManagerGui extends java.awt.Frame {
                 if (!dateString.equals(dateString2)) {
                     if (dateString.compareTo(dateString2) < 0) {
                         list = dbCase.readAllTotalByDate(dateString, dateString2);
+                        fillTable(list);
                     } else {
                         JOptionPane.showMessageDialog(null, datum1 + " " + BUNDLE.getString("furtherInPast") + " " + datum2);
+                        fillTable(list);
                     }
                 } else if (dateString.equals(dateString2)) {
                     list = dbCase.readAllTotalByDate(dateString, dateString2);
+                    fillTable(list);
                 } else {
                     JOptionPane.showMessageDialog(null, datum1 + " " + BUNDLE.getString("needsToBeGreater") + " " + datum2);
                 }
-                fillTable(list);
             }
         } catch (SQLException e) {
             Debug.printError(e.toString());
@@ -707,7 +709,7 @@ public class ManagerGui extends java.awt.Frame {
     private com.toedter.calendar.JDateChooser firstDateChooser;
     private javax.swing.JButton foundManager;
     private javax.swing.JButton graphManager;
-    private ImagePanel jPanel2;
+    private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTable1;
     private javax.swing.JButton logoutButton;

@@ -109,7 +109,7 @@ public class MainGuiFrame extends java.awt.Frame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jPanel2 = new ImagePanel();
+        jPanel2 = new javax.swing.JPanel();
         searchButton = new javax.swing.JButton();
         addNewButton1 = new javax.swing.JButton();
         addNewButton2 = new javax.swing.JButton();
@@ -776,7 +776,7 @@ public class MainGuiFrame extends java.awt.Frame {
     private javax.swing.JButton addNewButton1;
     private javax.swing.JButton addNewButton2;
     private javax.swing.JButton appManagementButton;
-    private ImagePanel jPanel2;
+    private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JButton logoutButton;
     private javax.swing.JButton moreButton;

@@ -81,7 +81,7 @@ public class CaseDao {
         ResultSet rs;
         PreparedStatement prdstmt;
 
-        String query = "SELECT LuggageNumber, ResolveDate, homeAddress, AddDate, LEFT(AddDate, 10) FROM cases WHERE `AddDate` BETWEEN ? AND ? LIMIT 50;";
+        String query = "SELECT LuggageNumber, ResolveDate, homeAddress, AddDate FROM cases WHERE `AddDate` BETWEEN ? AND ? LIMIT 50;";
         conn.startConnection(); //2013-12-09
 
         prdstmt = conn.getConnection().prepareStatement(query);
@@ -331,7 +331,7 @@ public class CaseDao {
         ResultSet rs;
         PreparedStatement prdstmt;
 
-        String query = "SELECT LuggageNumber, ResolveDate, homeAddress, AddDate, LEFT(AddDate, 10) FROM cases WHERE ResolveDate is null AND `AddDate` BETWEEN ? AND ? LIMIT 50;";
+        String query = "SELECT LuggageNumber, ResolveDate, homeAddress, AddDate FROM cases WHERE ResolveDate is null AND `AddDate` BETWEEN ? AND ? LIMIT 50;";
         conn.startConnection();
 
         prdstmt = conn.getConnection().prepareStatement(query);
@@ -361,7 +361,7 @@ public class CaseDao {
         ResultSet rs;
         PreparedStatement prdstmt;
 
-        String query = "SELECT LuggageNumber, ResolveDate, homeAddress, AddDate, LEFT(AddDate, 10) FROM cases WHERE ResolveDate is not null AND `AddDate` BETWEEN ? AND ? LIMIT 50;";
+        String query = "SELECT LuggageNumber, ResolveDate, homeAddress, AddDate FROM cases WHERE ResolveDate is not null AND `AddDate` BETWEEN ? AND ? LIMIT 50;";
         conn.startConnection();
 
         prdstmt = conn.getConnection().prepareStatement(query);
@@ -391,7 +391,7 @@ public class CaseDao {
         ResultSet rs;
         PreparedStatement prdstmt;
 
-        String query = "SELECT LuggageNumber, ResolveDate, homeAddress, AddDate, LEFT(AddDate, 10) FROM cases WHERE `AddDate` BETWEEN ? AND ? LIMIT 50;";
+        String query = "SELECT LuggageNumber, ResolveDate, homeAddress, AddDate FROM cases WHERE `AddDate` BETWEEN ? AND ? LIMIT 50;";
         conn.startConnection();
 
         prdstmt = conn.getConnection().prepareStatement(query);

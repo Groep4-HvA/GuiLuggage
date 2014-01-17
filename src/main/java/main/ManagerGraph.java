@@ -114,8 +114,8 @@ public class ManagerGraph extends ApplicationFrame {
 
             conn.startConnection(); //2013-12-09
             prdstmt = conn.getConnection().prepareStatement(sql);
-            prdstmt.setString(1, firstDate);
-            prdstmt.setString(2, lastDate);
+            prdstmt.setString(1, firstDate +" 00:00:00");
+            prdstmt.setString(2, lastDate + " 23:59:59");
 
             ResultSet rs;
             rs = conn.performSelect(prdstmt);
@@ -123,6 +123,7 @@ public class ManagerGraph extends ApplicationFrame {
             while (rs.next()) {
                 rowAmmount = rs.getInt(1);
             }
+            
             Debug.println("Between: " + firstDate + " and " + lastDate + ". . . " + rowAmmount + " records of type " + type);
         } catch (SQLException e) {
             Debug.printError(e.toString());
@@ -167,7 +168,7 @@ public class ManagerGraph extends ApplicationFrame {
         final DefaultCategoryDataset dataset = new DefaultCategoryDataset();
 
         for (int i = 1; i <= day; i++) {
-            dataset.addValue(getMonthCount(year + "-" + month + "-" + i, year + "-" + month + "-" + i, "pending"), lost, i + "");
+            dataset.addValue(getMonthCount(year + "-" + month + "-" + i , year + "-" + month + "-" + i, "pending"), lost, i + "");
             dataset.addValue(getMonthCount(year + "-" + month + "-" + i, year + "-" + month + "-" + i, "none"), found, i + "");
             dataset.addValue(getMonthCount(year + "-" + month + "-" + i, year + "-" + month + "-" + i, "total"), total, i + "");
         }
