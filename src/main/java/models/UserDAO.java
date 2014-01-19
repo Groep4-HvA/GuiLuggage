@@ -1,7 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package models;
 
 import DBUtil.ConnectionMySQL;
@@ -25,10 +21,19 @@ public class UserDAO {
     private final Date date = new Date();
     private final String dateString = dateFormat.format(date);
 
+    /**
+     * Constructor
+     */
     public UserDAO() {
         // initialization 
     }
 
+    /**
+     * Find the param string in the DB and return the matches.
+     * @param searchInput
+     * @return A list with the results
+     * @throws SQLException 
+     */
     public List<User> search(String searchInput) throws SQLException {
 
         List<User> list = new LinkedList<User>();
@@ -63,6 +68,11 @@ public class UserDAO {
         return list;
     }
 
+    /**
+     * List 50 of the Users in the DB
+     * @return a list of 50 users as a User object arraylist
+     * @throws SQLException 
+     */
     public List<User> readAll() throws SQLException {
         List<User> list = new LinkedList<User>();
         ResultSet rs;
@@ -93,6 +103,12 @@ public class UserDAO {
         return list;
     }
 
+    /**
+     * Read the rest of the Users from the DB
+     * @return a list of all users as a User object arraylist
+     * @throws SQLException 
+     * @see readAll()
+     */
     public List<User> readAllMore() throws SQLException {
         List<User> list = new LinkedList<User>();
         ResultSet rs;
@@ -123,6 +139,13 @@ public class UserDAO {
         return list;
     }
 
+    /**
+     * Read the user by ID. Used to get the users name to display in the overview
+     * This makes it harder to connect a certain name to a case and allows names to change
+     * @param medewerkerId
+     * @return a user based on the ID
+     * @throws SQLException 
+     */
     public User readByID(int medewerkerId) throws SQLException {
         ResultSet rs;
         PreparedStatement prdstmt;
@@ -154,6 +177,13 @@ public class UserDAO {
         return tempMedewerker;
     }
 
+    /**
+     * Gets a users details based on the password and the username
+     * @param user
+     * @param pass
+     * @return A user Object
+     * @throws SQLException 
+     */
     public List<User> readLogIn(String user, String pass) throws SQLException {
         List<User> list = new LinkedList<User>();
         ResultSet rs;
@@ -187,6 +217,12 @@ public class UserDAO {
         return list;
     }
 
+    /**
+     * Create a new DB entry based on a user object
+     * @param medewerker
+     * @return the state of the query
+     * @throws SQLException 
+     */
     public int create(User medewerker) throws SQLException {
         PreparedStatement prdstmt;
         String query = "INSERT INTO `Users` (`userName`, `userRealName`, `userPass`, `userManager`, `userBeheer`, `userLang`, `passDate`) VALUES(?, ?, ?, ?, ?, ?, ?);";
@@ -212,6 +248,12 @@ public class UserDAO {
         return -1;
     }
 
+    /**
+     * Update a DB entry based on a User Object
+     * @param medewerker
+     * @return status of the query
+     * @throws SQLException 
+     */
     public int update(User medewerker) throws SQLException {
         PreparedStatement prdstmt;
         String query = "UPDATE `Users` SET `userName`=?, `userRealName`=?, `userPass`=?, `userManager`=?, `userBeheer`=?, `userLang`=?, `passDate`=? WHERE `userId`=?;";
@@ -247,6 +289,12 @@ public class UserDAO {
         return -1;
     }
 
+    /**
+     * Delete a user
+     * @param medewerker
+     * @return status of the query
+     * @throws SQLException 
+     */
     public int delete(User medewerker) throws SQLException {
 
         PreparedStatement prdstmt;

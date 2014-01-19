@@ -1,6 +1,3 @@
-/**
- *
- */
 package main;
 
 import java.awt.*;
@@ -8,7 +5,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.AdjustmentEvent;
 import java.awt.event.AdjustmentListener;
-import java.awt.event.FocusListener;
 import java.awt.event.KeyEvent;
 import java.io.File;
 import java.io.IOException;
@@ -406,6 +402,9 @@ public class MainGuiFrame extends java.awt.Frame {
         System.exit(0);
     }//GEN-LAST:event_exitForm
 
+    /**
+     * create the menu and change it based on the location
+     */
     private void menuBeheer() {
         //Menu settings
         MenuBar menuBar = new MenuBar();
@@ -434,7 +433,6 @@ public class MainGuiFrame extends java.awt.Frame {
     }
     /*
      * Display more results
-     * TODO: How-Fei will do this
      */
     private void moreButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_moreButtonActionPerformed
         if (inBeheer) {
@@ -446,7 +444,6 @@ public class MainGuiFrame extends java.awt.Frame {
 
     /*
      * Switch to the Application Management screen.
-     * TODO: Clean this up (Make a menu method, )
      */
     private void appManagementButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_appManagementButtonActionPerformed
         setCursor(waiting);
@@ -457,7 +454,6 @@ public class MainGuiFrame extends java.awt.Frame {
                 addNewButton2.setText(BUNDLE.getString("MainGuiFrame.addNew") + button2);
                 appManagementButton.setText(BUNDLE.getString("MainGuiFrame.beheerButtonOn"));
                 LabelDescription.setText(BUNDLE.getString("Search") + ":");
-                //TODO: readAll should be from the Cases, not Dao
                 fillTableCases(notify);
                 inBeheer = false;
                 menuBeheer();
@@ -486,12 +482,20 @@ public class MainGuiFrame extends java.awt.Frame {
         myAccount.setLocationRelativeTo(null);
     }//GEN-LAST:event_myAccountButtonActionPerformed
 
+    /**
+     * Log out of the current user
+     * @param evt 
+     */
     private void logoutButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_logoutButtonActionPerformed
         dispose();
         logIn logOut = new logIn();
         logOut.setVisible(true);
     }//GEN-LAST:event_logoutButtonActionPerformed
 
+    /**
+     * Get more info on the clicked record
+     * @param evt 
+     */
     private void tableResultsMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tableResultsMouseClicked
 
         if (inBeheer && tableResults.getSelectedRow() < medList.size()) {
@@ -506,6 +510,12 @@ public class MainGuiFrame extends java.awt.Frame {
 
     }//GEN-LAST:event_tableResultsMouseClicked
 
+    /**
+     * Add a new item:
+     *  - Manager
+     *  - Luggage
+     * @param evt 
+     */
     private void addNewButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addNewButton1ActionPerformed
 
         if (inBeheer) {
@@ -528,6 +538,12 @@ public class MainGuiFrame extends java.awt.Frame {
 
     }//GEN-LAST:event_addNewButton1ActionPerformed
 
+    /**
+     * Add a new item:
+     *  - User
+     *  - Passenger
+     * @param evt 
+     */
     private void addNewButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addNewButton2ActionPerformed
 
         if (inBeheer) {
@@ -550,6 +566,10 @@ public class MainGuiFrame extends java.awt.Frame {
 
     }//GEN-LAST:event_addNewButton2ActionPerformed
 
+    /**
+     * Perform a search based on the string or engage the easter egg
+     * @param evt 
+     */
     private void searchButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_searchButtonActionPerformed
         setCursor(waiting);
         if ("play tetris".equals(searchInput.getText().toLowerCase())) {
@@ -596,10 +616,19 @@ public class MainGuiFrame extends java.awt.Frame {
         setCursor(defaultCursor);
     }//GEN-LAST:event_searchButtonActionPerformed
 
+    /**
+     * Start a search
+     * @param evt 
+     * @see searchButtonActionPerformed()
+     */
     private void searchInputActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_searchInputActionPerformed
         searchButtonActionPerformed(evt);
     }//GEN-LAST:event_searchInputActionPerformed
 
+    /**
+     * Refresh the table on focus
+     * @param evt 
+     */
     private void formWindowGainedFocus(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowGainedFocus
         setCursor(waiting);
         if (inBeheer) {
@@ -611,6 +640,9 @@ public class MainGuiFrame extends java.awt.Frame {
         setCursor(defaultCursor);
     }//GEN-LAST:event_formWindowGainedFocus
 
+    /**
+     * Fill the table with >50 entries
+     */
     public void fillTableCasesMore() {
         setCursor(waiting);
         CaseDao dbcase = new CaseDao();
@@ -623,6 +655,10 @@ public class MainGuiFrame extends java.awt.Frame {
         setCursor(defaultCursor);
     }
 
+    /**
+     * Fill the table with data it gets from the DB
+     * @param start - Used to enable or disable notifications
+     */
     private void fillTableCases(boolean start) {
         setCursor(waiting);
         CaseDao dbCase = new CaseDao();
@@ -643,6 +679,9 @@ public class MainGuiFrame extends java.awt.Frame {
         setCursor(defaultCursor);
     }
 
+    /**
+     * fill the table with the user data
+     */
     public void fillTableMedewerkers() {
         UserDAO dbMedewerker = new UserDAO();
         try {
@@ -653,6 +692,9 @@ public class MainGuiFrame extends java.awt.Frame {
         populateTableMedewerker(medList);
     }
 
+    /**
+     * Fill the table with data of >50 users
+     */
     public void fillTableMedewerkersMore() {
         UserDAO dbMedewerker = new UserDAO();
         try {
@@ -663,6 +705,10 @@ public class MainGuiFrame extends java.awt.Frame {
         populateTableMedewerker(medList);
     }
 
+    /**
+     * Write the data to the table
+     * @param list 
+     */
     public void populateTableMedewerker(List<User> list) {
         final ArrayList<Integer> appManagerList = new ArrayList<Integer>();
         final ArrayList<Integer> managerList = new ArrayList<Integer>();
@@ -714,6 +760,10 @@ public class MainGuiFrame extends java.awt.Frame {
         tableResults.getColumnModel().getColumn(3).setHeaderValue(BUNDLE.getString("table.Manager"));
     }
 
+    /**
+     * Write the case data to the table
+     * @param list 
+     */
     public void populateTableCase(final List<Case> list) {
         tableResults.getColumnModel().getColumn(0).setMaxWidth(35);
         final ArrayList<Integer> resolveList = new ArrayList<Integer>();
@@ -786,6 +836,9 @@ public class MainGuiFrame extends java.awt.Frame {
     private javax.swing.JTable tableResults;
     // End of variables declaration//GEN-END:variables
 
+    /**
+     * fade the more button based on the location in the scrollview
+     */
     private void fadeMore() {
         jScrollPane3.getVerticalScrollBar().addAdjustmentListener(new AdjustmentListener() {
             @Override
@@ -802,6 +855,9 @@ public class MainGuiFrame extends java.awt.Frame {
         });
     }
 
+    /**
+     * Activate the help menu item
+     */
     private class HelpListener implements ActionListener {
 
         @Override
@@ -817,6 +873,9 @@ public class MainGuiFrame extends java.awt.Frame {
         }
     }
 
+    /**
+     * Activate the DB menu item
+     */
     private class DBListener implements ActionListener {
 
         private Frame MainGuiFrame;
@@ -829,24 +888,9 @@ public class MainGuiFrame extends java.awt.Frame {
         }
     }
 
-    private abstract class MainFocus implements FocusListener {
-
-        /*@Override
-         public void focusGained(FocusEvent e) {
-         Debug.println("Focus gained");
-         if (inBeheer) {
-         fillTableMedewerkers();
-         } else {
-         fillTableCases(notify);
-         }
-         }
-
-         @Override
-         public void focusLost(FocusEvent e) {
-         Debug.println("Focus lost");
-         }*/
-    }
-
+    /**
+     * Draw a background for the application
+     */
     private static class ImagePanel extends JPanel {
 
         @Override

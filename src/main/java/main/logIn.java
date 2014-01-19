@@ -12,7 +12,7 @@ import org.apache.commons.codec.digest.DigestUtils;
 
 /**
  *
- * @author ChrisvanderHeijden
+ * @author Chris van der Heijden
  */
 public class logIn extends javax.swing.JFrame {
 

@@ -1,7 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package main;
 
 import java.awt.Color;
@@ -44,6 +40,7 @@ import popups.MyAccount;
 public class ManagerGui extends java.awt.Frame {
 
     private final java.util.ResourceBundle BUNDLE = java.util.ResourceBundle.getBundle("Bundle"); // NOI18N
+    
     /**
      * Creates new form MainGuiFrame
      */
@@ -840,6 +837,9 @@ public class ManagerGui extends java.awt.Frame {
         pdf.generate(pending, resolved, total, dateString, dateString2, pendingByDate, resolvedByDate, totalByDate);
     }
 
+    /**
+     * A new class to add a background
+     */
     private static class ImagePanel extends JPanel {
 
         @Override

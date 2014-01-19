@@ -1,7 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package popups;
 
 import java.awt.Color;
@@ -49,6 +45,9 @@ public class CaseEditDialog extends javax.swing.JFrame {
         }
     }
 
+    /**
+     * Fils the fields with data from the DB
+     */
     public final void setValues() {
         if (currentCase.getResolveDate() != null) {
             resolved = true;
@@ -124,13 +123,6 @@ public class CaseEditDialog extends javax.swing.JFrame {
         emailAdressField = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        addWindowFocusListener(new java.awt.event.WindowFocusListener() {
-            public void windowGainedFocus(java.awt.event.WindowEvent evt) {
-            }
-            public void windowLostFocus(java.awt.event.WindowEvent evt) {
-                formWindowLostFocus(evt);
-            }
-        });
 
         java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("Bundle"); // NOI18N
         labelLabel.setText(bundle.getString("CaseEditDialog.labelLabel.text")); // NOI18N
@@ -377,10 +369,18 @@ public class CaseEditDialog extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    /**
+     * Exit the form
+     * @param evt 
+     */
     private void cancelButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelButtonActionPerformed
         dispose();
     }//GEN-LAST:event_cancelButtonActionPerformed
 
+    /**
+     * Save the changes to the DB
+     * @param evt 
+     */
     private void saveButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saveButtonActionPerformed
         String label = Check.cleanAlphaNumeriek(labelTextField.getText());
         String color = Check.cleanAlpha(colorTextField.getText());
@@ -450,6 +450,10 @@ public class CaseEditDialog extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_saveButtonActionPerformed
 
+    /**
+     * Print the current state
+     * @param evt 
+     */
     private void printButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_printButtonActionPerformed
         String label = labelTextField.getText();
         String surname = lastNameTextField.getText();
@@ -469,10 +473,6 @@ public class CaseEditDialog extends javax.swing.JFrame {
         pdf.generate(label, color, shape, name, surname, adres, postalCode, city, residentAdres, residentPostalCode, residentCity, details, handlerId, phoneNr, email);
         pdf.print();
     }//GEN-LAST:event_printButtonActionPerformed
-
-    private void formWindowLostFocus(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowLostFocus
-        this.dispose();
-    }//GEN-LAST:event_formWindowLostFocus
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel addDetailsLabel;

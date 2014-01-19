@@ -17,10 +17,19 @@ public class CaseDao {
 
     ConnectionMySQL conn = new ConnectionMySQL();
 
+    /**
+     * Constructor
+     */
     public CaseDao() {
         // initialization 
     }
 
+    /**
+     * Read all the pending cases from the DB
+     *
+     * @return
+     * @throws SQLException
+     */
     public List<Case> readAllPending() throws SQLException {
         List<Case> list = new LinkedList<Case>();
         ResultSet rs;
@@ -48,6 +57,12 @@ public class CaseDao {
         return list;
     }
 
+    /**
+     * read all the resolved cases from the DB
+     *
+     * @return
+     * @throws SQLException
+     */
     public List<Case> readAllResolved() throws SQLException {
         List<Case> list = new LinkedList<Case>();
         ResultSet rs;
@@ -76,6 +91,15 @@ public class CaseDao {
 
     }
 
+    /**
+     * read all cases from the DB limited by the dates that are put in as
+     * arguments
+     *
+     * @param date1
+     * @param date2
+     * @return
+     * @throws SQLException
+     */
     public List<Case> readAllByDate(String date1, String date2) throws SQLException {
         List<Case> list = new LinkedList<Case>();
         ResultSet rs;
@@ -101,6 +125,12 @@ public class CaseDao {
         return list;
     }
 
+    /**
+     * Read all cases from the DB
+     *
+     * @return
+     * @throws SQLException
+     */
     public List<Case> readAllMore() throws SQLException {
 
         List<Case> list = new LinkedList<Case>();
@@ -146,6 +176,12 @@ public class CaseDao {
         return list;
     }
 
+    /**
+     * Read 50 cases from the DB
+     *
+     * @return
+     * @throws SQLException
+     */
     public List<Case> readAll() throws SQLException {
 
         List<Case> list = new LinkedList<Case>();
@@ -191,6 +227,13 @@ public class CaseDao {
         return list;
     }
 
+    /**
+     * Search the database for luggage or a passenger
+     *
+     * @param searchInput
+     * @return
+     * @throws SQLException
+     */
     public List<Case> search(String searchInput) throws SQLException {
 
         List<Case> list = new LinkedList<Case>();
@@ -248,6 +291,13 @@ public class CaseDao {
         return list;
     }
 
+    /**
+     * Update the DB entry based on a Case Object
+     *
+     * @param currentCase
+     * @return
+     * @throws SQLException
+     */
     public int update(Case currentCase) throws SQLException {
         DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         String queryResolve, queryLabel, queryName, querySurName, queryColor, queryShape, queryEmail, queryPhone, queryRAddress, queryRPostalCode, queryRCity, queryHAddress, queryHPostalCode, queryHCity, queryAditional, queryLocation;
@@ -306,26 +356,13 @@ public class CaseDao {
         return -1;
     }
 
-    public int delete(Luggage luggage) throws SQLException {
-        PreparedStatement prdstmt = null;
-        String query = "UPDATE LUGGAGE SET labelNumber=?, color=?,shape=?,storageLocation=?,additionalDetails=? ";
-        query += " WHERE labelNumber=?";
-
-        conn.startConnection();
-
-        prdstmt.setString(1, luggage.getLabel());
-        prdstmt.setString(2, luggage.getColor());
-        prdstmt.setString(3, luggage.getShape());
-        prdstmt.setString(4, luggage.getLocation());
-        prdstmt.setString(5, luggage.getDetails());
-
-        prdstmt.executeUpdate();
-        if (conn != null) {
-            conn.closeConnection();
-        }
-        return -1;
-    }
-
+    /**
+     * Get all the pending cases between 2 dates
+     * @param date1
+     * @param date2
+     * @return
+     * @throws SQLException 
+     */
     public List<Case> readAllPendingByDate(String date1, String date2) throws SQLException {
         List<Case> list = new LinkedList<Case>();
         ResultSet rs;
@@ -356,6 +393,13 @@ public class CaseDao {
         return list;
     }
 
+    /**
+     * Get all the resolved cases between the two dates
+     * @param date1
+     * @param date2
+     * @return
+     * @throws SQLException 
+     */
     public List<Case> readAllResolvedByDate(String date1, String date2) throws SQLException {
         List<Case> list = new LinkedList<Case>();
         ResultSet rs;
@@ -386,6 +430,13 @@ public class CaseDao {
         return list;
     }
 
+    /**
+     * Get all the cases betweeen the 2 dates
+     * @param date1
+     * @param date2
+     * @return
+     * @throws SQLException 
+     */
     public List<Case> readAllTotalByDate(String date1, String date2) throws SQLException {
         List<Case> list = new LinkedList<Case>();
         ResultSet rs;

@@ -74,6 +74,10 @@ public class PDFGenerator {
         }
     }
 
+    /**
+     * Set a chart to display
+     * @param chart 
+     */
     public void setChart(File chart) {
         try {
             if (chart.exists()) {
@@ -194,9 +198,6 @@ public class PDFGenerator {
         try {
             // See http://pdfbox.apache.org/cookbook/documentcreation.html
             // See http://pdfbox.apache.org/docs/1.8.2/javadocs/index.html?overview-summary.html
-            // Tip: Use google
-            // TODO: generate the pdf
-            // contentStream.addRect(20f, 20f, 20f, 20f);
 
             // Start a new content stream which will "hold" the to be created content
             this.contentStream = new PDPageContentStream(document, page);

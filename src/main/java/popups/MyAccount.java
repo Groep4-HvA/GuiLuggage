@@ -1,7 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package popups;
 
 import java.awt.Color;
@@ -179,18 +175,30 @@ public class MyAccount extends javax.swing.JDialog {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    /**
+     * Exit the current form
+     * @param evt 
+     */
     private void cancelButActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelButActionPerformed
         dispose();
     }//GEN-LAST:event_cancelButActionPerformed
 
+    /**
+     * save when pressing enter in password
+     * @param evt 
+     */
     private void passwordActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_passwordActionPerformed
         saveButActionPerformed(evt);
     }//GEN-LAST:event_passwordActionPerformed
 
+    /**
+     * Save the settings
+     * @param evt 
+     */
     private void saveButActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saveButActionPerformed
-        boolean change = false;
+        boolean change = false; //Determines if there are changes
 
-        if (dropDown.getSelectedIndex() != lang) {
+        if (dropDown.getSelectedIndex() != lang) {//There are changes
             if (dropDown.getSelectedIndex() == 0) {
                 Locale.setDefault(new Locale("en", "US"));
                 tempMedewerker.setUserLang("EN");
@@ -199,7 +207,7 @@ public class MyAccount extends javax.swing.JDialog {
                 Locale.setDefault(new Locale("nl", "NL"));
                 tempMedewerker.setUserLang("NL");
             }
-            change = true;
+            change = true;//Set the changes
         }
         Debug.println(change + "");
         if (password.getPassword().length == 0) {
@@ -236,7 +244,7 @@ public class MyAccount extends javax.swing.JDialog {
         if (change) {
             Debug.println(tempMedewerker.toString());
             try {
-                medewerkerTijdelijk.update(tempMedewerker);
+                medewerkerTijdelijk.update(tempMedewerker);//Save to DB
                 dispose();
             } catch (SQLException e) {
                 Debug.printError(e.toString());

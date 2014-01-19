@@ -35,9 +35,33 @@ public class Case {
     private Date addDate;
     private Date resolveDate;
 
+    /**
+     * Create a new case
+     */
     public Case() {
     }
 
+    /**
+     * Create a new case based on the input
+     * @param label
+     * @param name
+     * @param surName
+     * @param emailAdress
+     * @param phoneNumber
+     * @param homeAddress
+     * @param homePostalCode
+     * @param homeCity
+     * @param residentAddress
+     * @param residentPostalCode
+     * @param residentCity
+     * @param color
+     * @param shape
+     * @param aditionalDetails
+     * @param storageLocation
+     * @param handler
+     * @param addDate
+     * @param resolveDate 
+     */
     public Case(String label, String name, String surName, String emailAdress, String phoneNumber, String homeAddress, String homePostalCode, String homeCity, String residentAddress, String residentPostalCode, String residentCity, String color, String shape, String aditionalDetails, String storageLocation, int handler, Date addDate, Date resolveDate) {
         this.label = label;
         this.name = name;

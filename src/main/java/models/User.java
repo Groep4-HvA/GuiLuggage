@@ -1,7 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package models;
 
 import org.apache.commons.codec.digest.DigestUtils;
@@ -24,6 +20,15 @@ public class User {
     public User() {
     }
 
+    /**
+     * Create a user with an already encryted password
+     * @param username
+     * @param password
+     * @param name
+     * @param userLang
+     * @param isManager
+     * @param isAppManager 
+     */
     public User(String username, String password, String name, String userLang, boolean isManager, boolean isAppManager) {
         this.username = username;
         this.password = password;
@@ -33,6 +38,15 @@ public class User {
         this.isAppManager = isAppManager;
     }
 
+    /**
+     * Create a user based on a field.getPassword() this will encrypt the password
+     * @param username
+     * @param pass
+     * @param name
+     * @param userLang
+     * @param isManager
+     * @param isAppManager 
+     */
     public User(String username, char[] pass, String name, String userLang, boolean isManager, boolean isAppManager) {
         this.username = username;
         this.password = DigestUtils.sha256Hex(String.valueOf(pass));

@@ -1,7 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package popups;
 
 import java.sql.SQLException;
@@ -71,13 +67,6 @@ public class AddUser extends javax.swing.JFrame {
         requiredFields = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        addWindowFocusListener(new java.awt.event.WindowFocusListener() {
-            public void windowGainedFocus(java.awt.event.WindowEvent evt) {
-            }
-            public void windowLostFocus(java.awt.event.WindowEvent evt) {
-                formWindowLostFocus(evt);
-            }
-        });
 
         java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("Bundle"); // NOI18N
         saveButton.setText(bundle.getString("AddUser.saveButton.text")); // NOI18N
@@ -182,17 +171,28 @@ public class AddUser extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    /**
+     * Exit the form
+     * @param evt 
+     */
     private void cancelButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelButtonActionPerformed
         dispose();
     }//GEN-LAST:event_cancelButtonActionPerformed
 
+    /**
+     * Save the fields to the DB
+     * @param evt 
+     */
     private void saveButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saveButtonActionPerformed
         User nieuweMedewerker;
+        //values to variable
         name = Check.cleanAlpha(nameTextField.getText());
         username = usernameTextField.getText().toLowerCase();
         password = firstPasswordField.getPassword();
         confirmPassword = confirmPasswordField.getPassword();
         appManager = appManagerCheckBox.isSelected();
+        
+        //Popup
         String footer = String.format(BUNDLE.getString("ConfirmFooter"), BUNDLE.getString("Medewerker")).toLowerCase();
         String message = BUNDLE.getString("ConfirmHead")+ "\n"
                 + BUNDLE.getString("AddUser.usernameLabel.text") + " = " + username + "\n"
@@ -204,6 +204,8 @@ public class AddUser extends javax.swing.JFrame {
                 message,
                 BUNDLE.getString("Confirm"),
                 JOptionPane.YES_NO_OPTION);
+        
+        //Check before save
         if (Arrays.equals(confirmPassword, password)) {
             if (Check.verifyUser(name, username, password) && selectedOption == JOptionPane.YES_OPTION) {
                 errorText.setText("");
@@ -232,13 +234,9 @@ public class AddUser extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_saveButtonActionPerformed
 
-    private void formWindowLostFocus(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowLostFocus
-        this.dispose();
-    }//GEN-LAST:event_formWindowLostFocus
-
     @Override
     public String toString() {
-        return "AddMedewerker{" + "name=" + name + ", username=" + username + ", appManager=" + appManager + ", password=" + password + ", confirmPassword=" + confirmPassword + '}';
+        return "AddUser{" + "name=" + name + ", username=" + username + ", appManager=" + appManager + ", password=" + password + ", confirmPassword=" + confirmPassword + '}';
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JCheckBox appManagerCheckBox;

@@ -176,6 +176,10 @@ public class ManagerGraph extends ApplicationFrame {
 
     }
 
+    /**
+     * readies the data for deploy
+     * @return 
+     */
     private CategoryDataset createDataset() {
 
         // row keys...
@@ -329,7 +333,11 @@ public class ManagerGraph extends ApplicationFrame {
         }
     }
 
-    File imageStream() {
+    /**
+     * Save the chart to a file
+     * @return 
+     */
+    public File imageStream() {
         try {
             File temp = File.createTempFile("tempfile", ".tmp");
             ChartUtilities.saveChartAsJPEG(temp, chart, 500, 300);

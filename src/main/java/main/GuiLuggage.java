@@ -7,8 +7,10 @@ import models.Check;
 import models.Debug;
 
 /**
- *
- * @author groep 4
+ * The Correndon Luggage System
+ * @author Group 4 of IS104 HvA
+ * @version 1.5 Final release
+ * @see https://github.com/Groep4-HvA/GuiLuggage
  */
 public class GuiLuggage {
 

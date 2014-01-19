@@ -1,7 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package popups;
 
 import java.sql.SQLException;
@@ -98,13 +94,6 @@ public class AddPassenger extends javax.swing.JFrame {
         requiredFields = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        addWindowFocusListener(new java.awt.event.WindowFocusListener() {
-            public void windowGainedFocus(java.awt.event.WindowEvent evt) {
-            }
-            public void windowLostFocus(java.awt.event.WindowEvent evt) {
-                formWindowLostFocus(evt);
-            }
-        });
 
         java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("Bundle"); // NOI18N
         saveButton.setText(bundle.getString("AddPassenger.saveButton.text")); // NOI18N
@@ -214,18 +203,13 @@ public class AddPassenger extends javax.swing.JFrame {
                                     .addComponent(residentAdresTextfield)))
                             .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                            .addComponent(colorLabel, javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(lLabelLabel, javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(shapeLabel, javax.swing.GroupLayout.Alignment.LEADING))
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED))
-                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                            .addComponent(nameLabel, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                            .addComponent(phoneNrLabel, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                            .addComponent(emailAdressLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                                        .addGap(18, 18, 18)))
+                                    .addComponent(colorLabel)
+                                    .addComponent(lLabelLabel)
+                                    .addComponent(shapeLabel)
+                                    .addComponent(nameLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(phoneNrLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(emailAdressLabel, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                .addGap(18, 18, 18)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(colorTextfield, javax.swing.GroupLayout.Alignment.TRAILING)
                                     .addComponent(shapeTextfield, javax.swing.GroupLayout.Alignment.TRAILING)
@@ -347,6 +331,10 @@ public class AddPassenger extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    /**
+     * Print the data from the DB
+     * @param evt 
+     */
     private void printButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_printButtonActionPerformed
 
         pdf = new PDFGenerator();
@@ -354,6 +342,10 @@ public class AddPassenger extends javax.swing.JFrame {
         pdf.print();
     }//GEN-LAST:event_printButtonActionPerformed
 
+    /**
+     * save the fields to variables and the variables to the DB
+     * @param evt 
+     */
     private void saveButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saveButtonActionPerformed
         Passenger newPassenger;
 
@@ -408,10 +400,18 @@ public class AddPassenger extends javax.swing.JFrame {
                     JOptionPane.ERROR_MESSAGE);}
     }//GEN-LAST:event_saveButtonActionPerformed
 
+    /**
+     * Exit the form
+     * @param evt 
+     */
     private void cancelButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelButtonActionPerformed
         dispose();
     }//GEN-LAST:event_cancelButtonActionPerformed
 
+    /**
+     * Save a PDF file with the current data
+     * @param evt 
+     */
     private void pdfButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pdfButtonActionPerformed
         PassengerDAO receipt = new PassengerDAO();
 
@@ -436,10 +436,6 @@ public class AddPassenger extends javax.swing.JFrame {
         pdf.generate(label, color, shape, name, surname, adres, postalCode, city, residentAdres, residentPostalCode, residentCity, details, handlerId, phoneNr, email);
         pdf.save("Receipt_" + label);
     }//GEN-LAST:event_pdfButtonActionPerformed
-
-    private void formWindowLostFocus(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowLostFocus
-        this.dispose();
-    }//GEN-LAST:event_formWindowLostFocus
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel addressHLabel;

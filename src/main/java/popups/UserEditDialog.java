@@ -1,7 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package popups;
 
 import java.awt.Color;
@@ -66,13 +62,6 @@ public class UserEditDialog extends javax.swing.JFrame {
         delete = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        addWindowFocusListener(new java.awt.event.WindowFocusListener() {
-            public void windowGainedFocus(java.awt.event.WindowEvent evt) {
-            }
-            public void windowLostFocus(java.awt.event.WindowEvent evt) {
-                formWindowLostFocus(evt);
-            }
-        });
 
         java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("Bundle"); // NOI18N
         nameLabel.setText(bundle.getString("UserEditDialog.nameLabel.text")); // NOI18N
@@ -175,19 +164,26 @@ public class UserEditDialog extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    /**
+     * Fill the form with data from the DB
+     */
     private void fillData() {
         nameField.setText(medewerker.getName());
         userNameField.setText(medewerker.getUsername());
         isAppManager.setSelected(medewerker.isAppManager());
         isManager.setSelected(medewerker.isManager());
     }
+    /**
+     * Save the data to the DB
+     * @param evt 
+     */
     private void saveButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saveButtonActionPerformed
         String footer = String.format(BUNDLE.getString("ConfirmFooter"), BUNDLE.getString("Medewerker")).toLowerCase();
         String message = BUNDLE.getString("ConfirmHead") + "\n"
-                + BUNDLE.getString("AddMedewerker.jLabel2.text") + " = " + medewerker.getUsername() + "\n"
-                + BUNDLE.getString("AddMedewerker.jLabel1.text") + " = " + Check.cleanAlpha(nameField.getText()) + "\n"
-                + BUNDLE.getString("AddMedewerker.appManagerCheckBox.text") + " = " + isAppManager.isSelected() + "\n"
-                + BUNDLE.getString("Popupappmedewerker.isManager.text") + " = " + isManager.isSelected() + "\n\n"
+                + BUNDLE.getString("UserEditDialog.usernameLabel.text") + " = " + medewerker.getUsername() + "\n"
+                + BUNDLE.getString("UserEditDialog.nameLabel.text") + " = " + Check.cleanAlpha(nameField.getText()) + "\n"
+                + BUNDLE.getString("UserEditDialog.isAppManager.text") + " = " + isAppManager.isSelected() + "\n"
+                + BUNDLE.getString("UserEditDialog.isManager.text") + " = " + isManager.isSelected() + "\n\n"
                 + footer;
         int selectedOption = JOptionPane.showConfirmDialog(null,
                 message,
@@ -217,10 +213,19 @@ public class UserEditDialog extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_saveButtonActionPerformed
 
+    /**
+     * Exit the form
+     * @param evt 
+     */
     private void cancelButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelButtonActionPerformed
         dispose();
     }//GEN-LAST:event_cancelButtonActionPerformed
 
+    
+    /**
+     * Delete the current user
+     * @param evt 
+     */
     private void deleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteActionPerformed
 
         ConfirmPopup confirmPopup = new ConfirmPopup(userNameField.getText());
@@ -234,10 +239,7 @@ public class UserEditDialog extends javax.swing.JFrame {
 
     }//GEN-LAST:event_deleteActionPerformed
 
-    private void formWindowLostFocus(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowLostFocus
-        this.dispose();
-    }//GEN-LAST:event_formWindowLostFocus
-
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton cancelButton;
     private javax.swing.JLabel confirmPassLabel;

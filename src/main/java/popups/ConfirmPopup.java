@@ -1,7 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package popups;
 
 import java.sql.SQLException;
@@ -12,9 +8,10 @@ import models.*;
  * @author Jeroen
  */
 public class ConfirmPopup extends javax.swing.JFrame {
-    
     private String userName;
     private User medewerker = new User();
+    
+    
     /**
      * Creates new form ConfirmPopup
      * @param userName
@@ -85,6 +82,10 @@ public class ConfirmPopup extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    /**
+     * Delete the user because yes
+     * @param evt 
+     */
     private void YesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_YesActionPerformed
         UserDAO dbMedewerker;
         dbMedewerker = new UserDAO();
@@ -97,6 +98,10 @@ public class ConfirmPopup extends javax.swing.JFrame {
         dispose();
     }//GEN-LAST:event_YesActionPerformed
 
+    /**
+     * Dispose the form because no
+     * @param evt 
+     */
     private void NoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_NoActionPerformed
         dispose();
     }//GEN-LAST:event_NoActionPerformed

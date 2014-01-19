@@ -11,7 +11,8 @@ import java.util.Properties;
 import models.Debug;
 
 /**
- *
+ * This class was handed to us in an OOP class
+ * We didn't write any of it
  * @author ahmed
  */
 public class ConnectionMySQL {
@@ -25,6 +26,9 @@ public class ConnectionMySQL {
     private int affectedRows = -1;
     Connection conn = null;
 
+    /**
+     * Start and initialize a new connection object
+     */
     public ConnectionMySQL() {
         Properties prop = new Properties();
         try {
@@ -39,6 +43,9 @@ public class ConnectionMySQL {
         DBURL = "jdbc:mysql://" + ip + ":3306/" + dbName;
     }
 
+    /**
+     * Start the actual connection
+     */
     public void startConnection() {
         try {
             Class.forName(DRIVER);
@@ -51,6 +58,9 @@ public class ConnectionMySQL {
         }
     }
 
+    /**
+     * Close the connection
+     */
     public void closeConnection() {
         try {
             if (conn != null && !conn.isClosed()) {
@@ -62,12 +72,24 @@ public class ConnectionMySQL {
         conn = null;
     }
 
+    /**
+     * Execute a select query
+     * @param prdstmt
+     * @return
+     * @throws SQLException 
+     */
     public ResultSet performSelect(PreparedStatement prdstmt) throws SQLException {
         result = prdstmt.executeQuery();
 
         return result;
     }
 
+    /**
+     * Execute an update query
+     * @param prdstmt
+     * @return
+     * @throws SQLException 
+     */
     public int performUpdate(PreparedStatement prdstmt) throws SQLException {
 
         affectedRows = prdstmt.executeUpdate();
@@ -75,6 +97,10 @@ public class ConnectionMySQL {
         return affectedRows;
     }
 
+    /**
+     * Get the connection
+     * @return 
+     */
     public Connection getConnection() {
         return conn;
     }

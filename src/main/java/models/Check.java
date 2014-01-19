@@ -99,6 +99,24 @@ public class Check {
         return verified;
     }
 
+    /**
+     * Verify if the passenger is valid
+     * @param label
+     * @param color
+     * @param shape
+     * @param name
+     * @param surname
+     * @param adres
+     * @param postalCode
+     * @param city
+     * @param residentAdres
+     * @param residentPostalCode
+     * @param residentCity
+     * @param details
+     * @param phoneNr
+     * @param email
+     * @return validity of the passenger
+     */
     static public boolean verifyPassenger(String label, String color, String shape, String name, String surname, String adres, String postalCode, String city, String residentAdres, String residentPostalCode, String residentCity, String details, String phoneNr, String email) {
         boolean verified = true;
 
@@ -112,6 +130,13 @@ public class Check {
         return verified;
     }
 
+    /**
+     * Verify if the user is valid
+     * @param name
+     * @param username
+     * @param password
+     * @return 
+     */
     static public boolean verifyUser(String name, String username, char[] password) {
         boolean verified = true;
 

@@ -1,7 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package models;
 
 /**
@@ -25,9 +21,29 @@ public class Passenger {
     private String phoneNr;
     private String emailAdress;
 
+    /**
+     * Constructor
+     */
     public Passenger() {
     }
 
+    /**
+     * Constructor based on existing variables
+     * @param label
+     * @param color
+     * @param shape
+     * @param name
+     * @param surname
+     * @param adres
+     * @param postalCode
+     * @param city
+     * @param residentAdres
+     * @param residentPostalCode
+     * @param residentCity
+     * @param details
+     * @param phoneNr
+     * @param emailAdress 
+     */
     public Passenger(String label, String color, String shape, String name, String surname, String adres, String postalCode, String city, String residentAdres, String residentPostalCode, String residentCity, String details, String phoneNr, String emailAdress) {
         this.label = label;
         this.color = color;

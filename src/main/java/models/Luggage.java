@@ -1,7 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package models;
 
 /**
@@ -15,7 +11,16 @@ public class Luggage {
     private String location;
     private String details;
     private String phoneNr;
-
+    
+    /**
+     * Create a new luggage object based on parameters
+     * @param label
+     * @param color
+     * @param shape
+     * @param location
+     * @param details
+     * @param phoneNr 
+     */
     public Luggage(String label, String color, String shape, String location, String details, String phoneNr) {
         this.label = label;
         this.color = color;
@@ -25,6 +30,9 @@ public class Luggage {
         this.phoneNr = phoneNr;
     }
 
+    /**
+     * Create a new empty luggage object
+     */
     public Luggage() {}
 
     public String getPhoneNr() {

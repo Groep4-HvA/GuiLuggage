@@ -36,6 +36,8 @@ import org.apache.pdfbox.PDFReader;
  * An application to read PDF documents. This will provide Acrobat Reader like
  * funtionality.
  *
+ * Edited by Sean Molenaar to strip out the code to choose what document to open. And make it more suitable to our project
+ * 
  * @author <a href="ben@benlitchfield.com">Ben Litchfield</a>
  * @version $Revision: 1.5 $
  */

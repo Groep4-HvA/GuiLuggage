@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package popups;
 
 import java.io.FileInputStream;
@@ -14,16 +9,21 @@ import models.Debug;
 
 /**
  *
- * @author smillernl
+ * @author Sean Molenaar
  */
 public class DbDialog extends javax.swing.JDialog {
 
     /**
      * Creates new form DbDialog
      */
-    private final java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("Bundle"); // NOI18N
+    private final java.util.ResourceBundle BUNDLE = java.util.ResourceBundle.getBundle("Bundle"); // NOI18N
     private Properties prop;
 
+    /**
+     * Constructor
+     * @param parent
+     * @param modal 
+     */
     public DbDialog(java.awt.Frame parent, boolean modal) {
 	super(parent, modal);
 	if (!Check.verifyLogin()) {
@@ -66,13 +66,6 @@ public class DbDialog extends javax.swing.JDialog {
         saveButton = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        addWindowFocusListener(new java.awt.event.WindowFocusListener() {
-            public void windowGainedFocus(java.awt.event.WindowEvent evt) {
-            }
-            public void windowLostFocus(java.awt.event.WindowEvent evt) {
-                formWindowLostFocus(evt);
-            }
-        });
 
         java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("Bundle"); // NOI18N
         dbHost.setText(bundle.getString("dbSetting.host")); // NOI18N
@@ -157,10 +150,18 @@ public class DbDialog extends javax.swing.JDialog {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    /**
+     * Exit the form
+     * @param evt 
+     */
     private void cancelButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelButtonActionPerformed
 	dispose();
     }//GEN-LAST:event_cancelButtonActionPerformed
 
+    /**
+     * Save the editted data
+     * @param evt 
+     */
     private void saveButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saveButtonActionPerformed
 	try {
 	    prop.setProperty("db_ip", dbHostInput.getText());
@@ -173,10 +174,6 @@ public class DbDialog extends javax.swing.JDialog {
 	    Debug.printError(e.toString());
 	}
     }//GEN-LAST:event_saveButtonActionPerformed
-
-    private void formWindowLostFocus(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowLostFocus
-        this.dispose();
-    }//GEN-LAST:event_formWindowLostFocus
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton cancelButton;

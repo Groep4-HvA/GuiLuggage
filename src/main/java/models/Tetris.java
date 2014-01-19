@@ -1,3 +1,6 @@
+/**
+ * This is just an easter egg, something fun we got online to put in here
+ */
 package models;
 /*
  Tetris Applet 
