@@ -283,7 +283,7 @@ public class Check {
             } catch (UnsupportedEncodingException e) {
                 Debug.printError(e.toString());
             }
-            writer.println("#This file is generated from the sample file because no file was found, or not all values was found");
+            writer.println("#This file is generated from the sample file because no file was found, or not all values were found");
             writer.println();
             writer.println("db_ip=" + ip);
             writer.println("db_name=" + dbName);

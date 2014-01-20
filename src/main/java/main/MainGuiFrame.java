@@ -715,7 +715,7 @@ public class MainGuiFrame extends java.awt.Frame {
         final ArrayList<Integer> userList = new ArrayList<Integer>();
         tableResults.getColumnModel().getColumn(0).setMaxWidth(350);
         tableResults.getColumnModel().getColumn(0).setPreferredWidth(250);
-        for (int i = 0; i < 50; i++) {
+        for (int i = 0; i < 99; i++) {
             tableResults.getModel().setValueAt("", i, 0);
             tableResults.getModel().setValueAt("", i, 1);
             tableResults.getModel().setValueAt("", i, 2);
@@ -769,7 +769,7 @@ public class MainGuiFrame extends java.awt.Frame {
         final ArrayList<Integer> resolveList = new ArrayList<Integer>();
         final ArrayList<Integer> passengerList = new ArrayList<Integer>();
         final ArrayList<Integer> luggageList = new ArrayList<Integer>();
-        for (int i = 0; i < 50; i++) {
+        for (int i = 0; i < 99; i++) {
             tableResults.getModel().setValueAt("", i, 0);
             tableResults.getModel().setValueAt("", i, 1);
             tableResults.getModel().setValueAt("", i, 2);
